@@ -1,0 +1,12 @@
+{
+	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+	"editor.formatOnSave": true,
+	"eslint.alwaysShowStatus": true,
+	"editor.autoIndent": "keep",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+}

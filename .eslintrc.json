@@ -1,0 +1,90 @@
+{
+  // https://andrebnassis.medium.com/setting-eslint-on-a-react-typescript-project-2021-1190a43ffba
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-hooks"
+  ],
+  "rules": {
+    "react/jsx-props-no-spreading": [
+      "off"
+    ],
+    "func-names": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "error"
+    ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": [
+      "error"
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "max-len": [
+      "warn",
+      {
+        "code": 110
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "linebreak-style": "off",
+    "no-debugger": "warn",
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
+}

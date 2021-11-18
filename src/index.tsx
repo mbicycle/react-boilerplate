@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { CssBaseline } from '@mui/material';
 
+import ReactQueryProvider from 'common/providers/ReactQueryProvider';
 import App from './App';
 import GlobalStyle from './common/globalStyle';
 
@@ -11,10 +12,12 @@ import reportWebVitals from './reportWebVitals';
 const RootComponent = function (): JSX.Element {
   return (
     <React.StrictMode>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
-      <GlobalStyle />
-      <App />
+      <ReactQueryProvider>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <GlobalStyle />
+        <App />
+      </ReactQueryProvider>
     </React.StrictMode>
   );
 };

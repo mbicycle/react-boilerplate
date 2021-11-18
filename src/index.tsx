@@ -1,22 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { CssBaseline } from '@mui/material';
 
-import './index.css';
+import App from './App';
+import GlobalStyle from './common/globalStyle';
+
+import reportWebVitals from './reportWebVitals';
 
 const RootComponent = function (): JSX.Element {
   return (
     <React.StrictMode>
+      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+      <CssBaseline />
+      <GlobalStyle />
       <App />
     </React.StrictMode>
   );
 };
 
 const rootElement = document.getElementById('root');
-// https://stackoverflow.com/questions/46516395/whats-the-difference-between-hydrate-and-render-in-react-16
-ReactDOM.hydrate(<RootComponent />, rootElement);
+
+ReactDOM.render(<RootComponent />, rootElement);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

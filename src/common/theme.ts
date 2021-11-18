@@ -204,6 +204,13 @@ const theme = createTheme({
 
     },
   },
+  components: {
+    MuiAppBar: {
+      defaultProps: {
+        enableColorOnDark: true,
+      },
+    },
+  },
   overrides: {
     MuiAppBar: {
       root: {

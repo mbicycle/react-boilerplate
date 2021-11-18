@@ -1,7 +1,4 @@
-import { Typography, Box } from '@mui/material';
-
-import LogoIcon from 'common/icons/LogoIcon';
-import Copyright from 'containers/Copyright';
+import ApplicationBar from 'containers/application-bar';
 import { MainPage } from 'containers/main-page';
 
 import { ContainerStyled } from 'styled';
@@ -9,14 +6,8 @@ import { ContainerStyled } from 'styled';
 const App = function (): JSX.Element {
   return (
     <ContainerStyled>
+      <ApplicationBar />
       <MainPage />
-      <LogoIcon color="info" />
-      <Box sx={{ my: 4 }}>
-        <Typography color="Highlight" variant="h4" component="h1" gutterBottom>
-          Create React App v5 example with styled-components and TypeScript
-        </Typography>
-        <Copyright />
-      </Box>
     </ContainerStyled>
   );
 };

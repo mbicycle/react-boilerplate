@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useListPokemons } from './lib/query-hooks';
 import { NamedAPIResourceList } from './models/resource';
 
-type UsePokemonsReturnType = ((() => void) | NamedAPIResourceList | undefined)[];
+type UsePokemonsReturnType = [(() => void), NamedAPIResourceList | undefined];
 const NEXT = 10 as const;
 
 export const usePokemons = (): UsePokemonsReturnType => {
@@ -11,7 +11,7 @@ export const usePokemons = (): UsePokemonsReturnType => {
 
   const query = useListPokemons(limit.offset, limit.limit);
 
-  const handleClick = (): void => {
+  const incrementPokes = (): void => {
     setLimit((prev) => ({
       limit: prev.limit + NEXT,
       offset: prev.offset + 0,
@@ -28,5 +28,5 @@ export const usePokemons = (): UsePokemonsReturnType => {
     });
   };
 
-  return [handleClick, query.data];
+  return [incrementPokes, query.data];
 };

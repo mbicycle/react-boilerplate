@@ -1,15 +1,15 @@
 import { Button } from '@mui/material';
 
-import { NamedAPIResource, NamedAPIResourceList } from './models/resource';
+import { NamedAPIResource } from './models/resource';
 import { usePokemons } from './hooks';
 
 export const MainPage = function ():JSX.Element {
-  const [handleClick, data] = usePokemons();
+  const [incrementPokes, data] = usePokemons();
 
   return (
     <ul>
-      <Button onClick={handleClick as () => void}>More</Button>
-      {data && ((data as NamedAPIResourceList).results as NamedAPIResource[])
+      <Button onClick={incrementPokes}>More</Button>
+      {data && (data.results as NamedAPIResource[])
         .map((val) => (
           <li key={val.url}>
             {val.name}

@@ -1,3 +1,4 @@
 export enum QueryKey {
-  abilities = 'Abilities',
+  Abilities = 'Abilities',
+  Details = 'Details',
 }

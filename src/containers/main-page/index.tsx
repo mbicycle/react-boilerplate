@@ -20,7 +20,7 @@ export const MainPage = function ():JSX.Element {
       <PaperStyled elevation={5}>
         {query?.data
          && (query.data.results as NamedAPIResource[])
-           .map((val) => <PokeCard {...val} />)}
+           .map((val) => <PokeCard key={val.url} {...val} />)}
       </PaperStyled>
     </>
   );

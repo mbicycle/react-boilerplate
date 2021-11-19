@@ -21,7 +21,7 @@ export const usePokemons = (): UsePokemonsReturnType => {
 
     query.refetch({
       queryKey: [
-        QueryKey.abilities,
+        QueryKey.Abilities,
         {
           offset: limit.offset,
           limit: limit.limit,

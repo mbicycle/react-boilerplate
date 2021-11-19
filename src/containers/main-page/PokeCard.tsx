@@ -6,16 +6,25 @@ import {
 } from '@mui/material';
 
 import { BUTTON_TEXT } from './utils/constants';
-import PokeDetails from './PokeDetails';
+import PokeDetailsModal from './PokeDetails';
+import { usePokeDetails } from './local-state/hooks';
 
 const PokeCard = function ({ name, url }:{name: string, url: string}): JSX.Element {
   const [open, setOpen] = useState(false);
-  const handleOpen = (): void => { setOpen(true); };
-  const handleClose = (): void => { setOpen(false); };
+  const { dispatch } = usePokeDetails();
+
+  const handleOpen = (): void => {
+    dispatch({ url });
+    setOpen(true);
+  };
+  const handleClose = (): void => {
+    dispatch({ url: null });
+    setOpen(false);
+  };
 
   return (
     <>
-      <Card sx={{ minWidth: 280, m: 3 }} key={url}>
+      <Card sx={{ minWidth: 280, m: 3 }}>
         <CardContent>
           <Typography
             variant="h5"
@@ -35,7 +44,7 @@ const PokeCard = function ({ name, url }:{name: string, url: string}): JSX.Eleme
           </Button>
         </Box>
       </Card>
-      <PokeDetails
+      <PokeDetailsModal
         open={open}
         closeModal={handleClose}
       />

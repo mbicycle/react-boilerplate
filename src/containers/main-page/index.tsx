@@ -1,22 +1,27 @@
-import { Button } from '@mui/material';
-
 import { NamedAPIResource } from './models/resource';
-import { usePokemons } from './hooks';
+
+import { usePokemons } from './utils/hooks';
+
+import PokeCard from './PokeCard';
+import Header from './Header';
+
+import { PaperStyled } from './utils/styled';
 
 export const MainPage = function ():JSX.Element {
-  const [incrementPokes, data] = usePokemons();
+  const [incrementPokes, query] = usePokemons();
 
   return (
-    <ul>
-      <Button onClick={incrementPokes}>More</Button>
-      {data && (data.results as NamedAPIResource[])
-        .map((val) => (
-          <li key={val.url}>
-            {val.name}
-            {' '}
-            {val.url}
-          </li>
-        ))}
-    </ul>
+    <>
+      <Header
+        loadMorePokes={incrementPokes}
+        isFetching={query?.isFetching}
+        count={query?.data?.results.length || 0}
+      />
+      <PaperStyled elevation={5}>
+        {query?.data
+         && (query.data.results as NamedAPIResource[])
+           .map((val) => <PokeCard {...val} />)}
+      </PaperStyled>
+    </>
   );
 };

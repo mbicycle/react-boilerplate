@@ -1,9 +1,11 @@
-import { QueryKey } from 'common/constants/query-keys';
 import { useState } from 'react';
-import { useListPokemons } from './lib/query-hooks';
-import { NamedAPIResourceList } from './models/resource';
+import { UseQueryResult } from 'react-query';
 
-type UsePokemonsReturnType = [(() => void), NamedAPIResourceList | undefined];
+import { QueryKey } from 'common/constants/query-keys';
+import { useListPokemons } from '../lib/query-hooks';
+import { NamedAPIResourceList } from '../models/resource';
+
+type UsePokemonsReturnType = [(() => void), UseQueryResult<NamedAPIResourceList, Error> | undefined];
 const NEXT = 10 as const;
 
 export const usePokemons = (): UsePokemonsReturnType => {
@@ -14,7 +16,7 @@ export const usePokemons = (): UsePokemonsReturnType => {
   const incrementPokes = (): void => {
     setLimit((prev) => ({
       limit: prev.limit + NEXT,
-      offset: prev.offset + 0,
+      offset: prev.offset + 0, // Field for decrementation
     }));
 
     query.refetch({
@@ -28,5 +30,5 @@ export const usePokemons = (): UsePokemonsReturnType => {
     });
   };
 
-  return [incrementPokes, query.data];
+  return [incrementPokes, query];
 };

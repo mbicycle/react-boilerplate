@@ -24,3 +24,6 @@ yarn-error.log*
 
 # inner files
 workspace.code-workspace
+
+# DOTENV
+.env

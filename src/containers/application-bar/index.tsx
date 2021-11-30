@@ -6,7 +6,7 @@ import { LogoIconStyled } from './styled';
 
 const ApplicationBar = function (): JSX.Element {
   return (
-    <AppBar>
+    <AppBar color="primary">
       <Toolbar>
         <LogoIconStyled fontSize="large" />
       </Toolbar>

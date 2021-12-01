@@ -9,6 +9,7 @@ import { useAuth } from 'authentication/auth';
 import { refreshTokenSetup } from 'authentication/utils/helpers';
 import LogoGoogleWhite from 'common/icons/LogoGoogleWhite';
 
+import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
 import { GoogleLoginContainerStyled } from './styled';
 
 const clientId = process.env.REACT_APP_CLIENT_ID as string;
@@ -18,12 +19,13 @@ const GoogleLoginComponent = function (): JSX.Element {
 
   const onSuccessHandle = async (result: GoogleLoginResponseType): Promise<void> => {
     refreshTokenSetup(result as GoogleLoginResponse);
+    localStorage.setItem('user', JSON.stringify((result as GoogleLoginResponse)));
 
     await login(result);
   };
 
   const onFailureHandle = (result: Record<string, unknown>): void => {
-    // TODO: Add Snackbar
+    SnackBarUtils.error(result.error as string);
   };
 
   return (

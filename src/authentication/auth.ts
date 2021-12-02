@@ -5,7 +5,6 @@ import {
   loginWithGoogleTokenId,
   User,
 } from './api';
-import { refreshTokenSetup } from './utils/helpers';
 
 import { storage } from './utils/storage';
 
@@ -22,10 +21,6 @@ async function loginFn(data: GoogleLoginResponse): Promise<User> {
 
 async function loadUser(): Promise<User> {
   let user = null;
-  const localUser = localStorage.getItem('user');
-  if (localUser) {
-    refreshTokenSetup(JSON.parse(localUser));
-  }
 
   try {
     if (storage.getToken()) {

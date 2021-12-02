@@ -6,9 +6,10 @@ import { LoginRoute } from 'common/components/routes/LoginRoute';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
 import { useAuth } from 'authentication/auth';
 
+import { memo } from 'react';
 import { ROUTE } from './utils/constants';
 
-export const Routing = function (): JSX.Element {
+const Routing = function (): JSX.Element {
   const { user, isLoggingIn, isRegistering } = useAuth();
 
   if (!user && (isLoggingIn || isRegistering)) return <CircularProgress color="info" />;
@@ -21,6 +22,8 @@ export const Routing = function (): JSX.Element {
         element={(
           <PrivateRoute>
             <div>
+              <div>Left</div>
+              <div>Right</div>
               Main component works!
             </div>
           </PrivateRoute>
@@ -31,3 +34,5 @@ export const Routing = function (): JSX.Element {
     </Routes>
   );
 };
+
+export default memo(Routing);

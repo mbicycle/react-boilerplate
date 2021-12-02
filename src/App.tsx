@@ -5,7 +5,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import ApplicationBar from 'containers/application-bar';
 
-import { Routing } from 'common/components/routes/Routing';
+import Routing from 'common/components/routes/Routing';
 import { BrowserRouter } from 'react-router-dom';
 
 import AppSnackbarProvider from 'common/providers/AppSnackbar/AppSnackbarProvider';

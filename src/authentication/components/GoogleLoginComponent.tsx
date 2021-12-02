@@ -1,32 +1,35 @@
 import { memo } from 'react';
 import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
 
-import { GoogleLoginResponseType } from 'authentication/types/LoginResult';
-import { Text } from 'authentication/utils/constants';
 import { Button } from '@mui/material';
 
 import { useAuth } from 'authentication/auth';
+import { Text } from 'authentication/utils/constants';
+import { GoogleLoginResponseType } from 'authentication/types/LoginResult';
 import { refreshTokenSetup } from 'authentication/utils/helpers';
-import LogoGoogleWhite from 'common/icons/LogoGoogleWhite';
+import { storage } from 'authentication/utils/storage';
 
+import LogoGoogleWhite from 'common/icons/LogoGoogleWhite';
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
-import { useNavigate } from 'react-router-dom';
+
 import { GoogleLoginContainerStyled } from './styled';
 
 const clientId = process.env.REACT_APP_CLIENT_ID as string;
 
 const GoogleLoginComponent = function (): JSX.Element {
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   const onSuccessHandle = async (result: GoogleLoginResponseType): Promise<void> => {
-    refreshTokenSetup(result as GoogleLoginResponse);
-    localStorage.setItem('user', JSON.stringify((result as GoogleLoginResponse)));
+    storage.setExpiresAt((result as GoogleLoginResponse).tokenObj.expires_at);
 
-    const resp = await login(result);
-    if (resp) {
-      navigate('/');
-    }
+    // TODO Remove after refresh been updated
+    // eslint-disable-next-line no-console
+    console.log('refresh fired!');
+    // eslint-disable-next-line no-console
+    console.log(result);
+
+    await refreshTokenSetup(result as GoogleLoginResponse);
+    await login(result);
   };
 
   const onFailureHandle = (result: Record<string, unknown>): void => {
@@ -41,7 +44,8 @@ const GoogleLoginComponent = function (): JSX.Element {
         buttonText={Text.ButtonLogin}
         onFailure={onFailureHandle}
         cookiePolicy={Text.CookiePolicy}
-        isSignedIn={false} // TODO Test on incognito
+        scope="email"
+        isSignedIn
         render={(props) => (
           <Button
             onClick={props.onClick}

@@ -10,18 +10,23 @@ import { refreshTokenSetup } from 'authentication/utils/helpers';
 import LogoGoogleWhite from 'common/icons/LogoGoogleWhite';
 
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
+import { useNavigate } from 'react-router-dom';
 import { GoogleLoginContainerStyled } from './styled';
 
 const clientId = process.env.REACT_APP_CLIENT_ID as string;
 
 const GoogleLoginComponent = function (): JSX.Element {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const onSuccessHandle = async (result: GoogleLoginResponseType): Promise<void> => {
     refreshTokenSetup(result as GoogleLoginResponse);
     localStorage.setItem('user', JSON.stringify((result as GoogleLoginResponse)));
 
-    await login(result);
+    const resp = await login(result);
+    if (resp) {
+      navigate('/');
+    }
   };
 
   const onFailureHandle = (result: Record<string, unknown>): void => {
@@ -36,7 +41,7 @@ const GoogleLoginComponent = function (): JSX.Element {
         buttonText={Text.ButtonLogin}
         onFailure={onFailureHandle}
         cookiePolicy={Text.CookiePolicy}
-        isSignedIn={false}
+        isSignedIn={false} // TODO Test on incognito
         render={(props) => (
           <Button
             onClick={props.onClick}

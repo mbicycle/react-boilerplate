@@ -83,14 +83,14 @@ const theme = createTheme({
   palette: {
     primary: {
       light: PALETTE.LIGHT_GRAY,
-      main: PALETTE.BLACK,
-      dark: PALETTE.BLACK,
+      main: PALETTE.BLUE,
+      dark: PALETTE.DARK_BLUE,
       contrastText: '#fff',
       meduimGray: PALETTE.MEDIUM_GRAY,
     },
     secondary: {
       light: PALETTE.WHITE,
-      main: PALETTE.WHITE,
+      main: PALETTE.LIGHT_GRAY,
       dark: PALETTE.BLACK,
       contrastText: PALETTE.WHITE,
     },
@@ -125,7 +125,11 @@ const theme = createTheme({
     borderRadius: BORDER_RADIUS,
   },
   typography: {
-    htmlFontSize: 16,
+    htmlFontSize: 10,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
     fontFamily: FONTS.OPEN_SANS_REG,
     button: {
       textTransform: 'none',
@@ -154,42 +158,42 @@ const theme = createTheme({
     h5: {
       fontFamily: FONTS.OPEN_SANS_BOLD,
       fontWeight: 600,
-      fontSize: 24,
+      fontSize: '2.4rem',
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     h6: {
       fontFamily: FONTS.OPEN_SANS_SEMIBOLD,
       fontWeight: 600,
-      fontSize: 18,
+      fontSize: '1.8rem',
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     subtitle1: {
       fontFamily: FONTS.OPEN_SANS_REG,
       fontWeight: 400,
-      fontSize: 18,
+      fontSize: '1.8rem',
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     subtitle2: {
       fontFamily: FONTS.OPEN_SANS_REG,
       fontWeight: 400,
-      fontSize: 14,
+      fontSize: '1.4rem',
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     body1: {
       fontFamily: FONTS.OPEN_SANS_SEMIBOLD,
       fontWeight: 600,
-      fontSize: 16,
+      fontSize: '1.6rem',
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     body2: {
       fontFamily: FONTS.OPEN_SANS_SEMIBOLD,
       fontWeight: 600,
-      fontSize: 14,
+      fontSize: '1.4rem',
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
@@ -200,9 +204,7 @@ const theme = createTheme({
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
-    overline: {
-
-    },
+    overline: {},
   },
   components: {
     MuiAppBar: {

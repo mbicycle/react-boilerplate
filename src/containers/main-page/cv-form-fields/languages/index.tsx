@@ -1,0 +1,16 @@
+import React from 'react';
+
+interface LanguagesProps {
+    value: { [key: string]: string };
+}
+
+const Languages = function ({ value }: LanguagesProps): JSX.Element {
+  return (
+    <div>
+      Languages Form Part
+      {value}
+    </div>
+  );
+};
+
+export default Languages;

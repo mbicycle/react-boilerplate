@@ -1,25 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { CssBaseline } from '@mui/material';
-
-import ReactQueryProvider from 'common/providers/ReactQueryProvider';
 import App from './App';
-import GlobalStyle from './common/globalStyle';
 
 import reportWebVitals from './reportWebVitals';
 
 const RootComponent = function (): JSX.Element {
-  return (
-    <React.StrictMode>
-      <ReactQueryProvider>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <GlobalStyle />
-        <App />
-      </ReactQueryProvider>
-    </React.StrictMode>
-  );
+  return <App />;
 };
 
 const rootElement = document.getElementById('root');

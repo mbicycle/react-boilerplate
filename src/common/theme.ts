@@ -1,25 +1,16 @@
 import { createTheme } from '@mui/material';
 import { CSSProperties } from 'styled-components';
-import { UbuntuRegular, UbuntuBold, UbuntuMedium } from './fonts/index';
 import { BackgroundExtendedType, ExtendedThemeOptions } from './theme-types';
+
+import UbuntuMedium from './fonts/Ubuntu-Medium.ttf';
+import UbuntuRegular from './fonts/Ubuntu-Regular.ttf';
+import UbuntuBold from './fonts/Ubuntu-Bold.ttf';
 
 export const PALETTE = {
   BLUE: '#2A57E0',
   GRAY: '#76828A',
-  // DARKER_GRAY: '#D8D8D8',
-  // LIGHTER_GRAY: '#F5F5F5',
-  // LIGHT_GRAY: '#BFC9D1',
-  // BACKGROUND_GRAY: '#E5E5E5',
-  // BACKGROUND_LIGHT_GRAY: '#F6F7F9',
-  // GRAY_BLUE: '#51728E',
-  // DARK_GRAY: '#737984',
-  // MEDIUM_GRAY: '#535E67',
   WHITE: '#FFFFFF',
   BLACK: '#051C2C',
-  // TEXT_DISABLED: '#85939F',
-  // ERROR: '#EA001B',
-  // SUCCESS: '#0FA958',
-  // BACKDROP_COLOR: '#26323833',
   TRANSPARENT: 'transparent',
 };
 
@@ -28,7 +19,7 @@ const ubuntuRegular = {
   fontStyle: 'normal',
   fontDisplay: 'swap',
   fontWeight: 400,
-  src: `local('Ubuntu-Regular'), url(${UbuntuRegular}) format('woff2')`,
+  src: `local('Ubuntu'), local('Ubuntu-Regular'), url(${UbuntuRegular}) format('ttf')`,
 } as CSSProperties;
 
 const ubuntuMedium = {
@@ -36,7 +27,7 @@ const ubuntuMedium = {
   fontStyle: 'semibold',
   fontDisplay: 'swap',
   fontWeight: 600,
-  src: `local('Ubuntu-Medium'), url(${UbuntuMedium}) format('woff2')`,
+  src: `local('Ubuntu'), local('Ubuntu-Medium'), url(${UbuntuMedium}) format('ttf')`,
 } as CSSProperties;
 
 const ubuntuBold = {
@@ -44,13 +35,13 @@ const ubuntuBold = {
   fontStyle: 'bold',
   fontDisplay: 'swap',
   fontWeight: 700,
-  src: `local('Ubuntu-Bold'), url(${UbuntuBold}) format('woff2')`,
+  src: `local('Ubuntu'), local('Ubuntu-Bold'), url(${UbuntuBold}) format('ttf')`,
 } as CSSProperties;
 
 const FONTS = {
   UBUNTU_REG: '"Ubuntu-Regular", sans-serif',
   UBUNTU_MEDIUM: '"Ubuntu-Medium", sans-serif',
-  UBUNTU_BOLD: '"Ubuntu-Bold", sans-serif',
+  UBUNTU_BOLD: 'Ubuntu-Bold", sans-serif',
 };
 
 export const MEDIA_BREAKPOINTS = {
@@ -72,8 +63,6 @@ const BORDER_RADIUS = 6;
 
 export const SPACING = 4;
 
-const defaultTheme = createTheme({});
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -81,7 +70,6 @@ const theme = createTheme({
       main: PALETTE.BLACK,
       dark: PALETTE.BLACK,
       contrastText: '#fff',
-      // meduimGray: PALETTE.MEDIUM_GRAY,
     },
     secondary: {
       light: PALETTE.WHITE,
@@ -101,16 +89,10 @@ const theme = createTheme({
     text: {
       primary: PALETTE.BLACK,
       secondary: PALETTE.GRAY,
-      // disabled: PALETTE.TEXT_DISABLED,
-      // mediumGray: PALETTE.MEDIUM_GRAY,
     },
     background: {
       white: PALETTE.WHITE,
       border: PALETTE.GRAY,
-      // borderLight: PALETTE.LIGHT_GRAY,
-      // gray: PALETTE.BACKGROUND_GRAY,
-      // lightGray: PALETTE.BACKGROUND_LIGHT_GRAY,
-      // darkGray: PALETTE.DARKER_GRAY,
     } as BackgroundExtendedType,
   },
   spacing: SPACING,
@@ -119,7 +101,7 @@ const theme = createTheme({
   },
   typography: {
     htmlFontSize: 16,
-    fontFamily: FONTS.UBUNTU_REG,
+    fontFamily: 'Raleway, Arial',
     button: {
       textTransform: 'none',
     },
@@ -198,6 +180,13 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        '@global': {
+          '@font-face': [ubuntuMedium, ubuntuBold, ubuntuRegular],
+        },
+      },
+    },
     MuiAppBar: {
       defaultProps: {
         enableColorOnDark: true,
@@ -221,87 +210,6 @@ const theme = createTheme({
           color: PALETTE.WHITE,
           ':hover': {
             color: PALETTE.BLACK,
-          },
-        },
-      },
-    },
-  },
-  overrides: {
-    MuiAppBar: {
-      root: {
-        colorSecondary: {
-          backgroundColor: `${PALETTE.BLUE} !important`,
-        },
-      },
-    },
-    MuiTypography: {
-      h2: {
-        [defaultTheme.breakpoints.down('md')]: {
-          fontSize: 24,
-        },
-      },
-      h4: {
-        [defaultTheme.breakpoints.down('md')]: {
-          fontSize: 24,
-        },
-      },
-      body1: {
-        [defaultTheme.breakpoints.down('md')]: {
-          fontSize: 14,
-        },
-      },
-      caption: {
-        [defaultTheme.breakpoints.down('md')]: {
-          fontSize: 16,
-        },
-      },
-    },
-    MuiCssBaseline: {
-      '@global': {
-        '@font-face': [ubuntuBold, ubuntuMedium, ubuntuRegular],
-      },
-    },
-    MuiSvgIcon: {
-      colorAction: {
-        color: PALETTE.BLUE,
-      },
-      // colorPrimary: {
-      //   color: PALETTE.SUCCESS,
-      // },
-      colorDisabled: {
-        color: PALETTE.GRAY,
-      },
-      colorSecondary: {
-        color: `${PALETTE.WHITE} !important`,
-      },
-    },
-    MuiSelect: {
-      select: {
-        marginRight: `${defaultTheme.spacing(1)}px`,
-        '&:focus': {
-          backgroundColor: PALETTE.TRANSPARENT,
-        },
-      },
-      icon: {
-        top: 'calc(50% - 10px)',
-      },
-    },
-    MuiOutlinedInput: {
-      root: {
-        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-          bordrWidth: 1,
-        },
-        '&:hover fieldset': {
-        },
-      },
-    },
-    MuiInputBase: {
-      root: {
-        height: 48,
-        '&.Mui-disabled': {
-          '&:hover fieldset': {
-            borderColor: 'rgba(0, 0, 0, 0.26) !important',
-            outline: 'none',
           },
         },
       },

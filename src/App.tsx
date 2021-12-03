@@ -22,12 +22,12 @@ const App = function (): JSX.Element {
   return (
     <AppSnackbarProvider>
       <React.StrictMode>
+        <CssBaseline />
         <BrowserRouter>
           <ThemeProvider theme={theme}>
+            <GlobalStyle />
             <ReactQueryProvider>
               <AuthProvider>
-                <CssBaseline />
-                <GlobalStyle />
                 <ContainerStyled>
                   <ApplicationBar />
                   <Routing />

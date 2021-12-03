@@ -17,7 +17,7 @@ axiosInstance.interceptors.response.use(async (response) => {
 }, (error) => Promise.reject(error));
 
 axiosInstance.interceptors.request.use(async (request) => {
-  const token = await storage.getToken();
+  const token = storage.getToken();
 
   if (token && request.headers) {
     request.headers.Authorization = `Bearer ${token}`;

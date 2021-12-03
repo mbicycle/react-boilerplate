@@ -22,12 +22,6 @@ const GoogleLoginComponent = function (): JSX.Element {
   const onSuccessHandle = async (result: GoogleLoginResponseType): Promise<void> => {
     storage.setExpiresAt((result as GoogleLoginResponse).tokenObj.expires_at);
 
-    // TODO Remove after refresh been updated
-    // eslint-disable-next-line no-console
-    console.log('refresh fired!');
-    // eslint-disable-next-line no-console
-    console.log(result);
-
     await refreshTokenSetup(result as GoogleLoginResponse);
     await login(result);
   };

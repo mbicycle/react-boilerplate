@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 
 import { LoginRoute } from 'common/components/routes/LoginRoute';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
@@ -22,9 +22,9 @@ const Routing = function (): JSX.Element {
         element={(
           <PrivateRoute>
             <div>
-              <div>Left</div>
+              <Typography>Left</Typography>
               <div>Right</div>
-              Main component works!
+              <Typography variant="h4">Main component works!</Typography>
             </div>
           </PrivateRoute>
         )}

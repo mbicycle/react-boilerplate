@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { CssBaseline } from '@mui/material';
-
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import theme from 'common/theme';
 import ReactQueryProvider from 'common/providers/ReactQueryProvider';
 import App from './App';
-import GlobalStyle from './common/globalStyle';
-
+import GlobalStyle from './common/theme/css/globalStyle';
 import reportWebVitals from './reportWebVitals';
 
 const RootComponent = function (): JSX.Element {
@@ -16,7 +15,9 @@ const RootComponent = function (): JSX.Element {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <GlobalStyle />
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </ReactQueryProvider>
     </React.StrictMode>
   );

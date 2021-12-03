@@ -1,0 +1,1 @@
+export const spacing = (factor: number) => `${0.4 * factor}rem`

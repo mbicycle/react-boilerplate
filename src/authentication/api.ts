@@ -1,6 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import axiosInstance from 'common/axios';
 import { GoogleLoginResponse } from 'react-google-login';
+import { Endpoint, AUTH_HEADER } from './utils/constants';
 import { storage } from './utils/storage';
 
 const axios = axiosInstance;
@@ -23,7 +24,7 @@ export async function handleApiResponse(response: AxiosResponse): Promise<unknow
 }
 
 export const getUserProfile = async (): Promise<User> => new Promise<User>((resolve, reject) => {
-  axiosInstance.get<User>('/userinfo')
+  axiosInstance.get<User>(Endpoint.UserInfo)
     .then((response: AxiosResponse<User>) => resolve(response.data))
     .catch((error: AxiosError<string>) => {
       // FIXME: Great crutch❗
@@ -33,11 +34,11 @@ export const getUserProfile = async (): Promise<User> => new Promise<User>((reso
 });
 
 export async function loginWithGoogleTokenId(data: GoogleLoginResponse): Promise<void> {
-  const response = await axios.post('/authentication/token', {
+  const response = await axios.post(Endpoint.AuthToken, {
     googleIdToken: data.tokenId,
   });
 
-  if ('authorization' in response.headers) {
+  if (AUTH_HEADER in response.headers) {
     storage.setToken(response.headers.authorization);
   }
 }

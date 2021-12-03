@@ -1,4 +1,4 @@
-import { createTheme, Theme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material';
 import { breakpoints } from './maps/breakpoints'
 import { palette } from './maps/palette'
 import { spacing } from './maps/spacing'

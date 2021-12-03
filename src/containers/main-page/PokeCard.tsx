@@ -4,7 +4,7 @@ import {
   Box, Button, Card,
   CardContent, Typography,
 } from '@mui/material';
-
+import theme from 'common/theme';
 import { BUTTON_TEXT } from './utils/constants';
 import PokeDetailsModal from './PokeDetails';
 import { usePokeDetails } from './local-state/hooks';
@@ -12,7 +12,6 @@ import { usePokeDetails } from './local-state/hooks';
 const PokeCard = function ({ name, url }:{name: string, url: string}): JSX.Element {
   const [open, setOpen] = useState(false);
   const { dispatch } = usePokeDetails();
-
   const handleOpen = (): void => {
     dispatch({ url });
     setOpen(true);

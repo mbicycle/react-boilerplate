@@ -7,6 +7,6 @@
 		"source.fixAll.eslint": true
 	},
 	"[typescriptreact]": {
-		"editor.defaultFormatter": "vscode.typescript-language-features"
-	},
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	}
 }

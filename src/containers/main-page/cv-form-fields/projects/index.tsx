@@ -7,8 +7,7 @@ interface ProjectsProps {
 const Projects = function ({ value }: ProjectsProps): JSX.Element {
   return (
     <div>
-      Projects Form part
-      {value}
+      Projects Form parts
     </div>
   );
 };

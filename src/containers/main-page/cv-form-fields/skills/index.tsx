@@ -8,7 +8,6 @@ const Skills = function ({ value }: SkillsProps): JSX.Element {
   return (
     <div>
       Skills Form part
-      {value}
     </div>
   );
 };

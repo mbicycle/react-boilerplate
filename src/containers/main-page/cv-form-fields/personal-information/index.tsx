@@ -12,7 +12,7 @@ const PersonalInformation = function ({ value, handleChange }: PersonalInformati
       <Typography variant="h5" fontWeight={600}>
         Personal Information Form Part
       </Typography>
-      <Typography variant="body1">
+      <Typography variant="body1" sx={{ padding: '0.8rem 0 2.4rem 0' }}>
         Any explanation text
       </Typography>
       <TextField

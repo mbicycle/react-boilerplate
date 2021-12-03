@@ -8,7 +8,6 @@ const Languages = function ({ value }: LanguagesProps): JSX.Element {
   return (
     <div>
       Languages Form Part
-      {value}
     </div>
   );
 };

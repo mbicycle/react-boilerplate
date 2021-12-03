@@ -8,7 +8,6 @@ const Certifications = function ({ value }: CertificationsProps): JSX.Element {
   return (
     <div>
       Certifications Form Part
-      {value}
     </div>
   );
 };

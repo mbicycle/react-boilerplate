@@ -7,7 +7,7 @@ const App = function (): JSX.Element {
   return (
     <Provider>
       <ApplicationBar />
-      <ContainerStyled maxWidth={false}>
+      <ContainerStyled maxWidth={false} disableGutters>
         <MainPage />
       </ContainerStyled>
     </Provider>

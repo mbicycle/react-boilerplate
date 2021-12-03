@@ -10,9 +10,14 @@ export const StepLabelStyled = styled(StepLabel)(({ theme }) => ({
     color: theme.palette.primary.dark,
     fontWeight: 600,
   },
-  '& .MuiStepIcon-root': {
+  '& span.MuiStepLabel-iconContainer': {
     display: 'none',
   },
 }));
 
-export const StepConnectorStyled = styled(StepConnector)(() => ({}));
+export const StepConnectorStyled = styled(StepConnector)(() => ({
+  padding: '0 2.8rem',
+  '& span': {
+    borderColor: '#656565',
+  },
+}));

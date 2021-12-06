@@ -12,7 +12,9 @@ export default createGlobalStyle`
   a { 
     color: transparent;
   }
-
+html {
+  font-size: 62.5%;
+}
   html, body, #root {
     height: 100vh;
     letter-spacing: 0.5px;

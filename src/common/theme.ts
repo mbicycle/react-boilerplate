@@ -1,61 +1,47 @@
 import { createTheme } from '@mui/material';
 import { CSSProperties } from 'styled-components';
-import { OpenSansBold, OpenSansRegular, OpenSansSemibold } from './fonts/index';
 import { BackgroundExtendedType, ExtendedThemeOptions } from './theme-types';
 
+import UbuntuMedium from './fonts/Ubuntu-Medium.ttf';
+import UbuntuRegular from './fonts/Ubuntu-Regular.ttf';
+import UbuntuBold from './fonts/Ubuntu-Bold.ttf';
+
 export const PALETTE = {
-  BLUE: '#1D86E7',
-  MEDIUM_BLUE: '#1060AA',
-  DARK_BLUE: '#0B4275',
-  GRAY: '#C4C4C4',
-  DARKER_GRAY: '#D8D8D8',
-  LIGHTER_GRAY: '#F5F5F5',
-  LIGHT_GRAY: '#BFC9D1',
-  BACKGROUND_GRAY: '#E5E5E5',
-  BACKGROUND_LIGHT_GRAY: '#F6F7F9',
-  GRAY_BLUE: '#51728E',
-  DARK_GRAY: '#737984',
-  MEDIUM_GRAY: '#535E67',
+  BLUE: '#2A57E0',
+  GRAY: '#76828A',
   WHITE: '#FFFFFF',
-  BLACK: '#131212',
-  TEXT_DISABLED: '#85939F',
-  ERROR: '#EA001B',
-  SUCCESS: '#0FA958',
-  BACKDROP_COLOR: '#26323833',
+  BLACK: '#051C2C',
   TRANSPARENT: 'transparent',
-  PIN_YELLOW: '#F2CB41',
-  PIN_YELLOW_LIGHT: '#F1EBB0',
-  PIN_GREEN: '#3EBF7A',
 };
 
-const openSansReg = {
-  fontFamily: 'OpenSans-Regular',
+const ubuntuRegular = {
+  fontFamily: 'Ubuntu-Regular',
   fontStyle: 'normal',
   fontDisplay: 'swap',
   fontWeight: 400,
-  src: `local('OpenSans-Regular'), url(${OpenSansRegular}) format('woff2')`,
+  src: `local('Ubuntu'), local('Ubuntu-Regular'), url(${UbuntuRegular}) format('ttf')`,
 } as CSSProperties;
 
-const openSansSemiBold = {
-  fontFamily: 'OpenSans-SemiBold',
+const ubuntuMedium = {
+  fontFamily: 'Ubuntu-Medium',
   fontStyle: 'semibold',
   fontDisplay: 'swap',
   fontWeight: 600,
-  src: `local('OpenSans-SemiBold'), url(${OpenSansSemibold}) format('woff2')`,
+  src: `local('Ubuntu'), local('Ubuntu-Medium'), url(${UbuntuMedium}) format('ttf')`,
 } as CSSProperties;
 
-const openSansBold = {
-  fontFamily: 'OpenSans-Bold',
+const ubuntuBold = {
+  fontFamily: 'Ubuntu-Bold',
   fontStyle: 'bold',
   fontDisplay: 'swap',
   fontWeight: 700,
-  src: `local('OpenSans-Bold'), url(${OpenSansBold}) format('woff2')`,
+  src: `local('Ubuntu'), local('Ubuntu-Bold'), url(${UbuntuBold}) format('ttf')`,
 } as CSSProperties;
 
 const FONTS = {
-  OPEN_SANS_REG: '"OpenSans-Regular", sans-serif',
-  OPEN_SANS_SEMIBOLD: '"OpenSans-SemiBold", sans-serif',
-  OPEN_SANS_BOLD: '"OpenSans-Bold", sans-serif',
+  UBUNTU_REG: '"Ubuntu-Regular", sans-serif',
+  UBUNTU_MEDIUM: '"Ubuntu-Medium", sans-serif',
+  UBUNTU_BOLD: 'Ubuntu-Bold", sans-serif',
 };
 
 export const MEDIA_BREAKPOINTS = {
@@ -77,47 +63,36 @@ const BORDER_RADIUS = 6;
 
 export const SPACING = 4;
 
-const defaultTheme = createTheme({});
-
 const theme = createTheme({
   palette: {
     primary: {
-      light: PALETTE.LIGHT_GRAY,
-      main: PALETTE.BLUE,
-      dark: PALETTE.DARK_BLUE,
+      light: PALETTE.GRAY,
+      main: PALETTE.BLACK,
+      dark: PALETTE.BLACK,
       contrastText: '#fff',
-      meduimGray: PALETTE.MEDIUM_GRAY,
     },
     secondary: {
       light: PALETTE.WHITE,
-      main: PALETTE.LIGHT_GRAY,
+      main: PALETTE.WHITE,
       dark: PALETTE.BLACK,
       contrastText: PALETTE.WHITE,
     },
     // warning: {
 
     // },
-    success: {
-      main: PALETTE.SUCCESS,
-    },
-    error: {
-      main: PALETTE.ERROR,
-    },
+    // success: {
+    //   main: PALETTE.SUCCESS,
+    // },
+    // error: {
+    //   main: PALETTE.ERROR,
+    // },
     text: {
       primary: PALETTE.BLACK,
-      secondary: PALETTE.MEDIUM_BLUE,
-      disabled: PALETTE.TEXT_DISABLED,
-      mediumGray: PALETTE.MEDIUM_GRAY,
+      secondary: PALETTE.GRAY,
     },
     background: {
-      blue: PALETTE.MEDIUM_BLUE,
-      darkBlue: PALETTE.DARK_BLUE,
       white: PALETTE.WHITE,
       border: PALETTE.GRAY,
-      borderLight: PALETTE.LIGHT_GRAY,
-      gray: PALETTE.BACKGROUND_GRAY,
-      lightGray: PALETTE.BACKGROUND_LIGHT_GRAY,
-      darkGray: PALETTE.DARKER_GRAY,
     } as BackgroundExtendedType,
   },
   spacing: SPACING,
@@ -125,200 +100,118 @@ const theme = createTheme({
     borderRadius: BORDER_RADIUS,
   },
   typography: {
-    htmlFontSize: 10,
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 600,
-    fontWeightBold: 700,
-    fontFamily: FONTS.OPEN_SANS_REG,
+    htmlFontSize: 16,
+    fontFamily: 'Raleway, Arial',
     button: {
       textTransform: 'none',
     },
     h2: {
-      fontFamily: FONTS.OPEN_SANS_BOLD,
+      fontFamily: FONTS.UBUNTU_BOLD,
       fontWeight: 700,
       fontSize: 48,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     h3: {
-      fontFamily: FONTS.OPEN_SANS_BOLD,
+      fontFamily: FONTS.UBUNTU_BOLD,
       fontWeight: 700,
       fontSize: 38,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     h4: {
-      fontFamily: FONTS.OPEN_SANS_SEMIBOLD,
+      fontFamily: FONTS.UBUNTU_MEDIUM,
       fontWeight: 600,
       fontSize: 30,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     h5: {
-      fontFamily: FONTS.OPEN_SANS_BOLD,
+      fontFamily: FONTS.UBUNTU_BOLD,
       fontWeight: 600,
-      fontSize: '2.4rem',
+      fontSize: 24,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     h6: {
-      fontFamily: FONTS.OPEN_SANS_SEMIBOLD,
-      fontWeight: 600,
-      fontSize: '1.8rem',
-      lineHeight: 'normal',
+      fontFamily: FONTS.UBUNTU_MEDIUM,
+      fontWeight: 700,
+      fontSize: 18,
+      lineHeight: '27px',
       letterSpacing: 'normal',
     },
     subtitle1: {
-      fontFamily: FONTS.OPEN_SANS_REG,
+      fontFamily: FONTS.UBUNTU_REG,
       fontWeight: 400,
-      fontSize: '1.8rem',
+      fontSize: 18,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     subtitle2: {
-      fontFamily: FONTS.OPEN_SANS_REG,
+      fontFamily: FONTS.UBUNTU_REG,
       fontWeight: 400,
-      fontSize: '1.4rem',
+      fontSize: 14,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     body1: {
-      fontFamily: FONTS.OPEN_SANS_SEMIBOLD,
+      fontFamily: FONTS.UBUNTU_MEDIUM,
       fontWeight: 600,
-      fontSize: '1.6rem',
+      fontSize: 16,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     body2: {
-      fontFamily: FONTS.OPEN_SANS_SEMIBOLD,
+      fontFamily: FONTS.UBUNTU_MEDIUM,
       fontWeight: 600,
-      fontSize: '1.4rem',
+      fontSize: 14,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
     caption: {
-      fontFamily: FONTS.OPEN_SANS_REG,
+      fontFamily: FONTS.UBUNTU_REG,
       fontWeight: 400,
       fontSize: 24,
       lineHeight: 'normal',
       letterSpacing: 'normal',
     },
-    overline: {},
+    overline: {
+
+    },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        '@global': {
+          '@font-face': [ubuntuMedium, ubuntuBold, ubuntuRegular],
+        },
+      },
+    },
     MuiAppBar: {
       defaultProps: {
         enableColorOnDark: true,
       },
-    },
-  },
-  overrides: {
-    MuiAppBar: {
-      root: {
-        minHeight: 80,
-      },
-    },
-    MuiTypography: {
-      h2: {
-        [defaultTheme.breakpoints.down('md')]: {
-          fontSize: 24,
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: PALETTE.BLUE,
         },
-      },
-      h4: {
-        [defaultTheme.breakpoints.down('md')]: {
-          fontSize: 24,
-        },
-      },
-      body1: {
-        [defaultTheme.breakpoints.down('md')]: {
-          fontSize: 14,
-        },
-      },
-      caption: {
-        [defaultTheme.breakpoints.down('md')]: {
-          fontSize: 16,
+        root: {
+          minHeight: 80,
         },
       },
     },
-    MuiCssBaseline: {
-      '@global': {
-        '@font-face': [openSansReg, openSansSemiBold, openSansBold],
-      },
-    },
-    MuiSvgIcon: {
-      colorAction: {
-        color: PALETTE.BLUE,
-      },
-      colorPrimary: {
-        color: PALETTE.SUCCESS,
-      },
-      colorDisabled: {
-        color: PALETTE.GRAY,
-      },
-      colorSecondary: {
-        color: `${PALETTE.WHITE} !important`,
-      },
-    },
-    MuiSelect: {
-      select: {
-        marginRight: `${defaultTheme.spacing(1)}px`,
-        '&:focus': {
-          backgroundColor: PALETTE.TRANSPARENT,
+    MuiButton: {
+      styleOverrides: {
+        colorInherit: {
+          backgroundColor: PALETTE.BLUE,
         },
-      },
-      icon: {
-        top: 'calc(50% - 10px)',
-      },
-    },
-    MuiOutlinedInput: {
-      root: {
-        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-          borderColor: PALETTE.MEDIUM_BLUE,
-          bordrWidth: 1,
-        },
-        '&:hover fieldset': {
-          borderColor: `${PALETTE.MEDIUM_BLUE} !important`,
-        },
-      },
-    },
-    MuiInputBase: {
-      root: {
-        height: 48,
-        '&.Mui-disabled': {
-          '&:hover fieldset': {
-            borderColor: 'rgba(0, 0, 0, 0.26) !important',
-            outline: 'none',
+        root: {
+          padding: '14px 28px',
+          color: PALETTE.WHITE,
+          ':hover': {
+            color: PALETTE.BLACK,
           },
         },
-      },
-      input: {
-        height: 10,
-        borderRadius: BORDER_RADIUS,
-        fontSize: 14,
-        '&.Mui-disabled': {
-          backgroundColor: PALETTE.LIGHTER_GRAY,
-        },
-      },
-    },
-    MuiCircularProgress: {
-      colorPrimary: {
-        color: PALETTE.BLUE,
-      },
-    },
-    MuiCheckbox: {
-      root: {
-        color: PALETTE.LIGHT_GRAY,
-      },
-      colorPrimary: {
-        '&$checked': {
-          color: PALETTE.MEDIUM_BLUE,
-        },
-      },
-    },
-    MuiBackdrop: {
-      root: {
-        backgroundColor: PALETTE.BACKDROP_COLOR,
       },
     },
   },

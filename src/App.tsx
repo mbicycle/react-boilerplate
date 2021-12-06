@@ -1,16 +1,44 @@
+import React from 'react';
+import dotenv from 'dotenv';
+
+import { CssBaseline, ThemeProvider } from '@mui/material';
+
 import ApplicationBar from 'containers/application-bar';
-import { MainPage } from 'containers/main-page';
-import Provider from 'containers/main-page/local-state/Provider';
+
+import Routing from 'common/components/routes/Routing';
+import { BrowserRouter } from 'react-router-dom';
+
+import AppSnackbarProvider from 'common/providers/AppSnackbar/AppSnackbarProvider';
+import ReactQueryProvider from 'common/providers/ReactQueryProvider';
+import theme from 'common/theme';
+import { AuthProvider } from 'authentication/auth';
+
 import { ContainerStyled } from 'styled';
+import GlobalStyle from 'common/theme/css/globalStyle';
+
+dotenv.config();
 
 const App = function (): JSX.Element {
   return (
-    <Provider>
-      <ApplicationBar />
-      <ContainerStyled maxWidth={false} disableGutters>
-        <MainPage />
-      </ContainerStyled>
-    </Provider>
+    <AppSnackbarProvider>
+      <React.StrictMode>
+        <CssBaseline />
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <ReactQueryProvider>
+              <AuthProvider>
+                <ContainerStyled>
+                  <ApplicationBar />
+                  <Routing />
+                </ContainerStyled>
+              </AuthProvider>
+            </ReactQueryProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </React.StrictMode>
+    </AppSnackbarProvider>
+
   );
 };
 

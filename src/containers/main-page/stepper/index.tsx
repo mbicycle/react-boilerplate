@@ -39,7 +39,7 @@ const CustomStepper = function (): JSX.Element {
         <CurrentStepComponent value={value} handleChange={handleChange} />
         <StepperControls
           activeStep={activeStep}
-          stepsLength={steps.length - 1}
+          stepsLength={CV_FORM_STEPS.length - 1}
           handleBack={handleBack}
           handleNext={handleNext}
         />

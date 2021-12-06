@@ -14,7 +14,7 @@ import theme from 'common/theme';
 import { AuthProvider } from 'authentication/auth';
 
 import { ContainerStyled } from 'styled';
-import GlobalStyle from './common/globalStyle';
+import GlobalStyle from 'common/theme/css/globalStyle';
 
 dotenv.config();
 

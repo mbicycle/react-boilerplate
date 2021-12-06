@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import { Box, Typography } from '@mui/material';
@@ -18,29 +18,25 @@ const CustomStepper = function (): JSX.Element {
   // TODO: Implement Nice interface & replace it everywhere
   const CurrentStepComponent: FC<{ value: { [key: string]: string }, handleChange: (e: { target: HTMLInputElement; }) => void }> = getFormByStep(activeStep);
 
-  const handleNext = (): void => {
+  const handleNext = useCallback((): void => {
     if (activeStep < steps.length - 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+  }, []);
 
-  const handleBack = (): void => {
+  const handleBack = useCallback((): void => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  }, []);
 
   return (
     <>
       <Stepper activeStep={activeStep} connector={<StepConnectorStyled />}>
 
-        {steps.map((label) => {
-          const stepProps: { completed?: boolean } = {};
-          const labelProps: { optional?: React.ReactNode } = {};
-          return (
-            <Step key={label} {...stepProps} sx={{ padding: 0 }}>
-              <StepLabelStyled {...labelProps}>
-                <Typography variant="body2" noWrap>{label}</Typography>
-              </StepLabelStyled>
-            </Step>
-          );
-        })}
+        {steps.map((label) => (
+          <Step key={label} sx={{ padding: 0 }}>
+            <StepLabelStyled>
+              <Typography variant="body2" noWrap>{label}</Typography>
+            </StepLabelStyled>
+          </Step>
+        ))}
       </Stepper>
       <Box pt="4.2rem">
         <CurrentStepComponent value={value} handleChange={handleChange} />

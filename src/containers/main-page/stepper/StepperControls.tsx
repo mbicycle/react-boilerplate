@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { StepperWrapperStyled } from './styled';
-import { STEP } from './utils/config';
+import { Step } from './utils/config';
 
 interface StepperControlsProps {
     activeStep: number;
@@ -30,7 +30,7 @@ const StepperControls = function ({
       <Box />
       {activeStep <= stepsLength && (
         <Button onClick={handleNext} variant="contained">
-          {activeStep === stepsLength ? STEP.Finish : STEP.Next}
+          {activeStep === stepsLength ? Step.Finish : Step.Next}
         </Button>
       )}
     </StepperWrapperStyled>

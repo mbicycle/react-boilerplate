@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { NamedAPIResource } from './models/resource';
 
 import { usePokemons } from './utils/hooks';
@@ -17,6 +18,7 @@ export const MainPage = function ():JSX.Element {
         isFetching={query?.isFetching}
         count={query?.data?.results.length || 0}
       />
+      <Typography variant="h1">hey this is Ubuntu!</Typography>
       <PaperStyled elevation={5}>
         {query?.data
          && (query.data.results as NamedAPIResource[])

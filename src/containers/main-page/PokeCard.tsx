@@ -4,7 +4,7 @@ import {
   Box, Button, Card,
   CardContent, Typography,
 } from '@mui/material';
-import theme from 'common/theme';
+
 import { BUTTON_TEXT } from './utils/constants';
 import PokeDetailsModal from './PokeDetails';
 import { usePokeDetails } from './local-state/hooks';

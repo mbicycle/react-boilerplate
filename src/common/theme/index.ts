@@ -1,2 +1,4 @@
-import { theme } from './theme'
-export default theme
+import { theme } from './theme';
+import './css/fonts.css';
+
+export default theme;

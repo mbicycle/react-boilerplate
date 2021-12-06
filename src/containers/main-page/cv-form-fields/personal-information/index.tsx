@@ -1,5 +1,5 @@
 import { TextField, Typography } from '@mui/material';
-import React from 'react';
+import React, { memo } from 'react';
 
 interface PersonalInformationProps {
     value: { [key: string]: string };
@@ -47,4 +47,4 @@ const PersonalInformation = function ({ value, handleChange }: PersonalInformati
   );
 };
 
-export default PersonalInformation;
+export default memo(PersonalInformation);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { StepperWrapperStyled } from './styled';
@@ -37,4 +37,4 @@ const StepperControls = function ({
   );
 };
 
-export default StepperControls;
+export default memo(StepperControls);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface SkillsProps {
     value: { [key: string]: string };
@@ -12,4 +12,4 @@ const Skills = function ({ value }: SkillsProps): JSX.Element {
   );
 };
 
-export default Skills;
+export default memo(Skills);

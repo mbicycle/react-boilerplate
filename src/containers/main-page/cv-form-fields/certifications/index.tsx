@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface CertificationsProps {
     value: { [key: string]: string };
@@ -12,4 +12,4 @@ const Certifications = function ({ value }: CertificationsProps): JSX.Element {
   );
 };
 
-export default Certifications;
+export default memo(Certifications);

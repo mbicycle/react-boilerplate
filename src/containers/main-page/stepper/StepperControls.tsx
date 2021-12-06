@@ -30,7 +30,7 @@ const StepperControls = function ({
       <Box />
       {activeStep <= stepsLength && (
         <Button onClick={handleNext} variant="contained">
-          {activeStep === stepsLength ? STEP.FINISH : STEP.NEXT}
+          {activeStep === stepsLength ? STEP.Finish : STEP.Next}
         </Button>
       )}
     </StepperWrapperStyled>

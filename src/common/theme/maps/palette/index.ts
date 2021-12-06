@@ -11,4 +11,5 @@ export const palette = {
     primary: '#232323',
     secondary: '#7D858E',
   },
+  divider: '#656565',
 };

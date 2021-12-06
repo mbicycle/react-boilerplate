@@ -1,27 +1,27 @@
 import React, { memo } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { StepperWrapperStyled } from './styled';
-import { Step } from './utils/config';
+import { StepperControlsWrapper } from '../styled';
+import { Step } from '../utils/config';
 
 interface StepperControlsProps {
     activeStep: number;
-    handleBack: VoidFunction;
+    handlePrevious: VoidFunction;
     handleNext: VoidFunction;
     stepsLength: number;
 }
 
-const StepperControls = function ({
+const CVFormControls = function ({
   activeStep,
   stepsLength,
-  handleBack,
+  handlePrevious,
   handleNext,
 }: StepperControlsProps): JSX.Element {
   return (
-    <StepperWrapperStyled>
+    <StepperControlsWrapper>
       <Button
         disabled={activeStep === 0}
-        onClick={handleBack}
+        onClick={handlePrevious}
         variant="contained"
         color="secondary"
       >
@@ -33,8 +33,8 @@ const StepperControls = function ({
           {activeStep === stepsLength ? Step.Finish : Step.Next}
         </Button>
       )}
-    </StepperWrapperStyled>
+    </StepperControlsWrapper>
   );
 };
 
-export default memo(StepperControls);
+export default memo(CVFormControls);

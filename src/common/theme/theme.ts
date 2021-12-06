@@ -7,6 +7,7 @@ import { zIndex } from './maps/zIndex';
 import { transitions } from './maps/transitions';
 import { shadows } from './maps/shadows';
 import { typography } from './maps/typography';
+import { components } from './maps/components';
 
 export const theme = createTheme({
   breakpoints,
@@ -17,4 +18,5 @@ export const theme = createTheme({
   zIndex,
   transitions,
   typography,
+  components,
 });

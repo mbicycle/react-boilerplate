@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FC, useCallback } from 'react';
+import { FC, memo, useCallback } from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import { Box, Typography } from '@mui/material';
@@ -47,4 +47,4 @@ const CustomStepper = function (): JSX.Element {
   );
 };
 
-export default CustomStepper;
+export default memo(CustomStepper);

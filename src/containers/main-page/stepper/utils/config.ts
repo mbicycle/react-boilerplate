@@ -11,13 +11,8 @@ export const CV_FORM_STEPS = ['PERSONAL INFORMATION',
   'CERTIFICATIONS'];
 
 export enum STEP {
-    NEXT = 'Next',
-    FINISH = 'Finish'
-}
-
-export enum STEP {
-    NEXT = 'Next',
-    FINISH = 'Finish'
+    Next = 'Next',
+    Finish = 'Finish'
 }
 
 export const getFormByStep = (step: number): ({ value, handleChange }: any) => JSX.Element => {

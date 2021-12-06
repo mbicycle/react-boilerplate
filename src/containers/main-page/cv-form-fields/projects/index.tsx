@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface ProjectsProps {
     value: { [key: string]: string };
@@ -12,4 +12,4 @@ const Projects = function ({ value }: ProjectsProps): JSX.Element {
   );
 };
 
-export default Projects;
+export default memo(Projects);

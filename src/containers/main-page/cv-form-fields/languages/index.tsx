@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface LanguagesProps {
     value: { [key: string]: string };
@@ -12,4 +12,4 @@ const Languages = function ({ value }: LanguagesProps): JSX.Element {
   );
 };
 
-export default Languages;
+export default memo(Languages);

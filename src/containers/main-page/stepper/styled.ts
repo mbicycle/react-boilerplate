@@ -15,13 +15,15 @@ export const StepLabelStyled = styled(StepLabel)(({ theme }) => ({
   },
 }));
 
-export const StepConnectorStyled = styled(StepConnector)(() => ({
-  padding: '0 2.8rem',
+export const StepConnectorStyled = styled(StepConnector)(({ theme }) => ({
+  paddingX: theme.spacing(7),
   '& span': {
-    borderColor: '#656565',
+    borderColor: theme.palette.divider,
   },
 }));
 
 export const StepperWrapperStyled = styled(Box)(() => ({
-  display: 'flex', flexDirection: 'row', pt: 2,
+  display: 'flex',
+  flexDirection: 'row',
+  pt: 2,
 }));

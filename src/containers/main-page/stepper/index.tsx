@@ -26,7 +26,6 @@ const CustomStepper = function (): JSX.Element {
   return (
     <>
       <Stepper activeStep={activeStep} connector={<StepConnectorStyled />}>
-
         {CV_FORM_STEPS.map((label) => (
           <Step key={label} sx={{ padding: 0 }}>
             <StepLabelStyled>

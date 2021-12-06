@@ -15,6 +15,11 @@ export enum STEP {
     FINISH = 'Finish'
 }
 
+export enum STEP {
+    NEXT = 'Next',
+    FINISH = 'Finish'
+}
+
 export const getFormByStep = (step: number): ({ value, handleChange }: any) => JSX.Element => {
   const cvSteps: { [key: number]: ({ value, handleChange }: any) => JSX.Element } = {
     0: PersonalInformation,

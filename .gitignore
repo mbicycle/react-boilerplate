@@ -3,6 +3,10 @@
 .vscode
 .idea
 
+# IDE
+.vscode
+.idea
+
 # dependencies
 /node_modules
 /.pnp
@@ -27,3 +31,6 @@ yarn-error.log*
 
 # inner files
 workspace.code-workspace
+
+# DOTENV
+.env

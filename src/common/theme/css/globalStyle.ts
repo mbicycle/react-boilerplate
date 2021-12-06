@@ -8,6 +8,10 @@ export default createGlobalStyle`
       -webkit-box-shadow: 0 0 0 30px white inset !important;
       height: 0;
   }
+  
+  a { 
+    color: transparent;
+  }
 
   html, body, #root {
     height: 100vh;

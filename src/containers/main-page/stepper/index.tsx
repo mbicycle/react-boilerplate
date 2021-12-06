@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import { Box, Typography } from '@mui/material';
@@ -12,35 +12,28 @@ const CustomStepper = function (): JSX.Element {
   const { value, handleChange } = useForm();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const stepsArrayRaw = Object.values(CV_FORM_STEPS);
-  const steps = stepsArrayRaw.slice(0, (stepsArrayRaw.length / 2));
-
   // TODO: Implement Nice interface & replace it everywhere
   const CurrentStepComponent: FC<{ value: { [key: string]: string }, handleChange: (e: { target: HTMLInputElement; }) => void }> = getFormByStep(activeStep);
 
-  const handleNext = (): void => {
-    if (activeStep < steps.length - 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+  const handleNext = useCallback((): void => {
+    if (activeStep < CV_FORM_STEPS.length - 1) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  }, []);
 
-  const handleBack = (): void => {
+  const handleBack = useCallback((): void => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  }, []);
 
   return (
     <>
       <Stepper activeStep={activeStep} connector={<StepConnectorStyled />}>
 
-        {steps.map((label) => {
-          const stepProps: { completed?: boolean } = {};
-          const labelProps: { optional?: React.ReactNode } = {};
-          return (
-            <Step key={label} {...stepProps} sx={{ padding: 0 }}>
-              <StepLabelStyled {...labelProps}>
-                <Typography variant="body2" noWrap>{label}</Typography>
-              </StepLabelStyled>
-            </Step>
-          );
-        })}
+        {CV_FORM_STEPS.map((label) => (
+          <Step key={label} sx={{ padding: 0 }}>
+            <StepLabelStyled>
+              <Typography variant="body2" noWrap>{label}</Typography>
+            </StepLabelStyled>
+          </Step>
+        ))}
       </Stepper>
       <Box pt="4.2rem">
         <CurrentStepComponent value={value} handleChange={handleChange} />

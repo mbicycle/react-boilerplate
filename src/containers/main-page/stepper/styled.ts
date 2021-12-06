@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { StepConnector, StepLabel } from '@mui/material';
+import { Box, StepConnector, StepLabel } from '@mui/material';
 
 export const StepLabelStyled = styled(StepLabel)(({ theme }) => ({
   '& span .Mui-completed': {
@@ -20,4 +20,8 @@ export const StepConnectorStyled = styled(StepConnector)(() => ({
   '& span': {
     borderColor: '#656565',
   },
+}));
+
+export const StepperWrapperStyled = styled(Box)(() => ({
+  display: 'flex', flexDirection: 'row', pt: 2,
 }));

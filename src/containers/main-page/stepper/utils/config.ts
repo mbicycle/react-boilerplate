@@ -4,12 +4,15 @@ import Projects from 'containers/main-page/cv-form-fields/projects';
 import Skills from 'containers/main-page/cv-form-fields/skills';
 import PersonalInformation from '../../cv-form-fields/personal-information';
 
-export enum CV_FORM_STEPS {
-    'PERSONAL INFORMATION',
-    'LANGUAGES',
-    'SKILLS',
-    'PROJECTS',
-    'CERTIFICATIONS',
+export const CV_FORM_STEPS = ['PERSONAL INFORMATION',
+  'LANGUAGES',
+  'SKILLS',
+  'PROJECTS',
+  'CERTIFICATIONS'];
+
+export enum STEP {
+    NEXT = 'Next',
+    FINISH = 'Finish'
 }
 
 export const getFormByStep = (step: number): ({ value, handleChange }: any) => JSX.Element => {

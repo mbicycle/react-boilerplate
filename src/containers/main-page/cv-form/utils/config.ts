@@ -9,7 +9,7 @@ export const CV_FORM_STEPS = ['PERSONAL INFORMATION',
   'LANGUAGES',
   'SKILLS',
   'PROJECTS',
-  'CERTIFICATIONS'];
+  'CERTIFICATIONS'] as const;
 
 export enum Step {
     Next = 'Next',

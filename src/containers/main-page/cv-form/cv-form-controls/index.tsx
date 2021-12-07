@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import { Box, Button } from '@mui/material';
 import { StepperControlsWrapper } from '../styled';
 import { Step } from '../utils/config';
 
@@ -20,7 +19,7 @@ const CVFormControls = function ({
   return (
     <StepperControlsWrapper>
       <Button
-        disabled={activeStep === 0}
+        disabled={!activeStep}
         onClick={handlePrevious}
         variant="contained"
         color="secondary"

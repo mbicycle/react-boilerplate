@@ -1,9 +1,9 @@
-import { spacing } from '../spacing';
+import { defaultTheme } from '../defaultTheme';
 
 const MuiButton = {
   styleOverrides: {
     root: {
-      padding: `${spacing(3.5)} ${spacing(11)}`,
+      padding: defaultTheme.spacing(3.5, 11),
       boxShadow: 'none',
       ':hover': {
         boxShadow: 'none',

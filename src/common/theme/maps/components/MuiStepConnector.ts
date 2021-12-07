@@ -1,10 +1,10 @@
 import { palette } from '../palette';
-import { spacing } from '../spacing';
+import { defaultTheme } from '../defaultTheme';
 
 const MuiStepConnector = {
   styleOverrides: {
     root: {
-      padding: `0 ${spacing(7)}`,
+      padding: defaultTheme.spacing(0, 7),
       '& span': {
         borderColor: palette.divider,
       },

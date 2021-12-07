@@ -7,7 +7,7 @@ const Projects = function (): JSX.Element {
       <Typography variant="h5" fontWeight={600}>
         Add a project
       </Typography>
-      <Typography variant="body1" sx={{ padding: '0.8rem 0 2.4rem 0' }}>
+      <Typography variant="body1" color="textSecondary" sx={{ padding: '0.8rem 0 2.4rem 0' }}>
         Any explanation text
       </Typography>
     </>

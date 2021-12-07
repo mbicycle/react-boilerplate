@@ -4,6 +4,10 @@ export enum Color {
     BlueDark = '#002fad',
     White = '#fff',
     Black = '#232323',
+    Grey = '#656565',
+    GreyLight = '#F6F7F9',
+    GreyDark = '#c3c4c6',
+    GreyLightBlue = '#E2E6EF'
 }
 
 export const spacingUnit = 0.4;

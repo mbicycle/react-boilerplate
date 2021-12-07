@@ -1,6 +1,6 @@
 import { CVFormStepperAction, CVFormStepperState } from './CVFormStepperContext';
 
-export const CVFormStepperReducer = (
+export const cvFormStepperReducer = (
   state: CVFormStepperState,
   action: CVFormStepperAction,
 ): CVFormStepperState => {
@@ -9,5 +9,6 @@ export const CVFormStepperReducer = (
     next: { activeStep: activeStep + 1 },
     prev: { activeStep: activeStep - 1 },
   };
+
   return reducerMap[action.type];
 };

@@ -1,20 +1,10 @@
-import Certifications from 'containers/main-page/cv-form/cv-form-fields/certifications';
-import Languages from 'containers/main-page/cv-form/cv-form-fields/languages';
-import Projects from 'containers/main-page/cv-form/cv-form-fields/projects';
-import Skills from 'containers/main-page/cv-form/cv-form-fields/skills';
 import { MemoExoticComponent } from 'react';
+
+import Skills from '../cv-form-fields/skills';
 import PersonalInformation from '../cv-form-fields/personal-information';
-
-export const CV_FORM_STEPS = ['PERSONAL INFORMATION',
-  'LANGUAGES',
-  'SKILLS',
-  'PROJECTS',
-  'CERTIFICATIONS'] as const;
-
-export enum Step {
-    Next = 'Next',
-    Finish = 'Finish'
-}
+import Languages from '../cv-form-fields/languages';
+import Projects from '../cv-form-fields/projects';
+import Certifications from '../cv-form-fields/certifications';
 
 export const FORM_MAP: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

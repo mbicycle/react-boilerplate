@@ -1,9 +1,10 @@
-import React, { FC, useMemo, useReducer } from 'react';
+import { FC, useMemo, useReducer } from 'react';
+
 import { CVFormStepperContext } from './CVFormStepperContext';
-import { CVFormStepperReducer } from './reducers';
+import { cvFormStepperReducer } from './reducers';
 
 const CvFormStepperProvider: FC = function ({ children }): JSX.Element {
-  const [CVFormStepperState, CVFormStepperDispatch] = useReducer(CVFormStepperReducer, { activeStep: 0 });
+  const [CVFormStepperState, CVFormStepperDispatch] = useReducer(cvFormStepperReducer, { activeStep: 0 });
   const value = useMemo(
     () => ({ state: CVFormStepperState, dispatch: CVFormStepperDispatch }),
     [CVFormStepperState],

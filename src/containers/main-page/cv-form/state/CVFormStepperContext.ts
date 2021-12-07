@@ -4,10 +4,10 @@ export interface CVFormStepperState {
     activeStep: number;
 }
 
-export type CVFormStepperActionTypes = 'next' | 'prev';
+export type CVFormStepperActionType = 'next' | 'prev';
 
 export interface CVFormStepperAction {
-    type: CVFormStepperActionTypes
+    type: CVFormStepperActionType
 }
 
 export type CVFormStepperDispatch = (action: CVFormStepperAction) => void;

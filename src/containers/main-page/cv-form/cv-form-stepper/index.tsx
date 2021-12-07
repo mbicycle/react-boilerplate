@@ -1,8 +1,10 @@
-import React, { memo } from 'react';
-import Step from '@mui/material/Step';
-import { StepLabel, Typography } from '@mui/material';
-import Stepper from '@mui/material/Stepper';
-import { CV_FORM_STEPS } from '../utils/config';
+import React from 'react';
+
+import {
+  Step, StepLabel, Stepper, Typography,
+} from '@mui/material';
+
+import { CV_FORM_STEPS } from '../utils/constants';
 
 interface CVFormStepperProps {
     activeStep: number
@@ -12,7 +14,7 @@ const CVFormStepper = function ({ activeStep }: CVFormStepperProps): JSX.Element
   return (
     <Stepper activeStep={activeStep}>
       {CV_FORM_STEPS.map((label) => (
-        <Step key={label} sx={{ padding: 0 }}>
+        <Step sx={{ padding: 0 }}>
           <StepLabel>
             <Typography variant="body2" noWrap>{label}</Typography>
           </StepLabel>
@@ -22,4 +24,4 @@ const CVFormStepper = function ({ activeStep }: CVFormStepperProps): JSX.Element
   );
 };
 
-export default memo(CVFormStepper);
+export default CVFormStepper;

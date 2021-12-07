@@ -1,7 +1,9 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
+
 import { Box, Button } from '@mui/material';
+
 import { StepperControlsWrapper } from '../styled';
-import { Step } from '../utils/config';
+import { Step } from '../utils/constants';
 
 interface StepperControlsProps {
     activeStep: number;

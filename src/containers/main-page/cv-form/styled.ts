@@ -4,13 +4,12 @@ import { Box } from '@mui/material';
 export const StepperControlsWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  paddingTop: theme.spacing(12),
-  borderTop: '1px solid #DADCE1',
+  padding: theme.spacing(12, 15),
+  borderTop: `1px solid ${theme.palette.secondary.dark}`,
 }));
 
-export const CVFormWrapper = styled(Box)(() => ({
+export const CVFormWrapper = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
   height: '100%',
-}));
+});

@@ -6,5 +6,6 @@ export const useFormData = (): ContextType => {
   if (context === undefined) {
     throw new Error('useCVFormStepper must be used within a CVFormStepperProvider');
   }
+
   return context;
 };

@@ -1,15 +1,15 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import { Box } from '@mui/material';
 
 import { useFormData } from './state/hooks';
 import { FORM_MAP } from './utils/config';
-import { NEXT_STEP, PREV_STEP } from './state/actions';
+// import { NEXT_STEP, PREV_STEP } from './state/actions';
 import { CV_FORM_STEPS } from './utils/constants';
 
-import CVFormStepper from './cv-form-stepper';
-import CVFormControls from './cv-form-controls';
-import CVFormTitle from './cv-form-title';
+import CVFormStepper from './stepper';
+import CVFormControls from './controls';
+import CVFormTitle from './title';
 
 import { CVFormWrapper } from './styled';
 
@@ -18,14 +18,14 @@ const CVForm = function (): JSX.Element {
   const { activeStep } = state;
 
   const handleNext = useCallback((): void => {
-    if (activeStep < CV_FORM_STEPS.length - 1) dispatch(NEXT_STEP);
+    if (activeStep < CV_FORM_STEPS.length - 1) dispatch({ type: 'next' });
   }, [activeStep, dispatch]);
 
   const handlePrevious = useCallback((): void => {
-    dispatch(PREV_STEP);
+    dispatch({ type: 'prev' });
   }, [dispatch]);
 
-  const CVFormCurrentStepComponent = FORM_MAP[activeStep];
+  const CVFormCurrentStepComponent = useMemo(() => FORM_MAP[activeStep], [activeStep]);
 
   return (
     <CVFormWrapper>

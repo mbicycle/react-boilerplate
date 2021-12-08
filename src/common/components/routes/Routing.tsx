@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { CircularProgress } from '@mui/material';
@@ -6,7 +7,6 @@ import { LoginRoute } from 'common/components/routes/LoginRoute';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
 import { useAuth } from 'authentication/auth';
 
-import { memo } from 'react';
 import { ROUTE } from './utils/constants';
 import MainPage from '../../../containers/main-page';
 

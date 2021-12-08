@@ -1,15 +1,13 @@
-import { MemoExoticComponent } from 'react';
+import { ComponentType, MemoExoticComponent } from 'react';
 
-import Certifications from '../fields/certifications';
-import Languages from '../fields/languages';
-import Skills from '../fields/skills';
-import Projects from '../fields/projects';
-import PersonalInformation from '../fields/personal-information';
+import Certifications from '../components/fields/certifications';
+import Languages from '../components/fields/languages';
+import Skills from '../components/fields/skills';
+import Projects from '../components/fields/projects';
+import PersonalInformation from '../components/fields/personal-information';
 
 export const FORM_MAP: {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  [key: number]: MemoExoticComponent<unknown>;
+  [key: number]: MemoExoticComponent<ComponentType<unknown>>;
 } = {
   0: PersonalInformation,
   1: Languages,

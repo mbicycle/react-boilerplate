@@ -2,8 +2,9 @@ import { memo } from 'react';
 
 import { Box, Button } from '@mui/material';
 
-import { StepperControlsWrapper } from '../styled';
-import { Step } from '../utils/constants';
+import { Step } from '../../utils/constants';
+
+import { StepperControlsWrapper } from './styled';
 
 interface StepperControlsProps {
     activeStep: number;
@@ -26,7 +27,7 @@ const CVFormControls = function ({
         variant="contained"
         color="secondary"
       >
-        Back
+        {Step.Back}
       </Button>
       <Box />
       {activeStep <= stepsLength && (

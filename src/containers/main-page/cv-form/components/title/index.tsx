@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { FieldFormTitleWrapper, FieldSubTitleStyled, FieldTitleStyled } from './styled';
-import { CVTitles } from '../utils/constants';
+import { CVTitles } from '../../utils/constants';
 
 interface CVFormTitleProps {
     activeStep: number;

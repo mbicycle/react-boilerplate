@@ -5,12 +5,13 @@ export const CV_FORM_STEPS = ['PERSONAL INFORMATION',
   'CERTIFICATIONS'] as const;
 
 export enum Step {
-    Next = 'Next',
-    Finish = 'Finish'
+  Back = 'Back',
+  Next = 'Next',
+  Finish = 'Finish'
 }
 
 interface CVTitlesInterface {
-    [key: number]: { title: string, description: string }
+  [key: number]: { title: string, description: string; };
 }
 
 export const CVTitles: CVTitlesInterface = {

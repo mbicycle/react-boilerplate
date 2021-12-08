@@ -1,10 +1,9 @@
-import React from 'react';
-
 import {
   Step, StepLabel, Stepper, Typography,
 } from '@mui/material';
+import { memo } from 'react';
 
-import { CV_FORM_STEPS } from '../utils/constants';
+import { CV_FORM_STEPS } from '../../utils/constants';
 
 interface CVFormStepperProps {
     activeStep: number
@@ -24,4 +23,4 @@ const CVFormStepper = function ({ activeStep }: CVFormStepperProps): JSX.Element
   );
 };
 
-export default CVFormStepper;
+export default memo(CVFormStepper);

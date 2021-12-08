@@ -1,8 +1,10 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Box } from '@mui/material';
-import { FormWrapperStyled, MainPageContainerStyled, PreviewWrapperStyled } from './styled';
+
 import CVForm from './cv-form';
 import CvFormStepperProvider from './cv-form/local-state/CVFormStepperProvider';
+
+import { FormWrapperStyled, MainPageContainerStyled, PreviewWrapperStyled } from './styled';
 
 const MainPage = function (): JSX.Element {
   return (

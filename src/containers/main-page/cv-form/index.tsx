@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 
 import { useFormData } from './local-state/hooks';
 import { FORM_MAP } from './utils/config';
-// import { NEXT_STEP, PREV_STEP } from './state/actions';
 import { CV_FORM_STEPS } from './utils/constants';
 
 import CVFormStepper from './components/stepper';

@@ -10,11 +10,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 import AppSnackbarProvider from 'common/providers/AppSnackbar/AppSnackbarProvider';
 import ReactQueryProvider from 'common/providers/ReactQueryProvider';
-import theme from 'common/theme';
 import { AuthProvider } from 'authentication/auth';
-
-import { ContainerStyled } from 'styled';
 import GlobalStyle from 'common/theme/css/globalStyle';
+import theme from './common/theme';
 
 dotenv.config();
 
@@ -28,10 +26,8 @@ const App = function (): JSX.Element {
             <GlobalStyle />
             <ReactQueryProvider>
               <AuthProvider>
-                <ContainerStyled>
-                  <ApplicationBar />
-                  <Routing />
-                </ContainerStyled>
+                <ApplicationBar />
+                <Routing />
               </AuthProvider>
             </ReactQueryProvider>
           </ThemeProvider>

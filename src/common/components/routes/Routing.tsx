@@ -1,13 +1,14 @@
+import { memo } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { CircularProgress, Typography } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
 import { LoginRoute } from 'common/components/routes/LoginRoute';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
 import { useAuth } from 'authentication/auth';
 
-import { memo } from 'react';
 import { ROUTE } from './utils/constants';
+import MainPage from '../../../containers/main-page';
 
 const Routing = function (): JSX.Element {
   const { user, isLoggingIn, isRegistering } = useAuth();
@@ -21,11 +22,7 @@ const Routing = function (): JSX.Element {
         path={ROUTE.DEFAULT}
         element={(
           <PrivateRoute>
-            <div>
-              <Typography>Left</Typography>
-              <div>Right</div>
-              <Typography variant="h4">Main component works!</Typography>
-            </div>
+            <MainPage />
           </PrivateRoute>
         )}
       />

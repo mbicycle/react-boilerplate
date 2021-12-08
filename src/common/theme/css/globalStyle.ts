@@ -20,19 +20,15 @@ export default createGlobalStyle`
   html {
     font-size: 62.5%;
   }
-  
-  a { 
+
+  a {
     color: transparent;
   }
-html {
-  font-size: 62.5%;
-}
+
   html, body, #root {
     height: 100vh;
-
     letter-spacing: 0.5px;
     background: linear-gradient(135deg, rgb(250 250 250) 0%, rgb(254 254 254) 0%, rgb(236 249 255) 100%);
-    justify-content: space-between;
 
     *::-webkit-scrollbar-track {
       border-radius: 10px;

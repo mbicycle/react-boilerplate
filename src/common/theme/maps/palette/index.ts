@@ -1,15 +1,21 @@
+import { Color } from '../config';
+
 export const palette = {
   primary: {
-    main: '#2A57E0',
-    contrastText: '#fff',
+    main: Color.Blue,
+    light: Color.BlueLight,
+    dark: Color.BlueDark,
+    contrastText: Color.White,
   },
   secondary: {
-    main: '#E2E6EF',
-    contrastText: '#2A57E0',
+    main: Color.GreyLight,
+    light: Color.White,
+    dark: Color.GreyDark,
+    contrastText: Color.Blue,
   },
   text: {
-    primary: '#232323',
-    secondary: '#7D858E',
+    primary: Color.Black,
+    secondary: Color.Grey,
   },
-  divider: '#656565',
+  divider: Color.GreyDark,
 };

@@ -1,20 +1,25 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Box, Toolbar } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 
 import { ROUTE } from 'common/components/routes/utils/constants';
 
-import { LogoIconStyled } from './styled';
+import { useAuth } from 'authentication/auth';
+
+import { LogoIconStyled, ToolbarStyled } from './styled';
 
 const ApplicationBar = function (): JSX.Element {
+  const { user } = useAuth();
+
   return (
     <Box height="8rem" bgcolor="primary.main">
-      <Toolbar>
+      <ToolbarStyled>
         <Link to={ROUTE.DEFAULT}>
           <LogoIconStyled fontSize="large" />
         </Link>
-      </Toolbar>
+        <Avatar alt={user?.email} src={user?.avatarUrl} />
+      </ToolbarStyled>
     </Box>
   );
 };

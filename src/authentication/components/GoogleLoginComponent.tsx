@@ -21,6 +21,8 @@ const GoogleLoginComponent = function (): JSX.Element {
 
   const onSuccessHandle = async (result: GoogleLoginResponseType): Promise<void> => {
     storage.setExpiresAt((result as GoogleLoginResponse).tokenObj.expires_at);
+    // TODO Delete me
+    console.log(result);
 
     await refreshTokenSetup(result as GoogleLoginResponse);
     await login(result);

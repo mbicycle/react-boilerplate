@@ -1,13 +1,13 @@
-import { ComponentType, MemoExoticComponent } from 'react';
+import { ComponentType, lazy, LazyExoticComponent } from 'react';
 
-import Certifications from '../components/fields/certifications';
-import Languages from '../components/fields/languages';
-import Skills from '../components/fields/skills';
-import Projects from '../components/fields/projects';
-import PersonalInformation from '../components/fields/personal-information';
+const Languages = lazy(() => import('../components/fields/languages'));
+const Skills = lazy(() => import('../components/fields/skills'));
+const Projects = lazy(() => import('../components/fields/projects'));
+const PersonalInformation = lazy(() => import('../components/fields/personal-information'));
+const Certifications = lazy(() => import('../components/fields/certifications'));
 
 export const FORM_MAP: {
-  [key: number]: MemoExoticComponent<ComponentType<unknown>>;
+  [key: number]: LazyExoticComponent<ComponentType<unknown>>;
 } = {
   0: PersonalInformation,
   1: Languages,

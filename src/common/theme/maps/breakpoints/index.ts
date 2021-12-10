@@ -1,4 +1,12 @@
-import { Breakpoints } from '@mui/material';
+import { Breakpoints, Theme } from '@mui/material';
+
+declare module '@mui/material/styles' {
+  type DefaultTheme = Theme;
+  interface BreakpointOverrides {
+    xxs: true,
+    xxl: true;
+  }
+}
 
 export const breakpoints: Partial<
   { unit: string; step: number; } & Partial<Breakpoints>

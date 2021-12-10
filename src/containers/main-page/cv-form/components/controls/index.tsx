@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 
 import { CV_FORM_STEPS, Step } from '../../utils/constants';
 
@@ -31,7 +31,6 @@ const CVFormControls = function (): JSX.Element {
       >
         {Step.Back}
       </Button>
-      <Box />
       {activeStep <= stepsLength && (
         <Button onClick={handleNext} variant="contained">
           {activeStep === stepsLength ? Step.Finish : Step.Next}

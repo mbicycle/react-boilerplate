@@ -5,9 +5,12 @@ import App from './App';
 
 import reportWebVitals from './reportWebVitals';
 
-const rootElement = document.getElementById('root');
+const container = document.getElementById('root');
 
-ReactDOM.render(<App />, rootElement);
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const root = ReactDOM.createRoot(container);
+root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

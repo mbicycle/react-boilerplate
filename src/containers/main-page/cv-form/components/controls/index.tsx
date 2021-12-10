@@ -2,23 +2,25 @@ import { memo } from 'react';
 
 import { Box, Button } from '@mui/material';
 
-import { Step } from '../../utils/constants';
+import { CV_FORM_STEPS, Step } from '../../utils/constants';
 
 import { StepperControlsWrapper } from './styled';
+import { useFormData } from '../../local-state/hooks';
 
-interface StepperControlsProps {
-    activeStep: number;
-    handlePrevious: VoidFunction;
-    handleNext: VoidFunction;
-    stepsLength: number;
-}
+const CVFormControls = function (): JSX.Element {
+  const { state, dispatch } = useFormData();
+  const { activeStep } = state;
 
-const CVFormControls = function ({
-  activeStep,
-  stepsLength,
-  handlePrevious,
-  handleNext,
-}: StepperControlsProps): JSX.Element {
+  const handlePrevious = (): void => {
+    dispatch({ type: 'prev' });
+  };
+
+  const handleNext = (): void => {
+    if (activeStep < CV_FORM_STEPS.length - 1) dispatch({ type: 'next' });
+  };
+
+  const stepsLength = CV_FORM_STEPS.length - 1;
+
   return (
     <StepperControlsWrapper>
       <Button

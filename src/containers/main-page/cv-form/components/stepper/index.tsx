@@ -1,15 +1,17 @@
+import { memo } from 'react';
+
 import {
   Step, StepLabel, Stepper, Typography,
 } from '@mui/material';
-import { memo } from 'react';
+
+import { useFormData } from '../../local-state/hooks';
 
 import { CV_FORM_STEPS } from '../../utils/constants';
 
-interface CVFormStepperProps {
-    activeStep: number
-}
+const CVFormStepper = function (): JSX.Element {
+  const { state } = useFormData();
+  const { activeStep } = state;
 
-const CVFormStepper = function ({ activeStep }: CVFormStepperProps): JSX.Element {
   return (
     <Stepper activeStep={activeStep}>
       {CV_FORM_STEPS.map((label) => (

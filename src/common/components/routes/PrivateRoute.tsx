@@ -3,7 +3,7 @@ import {
   Navigate, RouteProps, useLocation,
 } from 'react-router-dom';
 
-import { useAuth } from 'authentication/auth';
+import { useAuth } from 'containers/authentication/auth';
 import { ROUTE } from './utils/constants';
 
 interface PrivateRouteProps extends RouteProps {

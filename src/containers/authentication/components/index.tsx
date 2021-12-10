@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 
-import GoogleLoginComponent from 'authentication/components/GoogleLoginComponent';
-import { Text } from 'authentication/utils/constants';
+import GoogleLoginComponent from 'containers/authentication/components/GoogleLoginComponent';
+import { Text } from 'containers/authentication/utils/constants';
 
 import {
   ColoredLogoContainerStyled, LoginContainerStyled, LogoColoredIconStyled, PaperStyled,

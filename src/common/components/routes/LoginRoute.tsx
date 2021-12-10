@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import Login from 'authentication/components';
-import { User } from 'authentication/api';
+import Login from 'containers/authentication/components';
+import { User } from 'containers/authentication/api';
 import { ROUTE } from './utils/constants';
 
 interface MsLoginRouteProps {

@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import AppSnackbarProvider from 'common/providers/AppSnackbar/AppSnackbarProvider';
 import ReactQueryProvider from 'common/providers/ReactQueryProvider';
-import { AuthProvider } from 'authentication/auth';
+import { AuthProvider } from 'containers/authentication/auth';
 import GlobalStyle from 'common/theme/css/globalStyle';
 import theme from './common/theme';
 

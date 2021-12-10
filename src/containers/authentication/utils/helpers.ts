@@ -1,4 +1,4 @@
-import { loginWithGoogleTokenId } from 'authentication/api';
+import { loginWithGoogleTokenId } from 'containers/authentication/api';
 import { GoogleLoginResponse } from 'react-google-login';
 
 const convertTo = (unit: 'milliseconds' | 'seconds', timing: number): number => {

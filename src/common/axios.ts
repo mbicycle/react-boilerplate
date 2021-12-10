@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { storage } from 'authentication/utils/storage';
+import { storage } from 'containers/authentication/utils/storage';
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

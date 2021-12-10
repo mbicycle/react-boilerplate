@@ -5,7 +5,7 @@ import { Avatar, Box, Button } from '@mui/material';
 
 import { ROUTE } from 'common/components/routes/utils/constants';
 
-import { useAuth } from 'authentication/auth';
+import { useAuth } from 'containers/authentication/auth';
 
 import { LogoIconStyled, ToolbarStyled } from './styled';
 

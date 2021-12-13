@@ -1,26 +1,21 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+
+import { ExtendedFileType } from './utils/types';
 
 import {
   IconButtonStyled, ImageStyled,
   ShumbInnerStyled, ThumbStyled,
 } from './utils/styled';
-import { ExtendedFileType } from './utils/types';
 
-interface ThumbsProps {
-files:ExtendedFileType[]
-onDropFileSelection: VoidFunction
-}
-
-const Thumbs = function ({ files, onDropFileSelection }: ThumbsProps): JSX.Element {
-  useEffect(() => () => {
-    files.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, [files]);
-
+const Thumbs = function ({
+  files,
+  onDropFiles,
+}:{files: ExtendedFileType[], onDropFiles:VoidFunction}): JSX.Element {
   const onDeleteImageHandle = (event: React.MouseEvent): void => {
     event.stopPropagation();
-    onDropFileSelection();
+    onDropFiles();
   };
 
   return (

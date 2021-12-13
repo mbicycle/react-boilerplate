@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 
-import { Grid, IconButton } from '@mui/material';
+import { Grid, IconButton, Typography } from '@mui/material';
 
 import PersonIcon from 'common/icons/PersonIcon';
 
@@ -16,22 +16,20 @@ export const PersonIconStyled = styled(PersonIcon)(({ theme }) => ({
   marginRight: theme.spacing(3),
 }));
 
-export const ThumbContainerStyled = styled('aside')(({ theme }) => ({
+export const ThumbContainerStyled = styled('aside')({
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
-  marginTop: theme.spacing(3),
-}));
+});
 
 export const ThumbStyled = styled('div')(({ theme }) => ({
   display: 'inline-flex',
   borderRadius: '50%',
   border: `1px solid ${theme.palette.primary.main}`,
-  marginBottom: theme.spacing(3),
   marginRight: theme.spacing(3),
   marginLeft: theme.spacing(6),
-  width: 100,
-  height: 100,
+  width: 50,
+  height: 50,
   padding: theme.spacing(1),
   boxSizing: 'border-box',
 }));
@@ -52,6 +50,14 @@ export const ShumbInnerStyled = styled('div')({
 
 export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
-  marginTop: theme.spacing(-5),
-  marginLeft: theme.spacing(20),
+  marginTop: theme.spacing(-4),
+  marginLeft: theme.spacing(8),
 }));
+
+export const UploadOneStyled = styled(Typography)({
+  cursor: 'pointer',
+
+  '&:hover': {
+    textDecoration: 'underline',
+  },
+});

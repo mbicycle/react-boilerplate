@@ -1,19 +1,32 @@
+import { useDebouncedFn } from 'beautiful-react-hooks';
 import { useState } from 'react';
 
-export const useForm = (): { value: { [key: string]: string }, handleChange: (e: { target: HTMLInputElement }) => void, handleSubmit: () => typeof value } => {
-  const [value, setValue] = useState({
-    firstName: 'Alex',
-    lastName: 'Matveichikov',
-    email: 'alexander.matveichikov@mbicycle.com',
-    skype: 'kobuqa',
-  });
+type UseFormPropsReturnType = {
+  values: unknown | Record<string, unknown>,
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: () => void;
+};
 
-  const handleChange = (e: { target: HTMLInputElement }): void => setValue((prevState) => ({
-    ...prevState,
-    [e.target.name]: e.target.value,
-  }));
+export const useForm = (initialValues?: Record<string, unknown>): UseFormPropsReturnType => {
+  const [values, setValues] = useState(initialValues || {});
 
-  const handleSubmit = (): typeof value => value;
+  const handleChange = useDebouncedFn((e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.value === 'true' || e.target.value === 'false') {
+      setValues((v) => (
+        { ...v, [e.target.name]: e.target.value === 'false' }
+      ));
+    } else {
+      setValues((v) => (
+        { ...v, [e.target.name]: e.target.value.trim() }
+      ));
+    }
+  }, 300);
 
-  return { value, handleChange, handleSubmit };
+  const handleSubmit = (): typeof values => values;
+
+  return {
+    values,
+    handleChange,
+    handleSubmit,
+  };
 };

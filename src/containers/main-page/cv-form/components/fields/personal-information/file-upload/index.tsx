@@ -2,8 +2,8 @@ import { memo } from 'react';
 
 import { Typography } from '@mui/material';
 
-import { Text } from '../constants';
 import Thumbs from './Thumbs';
+import { Text } from './utils/types';
 import { useFileUpload } from './utils/hooks';
 
 import {

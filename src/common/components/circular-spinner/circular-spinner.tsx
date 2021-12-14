@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { CircularProgressStyled } from './styled';
+import { CircularProgressStyled, CircularProgressWrapperStyled } from './styled';
 
 type Size = 'tiny' | 'small' | 'medium' | 'large';
 const CircularSpinner = function (
@@ -22,7 +22,11 @@ const CircularSpinner = function (
     }
   };
 
-  return <CircularProgressStyled size={setSize()} color={color} />;
+  return (
+    <CircularProgressWrapperStyled>
+      <CircularProgressStyled size={setSize()} color={color} />
+    </CircularProgressWrapperStyled>
+  );
 };
 
 export default memo(CircularSpinner);

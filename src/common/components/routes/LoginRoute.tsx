@@ -11,6 +11,6 @@ interface MsLoginRouteProps {
 
 export const LoginRoute = memo(({ user }: MsLoginRouteProps) => (
   user
-    ? <Navigate to={ROUTE.DEFAULT} />
+    ? <Navigate to={`dashboard/${ROUTE.DASHBOARD.PERSONAL_INFORMATION}`} />
     : <Login />
 ));

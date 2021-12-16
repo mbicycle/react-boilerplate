@@ -4,7 +4,7 @@ export const cvFormStepperReducer = (
   state: CVFormStepperState,
   action: CVFormStepperActionType,
 ): CVFormStepperState => {
-  const { activeStep } = state;
+  const { activeStep } = { ...state };
 
   const reducerMap = {
     next: { activeStep: activeStep + 1 },

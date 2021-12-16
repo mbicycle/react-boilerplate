@@ -3,6 +3,7 @@ import MuiStepConnector from './MuiStepConnector';
 import MuiButton from './MuiButton';
 import MuiDivider from './MuiDivider';
 import MuiOutlinedInput from './MuiOutlinedInput';
+import MuiSelect from './MuiSelect';
 
 export const components = {
   MuiStepLabel,
@@ -10,4 +11,5 @@ export const components = {
   MuiButton,
   MuiDivider,
   MuiOutlinedInput,
+  MuiSelect,
 };

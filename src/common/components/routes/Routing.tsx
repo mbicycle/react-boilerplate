@@ -5,6 +5,7 @@ import { LoginRoute } from 'common/components/routes/LoginRoute';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
 import { useAuth } from 'containers/authentication/auth';
 
+import Login from 'containers/authentication/components';
 import { ROUTE } from './utils/constants';
 import MainPage from '../../../containers/main-page';
 import CircularSpinner from '../circular-spinner/circular-spinner';
@@ -23,16 +24,16 @@ const Routing = function (): JSX.Element {
 
   return (
     <Routes>
-      <Route path={ROUTE.LOGIN} element={<LoginRoute user={user} />} />
+      <Route path="/" element={<LoginRoute user={user} />} />
+      <Route path={ROUTE.LOGIN} element={<Login />} />
       <Route
-        path={ROUTE.DEFAULT}
+        path={ROUTE.DASHBOARD.DEFAULT}
         element={(
           <PrivateRoute>
             <MainPage />
           </PrivateRoute>
         )}
       />
-
       <Route path="*" element={<div>Not found</div>} />
     </Routes>
   );

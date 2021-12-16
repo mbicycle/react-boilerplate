@@ -1,5 +1,13 @@
 import { ROUTE } from 'common/components/routes/utils/constants';
 
+export const enum Step {
+  PersonalInformation,
+  Languages,
+  Skills,
+  Projects,
+  Certifications
+}
+
 export const CV_FORM_STEPS = [
   {
     text: 'PERSONAL INFORMATION',
@@ -7,7 +15,7 @@ export const CV_FORM_STEPS = [
   },
   {
     text: 'LANGUAGES',
-    route: ROUTE.DASHBOARD.LANGUAGES,
+    route: ROUTE.DASHBOARD.LANGUAGES.MAIN,
   },
   {
     text: 'SKILLS',
@@ -22,7 +30,7 @@ export const CV_FORM_STEPS = [
     route: ROUTE.DASHBOARD.CERTIFICATES,
   }] as const;
 
-export enum Step {
+export enum ButtonStep {
   Back = 'Back',
   Next = 'Next',
   Finish = 'Finish',

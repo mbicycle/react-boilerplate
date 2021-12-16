@@ -1,34 +1,22 @@
-import { memo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { memo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 
-import { CV_FORM_STEPS, Step } from '../../utils/constants';
+import { ROUTE } from 'common/components/routes/utils/constants';
+
+import { ButtonStep, Step } from '../../utils/constants';
+import { useSetLanguages } from './hooks';
 
 import { StepperControlsWrapper } from './styled';
-import { useFormData } from '../../local-state/hooks';
 
-const CVFormControls = function (): JSX.Element {
-  const { state, dispatch } = useFormData();
-  const navigate = useNavigate();
-  const { activeStep } = state;
+const CVFormControls = function (): JSX.Element | null {
+  const location = useLocation();
+  const { activeStep, handleNext, handlePrevious } = useSetLanguages();
 
-  const handlePrevious = (): void => {
-    navigate(-1);
-    dispatch({ type: 'prev' });
-  };
+  const stepsLength = Step.Certifications;
 
-  const handleNext = (): void => {
-    if (activeStep < CV_FORM_STEPS.length - 1) {
-      dispatch({ type: 'next' });
-    }
-  };
-
-  useEffect(() => {
-    navigate(CV_FORM_STEPS[activeStep].route);
-  }, [activeStep, navigate]);
-
-  const stepsLength = CV_FORM_STEPS.length - 1;
+  if (location.pathname.includes(ROUTE.DASHBOARD.LANGUAGES.ADD)) return null;
 
   return (
     <StepperControlsWrapper>
@@ -38,11 +26,11 @@ const CVFormControls = function (): JSX.Element {
         variant="contained"
         color="secondary"
       >
-        {Step.Back}
+        {ButtonStep.Back}
       </Button>
       {activeStep <= stepsLength && (
         <Button onClick={handleNext} variant="contained">
-          {activeStep === stepsLength ? Step.Finish : Step.Next}
+          {activeStep === stepsLength ? ButtonStep.Finish : ButtonStep.Next}
         </Button>
       )}
     </StepperControlsWrapper>

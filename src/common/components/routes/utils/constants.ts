@@ -2,9 +2,12 @@ export const ROUTE = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   DASHBOARD: {
-    DEFAULT: 'dashboard/*',
+    DEFAULT: '/dashboard/*',
     PERSONAL_INFORMATION: 'personal-information',
-    LANGUAGES: 'languages',
+    LANGUAGES: {
+      MAIN: 'languages',
+      ADD: 'languages/add',
+    },
     SKILLS: 'skills',
     PROJECTS: 'projects',
     CERTIFICATES: 'certificates',

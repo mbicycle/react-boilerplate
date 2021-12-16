@@ -7,10 +7,14 @@ import { LANGUAGE } from './utils/constants';
 
 import { TitleWrapperStyled } from './utils/styled';
 
-const LanguageTitle = function (): JSX.Element {
+const LanguageTitle = function ({ onReturn }:{onReturn: VoidFunction}): JSX.Element {
+  const onBackHandle = (): void => {
+    onReturn();
+  };
+
   return (
     <TitleWrapperStyled>
-      <IconButton size="small" sx={{ marginRight: 1 }}>
+      <IconButton onClick={onBackHandle} size="small" sx={{ marginRight: 1 }}>
         <ChevronLeftIcon color="primary" />
       </IconButton>
       <Typography variant="body1">

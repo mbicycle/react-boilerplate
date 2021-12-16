@@ -1,60 +1,45 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/material';
 
-import SelectOutlined from 'common/components/select-outlined';
-import { Step } from 'containers/main-page/cv-form/utils/constants';
+import { Outlet, useNavigate } from 'react-router-dom';
 
+import { ROUTE } from 'common/components/routes/utils/constants';
 import LanguageTitle from './LanguageTitle';
 import { ButtonText } from './utils/constants';
-import { LANGUAGES, LEVELS } from './mock';
+
+import LanguageSelection from './LanguageSelection';
 
 import {
-  AddCircleIconStyled, ButtonContainer, GridWrapperStyled,
+  AddCircleIconStyled, ButtonContainer,
 } from './utils/styled';
 
 const Languages = function (): JSX.Element {
+  const navigate = useNavigate();
+
   const [pressedAdd, setPressedAdd] = useState(false);
 
   const onAddLanguage = (): void => {
     setPressedAdd(true);
+    navigate(ROUTE.DASHBOARD.LANGUAGES.ADD);
   };
+
+  const onReturnHandle = useCallback(() => {
+    setPressedAdd(false);
+    navigate(ROUTE.DASHBOARD.LANGUAGES.MAIN);
+  }, [navigate]);
 
   return (
     <ButtonContainer>
-      {pressedAdd && <LanguageTitle />}
+      {pressedAdd && <LanguageTitle onReturn={onReturnHandle} />}
       {!pressedAdd ? (
         <Button variant="contained" onClick={onAddLanguage}>
           <AddCircleIconStyled />
           {ButtonText.Add}
         </Button>
       )
-        : (
-          <GridWrapperStyled container>
-            <Grid container wrap="nowrap" gap={6} justifyContent="space-between">
-              <Grid item xs={6}>
-                <SelectOutlined
-                  collection={LANGUAGES}
-                  fieldNameSelector="name"
-                  label="Language"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <SelectOutlined
-                  collection={LEVELS}
-                  fieldNameSelector="name"
-                  label="Level"
-                />
-              </Grid>
-            </Grid>
-            <Grid item xs={12} paddingTop={6} display="inline-flex" justifyContent="flex-end">
-              <Button variant="contained">
-                {Step.Save}
-              </Button>
-            </Grid>
-          </GridWrapperStyled>
-        )}
-
+        : <LanguageSelection />}
+      <Outlet />
     </ButtonContainer>
   );
 };

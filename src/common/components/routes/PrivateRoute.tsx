@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 
 import { useAuth } from 'containers/authentication/auth';
+
 import { ROUTE } from './utils/constants';
 
 interface PrivateRouteProps extends RouteProps {

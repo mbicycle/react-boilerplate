@@ -25,7 +25,7 @@ export async function handleApiResponse(response: AxiosResponse): Promise<unknow
 }
 
 export const getUserProfile = async (): Promise<User> => new Promise<User>((resolve, reject) => {
-  axiosInstance.get<User>(Endpoint.UserInfo)
+  axiosInstance.post<User>(Endpoint.AuthVerify)
     .then((response: AxiosResponse<User>) => resolve(response.data))
     .catch((error: AxiosError<string>) => {
       // FIXME: Great crutch❗
@@ -36,9 +36,9 @@ export const getUserProfile = async (): Promise<User> => new Promise<User>((reso
 
 export async function loginWithGoogleTokenId(data: GoogleLoginResponse): Promise<void> {
   const response = await axios.post(Endpoint.AuthToken, {
-    googleIdToken: data.tokenId,
+    token: data.tokenId,
   });
-
+  debugger;
   if (AUTH_HEADER in response.headers) {
     storage.setToken(response.headers.authorization);
   }

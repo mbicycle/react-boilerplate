@@ -4,10 +4,13 @@ import { FormControl, Grid } from '@mui/material';
 
 import { useForm } from 'common/utils/hooks';
 import TextFieldOutlined from 'common/components/text-field-outlined';
+import { useAuth } from 'containers/authentication/auth';
+
 import { InputLabel, InputName } from './constants';
 
 const PersonalDataForm = function (): JSX.Element {
   const { handleChange, handleSubmit } = useForm();
+  const { user } = useAuth();
 
   return (
     <FormControl component="form" onSubmit={handleSubmit} autoComplete="off">
@@ -26,10 +29,12 @@ const PersonalDataForm = function (): JSX.Element {
         </Grid>
         <Grid item>
           <TextFieldOutlined
+            value={user?.email}
             label={InputLabel.Email}
             name={InputName.Email}
             onChange={handleChange}
             type="email"
+            disabled
           />
           <TextFieldOutlined
             label={InputLabel.Skype}

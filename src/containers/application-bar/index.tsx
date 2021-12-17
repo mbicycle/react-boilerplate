@@ -22,7 +22,7 @@ const ApplicationBar = function (): JSX.Element {
   return (
     <Box height="8rem" bgcolor="primary.main">
       <ToolbarStyled>
-        <Link to={ROUTE.DEFAULT}>
+        <Link to={`dashboard/${ROUTE.DASHBOARD.PERSONAL_INFORMATION}`}>
           <LogoIconStyled fontSize="large" />
         </Link>
         <ButtonsWrapperStyled

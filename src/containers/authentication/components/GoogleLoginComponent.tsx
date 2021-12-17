@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
 
 import { Button } from '@mui/material';
@@ -18,12 +19,19 @@ const clientId = process.env.REACT_APP_CLIENT_ID as string;
 
 const GoogleLoginComponent = function (): JSX.Element {
   const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
 
   const onSuccessHandle = async (result: GoogleLoginResponseType): Promise<void> => {
     storage.setExpiresAt((result as GoogleLoginResponse).tokenObj.expires_at);
 
     await refreshTokenSetup(result as GoogleLoginResponse);
-    await login(result);
+    const loginResult = await login(result);
+    if (loginResult) {
+      navigate(from, { replace: true });
+    }
   };
 
   const onFailureHandle = (result: Record<string, unknown>): void => {

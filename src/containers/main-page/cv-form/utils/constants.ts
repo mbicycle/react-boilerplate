@@ -1,13 +1,40 @@
-export const CV_FORM_STEPS = ['PERSONAL INFORMATION',
-  'LANGUAGES',
-  'SKILLS',
-  'PROJECTS',
-  'CERTIFICATIONS'] as const;
+import { ROUTE } from 'common/components/routes/utils/constants';
 
-export enum Step {
+export const enum Step {
+  PersonalInformation,
+  Languages,
+  Skills,
+  Projects,
+  Certifications
+}
+
+export const CV_FORM_STEPS = [
+  {
+    text: 'PERSONAL INFORMATION',
+    route: ROUTE.DASHBOARD.PERSONAL_INFORMATION,
+  },
+  {
+    text: 'LANGUAGES',
+    route: ROUTE.DASHBOARD.LANGUAGES.MAIN,
+  },
+  {
+    text: 'SKILLS',
+    route: ROUTE.DASHBOARD.SKILLS,
+  },
+  {
+    text: 'PROJECTS',
+    route: ROUTE.DASHBOARD.PROJECTS,
+  },
+  {
+    text: 'CERTIFICATIONS',
+    route: ROUTE.DASHBOARD.CERTIFICATES,
+  }] as const;
+
+export enum ButtonStep {
   Back = 'Back',
   Next = 'Next',
-  Finish = 'Finish'
+  Finish = 'Finish',
+  Save = 'Save',
 }
 
 interface CVTitlesInterface {

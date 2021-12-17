@@ -15,9 +15,9 @@ const CVFormStepper = function (): JSX.Element {
   return (
     <Stepper activeStep={activeStep}>
       {CV_FORM_STEPS.map((label) => (
-        <Step key={label} sx={{ padding: 0 }}>
+        <Step key={label.text} sx={{ padding: 0 }}>
           <StepLabel>
-            <Typography variant="body2" noWrap>{label}</Typography>
+            <Typography variant="body2" noWrap>{label.text}</Typography>
           </StepLabel>
         </Step>
       ))}

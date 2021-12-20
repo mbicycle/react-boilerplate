@@ -1,14 +1,16 @@
+import { SelectChangeEvent } from '@mui/material';
 import { useDebouncedFn } from 'beautiful-react-hooks';
 import { useState } from 'react';
 
-type UseFormPropsReturnType = {
-  values: unknown | Record<string, unknown>,
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+type UseFormPropsReturnType<T> = {
+  values: T,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleChange: (e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | any) => void;
   handleSubmit: () => void;
 };
 
-export const useForm = (initialValues?: Record<string, unknown>): UseFormPropsReturnType => {
-  const [values, setValues] = useState(initialValues || {});
+export const useForm = <T>(initialValues?: T): UseFormPropsReturnType<T> => {
+  const [values, setValues] = useState<T>(initialValues as T);
 
   const handleChange = useDebouncedFn((e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.value === 'true' || e.target.value === 'false') {
@@ -16,9 +18,7 @@ export const useForm = (initialValues?: Record<string, unknown>): UseFormPropsRe
         { ...v, [e.target.name]: e.target.value === 'false' }
       ));
     } else {
-      setValues((v) => (
-        { ...v, [e.target.name]: e.target.value.trim() }
-      ));
+      setValues((v) => ({ ...v, [e.target.name]: e.target.value.trim() }));
     }
   }, 300);
 

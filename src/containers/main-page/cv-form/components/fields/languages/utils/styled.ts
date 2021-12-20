@@ -1,4 +1,6 @@
-import { Box, Grid, styled } from '@mui/material';
+import {
+  Box, FormControl, Grid, styled, Typography,
+} from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export const ButtonContainer = styled(Box)(({ theme }) => ({
@@ -26,4 +28,13 @@ export const TitleWrapperStyled = styled(Box)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.border}`,
   display: 'inline-flex',
   padding: theme.spacing(2.2, 3),
+}));
+
+export const FormControlStyled = styled(FormControl)(({ theme }) => ({
+  paddingTop: theme.spacing(1),
+  width: '100%',
+}));
+
+export const MenuItemText = styled(Typography)(({ theme }) => ({
+  marginLeft: theme.spacing(2),
 }));

@@ -29,6 +29,7 @@ const Thumbs = function ({
             <ImageStyled
               alt={file.name}
               src={file.preview}
+              referrerPolicy="no-referrer"
             />
           </ShumbInnerStyled>
         </ThumbStyled>

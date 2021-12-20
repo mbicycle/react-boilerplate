@@ -34,6 +34,7 @@ const FileUpload = function (): JSX.Element {
       <input {...getInputProps()} />
       {user?.picture ? (
         <ImageStyled
+          referrerPolicy="no-referrer"
           alt={user?.email}
           src={user?.picture}
           $width={40}

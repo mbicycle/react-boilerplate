@@ -48,7 +48,7 @@ const GoogleLoginComponent = function (): JSX.Element {
         onFailure={onFailureHandle}
         cookiePolicy={Text.CookiePolicy}
         scope="email"
-        isSignedIn
+        isSignedIn={false}
         render={(props) => (
           <Button
             onClick={props.onClick}

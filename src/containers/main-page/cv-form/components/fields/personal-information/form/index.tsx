@@ -8,8 +8,16 @@ import { useAuth } from 'containers/authentication/auth';
 
 import { InputLabel, InputName } from './constants';
 
+interface PersonalDataFormType {
+firstName: string;
+lastName: string;
+email: string;
+skype: string;
+summary: string;
+}
+
 const PersonalDataForm = function (): JSX.Element {
-  const { handleChange, handleSubmit } = useForm();
+  const { handleChange, handleSubmit } = useForm<PersonalDataFormType>();
   const { user } = useAuth();
 
   return (

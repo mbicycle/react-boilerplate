@@ -17,11 +17,13 @@ const PersonalDataForm = function (): JSX.Element {
       <Grid container direction="row" wrap="nowrap" spacing={6}>
         <Grid item>
           <TextFieldOutlined
+            defaultValue={user?.firstName}
             label={InputLabel.FirstName}
             name={InputName.FirstName}
             onChange={handleChange}
           />
           <TextFieldOutlined
+            defaultValue={user?.lastName}
             label={InputLabel.LastName}
             name={InputName.LastName}
             onChange={handleChange}

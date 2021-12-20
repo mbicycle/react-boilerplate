@@ -2,6 +2,8 @@ import { memo } from 'react';
 
 import { Typography } from '@mui/material';
 
+import { useAuth } from 'containers/authentication/auth';
+
 import Thumbs from './Thumbs';
 import { Text } from './utils/types';
 import { useFileUpload } from './utils/hooks';
@@ -11,8 +13,10 @@ import {
   ThumbContainerStyled,
   UploadOneStyled,
 } from './utils/styled';
+import { ImageStyled } from '../styled';
 
 const FileUpload = function (): JSX.Element {
+  const { user } = useAuth();
   const {
     files,
     getRootProps,
@@ -28,9 +32,15 @@ const FileUpload = function (): JSX.Element {
       alignItems="center"
     >
       <input {...getInputProps()} />
-      <PersonIconStyled />
+      {user?.picture ? (
+        <ImageStyled
+          alt={user?.email}
+          src={user?.picture}
+          $width={40}
+        />
+      ) : <PersonIconStyled />}
       <Typography color="text.disabled" variant="h5">
-        {Text.FileUpload}
+        {user?.picture ? Text.UpdatePhoto : Text.FileUpload}
       </Typography>
       &nbsp;
       <UploadOneStyled color="primary" variant="h5">

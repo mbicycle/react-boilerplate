@@ -4,6 +4,10 @@ import { Grid, IconButton } from '@mui/material';
 
 import PersonIcon from 'common/icons/PersonIcon';
 
+type ExtendedImgType = {
+  $width?: number;
+};
+
 export const MyPhotoUploadStyled = styled(Grid)(({ theme }) => ({
   border: `2px dashed ${theme.palette.border}`,
   padding: theme.spacing(6.3),
@@ -36,12 +40,14 @@ export const ThumbStyled = styled('div')(({ theme }) => ({
   boxSizing: 'border-box',
 }));
 
-export const ImageStyled = styled('img')({
+export const ImageStyled = styled('img', {
+  shouldForwardProp: (prop) => prop !== '$width',
+})<ExtendedImgType>(({ $width }) => ({
   display: 'block',
-  width: 'auto',
+  width: $width || 'auto',
   height: '100%',
   borderRadius: '50%',
-});
+}));
 
 export const ShumbInnerStyled = styled('div')({
   position: 'initial',

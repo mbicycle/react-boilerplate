@@ -7,8 +7,8 @@ export enum Text {
 }
 
 export enum Endpoint {
-  UserInfo = '/userinfo',
-  AuthToken = '/authentication/token',
+  Refresh = '/auth/refresh',
+  AuthToken = '/auth',
 }
 
 export const AUTH_HEADER = 'authorization' as const;

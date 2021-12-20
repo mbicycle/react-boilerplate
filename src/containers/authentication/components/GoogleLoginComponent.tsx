@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
+import GoogleLogin from 'react-google-login';
 
 import { Button } from '@mui/material';
 
@@ -8,10 +8,11 @@ import { useAuth } from 'containers/authentication/auth';
 import { Text } from 'containers/authentication/utils/constants';
 import { GoogleLoginResponseType } from 'containers/authentication/types/LoginResult';
 import { refreshTokenSetup } from 'containers/authentication/utils/helpers';
-import { storage } from 'containers/authentication/utils/storage';
 
 import LogoGoogleWhite from 'common/icons/LogoGoogleWhite';
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
+
+import { storage } from '../utils/storage';
 
 import { GoogleLoginContainerStyled } from './styled';
 
@@ -25,11 +26,11 @@ const GoogleLoginComponent = function (): JSX.Element {
   const from = location.state?.from?.pathname || '/';
 
   const onSuccessHandle = async (result: GoogleLoginResponseType): Promise<void> => {
-    storage.setExpiresAt((result as GoogleLoginResponse).tokenObj.expires_at);
+    await login(result);
+    const accessToken = storage.getAccessToken();
 
-    await refreshTokenSetup(result as GoogleLoginResponse);
-    const loginResult = await login(result);
-    if (loginResult) {
+    if (accessToken) {
+      await refreshTokenSetup(accessToken);
       navigate(from, { replace: true });
     }
   };

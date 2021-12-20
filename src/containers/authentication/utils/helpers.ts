@@ -1,26 +1,31 @@
-import { loginWithGoogleTokenId } from 'containers/authentication/api';
-import { GoogleLoginResponse } from 'react-google-login';
+import { relogin } from 'containers/authentication/api';
+import { storage } from './storage';
+
+const ONE_SEC = 1000 as const;
 
 const convertTo = (unit: 'milliseconds' | 'seconds', timing: number): number => {
   if (unit === 'milliseconds') return timing * 1000;
+
   return timing * 100;
 };
-const HOUR_IN_SECS = 3600 as const;
-const SEC = 1 as const;
-const MINUTE = 60 as const;
 
-export const refreshTokenSetup = async (res: GoogleLoginResponse): Promise<void> => {
-  const expiresInMilliseconds = res.tokenObj.expires_in;
-  let refreshTiming = convertTo('milliseconds', expiresInMilliseconds || HOUR_IN_SECS - (SEC * 5) * MINUTE);
+export const refreshTokenSetup = async (accessToken: string): Promise<void> => {
+  const expiresIn = storage.getExpiresAt();
+  const createdAt = storage.getCreatedAt();
+  let refreshTimeout = null;
+
+  const end = createdAt as number;
+  const start = expiresIn as number;
+  const timeoutInSec = start - end;
+  const timeout = convertTo('milliseconds', timeoutInSec);
 
   const refreshToken = async (): Promise<void> => {
-    const newAuthResult = await res.reloadAuthResponse();
-    await loginWithGoogleTokenId(res);
+    refreshTimeout = setTimeout(refreshToken, timeout - ONE_SEC);
 
-    const newExpiresInMilliseconds = newAuthResult.expires_in;
-    refreshTiming = convertTo('milliseconds', newExpiresInMilliseconds || HOUR_IN_SECS - (SEC * 5) * MINUTE);
-    setTimeout(refreshToken, refreshTiming);
+    await relogin();
   };
 
-  setTimeout(refreshToken, refreshTiming);
+  refreshTimeout = setTimeout(refreshToken, timeout);
+
+  if (!accessToken) clearTimeout(refreshTimeout);
 };

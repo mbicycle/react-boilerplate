@@ -38,7 +38,7 @@ const ApplicationBar = function (): JSX.Element {
             variant="middle"
           />
           <IconButton>
-            <Avatar alt={user?.email} src={user?.avatarUrl} />
+            <Avatar alt={user?.email} src={user?.picture} />
           </IconButton>
         </ButtonsWrapperStyled>
       </ToolbarStyled>

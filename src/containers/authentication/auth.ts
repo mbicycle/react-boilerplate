@@ -1,19 +1,25 @@
 import { GoogleLoginResponse } from 'react-google-login';
 import { AuthProviderConfig, initReactQueryAuth } from 'react-query-auth';
+import jwtDecode from 'jwt-decode';
 import {
-  getUserProfile,
   loginWithGoogleTokenId,
   User,
 } from './api';
 
 import { storage } from './utils/storage';
+import { refreshTokenSetup } from './utils/helpers';
 
 async function loginFn(data: GoogleLoginResponse): Promise<User> {
-  try {
-    await loginWithGoogleTokenId(data);
-    const user = await getUserProfile();
+  let user: User | null = null;
 
-    return user;
+  try {
+    const tokenObj = await loginWithGoogleTokenId(data);
+    storage.setToken(tokenObj);
+    if (storage.getAccessToken()) {
+      user = jwtDecode(tokenObj.accessToken);
+    }
+
+    return user as User;
   } catch (error) {
     return Promise.reject(error);
   }
@@ -23,9 +29,10 @@ async function loadUser(): Promise<User> {
   let user = null;
 
   try {
-    if (storage.getToken()) {
-      const data = await getUserProfile();
-      user = data;
+    const accessToken = storage.getAccessToken();
+    if (accessToken) {
+      await refreshTokenSetup(accessToken);
+      user = jwtDecode(accessToken);
     }
 
     return user as User;

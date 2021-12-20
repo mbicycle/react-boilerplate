@@ -3,9 +3,9 @@ import { memo } from 'react';
 import { TextFieldStyled } from './styled';
 
 interface TextFieldOulinedProps extends Omit<OutlinedTextFieldProps, 'variant'> {
-  label: string;
   name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
 }
 
 const TextFieldOulined = function (

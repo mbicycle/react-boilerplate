@@ -10,5 +10,3 @@ export enum Endpoint {
   Refresh = '/auth/refresh',
   AuthToken = '/auth',
 }
-
-export const AUTH_HEADER = 'authorization' as const;

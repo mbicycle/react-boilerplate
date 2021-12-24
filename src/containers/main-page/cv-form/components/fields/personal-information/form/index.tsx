@@ -1,12 +1,14 @@
 import { memo } from 'react';
 
-import { FormControl, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import { useForm } from 'common/utils/hooks';
 import TextFieldOutlined from 'common/components/text-field-outlined';
 import { useAuth } from 'containers/authentication/auth';
 
 import { InputLabel, InputName } from './constants';
+
+import { FormControlStyled } from './styled';
 
 interface PersonalDataFormType {
 firstName: string;
@@ -21,7 +23,7 @@ const PersonalDataForm = function (): JSX.Element {
   const { user } = useAuth();
 
   return (
-    <FormControl component="form" onSubmit={handleSubmit} autoComplete="off">
+    <FormControlStyled onSubmit={handleSubmit}>
       <Grid container direction="row" wrap="nowrap" spacing={6}>
         <Grid item>
           <TextFieldOutlined
@@ -61,7 +63,7 @@ const PersonalDataForm = function (): JSX.Element {
         multiline
         rows={6}
       />
-    </FormControl>
+    </FormControlStyled>
   );
 };
 

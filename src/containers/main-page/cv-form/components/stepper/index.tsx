@@ -1,25 +1,28 @@
 import { memo } from 'react';
 
-import {
-  Step, StepLabel, Stepper, Typography,
-} from '@mui/material';
+import { StepLabel, Stepper, Typography } from '@mui/material';
 
 import { useFormData } from '../../local-state/hooks';
 
 import { CV_FORM_STEPS } from '../../utils/constants';
+import { StepConnectorStyled, StepStyled } from './styled';
 
 const CVFormStepper = function (): JSX.Element {
   const { state } = useFormData();
+
   const { activeStep } = state;
 
   return (
-    <Stepper activeStep={activeStep}>
+    <Stepper
+      activeStep={activeStep}
+      connector={<StepConnectorStyled />}
+    >
       {CV_FORM_STEPS.map((label) => (
-        <Step key={label.text} sx={{ padding: 0 }}>
+        <StepStyled key={label.text}>
           <StepLabel>
             <Typography variant="body2" noWrap>{label.text}</Typography>
           </StepLabel>
-        </Step>
+        </StepStyled>
       ))}
     </Stepper>
   );

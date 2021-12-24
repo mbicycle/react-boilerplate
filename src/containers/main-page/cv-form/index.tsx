@@ -11,6 +11,7 @@ import CVFormControls from './components/controls';
 import CVFormTitle from './components/title';
 
 import { CVFormWrapperStyled } from './styled';
+import LanguagesContextProvider from './components/fields/languages/local-state/LanguagesContextProvider';
 
 const CVForm = function (): JSX.Element {
   const { state } = useFormData();
@@ -19,16 +20,18 @@ const CVForm = function (): JSX.Element {
   const CVFormCurrentStepComponent = useMemo(() => FORM_MAP[activeStep], [activeStep]);
 
   return (
-    <Suspense fallback={<CircularSpinner size="large" color="primary" />}>
-      <CVFormWrapperStyled>
-        <Box p={10} flexGrow={1}>
-          <CVFormStepper />
-          <CVFormTitle />
-          <CVFormCurrentStepComponent />
-        </Box>
-        <CVFormControls />
-      </CVFormWrapperStyled>
-    </Suspense>
+    <LanguagesContextProvider>
+      <Suspense fallback={<CircularSpinner size="large" color="primary" />}>
+        <CVFormWrapperStyled>
+          <Box p={10} flexGrow={1}>
+            <CVFormStepper />
+            <CVFormTitle />
+            <CVFormCurrentStepComponent />
+          </Box>
+          <CVFormControls />
+        </CVFormWrapperStyled>
+      </Suspense>
+    </LanguagesContextProvider>
   );
 };
 

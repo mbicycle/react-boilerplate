@@ -1,16 +1,31 @@
 import {
-  Box, FormControl, Grid, styled, Typography,
+  Box, Button, FormControl, Grid, styled, Typography,
 } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-export const ButtonContainer = styled(Box)(({ theme }) => ({
+type IsLanguageSelectedPropType = {
+  $isLanguageSelected?: boolean;
+};
+
+export const LanguagesContainerStyled = styled(Box, {
+  shouldForwardProp: (prop) => prop !== '$isLanguageSelected',
+  label: 'LanguagesContainerStyled',
+})<IsLanguageSelectedPropType>(({ theme, $isLanguageSelected }) => ({
   display: 'flex',
   minHeight: 220,
-  border: `1px solid ${theme.palette.border}`,
+  border: $isLanguageSelected ? 'none' : `1px solid ${theme.palette.border}`,
   borderRadius: theme.shape.borderRadius,
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
+}));
+
+export const AddButtonStyled = styled(Button, {
+  label: 'AddButtonStyled',
+  shouldForwardProp: (prop) => prop !== '$isLanguageSelected',
+})<IsLanguageSelectedPropType>(({ theme, $isLanguageSelected }) => ({
+  padding: theme.spacing(3, 7),
+  alignSelf: $isLanguageSelected ? 'flex-end' : 'center',
 }));
 
 export const AddCircleIconStyled = styled(AddCircleIcon)(({ theme }) => ({

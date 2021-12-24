@@ -1,6 +1,6 @@
 import { ComponentType, lazy, LazyExoticComponent } from 'react';
 
-const Languages = lazy(() => import('../components/fields/languages'));
+const Languages = lazy(() => import('../components/fields/languages/components'));
 const Skills = lazy(() => import('../components/fields/skills'));
 const Projects = lazy(() => import('../components/fields/projects'));
 const PersonalInformation = lazy(() => import('../components/fields/personal-information'));

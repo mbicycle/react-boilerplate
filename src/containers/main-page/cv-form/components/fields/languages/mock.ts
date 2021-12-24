@@ -1,4 +1,4 @@
-enum Level {
+export enum Level {
   Beginner = 'Beginner',
   PreIntermediate = 'Pre-Intermediate',
   Intermediate = 'Intermediate',
@@ -7,7 +7,7 @@ enum Level {
   Proficiency = 'Proficiency'
 }
 
-interface Language {
+export interface Language {
   name: string;
 }
 

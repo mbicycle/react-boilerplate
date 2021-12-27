@@ -1,9 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ROUTE } from 'common/components/routes/utils/constants';
 
-import { useFormData } from '../../local-state/hooks';
 import { CV_FORM_STEPS, Step } from '../../utils/constants';
 
 interface SetLanguagesReturnType {
@@ -12,34 +11,37 @@ interface SetLanguagesReturnType {
   handleNext: VoidFunction;
 }
 
-export const useSetLanguages = (): SetLanguagesReturnType => {
-  const { state, dispatch } = useFormData();
+export const useSetStep = (): SetLanguagesReturnType => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { activeStep } = state;
+  const [activeStep, setStep] = useState<number>(0);
 
-  const handlePrevious = useCallback((): void => {
-    navigate(-1);
-    dispatch({ type: 'prev' });
-  }, [dispatch, navigate]);
+  const handlePreviousStep = useCallback((): void => {
+    const isAddLanguagePath = location.pathname.includes(ROUTE.DASHBOARD.LANGUAGES.ADD);
 
-  const handleNext = useCallback((): void => {
-    if (activeStep < Step.Certifications) {
-      dispatch({ type: 'next' });
+    if (isAddLanguagePath) {
+      navigate(ROUTE.DASHBOARD.LANGUAGES.MAIN);
     }
-  }, [activeStep, dispatch]);
+    navigate(-1);
+  }, [location.pathname, navigate]);
+
+  const handleNextStep = useCallback((): void => {
+    if (activeStep < Step.Certifications) {
+      navigate(CV_FORM_STEPS[+activeStep + 1].route);
+    }
+  }, [activeStep, navigate]);
 
   useEffect(() => {
-    if (location.pathname.includes(ROUTE.DASHBOARD.LANGUAGES.ADD)) {
-      return navigate(ROUTE.DASHBOARD.LANGUAGES.ADD);
+    const found = CV_FORM_STEPS.find((stepItem) => location.pathname.includes(stepItem.route));
+    if (found) {
+      setStep(CV_FORM_STEPS.indexOf(found));
     }
-    return navigate(CV_FORM_STEPS[+activeStep].route);
-  }, [activeStep, location.pathname, navigate]);
+  }, [activeStep, location.pathname]);
 
   return {
     activeStep,
-    handlePrevious,
-    handleNext,
+    handlePrevious: handlePreviousStep,
+    handleNext: handleNextStep,
   };
 };

@@ -2,15 +2,13 @@ import { memo } from 'react';
 
 import { StepLabel, Stepper, Typography } from '@mui/material';
 
-import { useFormData } from '../../local-state/hooks';
-
+import { useSetStep } from '../controls/hooks';
 import { CV_FORM_STEPS } from '../../utils/constants';
+
 import { StepConnectorStyled, StepStyled } from './styled';
 
 const CVFormStepper = function (): JSX.Element {
-  const { state } = useFormData();
-
-  const { activeStep } = state;
+  const { activeStep } = useSetStep();
 
   return (
     <Stepper

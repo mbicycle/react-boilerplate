@@ -8,7 +8,12 @@ export const enum Step {
   Certifications
 }
 
-export const CV_FORM_STEPS = [
+export interface CvFormStep {
+  readonly text: string;
+  readonly route: string;
+}
+
+export const CV_FORM_STEPS: CvFormStep[] = [
   {
     text: 'PERSONAL INFORMATION',
     route: ROUTE.DASHBOARD.PERSONAL_INFORMATION,
@@ -28,7 +33,7 @@ export const CV_FORM_STEPS = [
   {
     text: 'CERTIFICATIONS',
     route: ROUTE.DASHBOARD.CERTIFICATES,
-  }] as const;
+  }];
 
 export enum ButtonStep {
   Back = 'Back',

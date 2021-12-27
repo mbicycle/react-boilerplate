@@ -6,13 +6,13 @@ import { Button } from '@mui/material';
 import { ROUTE } from 'common/components/routes/utils/constants';
 
 import { ButtonStep, Step } from '../../utils/constants';
-import { useSetLanguages } from './hooks';
+import { useSetStep } from './hooks';
 
 import { StepperControlsWrapper } from './styled';
 
 const CVFormControls = function (): JSX.Element | null {
   const location = useLocation();
-  const { activeStep, handleNext, handlePrevious } = useSetLanguages();
+  const { activeStep, handleNext, handlePrevious } = useSetStep();
 
   const stepsLength = Step.Certifications;
 

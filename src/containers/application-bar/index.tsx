@@ -25,22 +25,24 @@ const ApplicationBar = function (): JSX.Element {
         <Link to={`dashboard/${ROUTE.DASHBOARD.PERSONAL_INFORMATION}`}>
           <LogoIconStyled fontSize="large" />
         </Link>
-        <ButtonsWrapperStyled
-          container
-          direction="row"
-          wrap="nowrap"
-          justifyContent="space-between"
-        >
-          <PdfButtonSet />
-          <Divider
-            flexItem
-            orientation="vertical"
-            variant="middle"
-          />
-          <IconButton>
-            <Avatar alt={user?.email} src={user?.picture} />
-          </IconButton>
-        </ButtonsWrapperStyled>
+        {user && (
+          <ButtonsWrapperStyled
+            container
+            direction="row"
+            wrap="nowrap"
+            justifyContent="space-between"
+          >
+            <PdfButtonSet />
+            <Divider
+              flexItem
+              orientation="vertical"
+              variant="middle"
+            />
+            <IconButton>
+              <Avatar alt={user?.email} src={user?.picture} />
+            </IconButton>
+          </ButtonsWrapperStyled>
+        )}
       </ToolbarStyled>
     </Box>
   );

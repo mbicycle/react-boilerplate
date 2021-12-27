@@ -1,15 +1,18 @@
-import { CVFormStepperActionType, CVFormStepperState } from './CVFormStepperContext';
+import { LanguageAction, LanguageState } from './LanguageContext';
 
-export const cvFormStepperReducer = (
-  state: CVFormStepperState,
-  action: CVFormStepperActionType,
-): CVFormStepperState => {
-  const { activeStep } = { ...state };
+const DELETE_COUNT = 1 as const;
 
-  const reducerMap = {
-    next: { activeStep: activeStep + 1 },
-    prev: { activeStep: activeStep - 1 },
-  };
+export function languagesReducer(state: LanguageState, action: LanguageAction): LanguageState {
+  const copy = [...state];
 
-  return reducerMap[action.type];
-};
+  if (action.leveledLanguage.language && action.leveledLanguage.level) {
+    if (action.type === 'add') {
+      copy.push(action.leveledLanguage);
+    } else {
+      const langIndex = copy.findIndex((x) => x.language === action.leveledLanguage.language);
+      copy.splice(langIndex, DELETE_COUNT);
+    }
+  }
+
+  return copy;
+}

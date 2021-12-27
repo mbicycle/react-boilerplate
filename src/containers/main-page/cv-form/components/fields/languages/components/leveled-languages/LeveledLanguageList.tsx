@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import LeveledLanguageItem from './LeveledLanguageItem';
-import { LeveledLanguageType } from '../../local-state/LanguageContext';
+import { LeveledLanguageType } from '../../../../../local-state/LanguageContext';
 
 import { SelectedLanguagesListStyled } from './styled';
 

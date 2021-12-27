@@ -3,8 +3,7 @@ import { memo } from 'react';
 import { IconButton, Typography } from '@mui/material';
 
 import GarbageIcon from 'common/icons/GarbageIcon';
-
-import { useLanguageContext } from '../../local-state/hooks';
+import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import {
   DragIndicatorIconStyled, LeftSideWrapperStyled,

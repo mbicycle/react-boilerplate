@@ -1,11 +1,12 @@
 import { useContext } from 'react';
-import { ContextType, CVFormStepperContext } from './CVFormStepperContext';
+import { LanguageContext, LocationContextType } from './LanguageContext';
 
-export const useFormData = (): ContextType => {
-  const context = useContext(CVFormStepperContext);
+export function useLanguageContext(): LocationContextType {
+  const context = useContext(LanguageContext);
+
   if (context === undefined) {
-    throw new Error('useCVFormStepper must be used within a CVFormStepperProvider');
+    throw new Error('LanguageContext must be used within a CvFormProvider');
   }
 
   return context;
-};
+}

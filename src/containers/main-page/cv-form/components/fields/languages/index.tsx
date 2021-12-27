@@ -1,26 +1,27 @@
-import { memo, useCallback, useState } from 'react';
+import {
+  memo, useCallback, useEffect, useState,
+} from 'react';
 
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ROUTE } from 'common/components/routes/utils/constants';
+import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hooks';
 
-import LanguageTitle from './LanguageTitle';
-import LanguageSelection from './LanguageSelection';
-import { ButtonText } from '../utils/constants';
+import LanguageTitle from './components/LanguageTitle';
+import LeveledLanguageList from './components/leveled-languages/LeveledLanguageList';
+import { ButtonText } from './utils/constants';
 
 import {
   AddButtonStyled,
   AddCircleIconStyled, LanguagesContainerStyled,
-} from '../utils/styled';
-
-import { useLanguageContext } from '../local-state/hooks';
-import LeveledLanguageList from './leveled-languages/LeveledLanguageList';
+} from './utils/styled';
 
 const Languages = function (): JSX.Element {
   const { state: leveledLanguages } = useLanguageContext();
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const [pressedAdd, setPressedAdd] = useState(false);
+  const [pressedAdd, setPressedAdd] = useState(true);
 
   const onAddLanguage = (): void => {
     setPressedAdd(true);
@@ -29,16 +30,23 @@ const Languages = function (): JSX.Element {
 
   const onReturnHandle = useCallback(() => {
     setPressedAdd(false);
-    navigate(ROUTE.DASHBOARD.LANGUAGES.MAIN);
+    navigate(-1);
   }, [navigate]);
 
+  useEffect(() => {
+    if (!location.pathname.includes(ROUTE.DASHBOARD.LANGUAGES.ADD)) {
+      setPressedAdd(false);
+    }
+  }, [location.pathname]);
+
   return (
-    <LanguagesContainerStyled
-      $isLanguageSelected={!!leveledLanguages.length && !pressedAdd}
+    <LanguagesContainerStyled $isLanguageSelected={
+      !!leveledLanguages.length && !pressedAdd
+    }
     >
       {pressedAdd && <LanguageTitle onReturn={onReturnHandle} />}
       {!pressedAdd
-        ? (
+        && (
           <>
             {
               leveledLanguages.length
@@ -54,8 +62,7 @@ const Languages = function (): JSX.Element {
               {ButtonText.Add}
             </AddButtonStyled>
           </>
-        )
-        : <LanguageSelection onReturn={onReturnHandle} />}
+        )}
       <Outlet />
     </LanguagesContainerStyled>
   );

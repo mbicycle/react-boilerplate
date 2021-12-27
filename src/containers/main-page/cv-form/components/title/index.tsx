@@ -2,11 +2,10 @@ import { memo } from 'react';
 
 import { FieldFormTitleWrapper, FieldSubTitleStyled, FieldTitleStyled } from './styled';
 import { CVTitles } from '../../utils/constants';
-import { useFormData } from '../../local-state/hooks';
+import { useSetStep } from '../controls/hooks';
 
 const CVFormTitle = function (): JSX.Element {
-  const { state } = useFormData();
-  const { activeStep } = state;
+  const { activeStep } = useSetStep();
 
   return (
     <FieldFormTitleWrapper>

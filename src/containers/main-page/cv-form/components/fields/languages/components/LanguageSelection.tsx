@@ -1,21 +1,21 @@
 import { memo, useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Grid } from '@mui/material';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
+import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import { LANGUAGES, LEVELS } from '../mock';
 
 import LanguageSelectionForm from './LanguageSelectionForm';
-import { LeveledLanguageType } from '../local-state/LanguageContext';
-import { useLanguageContext } from '../local-state/hooks';
+import { LeveledLanguageType } from '../../../../local-state/LanguageContext';
 
 import { GridWrapperStyled } from '../utils/styled';
 
-const LanguageSelection = function ({
-  onReturn,
-}:{onReturn: VoidFunction}): JSX.Element {
+const LanguageSelection = function (): JSX.Element {
   const { dispatch } = useLanguageContext();
+  const navigate = useNavigate();
 
   const [isSaveDisabled, setSaveDisabled] = useState(true);
   const [leveledLanguage, setLeveledLanguage] = useState<LeveledLanguageType>({ language: '', level: '' });
@@ -23,7 +23,7 @@ const LanguageSelection = function ({
   const onSaveHandle = (): void => {
     dispatch({ type: 'add', leveledLanguage });
     // TODO: Implement saving to DB.
-    onReturn();
+    navigate(-1);
   };
 
   const onGetSelectedLanguageHandle = useCallback((language: LeveledLanguageType): void => {

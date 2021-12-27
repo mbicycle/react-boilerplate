@@ -33,10 +33,8 @@ export const useSetStep = (): SetLanguagesReturnType => {
   }, [activeStep, navigate]);
 
   useEffect(() => {
-    const found = CV_FORM_STEPS.find((stepItem) => location.pathname.includes(stepItem.route));
-    if (found) {
-      setStep(CV_FORM_STEPS.indexOf(found));
-    }
+    const index = CV_FORM_STEPS.findIndex((stepItem) => location.pathname.includes(stepItem.route));
+    if (index !== -1) setStep(index);
   }, [activeStep, location.pathname]);
 
   return {

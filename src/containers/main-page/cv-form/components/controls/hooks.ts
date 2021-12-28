@@ -17,6 +17,12 @@ export const useSetStep = (): SetLanguagesReturnType => {
 
   const [activeStep, setStep] = useState<number>(0);
 
+  const handleNextStep = useCallback((): void => {
+    if (activeStep < Step.Certifications) {
+      navigate(CV_FORM_STEPS[+activeStep + 1].route);
+    }
+  }, [activeStep, navigate]);
+
   const handlePreviousStep = useCallback((): void => {
     const isAddLanguagePath = location.pathname.includes(ROUTE.DASHBOARD.LANGUAGES.ADD);
 
@@ -26,15 +32,10 @@ export const useSetStep = (): SetLanguagesReturnType => {
     navigate(-1);
   }, [location.pathname, navigate]);
 
-  const handleNextStep = useCallback((): void => {
-    if (activeStep < Step.Certifications) {
-      navigate(CV_FORM_STEPS[+activeStep + 1].route);
-    }
-  }, [activeStep, navigate]);
-
   useEffect(() => {
-    const index = CV_FORM_STEPS.findIndex((stepItem) => location.pathname.includes(stepItem.route));
-    if (index !== -1) setStep(index);
+    setStep(
+      CV_FORM_STEPS.findIndex((step) => location.pathname.includes(step.route)),
+    );
   }, [activeStep, location.pathname]);
 
   return {

@@ -2,6 +2,7 @@ const MuiSelect = {
   styleOverrides: {
     outlined: {
       padding: 0,
+      height: 48,
     },
   },
 };

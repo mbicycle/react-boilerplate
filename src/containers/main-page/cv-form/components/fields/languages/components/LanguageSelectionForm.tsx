@@ -8,11 +8,10 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { useForm } from 'common/utils/hooks';
+import { LeveledLanguageType } from 'containers/main-page/cv-form/local-state/LanguageContext';
 
 import { LANGUAGE, LEVEL } from '../utils/constants';
 import { Language as LanguageType } from '../mock';
-
-import { LeveledLanguageType } from '../../../../local-state/LanguageContext';
 
 import { FormControlStyled, MenuItemText } from '../utils/styled';
 

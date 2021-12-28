@@ -1,6 +1,8 @@
 import { memo } from 'react';
+
+import { LeveledLanguageType } from 'containers/main-page/cv-form/local-state/LanguageContext';
+
 import LeveledLanguageItem from './LeveledLanguageItem';
-import { LeveledLanguageType } from '../../../../../local-state/LanguageContext';
 
 import { SelectedLanguagesListStyled } from './styled';
 

@@ -3,11 +3,15 @@ import { memo } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-import { LANGUAGE } from '../utils/constants';
+import { TitleWrapperStyled } from './styled';
+import { Step } from './constants';
 
-import { TitleWrapperStyled } from '../utils/styled';
+interface TitleProps {
+ name: `${Step}`;
+ onReturn: VoidFunction
+}
 
-const LanguageTitle = function ({ onReturn }:{onReturn: VoidFunction}): JSX.Element {
+const Title = function ({ name, onReturn }: TitleProps): JSX.Element {
   const onBackHandle = (): void => {
     onReturn();
   };
@@ -18,10 +22,10 @@ const LanguageTitle = function ({ onReturn }:{onReturn: VoidFunction}): JSX.Elem
         <ChevronLeftIcon color="primary" />
       </IconButton>
       <Typography variant="body1">
-        {LANGUAGE}
+        {name}
       </Typography>
     </TitleWrapperStyled>
   );
 };
 
-export default memo(LanguageTitle);
+export default memo(Title);

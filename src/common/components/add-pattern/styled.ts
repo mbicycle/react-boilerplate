@@ -6,7 +6,7 @@ type IsProfiencySelectedPropType = {
 };
 
 export const ContainerStyled = styled(Box, {
-  shouldForwardProp: (prop) => prop !== ' $isProfiencySelected',
+  shouldForwardProp: (prop) => prop !== '$isProfiencySelected',
   label: 'LanguagesContainerStyled',
 })<IsProfiencySelectedPropType>(({ theme, $isProfiencySelected }) => ({
   display: 'flex',
@@ -20,7 +20,7 @@ export const ContainerStyled = styled(Box, {
 
 export const AddButtonStyled = styled(Button, {
   label: 'AddButtonStyled',
-  shouldForwardProp: (prop) => prop !== ' $isProfiencySelected',
+  shouldForwardProp: (prop) => prop !== '$isProfiencySelected',
 })<IsProfiencySelectedPropType>(({ theme, $isProfiencySelected }) => ({
   padding: theme.spacing(3, 7),
   alignSelf: $isProfiencySelected ? 'flex-end' : 'center',

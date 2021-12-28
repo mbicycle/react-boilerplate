@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import Login from 'containers/authentication/components';
 import LanguageSelection from 'containers/main-page/cv-form/components/fields/languages/components/LanguageSelection';
+import Skill from 'containers/main-page/cv-form/components/fields/skills/components';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
 import { useAuth } from 'containers/authentication/auth';
 
@@ -38,9 +39,11 @@ const Routing = function (): JSX.Element {
       >
         <Route path={ROUTE.DASHBOARD.PERSONAL_INFORMATION} element={<PersonalInformation />} />
         <Route path={ROUTE.DASHBOARD.LANGUAGES.MAIN} element={<Languages />}>
-          <Route path={ROUTE.DASHBOARD.LANGUAGES.ADD} element={<LanguageSelection />} />
+          <Route path={ROUTE.ADD} element={<LanguageSelection />} />
         </Route>
-        <Route path={ROUTE.DASHBOARD.SKILLS} element={<Skills />} />
+        <Route path={ROUTE.DASHBOARD.SKILLS} element={<Skills />}>
+          <Route path={ROUTE.ADD} element={<Skill />} />
+        </Route>
         <Route path={ROUTE.DASHBOARD.PROJECTS} element={<Projects />} />
         <Route path={ROUTE.DASHBOARD.CERTIFICATES} element={<Certifications />} />
 

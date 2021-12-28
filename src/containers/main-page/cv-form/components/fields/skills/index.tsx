@@ -11,7 +11,7 @@ const Skills = function (): JSX.Element {
   return (
     <AddProfiency
       collection={leveledLanguages}
-      titleName="Language"
+      title="Skill"
     >
       {
         leveledLanguages.length

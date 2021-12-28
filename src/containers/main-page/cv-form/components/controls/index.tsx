@@ -16,7 +16,7 @@ const CVFormControls = function (): JSX.Element | null {
 
   const stepsLength = Step.Certifications;
 
-  if (location.pathname.includes(ROUTE.DASHBOARD.LANGUAGES.ADD)) return null;
+  if (location.pathname.includes(ROUTE.ADD)) return null;
 
   return (
     <StepperControlsWrapper>

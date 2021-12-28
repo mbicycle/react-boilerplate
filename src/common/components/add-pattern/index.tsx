@@ -6,15 +6,18 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ButtonText, Step } from './constants';
 import Title from './Title';
 
-import { AddButtonStyled, AddCircleIconStyled, ContainerStyled } from './styled';
+import {
+  AddButtonStyled, AddCircleIconStyled,
+  ContainerStyled,
+} from './styled';
 
 interface AddProfiencyProps{
-  titleName: `${Step}`;
+  title: `${Step}`;
   children: React.ReactNode;
   collection: ArrayLike<unknown>;
 }
 
-const AddProfiency = function ({ titleName, children, collection }: AddProfiencyProps): JSX.Element {
+const AddProfiency = function ({ title, children, collection }: AddProfiencyProps): JSX.Element {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -41,7 +44,7 @@ const AddProfiency = function ({ titleName, children, collection }: AddProfiency
       !!collection.length && !pressedAdd
     }
     >
-      {pressedAdd && <Title name={titleName} onReturn={onReturnHandle} />}
+      {pressedAdd && <Title name={title} onReturn={onReturnHandle} />}
       {!pressedAdd
         && (
           <>

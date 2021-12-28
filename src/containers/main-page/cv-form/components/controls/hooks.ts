@@ -24,7 +24,7 @@ export const useSetStep = (): SetLanguagesReturnType => {
   }, [activeStep, navigate]);
 
   const handlePreviousStep = useCallback((): void => {
-    const isAddLanguagePath = location.pathname.includes(ROUTE.DASHBOARD.LANGUAGES.ADD);
+    const isAddLanguagePath = location.pathname.includes(ROUTE.ADD);
 
     if (isAddLanguagePath) {
       navigate(ROUTE.DASHBOARD.LANGUAGES.MAIN);

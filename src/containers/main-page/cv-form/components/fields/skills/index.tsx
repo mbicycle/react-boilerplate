@@ -4,17 +4,18 @@ import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hoo
 import AddProfiency from 'common/components/add-pattern';
 
 import LeveledLanguageList from '../languages/components/leveled-languages/LeveledLanguageList';
+import { TOOLS } from './utils/constants';
 
 const Skills = function (): JSX.Element {
   const { state: leveledLanguages } = useLanguageContext();
 
   return (
     <AddProfiency
-      collection={leveledLanguages}
+      collection={TOOLS}
       title="Skill"
     >
       {
-        leveledLanguages.length
+        TOOLS.length
           ? <LeveledLanguageList languages={leveledLanguages} />
           : null
       }

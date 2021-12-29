@@ -25,6 +25,7 @@
     "dotenv": "^10.0.0",
     "eslint-import-resolver-typescript": "^2.5.0",
     "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
     "notistack": "^2.0.3",
     "react": "^18.0.0-beta-24dd07bd2-20211208",
     "react-dom": "^18.0.0-beta-24dd07bd2-20211208",
@@ -60,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.178",
     "@types/styled-components": "^5.1.15",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",

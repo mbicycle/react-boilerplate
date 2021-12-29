@@ -11,7 +11,7 @@ import { LANGUAGES, LEVELS } from '../mock';
 import LanguageSelectionForm from './LanguageSelectionForm';
 import { LeveledLanguageType } from '../../../../local-state/LanguageContext';
 
-import { GridWrapperStyled } from '../utils/styled';
+import { GridWrapperStyled, SaveButtonWrapperStyled } from '../utils/styled';
 
 const LanguageSelection = function (): JSX.Element {
   const { dispatch } = useLanguageContext();
@@ -45,13 +45,7 @@ const LanguageSelection = function (): JSX.Element {
           levels={LEVELS}
         />
       </Grid>
-      <Grid
-        item
-        xs={12}
-        paddingTop={6}
-        display="inline-flex"
-        justifyContent="flex-end"
-      >
+      <SaveButtonWrapperStyled item>
         <Button
           disabled={isSaveDisabled}
           onClick={onSaveHandle}
@@ -59,7 +53,7 @@ const LanguageSelection = function (): JSX.Element {
         >
           {ButtonStep.Save}
         </Button>
-      </Grid>
+      </SaveButtonWrapperStyled>
     </GridWrapperStyled>
   );
 };

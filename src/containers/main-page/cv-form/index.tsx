@@ -15,7 +15,7 @@ const CVForm = function (): JSX.Element {
   return (
     <Suspense fallback={<CircularSpinner size="large" color="primary" />}>
       <CVFormWrapperStyled>
-        <Box p={10} flexGrow={1}>
+        <Box p={10} flexGrow={1} height={0}>
           <CVFormStepper />
           <CVFormTitle />
           <Outlet />

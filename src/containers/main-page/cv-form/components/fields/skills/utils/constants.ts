@@ -1,7 +1,10 @@
+import { SkillModel } from './models';
+
 export const enum Text {
   Category = 'Category',
   AddTool = 'Add a tool',
   Tool = 'Tool',
+  Delete = 'Delete'
 }
 
 export const enum CategoryInputText {
@@ -18,3 +21,12 @@ export const enum TimeUsedInputText {
   Label = 'Time used (years)',
   Name = 'usedTime'
 }
+
+export const TOOLS: SkillModel[] = [
+  {
+    category: 'Mock category',
+    tools: [
+      { experience: 10, level: 'Advanced', name: 'JS' },
+    ],
+  },
+];

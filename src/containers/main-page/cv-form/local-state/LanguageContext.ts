@@ -8,7 +8,7 @@ export type LanguageAction = {
 };
 export type LanguageState = LeveledLanguageType[];
 export type LanguageDispatch = (action: LanguageAction) => void;
-export type LocationContextType = { state: LanguageState; dispatch: LanguageDispatch; };
+export type LanguageContextType = { state: LanguageState; dispatch: LanguageDispatch; };
 
 export const LanguageContext = React.createContext<{
   state: LanguageState,

@@ -3,7 +3,7 @@ export interface SkillModel {
   tools: Tool[];
 }
 
-interface Tool {
+export interface Tool {
   name: string;
   level: string;
   experience: number;

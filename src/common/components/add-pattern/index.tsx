@@ -8,7 +8,7 @@ import Title from './Title';
 
 import {
   AddButtonStyled, AddCircleIconStyled,
-  ContainerStyled,
+  AddProfiencyStyled, ContainerStyled,
 } from './styled';
 
 interface AddProfiencyProps{
@@ -40,12 +40,14 @@ const AddProfiency = function ({ title, children, collection }: AddProfiencyProp
   }, [location.pathname]);
 
   return (
-    <ContainerStyled $isProfiencySelected={
-      !!collection.length && !pressedAdd
-    }
-    >
-      {pressedAdd && <Title name={title} onReturn={onReturnHandle} />}
-      {!pressedAdd
+    <AddProfiencyStyled>
+      <ContainerStyled
+        $isProfiencySelected={
+          !!collection.length && !pressedAdd
+        }
+      >
+        {pressedAdd && <Title name={title} onReturn={onReturnHandle} />}
+        {!pressedAdd
         && (
           <>
             {collection.length ? children : null}
@@ -59,8 +61,9 @@ const AddProfiency = function ({ title, children, collection }: AddProfiencyProp
             </AddButtonStyled>
           </>
         )}
-      <Outlet />
-    </ContainerStyled>
+        <Outlet />
+      </ContainerStyled>
+    </AddProfiencyStyled>
   );
 };
 

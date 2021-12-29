@@ -2,13 +2,28 @@ import { memo } from 'react';
 
 import { Typography } from '@mui/material';
 
+import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 import TextFieldOutlined from 'common/components/text-field-outlined';
+import { useForm } from 'common/utils/hooks';
 
+import { useDebouncedFn } from 'beautiful-react-hooks';
 import { CategoryInputText, Text } from '../utils/constants';
 
-import { AddAtoolButtonStyled, AddCircleIconStyled, InputContainerStyled } from '../utils/styled';
+import { GrayButtonStyled, AddCircleIconStyled, InputContainerStyled } from '../utils/styled';
 
 const TitleCategory = function (): JSX.Element {
+  const { handleChange, values: { titleCategory } } = useForm({ titleCategory: '' });
+  const { dispatch } = useSkillContext();
+
+  const onAddSkillHandle = (): void => {
+    dispatch({ type: 'add-tool', skill: {} });
+  };
+
+  const onHandleCategoryChange = useDebouncedFn((e: React.ChangeEvent<HTMLInputElement>): void => {
+    dispatch({ type: 'add-category', skill: { category: e.target.value } });
+    handleChange(e);
+  }, 300);
+
   return (
     <>
       <Typography variant="h4">
@@ -17,15 +32,14 @@ const TitleCategory = function (): JSX.Element {
       <InputContainerStyled>
         <TextFieldOutlined
           autoComplete="false"
-          defaultValue=""
           label={CategoryInputText.Label}
           name={CategoryInputText.Name}
-          onChange={() => null}
+          onChange={onHandleCategoryChange}
         />
-        <AddAtoolButtonStyled>
+        <GrayButtonStyled disabled={!titleCategory} onClick={onAddSkillHandle}>
           <AddCircleIconStyled />
           {Text.AddTool}
-        </AddAtoolButtonStyled>
+        </GrayButtonStyled>
       </InputContainerStyled>
     </>
   );

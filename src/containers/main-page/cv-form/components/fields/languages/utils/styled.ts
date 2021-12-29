@@ -14,3 +14,10 @@ export const FormControlStyled = styled(FormControl)(({ theme }) => ({
 export const MenuItemText = styled(Typography)(({ theme }) => ({
   marginLeft: theme.spacing(2),
 }));
+
+export const SaveButtonWrapperStyled = styled(Grid)(({ theme }) => ({
+  paddingTop: theme.spacing(4),
+  width: '100%',
+  display: 'inline-flex',
+  justifyContent: 'flex-end',
+}));

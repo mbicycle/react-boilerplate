@@ -5,16 +5,27 @@ type IsProfiencySelectedPropType = {
   $isProfiencySelected?: boolean;
 };
 
+export const AddProfiencyStyled = styled(Box, {
+  label: 'AddProfiencyStyled',
+})({
+  display: 'flex',
+  width: '100%',
+  height: 'calc(100% - 158px)',
+  alignItems: 'flex-start',
+});
+
 export const ContainerStyled = styled(Box, {
   shouldForwardProp: (prop) => prop !== '$isProfiencySelected',
-  label: 'LanguagesContainerStyled',
+  label: 'ContainerStyled',
 })<IsProfiencySelectedPropType>(({ theme, $isProfiencySelected }) => ({
   display: 'flex',
   minHeight: 220,
+  maxHeight: 'calc(100% + 40px)',
+  width: '100%',
+  justifyContent: 'center',
   border: $isProfiencySelected ? 'none' : `1px solid ${theme.palette.border}`,
   borderRadius: theme.shape.borderRadius,
   alignItems: 'center',
-  justifyContent: 'center',
   flexDirection: 'column',
 }));
 

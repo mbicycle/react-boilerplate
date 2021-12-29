@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 
-import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
+import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import { Text } from '../../utils/constants';
 
@@ -10,9 +10,15 @@ import CategoryInput from './CategoryInput';
 import LevelSelection from './LevelSelection';
 import TimeUsedInput from './TimeUsedInput';
 
-import { SaveButtonStyled, ToolContainerStyled } from '../../utils/styled';
+import { GrayButtonStyled, ToolContainerStyled } from '../../utils/styled';
 
 const Tool = function (): JSX.Element {
+  const { dispatch } = useSkillContext();
+
+  const onDeleteToolHandle = (): void => {
+    dispatch({ type: 'remove-tool' });
+  };
+
   return (
     <ToolContainerStyled container direction="column">
       <Typography variant="h4">
@@ -23,28 +29,31 @@ const Tool = function (): JSX.Element {
           <CategoryInput />
         </Grid>
         <Grid container gap={4} wrap="nowrap">
-          <Grid item xs={6} sx={{ mt: 3 }}>
+          <Grid
+            item
+            xs={6}
+            sx={{ mt: 3 }}
+          >
             <LevelSelection />
           </Grid>
           <Grid item xs={6}>
             <TimeUsedInput />
           </Grid>
         </Grid>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        paddingTop={4}
-        display="inline-flex"
-        justifyContent="flex-end"
-      >
-        <SaveButtonStyled
-          disabled={false}
-          onClick={() => null}
-          variant="contained"
+        <Grid
+          item
+          xs={12}
+          paddingTop={3}
+          display="inline-flex"
+          justifyContent="flex-end"
         >
-          {ButtonStep.Save}
-        </SaveButtonStyled>
+          <GrayButtonStyled
+            sx={{ width: 120 }}
+            onClick={onDeleteToolHandle}
+          >
+            {Text.Delete}
+          </GrayButtonStyled>
+        </Grid>
       </Grid>
     </ToolContainerStyled>
   );

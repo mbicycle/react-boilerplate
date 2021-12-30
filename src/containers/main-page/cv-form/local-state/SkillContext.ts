@@ -1,11 +1,12 @@
 import React from 'react';
-import { SkillModel } from '../components/fields/skills/utils/models';
+import { SkillModel, Tool } from '../components/fields/skills/utils/models';
 
 export type SkillType = SkillModel;
 
 export type SkillAction = {
-  type: 'add-category' | 'remove-category' | 'add-tool' | 'remove-tool',
+  type: 'add-category' | 'remove-category' | 'add-tool' | 'remove-tool' | 'update-tools',
   skill?: Partial<SkillType>;
+  newTools?: Tool[];
 };
 export type SkillState = Partial<SkillType>;
 export type SkillDispatch = (action: SkillAction) => void;

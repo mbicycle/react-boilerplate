@@ -1,10 +1,12 @@
-import { memo } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 
-import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useForm } from 'common/utils/hooks';
+import { useSkillContext, useToolContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import { Text } from '../../utils/constants';
+import { Tool as ToolType } from '../../utils/models';
 
 import CategoryInput from './CategoryInput';
 import LevelSelection from './LevelSelection';
@@ -12,12 +14,18 @@ import TimeUsedInput from './TimeUsedInput';
 
 import { GrayButtonStyled, ToolContainerStyled } from '../../utils/styled';
 
-const Tool = function (): JSX.Element {
-  const { dispatch } = useSkillContext();
+const Tool = function ({ toolData }: {toolData: ToolType}): JSX.Element {
+  const { values, handleChange } = useForm<ToolType>();
+  const { dispatch: skillDispatch } = useSkillContext();
+  const { dispatch: toolDispatch } = useToolContext();
 
-  const onDeleteToolHandle = (): void => {
-    dispatch({ type: 'remove-tool' });
-  };
+  const onDeleteToolHandle = useCallback((): void => {
+    skillDispatch({ type: 'remove-tool' });
+  }, [skillDispatch]);
+
+  useEffect(() => {
+    toolDispatch({ type: 'update', tool: { ...toolData, ...values } });
+  }, [toolDispatch, values, toolData]);
 
   return (
     <ToolContainerStyled container direction="column">
@@ -26,7 +34,7 @@ const Tool = function (): JSX.Element {
       </Typography>
       <Grid container>
         <Grid item xs={12}>
-          <CategoryInput />
+          <CategoryInput onChange={handleChange} />
         </Grid>
         <Grid container gap={4} wrap="nowrap">
           <Grid
@@ -34,10 +42,13 @@ const Tool = function (): JSX.Element {
             xs={6}
             sx={{ mt: 3 }}
           >
-            <LevelSelection />
+            <LevelSelection
+              selectedLevel={values?.level}
+              onChange={handleChange}
+            />
           </Grid>
           <Grid item xs={6}>
-            <TimeUsedInput />
+            <TimeUsedInput onChange={handleChange} />
           </Grid>
         </Grid>
         <Grid

@@ -1,7 +1,5 @@
 import { memo } from 'react';
 
-import { Grid } from '@mui/material';
-
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 
@@ -10,11 +8,16 @@ import Tool from './tool';
 
 import {
   SkillContainerStyled, DividerStyled,
-  SaveButtonStyled, ToolsContainerStyled, SaveButtonWrapperStyled,
+  SaveButtonStyled, ToolsContainerStyled,
+  SaveButtonWrapperStyled,
 } from '../utils/styled';
+import { useMappingSkills } from './tool/hooks';
 
 const Skill = function (): JSX.Element {
   const { state: { tools } } = useSkillContext();
+
+  const onSaveTools = useMappingSkills({ tools });
+
   return (
     <SkillContainerStyled>
       <TitleCategory />
@@ -24,7 +27,7 @@ const Skill = function (): JSX.Element {
           <ToolsContainerStyled>
             {
               tools.map((tool) => (
-                <Tool />
+                <Tool key={tool.id} toolData={tool} />
               ))
             }
           </ToolsContainerStyled>
@@ -33,7 +36,7 @@ const Skill = function (): JSX.Element {
       <SaveButtonWrapperStyled item>
         <SaveButtonStyled
           disabled={false}
-          onClick={() => null}
+          onClick={onSaveTools}
           variant="contained"
         >
           {ButtonStep.Save}

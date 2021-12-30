@@ -14,19 +14,23 @@ export const enum CategoryInputText {
 
 export const enum ToolInputText {
   Label = 'Skill/tool',
-  Name = 'tool'
+  Name = 'name'
 }
 
 export const enum TimeUsedInputText {
   Label = 'Time used (years)',
-  Name = 'usedTime'
+  Name = 'experience'
 }
+
+export const LEVEL_LABEL = 'Level' as const;
 
 export const TOOLS: SkillModel[] = [
   {
     category: 'Mock category',
     tools: [
-      { experience: 10, level: 'Advanced', name: 'JS' },
+      {
+        id: 'sdfsdfsdfvsdfr', experience: 10, level: 'Advanced', name: 'JS',
+      },
     ],
   },
 ];

@@ -4,14 +4,14 @@ import { Tool } from '../components/fields/skills/utils/models';
 export type ToolType = Tool;
 
 export type ToolAction = {
-  type: 'add' | 'remove',
+  type: 'update';
   tool: ToolType;
 };
-export type ToolState = ToolType[];
+export type ToolState = ToolType;
 export type ToolDispatch = (action: ToolAction) => void;
-export type LocationContextType = { state: ToolState; dispatch: ToolDispatch; };
+export type ToolContextType = { state: ToolState; dispatch: ToolDispatch; };
 
 export const ToolContext = React.createContext<{
   state: ToolState,
-  dispatch: ToolDispatch;
+  dispatch: ToolDispatch,
 } | undefined>(undefined);

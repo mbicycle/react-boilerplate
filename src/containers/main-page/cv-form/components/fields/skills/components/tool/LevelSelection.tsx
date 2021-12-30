@@ -4,28 +4,32 @@ import { v4 as uuidv4 } from 'uuid';
 
 import {
   FormControl, InputLabel,
-  MenuItem, Select,
+  MenuItem, Select, SelectChangeEvent,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
-import { useForm } from 'common/utils/hooks';
 
 import { LEVELS } from '../../../languages/mock';
 
 import { MenuItemText } from '../../utils/styled';
+import { LEVEL_LABEL } from '../../utils/constants';
 
-const LevelSelection = function ():JSX.Element {
-  const { values, handleChange } = useForm<{level: string}>({ level: '' });
+interface LevelSelectionProps{
+  selectedLevel: string;
+  onChange: (e: SelectChangeEvent<string>) => void;
+}
 
+const LevelSelection = function (
+  { selectedLevel, onChange }: LevelSelectionProps,
+):JSX.Element {
   return (
 
     <FormControl fullWidth>
-      <InputLabel>Level</InputLabel>
+      <InputLabel>{LEVEL_LABEL}</InputLabel>
       <Select
-        value={values.level}
+        value={selectedLevel || ''}
         label="Level"
         name="level"
-        onChange={handleChange}
+        onChange={onChange}
         fullWidth
         IconComponent={KeyboardArrowDownIcon}
       >

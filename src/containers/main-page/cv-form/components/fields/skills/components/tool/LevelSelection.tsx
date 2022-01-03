@@ -22,7 +22,6 @@ const LevelSelection = function (
   { selectedLevel, onChange }: LevelSelectionProps,
 ):JSX.Element {
   return (
-
     <FormControl fullWidth>
       <InputLabel>{LEVEL_LABEL}</InputLabel>
       <Select

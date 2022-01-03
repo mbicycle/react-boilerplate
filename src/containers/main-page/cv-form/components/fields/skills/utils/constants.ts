@@ -1,5 +1,3 @@
-import { SkillModel } from './models';
-
 export const enum Text {
   Category = 'Category',
   AddTool = 'Add a tool',
@@ -23,14 +21,4 @@ export const enum TimeUsedInputText {
 }
 
 export const LEVEL_LABEL = 'Level' as const;
-
-export const TOOLS: SkillModel[] = [
-  {
-    category: 'Mock category',
-    tools: [
-      {
-        id: 'sdfsdfsdfvsdfr', experience: 10, level: 'Advanced', name: 'JS',
-      },
-    ],
-  },
-];
+export const DEBOUNCE_TIMEOUT = 300 as const;

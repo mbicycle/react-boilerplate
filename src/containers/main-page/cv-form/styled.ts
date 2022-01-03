@@ -9,3 +9,9 @@ export const CVFormWrapperStyled = styled(Box, {
   flexDirection: 'column',
   height: '100%',
 });
+
+export const CVFormContainerStyled = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(10),
+  flexGrow: 1,
+  height: 0,
+}));

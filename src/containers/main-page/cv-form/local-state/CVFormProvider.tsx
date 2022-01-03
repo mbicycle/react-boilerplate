@@ -1,19 +1,14 @@
 import { FC, useMemo, useReducer } from 'react';
 
 import { LanguageContext } from './LanguageContext';
-import { languagesReducer, skillReducer, toolReducer } from './reducers';
+import { languagesReducer, skillCollectionReducer, skillReducer } from './reducers';
+import { SkillCollectionContext } from './SkillCollectionContext';
 import { SkillContext } from './SkillContext';
-import { ToolContext } from './ToolContext';
 
 const CvFormProvider: FC = function ({ children }): JSX.Element {
   const [langState, langDispatch] = useReducer(languagesReducer, []);
   const [skillState, skillDispatch] = useReducer(skillReducer, { category: '', tools: [] });
-  const [toolState, toolDispatch] = useReducer(toolReducer, {
-    id: '',
-    name: '',
-    level: '',
-    experience: 0,
-  });
+  const [skillCollectionState, skillCollectionDispatch] = useReducer(skillCollectionReducer, []);
 
   const languageContextValue = useMemo(() => ({
     state: langState,
@@ -25,19 +20,19 @@ const CvFormProvider: FC = function ({ children }): JSX.Element {
     dispatch: skillDispatch,
   }), [skillState]);
 
-  const toolContextValue = useMemo(() => ({
-    state: toolState,
-    dispatch: toolDispatch,
-  }), [toolState]);
+  const skillCollectionContextValue = useMemo(() => ({
+    state: skillCollectionState,
+    dispatch: skillCollectionDispatch,
+  }), [skillCollectionState]);
 
   return (
-    <SkillContext.Provider value={skillContextValue}>
-      <LanguageContext.Provider value={languageContextValue}>
-        <ToolContext.Provider value={toolContextValue}>
+    <SkillCollectionContext.Provider value={skillCollectionContextValue}>
+      <SkillContext.Provider value={skillContextValue}>
+        <LanguageContext.Provider value={languageContextValue}>
           {children}
-        </ToolContext.Provider>
-      </LanguageContext.Provider>
-    </SkillContext.Provider>
+        </LanguageContext.Provider>
+      </SkillContext.Provider>
+    </SkillCollectionContext.Provider>
   );
 };
 

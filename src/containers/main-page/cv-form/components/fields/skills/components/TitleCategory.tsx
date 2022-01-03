@@ -7,22 +7,22 @@ import TextFieldOutlined from 'common/components/text-field-outlined';
 import { useForm } from 'common/utils/hooks';
 
 import { useDebouncedFn } from 'beautiful-react-hooks';
-import { CategoryInputText, Text } from '../utils/constants';
+import { CategoryInputText, DEBOUNCE_TIMEOUT, Text } from '../utils/constants';
 
 import { GrayButtonStyled, AddCircleIconStyled, InputContainerStyled } from '../utils/styled';
 
-const TitleCategory = function (): JSX.Element {
+const TitleCategory = function ({ value }: {value: string}): JSX.Element {
   const { handleChange, values: { titleCategory } } = useForm({ titleCategory: '' });
   const { dispatch } = useSkillContext();
 
   const onAddSkillHandle = (): void => {
-    dispatch({ type: 'add-tool', skill: {} });
+    dispatch({ type: 'add-tool' });
   };
 
   const onHandleCategoryChange = useDebouncedFn((e: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch({ type: 'add-category', skill: { category: e.target.value } });
     handleChange(e);
-  }, 300);
+  }, DEBOUNCE_TIMEOUT);
 
   return (
     <>
@@ -35,8 +35,12 @@ const TitleCategory = function (): JSX.Element {
           label={CategoryInputText.Label}
           name={CategoryInputText.Name}
           onChange={onHandleCategoryChange}
+          defaultValue={value}
         />
-        <GrayButtonStyled disabled={!titleCategory} onClick={onAddSkillHandle}>
+        <GrayButtonStyled
+          disabled={!titleCategory}
+          onClick={onAddSkillHandle}
+        >
           <AddCircleIconStyled />
           {Text.AddTool}
         </GrayButtonStyled>

@@ -1,16 +1,16 @@
-import { ChangeEvent, memo } from 'react';
+import { memo } from 'react';
 
 import TextFieldOutlined from 'common/components/text-field-outlined';
 
 import { ToolInputText } from '../../utils/constants';
 
-const CategoryInput = function (
-  { onChange }: { onChange: (e: React.ChangeEvent<HTMLInputElement>) => void },
+const SkillToolInput = function (
+  { onChange, value }: { onChange: (e: React.ChangeEvent<HTMLInputElement>) => void, value: string },
 ): JSX.Element {
   return (
     <TextFieldOutlined
       autoComplete="false"
-      defaultValue=""
+      defaultValue={value}
       label={ToolInputText.Label}
       name={ToolInputText.Name}
       onChange={onChange}
@@ -18,4 +18,4 @@ const CategoryInput = function (
   );
 };
 
-export default memo(CategoryInput);
+export default memo(SkillToolInput);

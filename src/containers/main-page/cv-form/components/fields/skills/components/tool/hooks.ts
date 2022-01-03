@@ -1,32 +1,33 @@
-import { useSkillContext, useToolContext } from 'containers/main-page/cv-form/local-state/hooks';
-import { ToolType } from 'containers/main-page/cv-form/local-state/ToolContext';
-import { useCallback, useEffect, useState } from 'react';
-import { Tool } from '../../utils/models';
+import { useEffect } from 'react';
+import isEqual from 'lodash/isEqual';
 
-export const useMappingSkills = ({ tools }: { tools: Tool[] | undefined; }): VoidFunction => {
+import { useForm } from 'common/utils/hooks';
+import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+
+import { Tool as ToolType } from '../../utils/models';
+
+type UpdateToolReturnType = { onToolChange: (e: unknown) => void; };
+
+export const useUpdateTool = (
+  { toolData }: { toolData: ToolType; },
+): UpdateToolReturnType => {
   const { dispatch } = useSkillContext();
-  const { state: toolState } = useToolContext();
 
-  const [toolsState, setToolsState] = useState<ToolType[] | undefined>(tools);
+  const { values, handleChange } = useForm<ToolType>({
+    id: toolData.id,
+    name: toolData.name || '',
+    level: toolData.level || '',
+    experience: toolData.experience || 0,
+  });
 
   useEffect(() => {
-    if (tools?.length) {
-      setToolsState(() => {
-        const copy = [...tools];
-        const toolIndex = copy.findIndex((t) => t.id === toolState.id);
-        if (toolIndex !== -1) copy[toolIndex] = toolState;
-
-        return copy;
+    if (!isEqual(toolData, values)) {
+      dispatch({
+        type: 'update-tool',
+        tool: { ...toolData, ...values },
       });
     }
-  }, [toolState, tools]);
+  }, [dispatch, toolData, values]);
 
-  const onSaveToolsHandle = useCallback((): void => {
-    dispatch({ type: 'update-tools', newTools: toolsState });
-
-    // TODO: Resolve bug with saving items.
-    console.log(toolsState);
-  }, [dispatch, toolsState]);
-
-  return onSaveToolsHandle;
+  return { onToolChange: handleChange };
 };

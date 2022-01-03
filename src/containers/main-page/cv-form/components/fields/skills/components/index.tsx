@@ -1,7 +1,8 @@
 import { memo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useSkillCollectionContext, useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import TitleCategory from './TitleCategory';
 import Tool from './tool';
@@ -11,16 +12,20 @@ import {
   SaveButtonStyled, ToolsContainerStyled,
   SaveButtonWrapperStyled,
 } from '../utils/styled';
-import { useMappingSkills } from './tool/hooks';
 
 const Skill = function (): JSX.Element {
-  const { state: { tools } } = useSkillContext();
+  const { state: { tools, category } } = useSkillContext();
+  const { dispatch } = useSkillCollectionContext();
+  const navigate = useNavigate();
 
-  const onSaveTools = useMappingSkills({ tools });
+  const onSaveToolsHandle = (): void => {
+    dispatch({ type: 'add', skill: { tools, category } });
+    navigate(-1);
+  };
 
   return (
     <SkillContainerStyled>
-      <TitleCategory />
+      <TitleCategory value={category || ''} />
       {tools?.length ? (
         <>
           <DividerStyled variant="fullWidth" />
@@ -36,7 +41,7 @@ const Skill = function (): JSX.Element {
       <SaveButtonWrapperStyled item>
         <SaveButtonStyled
           disabled={false}
-          onClick={onSaveTools}
+          onClick={onSaveToolsHandle}
           variant="contained"
         >
           {ButtonStep.Save}

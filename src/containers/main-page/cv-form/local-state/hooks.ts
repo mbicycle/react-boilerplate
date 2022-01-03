@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { LanguageContext, LanguageContextType } from './LanguageContext';
+import { SkillCollectionContext, SkillCollectionContextType } from './SkillCollectionContext';
 import { SkillContext, SkillContextType } from './SkillContext';
-import { ToolContext, ToolContextType } from './ToolContext';
 
 export function useLanguageContext(): LanguageContextType {
   const context = useContext(LanguageContext);
@@ -23,11 +23,11 @@ export function useSkillContext(): SkillContextType {
   return context;
 }
 
-export function useToolContext(): ToolContextType {
-  const context = useContext(ToolContext);
+export function useSkillCollectionContext(): SkillCollectionContextType {
+  const context = useContext(SkillCollectionContext);
 
   if (context === undefined) {
-    throw new Error('ToolContext must be used within a CvFormProvider');
+    throw new Error('SkillCollectionContext must be used within a CvFormProvider');
   }
 
   return context;

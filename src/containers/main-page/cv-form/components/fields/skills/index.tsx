@@ -1,22 +1,21 @@
 import { memo } from 'react';
 
-import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useSkillCollectionContext } from 'containers/main-page/cv-form/local-state/hooks';
 import AddProfiency from 'common/components/add-pattern';
 
-import LeveledLanguageList from '../languages/components/leveled-languages/LeveledLanguageList';
-import { TOOLS } from './utils/constants';
+import SkillList from './components/skills/SkillList';
 
 const Skills = function (): JSX.Element {
-  const { state: leveledLanguages } = useLanguageContext();
+  const { state: skills } = useSkillCollectionContext();
 
   return (
     <AddProfiency
-      collection={TOOLS}
+      collection={skills}
       title="Skill"
     >
       {
-        TOOLS.length
-          ? <LeveledLanguageList languages={leveledLanguages} />
+        skills.length
+          ? <SkillList skills={skills} />
           : null
       }
     </AddProfiency>

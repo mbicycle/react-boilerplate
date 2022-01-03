@@ -3,10 +3,20 @@ import { SkillModel, Tool } from '../components/fields/skills/utils/models';
 
 export type SkillType = SkillModel;
 
+export const enum SkillActionOperationType {
+  AddCategory = 'add-category',
+  RemoveCategory = 'remove-category',
+  AddTool = 'add-tool',
+  RemoveTool = 'remove-tool',
+  UpdataTools = 'update-tools',
+  UpdateTool = 'update-tool',
+}
+
 export type SkillAction = {
-  type: 'add-category' | 'remove-category' | 'add-tool' | 'remove-tool' | 'update-tools',
+  type: `${SkillActionOperationType}`,
   skill?: Partial<SkillType>;
-  newTools?: Tool[];
+  tool?: Tool;
+  tools?: Tool[];
 };
 export type SkillState = Partial<SkillType>;
 export type SkillDispatch = (action: SkillAction) => void;

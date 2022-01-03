@@ -1,14 +1,8 @@
 import { memo } from 'react';
 
-import { IconButton, Typography } from '@mui/material';
-
-import GarbageIcon from 'common/icons/GarbageIcon';
 import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hooks';
 
-import {
-  DragIndicatorIconStyled, LeftSideWrapperStyled,
-  LeveledLanguageItemStyled, TextContainerStyled,
-} from './styled';
+import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
 const LeveledLanguageItem = function ({
   language, level,
@@ -28,22 +22,11 @@ const LeveledLanguageItem = function ({
   };
 
   return (
-    <LeveledLanguageItemStyled>
-      <DragIndicatorIconStyled fontSize="large" />
-      <LeftSideWrapperStyled>
-        <TextContainerStyled>
-          <Typography variant="body1">
-            {language}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {level}
-          </Typography>
-        </TextContainerStyled>
-      </LeftSideWrapperStyled>
-      <IconButton onClick={onDeleteLanguageHandle}>
-        <GarbageIcon color="primary" />
-      </IconButton>
-    </LeveledLanguageItemStyled>
+    <ProfiencyItem
+      headText={language}
+      bodyText={level}
+      onDelete={onDeleteLanguageHandle}
+    />
   );
 };
 

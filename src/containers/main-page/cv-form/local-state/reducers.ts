@@ -1,10 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Tool } from '../components/fields/skills/utils/models';
-import { useSkillContext } from './hooks';
+import { SkillModel, Tool } from '../components/fields/skills/utils/models';
+
 import { LanguageAction, LanguageState } from './LanguageContext';
+import { SkillCollectionAction, SkillCollectionState } from './SkillCollectionContext';
 import { SkillAction, SkillState } from './SkillContext';
-import { ToolAction, ToolState } from './ToolContext';
+import { ReturnPartialSkillModelType, SkillReducerReturnType } from './types';
 
 const DELETE_COUNT = 1 as const;
 
@@ -24,36 +25,64 @@ export function languagesReducer(state: LanguageState, action: LanguageAction): 
 }
 
 export function skillReducer(state: SkillState, action: SkillAction): SkillState {
-  let copy = { ...state };
+  const copy = { ...state };
   const tools = [...copy?.tools || []] as Tool[];
 
-  if (action.type === 'add-category') {
-    copy = { category: action.skill?.category };
-  }
-
-  if (action.type === 'add-tool') {
+  function addTool(): SkillState {
     tools.push({
       id: uuidv4(), name: '', level: '', experience: 0,
     });
-    copy = { ...state, tools };
+    return { ...state, tools };
   }
 
-  if (action.type === 'update-tools') {
-    copy = { ...state, ...action.newTools };
+  function updateTool(): SkillState {
+    if (copy.tools?.length) {
+      const selectedToolIndex = copy.tools.findIndex((tool) => tool.id === action.tool?.id);
+
+      if (selectedToolIndex !== -1 && action.tool) {
+        copy.tools[selectedToolIndex] = { ...action.tool };
+      }
+    }
+
+    return { ...state, tools: copy.tools };
   }
 
-  // TODO: Refactor to delet by id
-  if (action.type === 'remove-tool' && copy.tools) {
-    copy.tools.splice((tools as any)[(tools as any).length - 1], DELETE_COUNT);
+  function removeTool(): SkillState {
+    if (copy.tools?.length) {
+      const selectedToolIndex = copy.tools.findIndex((tool) => tool.id === action.tool?.id);
+      if (selectedToolIndex !== -1) {
+        copy.tools.splice(selectedToolIndex, DELETE_COUNT);
+      }
+    }
+
+    return copy;
   }
 
-  return copy;
+  const skill = {
+    'add-category': { category: action.skill?.category, tools: copy?.tools },
+    'add-tool': addTool,
+    'update-tools': { ...state, ...action.tools },
+    'update-tool': updateTool,
+    'remove-tool': removeTool,
+  } as SkillReducerReturnType;
+
+  if (typeof skill[action.type] === 'function') {
+    return (skill[action.type] as ReturnPartialSkillModelType)();
+  }
+  return skill[action.type] as SkillState;
 }
 
-export function toolReducer(state: ToolState, action: ToolAction): ToolState {
-  let copy = { ...state };
-  if (action.type === 'update') {
-    copy = action.tool;
+export function skillCollectionReducer(
+  state: SkillCollectionState,
+  action: SkillCollectionAction,
+): SkillCollectionState {
+  const copy = [...state];
+
+  if (action.type === 'add') {
+    copy.push(action.skill as SkillModel);
+  } else {
+    const langIndex = copy.findIndex((x) => x.category === action.skill.category);
+    copy.splice(langIndex, DELETE_COUNT);
   }
 
   return copy;

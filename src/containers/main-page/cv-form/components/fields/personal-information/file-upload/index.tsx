@@ -9,8 +9,9 @@ import { Text } from './utils/types';
 import { useFileUpload } from './utils/hooks';
 
 import {
-  MyPhotoUploadStyled, PersonIconStyled,
-  ThumbContainerStyled,
+  ChangeCircleIconStyled,
+  ChangeCircleIconWrapper, MyPhotoUploadStyled,
+  PersonIconStyled, ThumbContainerStyled,
   UploadOneStyled,
 } from './utils/styled';
 import { ImageStyled } from '../styled';
@@ -22,6 +23,8 @@ const FileUpload = function (): JSX.Element {
     getRootProps,
     getInputProps,
     onResetFilesHandle,
+    onUploadNewAvatar,
+    isUploading,
   } = useFileUpload();
 
   return (
@@ -40,15 +43,31 @@ const FileUpload = function (): JSX.Element {
           $width={40}
         />
       ) : <PersonIconStyled />}
-      <Typography color="text.disabled" variant="h5">
-        {user?.picture ? Text.UpdatePhoto : Text.FileUpload}
-      </Typography>
-      &nbsp;
-      <UploadOneStyled color="primary" variant="h5">
-        {Text.UploadOne}
-      </UploadOneStyled>
+      {!files[0] ? (
+        <>
+          <Typography color="text.disabled" variant="h5">
+            {user?.picture ? Text.UpdatePhoto : Text.FileUpload}
+          </Typography>
+          &nbsp;
+          <UploadOneStyled color="primary" variant="h5">
+            {Text.UploadOne}
+          </UploadOneStyled>
+        </>
+      ) : (
+        <ChangeCircleIconWrapper>
+          <ChangeCircleIconStyled
+            color="disabled"
+            fontSize="large"
+            $isUploading={isUploading}
+          />
+        </ChangeCircleIconWrapper>
+      )}
       <ThumbContainerStyled>
-        <Thumbs files={files} onDropFiles={onResetFilesHandle} />
+        <Thumbs
+          files={files}
+          onDropFiles={onResetFilesHandle}
+          onUploadNewAvatar={onUploadNewAvatar}
+        />
       </ThumbContainerStyled>
     </MyPhotoUploadStyled>
   );

@@ -1,8 +1,24 @@
-import { styled } from '@mui/material/styles';
+import { styled, keyframes } from '@mui/material/styles';
 
-import { Grid, IconButton, Typography } from '@mui/material';
+import {
+  Grid, IconButton, Typography, Box,
+} from '@mui/material';
 
 import PersonIcon from 'common/icons/PersonIcon';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+
+type UploadProcessType = {
+  $isUploading?: boolean;
+};
+
+const rotating = keyframes`
+  from {
+    -webkit-transform: rotate(360deg);
+  }
+  to{
+    -webkit-transform: rotate(0deg);
+  }
+`;
 
 export const MyPhotoUploadStyled = styled(Grid)(({ theme }) => ({
   border: `2px dashed ${theme.palette.border}`,
@@ -54,6 +70,11 @@ export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
   marginLeft: theme.spacing(8),
 }));
 
+export const CloudIconButtonStyled = styled(IconButtonStyled)(({ theme }) => ({
+  marginTop: theme.spacing(4),
+  marginLeft: theme.spacing(7.5),
+}));
+
 export const UploadOneStyled = styled(Typography)({
   cursor: 'pointer',
 
@@ -61,3 +82,14 @@ export const UploadOneStyled = styled(Typography)({
     textDecoration: 'underline',
   },
 });
+
+export const ChangeCircleIconWrapper = styled(Box)(({ theme }) => ({
+  marginLeft: theme.spacing(6),
+}));
+
+export const ChangeCircleIconStyled = styled(ChangeCircleIcon, {
+  shouldForwardProp: (prop) => prop !== '$isUploading',
+})<UploadProcessType>(({ theme, $isUploading }) => ({
+  animation: $isUploading ? `${rotating} 1s infinite ease` : 'unset',
+  color: $isUploading ? theme.palette.success.light : 'defaultColor',
+}));

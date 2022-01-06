@@ -17,7 +17,7 @@ export const useSetStep = (): SetLanguagesReturnType => {
 
   const [activeStep, setStep] = useState<number>(0);
 
-  const handleNextStep = useCallback((): void => {
+  const handleNextStep = useCallback(() => {
     if (activeStep < Step.Certifications) {
       navigate(CV_FORM_STEPS[+activeStep + 1].route);
     }

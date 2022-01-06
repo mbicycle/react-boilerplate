@@ -3,7 +3,7 @@ export enum InputName {
   LastName = 'lastName',
   Email = 'email',
   Skype = 'skype',
-  Summary = 'summary',
+  Summary = 'summaryOfQualifications',
 }
 
 export enum InputLabel {

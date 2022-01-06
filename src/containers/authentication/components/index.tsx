@@ -21,7 +21,6 @@ const Login = function (): JSX.Element {
           fontWeight="bold"
         >
           {Text.CardDescription}
-
         </Typography>
         <Grid item container direction="row" gap={5}>
           <GoogleLoginComponent />

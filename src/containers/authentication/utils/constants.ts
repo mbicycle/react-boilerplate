@@ -9,4 +9,5 @@ export enum Text {
 export enum Endpoint {
   Refresh = '/auth/refresh',
   AuthToken = '/auth',
+  Me = '/me',
 }

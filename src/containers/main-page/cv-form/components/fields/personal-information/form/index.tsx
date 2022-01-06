@@ -2,28 +2,18 @@ import { memo } from 'react';
 
 import { Grid } from '@mui/material';
 
-import { useForm } from 'common/utils/hooks';
 import TextFieldOutlined from 'common/components/text-field-outlined';
-import { useAuth } from 'containers/authentication/auth';
 
 import { InputLabel, InputName } from './constants';
+import { useUpdatePersonalData } from './hooks';
 
 import { FormControlStyled } from './styled';
 
-interface PersonalDataFormType {
-firstName: string;
-lastName: string;
-email: string;
-skype: string;
-summary: string;
-}
-
 const PersonalDataForm = function (): JSX.Element {
-  const { handleChange, handleSubmit } = useForm<PersonalDataFormType>();
-  const { user } = useAuth();
+  const { user, handleChange } = useUpdatePersonalData();
 
   return (
-    <FormControlStyled onSubmit={handleSubmit}>
+    <FormControlStyled>
       <Grid container direction="row" wrap="nowrap" spacing={6}>
         <Grid item>
           <TextFieldOutlined
@@ -49,6 +39,7 @@ const PersonalDataForm = function (): JSX.Element {
             disabled
           />
           <TextFieldOutlined
+            defaultValue={user?.skype}
             label={InputLabel.Skype}
             name={InputName.Skype}
             onChange={handleChange}
@@ -56,6 +47,7 @@ const PersonalDataForm = function (): JSX.Element {
         </Grid>
       </Grid>
       <TextFieldOutlined
+        defaultValue={user?.summaryOfQualifications}
         label={InputLabel.Summary}
         name={InputName.Summary}
         onChange={handleChange}

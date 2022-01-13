@@ -1,3 +1,3 @@
-export const enum Endpoints {
-  ChangeMe = 'me'
+export const enum Endpoint {
+  UpdateMe = 'me'
 }

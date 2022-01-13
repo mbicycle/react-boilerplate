@@ -4,16 +4,17 @@ import {
   useQueryClient,
 } from 'react-query';
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
+import { Me } from 'common/models/Me';
+
 import { QueryKey } from './query-key';
 
 import * as api from './api';
-import { Me } from './models/me';
 
-export function useChangeMe(): UseMutationResult<Me, Error, string, unknown> {
+export function useUpdateMe(): UseMutationResult<Me, Error, string, unknown> {
   const queryClient = useQueryClient();
 
   return useMutation<Me, Error, string, VoidFunction>(
-    (user: Me | unknown) => api.changeMe(user as Me),
+    (user: Me | unknown) => api.updateMe(user as Me),
     {
       onSettled: () => {
         queryClient.invalidateQueries(QueryKey.User);
@@ -27,12 +28,12 @@ export function useChangeMe(): UseMutationResult<Me, Error, string, unknown> {
   );
 }
 
-export function useChangeMyAvatar(): UseMutationResult<Me, Error, string, unknown> {
+export function useUpdateMyAvatar(): UseMutationResult<Me, Error, string, unknown> {
   const queryClient = useQueryClient();
   const cachedUser = queryClient.getQueryData(QueryKey.User) as Me;
 
   return useMutation<Me, Error, string, VoidFunction>(
-    (base64Avatar: string) => api.changeMe({ ...cachedUser, picture: base64Avatar }),
+    (base64Avatar: string) => api.updateMe({ ...cachedUser, picture: base64Avatar }),
     {
       onSettled: () => {
         queryClient.invalidateQueries(QueryKey.User);

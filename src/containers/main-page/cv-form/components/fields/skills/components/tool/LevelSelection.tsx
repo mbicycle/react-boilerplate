@@ -8,10 +8,9 @@ import {
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import { LEVELS } from '../../../languages/mock';
-
 import { MenuItemText } from '../../utils/styled';
 import { LEVEL_LABEL } from '../../utils/constants';
+import { LEVELS } from '../../../languages/components/utils/constants';
 
 interface LevelSelectionProps{
   selectedLevel: string;

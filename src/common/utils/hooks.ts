@@ -18,7 +18,7 @@ export const useForm = <T>(initialValues?: T): UseFormPropsReturnType<T> => {
         { ...v, [e.target.name]: e.target.value === 'false' }
       ));
     } else {
-      setValues((v) => ({ ...v, [e.target.name]: e.target.value.trim() }));
+      setValues((v) => ({ ...v, [e.target.name]: e.target.value?.trim() }));
     }
   }, 300);
 

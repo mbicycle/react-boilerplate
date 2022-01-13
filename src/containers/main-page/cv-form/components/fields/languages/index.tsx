@@ -1,21 +1,21 @@
 import { memo } from 'react';
 
 import AddProfiency from 'common/components/add-pattern';
-import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import LeveledLanguageList from './components/leveled-languages/LeveledLanguageList';
+import { useGetUserLanguages } from './lib/query-hooks';
 
 const Languages = function (): JSX.Element {
-  const { state: leveledLanguages } = useLanguageContext();
+  const { data: usersLanguages } = useGetUserLanguages();
 
   return (
     <AddProfiency
-      collection={leveledLanguages}
+      collection={usersLanguages || []}
       title="Language"
     >
       {
-        leveledLanguages.length
-          ? <LeveledLanguageList languages={leveledLanguages} />
+        usersLanguages?.length
+          ? <LeveledLanguageList languages={usersLanguages || []} />
           : null
       }
     </AddProfiency>

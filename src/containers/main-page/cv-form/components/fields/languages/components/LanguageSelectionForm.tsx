@@ -1,29 +1,22 @@
 import { memo, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import {
-  Grid, InputLabel,
-  MenuItem, Select,
+  Grid, InputLabel, MenuItem, Select,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { useForm } from 'common/utils/hooks';
-import { LeveledLanguageType } from 'containers/main-page/cv-form/local-state/LanguageContext';
 
-import { LANGUAGE, LEVEL } from '../utils/constants';
-import { Language as LanguageType } from '../mock';
+import AddLanguage from './AddLanguage';
+import { LANGUAGE, LanguageInputName, LEVEL } from '../utils/constants';
+import { FormLanguage } from './utils/types';
 
 import { FormControlStyled, MenuItemText } from '../utils/styled';
 
-type SelectionType = {
-    language: string;
-    level: string;
-}
-
 interface LanguageSelectionFormProps{
-languages: LanguageType[];
- levels:LanguageType[];
-onGetSelectedLanguage: (language: LeveledLanguageType) => void;
+  languages: {name: string}[];
+  levels:{name: string}[];
+  onGetSelectedLanguage: (language: FormLanguage) => void;
 }
 
 const LanguageSelectionForm = function ({
@@ -31,10 +24,10 @@ const LanguageSelectionForm = function ({
   levels,
   onGetSelectedLanguage,
 }:LanguageSelectionFormProps): JSX.Element {
-  const { values, handleChange } = useForm<SelectionType>({ language: '', level: '' });
+  const { values, handleChange } = useForm<FormLanguage>({ name: '', level: '' });
 
   useEffect(() => {
-    if (values.language && values.level) {
+    if (values.name) {
       onGetSelectedLanguage(values);
     }
   }, [onGetSelectedLanguage, values]);
@@ -45,21 +38,24 @@ const LanguageSelectionForm = function ({
         <FormControlStyled fullWidth>
           <InputLabel>{LANGUAGE}</InputLabel>
           <Select
-            value={values.language}
+            value={values.name}
             label={LANGUAGE}
-            name={LANGUAGE.toLowerCase()}
+            name={LanguageInputName.Language}
             onChange={handleChange}
             fullWidth
             IconComponent={KeyboardArrowDownIcon}
           >
-            {languages.map((item) => (
+            <AddLanguage />
+            {languages?.map((item) => (
               <MenuItem
-                key={uuidv4()}
+                key={item.name}
                 value={item.name}
               >
                 <MenuItemText color="text.secondary">
+                  &#8288;
                   {item.name}
                 </MenuItemText>
+
               </MenuItem>
             ))}
           </Select>
@@ -71,14 +67,14 @@ const LanguageSelectionForm = function ({
           <Select
             value={values.level}
             label={LEVEL}
-            name={LEVEL.toLowerCase()}
+            name={LanguageInputName.Level}
             onChange={handleChange}
             fullWidth
             IconComponent={KeyboardArrowDownIcon}
           >
             {levels.map((item) => (
               <MenuItem
-                key={uuidv4()}
+                key={item.name}
                 value={item.name}
               >
                 <MenuItemText color="text.secondary">

@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useIsFetching } from 'react-query';
 
 import { Button } from '@mui/material';
 
@@ -13,6 +14,7 @@ import { StepperControlsWrapper } from './styled';
 const CVFormControls = function (): JSX.Element | null {
   const location = useLocation();
   const { activeStep, handleNext, handlePrevious } = useSetStep();
+  const isFetching = useIsFetching();
 
   const stepsLength = Step.Certifications;
 
@@ -21,7 +23,7 @@ const CVFormControls = function (): JSX.Element | null {
   return (
     <StepperControlsWrapper>
       <Button
-        disabled={!activeStep}
+        disabled={!activeStep && !!isFetching}
         onClick={handlePrevious}
         variant="contained"
         color="secondary"
@@ -29,7 +31,7 @@ const CVFormControls = function (): JSX.Element | null {
         {ButtonStep.Back}
       </Button>
       {activeStep <= stepsLength && (
-        <Button onClick={handleNext} variant="contained">
+        <Button onClick={handleNext} variant="contained" disabled={!!isFetching}>
           {activeStep === stepsLength ? ButtonStep.Finish : ButtonStep.Next}
         </Button>
       )}

@@ -1,3 +1,5 @@
+import { UserLanguage } from './UserLanguage';
+
 export interface Me {
   firstName: string;
   lastName: string;
@@ -5,4 +7,5 @@ export interface Me {
   summary: string;
   picture: string;
   summaryOfQualifications: string;
+  languages: UserLanguage[];
 }

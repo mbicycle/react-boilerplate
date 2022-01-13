@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { LeveledLanguageType } from 'containers/main-page/cv-form/local-state/LanguageContext';
+import { UserLanguage } from 'common/models/UserLanguage';
 
 import LeveledLanguageItem from './LeveledLanguageItem';
 
@@ -8,13 +8,14 @@ import { SelectedLanguagesListStyled } from './styled';
 
 const LeveledLanguageList = function ({
   languages,
-}: {languages: LeveledLanguageType[]}): JSX.Element {
+}: {languages: UserLanguage[]}): JSX.Element {
   return (
     <SelectedLanguagesListStyled>
-      {languages.map(({ language, level }) => (
+      {languages.map(({ name, level, _id }) => (
         <LeveledLanguageItem
-          key={language}
-          language={language}
+          key={name}
+          id={_id}
+          language={name}
           level={level}
         />
       ))}

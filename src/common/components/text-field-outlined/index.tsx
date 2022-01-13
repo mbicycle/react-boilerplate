@@ -26,6 +26,7 @@ const TextFieldOulined = function (
       variant="outlined"
       name={name}
       onChange={onChange}
+      autoComplete="false"
       fullWidth
     />
   );

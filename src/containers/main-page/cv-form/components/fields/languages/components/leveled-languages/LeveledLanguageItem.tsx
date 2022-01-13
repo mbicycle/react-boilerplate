@@ -1,24 +1,16 @@
 import { memo } from 'react';
 
-import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hooks';
-
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
+import { useDeleteUserLanguage } from '../../lib/query-hooks';
+
 const LeveledLanguageItem = function ({
-  language, level,
-}: {language: string, level: string}): JSX.Element {
-  const { dispatch } = useLanguageContext();
+  language, level, id,
+}: {language: string, level: string, id: string}): JSX.Element {
+  const { mutateAsync: deleteBy } = useDeleteUserLanguage();
 
   const onDeleteLanguageHandle = (): void => {
-    dispatch(
-      {
-        type: 'remove',
-        leveledLanguage: {
-          language,
-          level,
-        },
-      },
-    );
+    deleteBy(id);
   };
 
   return (

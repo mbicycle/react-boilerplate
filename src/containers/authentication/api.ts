@@ -1,6 +1,8 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import axiosInstance from 'common/axios';
 import { GoogleLoginResponse } from 'react-google-login';
+
+import axiosInstance from 'common/axios';
+import { UserLanguage } from 'common/models/UserLanguage';
 
 import { Endpoint } from './utils/constants';
 import { storage } from './utils/storage';
@@ -16,6 +18,7 @@ export interface User {
   picture: string;
   role: string;
   skype: string;
+  languages: UserLanguage[];
   summaryOfQualifications: string;
 }
 
@@ -56,6 +59,7 @@ export const relogin = async ():
         },
       }).then((response: AxiosResponse<TokenType>) => {
         if (response?.status === 201) {
+          storage.clearAll();
           storage.setToken(response.data);
         }
         return resolve(response.data);

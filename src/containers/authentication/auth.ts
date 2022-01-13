@@ -42,7 +42,7 @@ async function loadUser(): Promise<User> {
 }
 
 async function logoutFn(): Promise<void> {
-  await storage.clearToken();
+  storage.clearToken();
 }
 
 const authConfig: AuthProviderConfig<User, unknown> = {

@@ -20,12 +20,12 @@ export const refreshTokenSetup = async (accessToken: string): Promise<void> => {
   const timeout = convertTo('milliseconds', timeoutInSec);
 
   const refreshToken = async (): Promise<void> => {
-    refreshTimeout = setTimeout(refreshToken, timeout - ONE_SEC);
+    refreshTimeout = setTimeout(refreshToken, timeout + (ONE_SEC * 5));
 
     await relogin();
   };
 
-  refreshTimeout = setTimeout(refreshToken, timeout);
+  refreshTimeout = setTimeout(refreshToken, timeout + (ONE_SEC * 5));
 
   if (!accessToken) clearTimeout(refreshTimeout);
 };

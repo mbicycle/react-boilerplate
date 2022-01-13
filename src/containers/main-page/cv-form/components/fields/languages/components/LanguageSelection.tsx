@@ -4,29 +4,30 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Grid } from '@mui/material';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import { useLanguageContext } from 'containers/main-page/cv-form/local-state/hooks';
-
-import { LANGUAGES, LEVELS } from '../mock';
+import { Language } from 'common/models/Language';
 
 import LanguageSelectionForm from './LanguageSelectionForm';
-import { LeveledLanguageType } from '../../../../local-state/LanguageContext';
+import { LEVELS } from './utils/constants';
+
+import { useAddUserLanguage, useGetAllLanguages } from '../lib/query-hooks';
+import { FormLanguage } from './utils/types';
 
 import { GridWrapperStyled, SaveButtonWrapperStyled } from '../utils/styled';
 
 const LanguageSelection = function (): JSX.Element {
-  const { dispatch } = useLanguageContext();
   const navigate = useNavigate();
+  const { mutateAsync: addMyLangugeAsync } = useAddUserLanguage();
+  const { data } = useGetAllLanguages();
 
   const [isSaveDisabled, setSaveDisabled] = useState(true);
-  const [leveledLanguage, setLeveledLanguage] = useState<LeveledLanguageType>({ language: '', level: '' });
+  const [leveledLanguage, setLeveledLanguage] = useState<FormLanguage>({ name: '', level: '' });
 
   const onSaveHandle = (): void => {
-    dispatch({ type: 'add', leveledLanguage });
-    // TODO: Implement saving to DB.
+    addMyLangugeAsync(leveledLanguage as never);
     navigate(-1);
   };
 
-  const onGetSelectedLanguageHandle = useCallback((language: LeveledLanguageType): void => {
+  const onGetSelectedLanguageHandle = useCallback((language: FormLanguage): void => {
     setSaveDisabled(false);
     setLeveledLanguage(language);
   }, []);
@@ -41,7 +42,7 @@ const LanguageSelection = function (): JSX.Element {
       >
         <LanguageSelectionForm
           onGetSelectedLanguage={onGetSelectedLanguageHandle}
-          languages={LANGUAGES}
+          languages={data as Language[]}
           levels={LEVELS}
         />
       </Grid>

@@ -1,19 +1,12 @@
 import { FC, useMemo, useReducer } from 'react';
 
-import { LanguageContext } from './LanguageContext';
-import { languagesReducer, skillCollectionReducer, skillReducer } from './reducers';
+import { skillCollectionReducer, skillReducer } from './reducers';
 import { SkillCollectionContext } from './SkillCollectionContext';
 import { SkillContext } from './SkillContext';
 
 const CvFormProvider: FC = function ({ children }): JSX.Element {
-  const [langState, langDispatch] = useReducer(languagesReducer, []);
   const [skillState, skillDispatch] = useReducer(skillReducer, { category: '', tools: [] });
   const [skillCollectionState, skillCollectionDispatch] = useReducer(skillCollectionReducer, []);
-
-  const languageContextValue = useMemo(() => ({
-    state: langState,
-    dispatch: langDispatch,
-  }), [langState]);
 
   const skillContextValue = useMemo(() => ({
     state: skillState,
@@ -28,9 +21,7 @@ const CvFormProvider: FC = function ({ children }): JSX.Element {
   return (
     <SkillCollectionContext.Provider value={skillCollectionContextValue}>
       <SkillContext.Provider value={skillContextValue}>
-        <LanguageContext.Provider value={languageContextValue}>
-          {children}
-        </LanguageContext.Provider>
+        {children}
       </SkillContext.Provider>
     </SkillCollectionContext.Provider>
   );

@@ -5,7 +5,7 @@ import { fileToBase64 } from 'common/utils/file';
 
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
 import { ExtendedFileType } from './types';
-import { useChangeMyAvatar } from '../../lib/query-hooks';
+import { useUpdateMyAvatar } from '../../lib/query-hooks';
 
 const Mb5 = 5242880 as const;
 
@@ -17,7 +17,7 @@ type UseFileUploadReturnType = Pick<DropzoneState, 'getRootProps' | 'getInputPro
 };
 
 export const useFileUpload = (): UseFileUploadReturnType => {
-  const mutation = useChangeMyAvatar();
+  const mutation = useUpdateMyAvatar();
 
   const [files, setFiles] = useState<ExtendedFileType[]>([]);
   const [base64String, setBase64String] = useState<string | undefined>();

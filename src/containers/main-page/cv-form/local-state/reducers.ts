@@ -2,27 +2,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { SkillModel, Tool } from '../components/fields/skills/utils/models';
 
-import { LanguageAction, LanguageState } from './LanguageContext';
 import { SkillCollectionAction, SkillCollectionState } from './SkillCollectionContext';
 import { SkillAction, SkillState } from './SkillContext';
 import { ReturnPartialSkillModelType, SkillReducerReturnType } from './types';
 
 const DELETE_COUNT = 1 as const;
-
-export function languagesReducer(state: LanguageState, action: LanguageAction): LanguageState {
-  const copy = [...state];
-
-  if (action.leveledLanguage.language && action.leveledLanguage.level) {
-    if (action.type === 'add') {
-      copy.push(action.leveledLanguage);
-    } else {
-      const langIndex = copy.findIndex((x) => x.language === action.leveledLanguage.language);
-      copy.splice(langIndex, DELETE_COUNT);
-    }
-  }
-
-  return copy;
-}
 
 export function skillReducer(state: SkillState, action: SkillAction): SkillState {
   const copy = { ...state };

@@ -2,25 +2,13 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { GoogleLoginResponse } from 'react-google-login';
 
 import axiosInstance from 'common/axios';
-import { UserLanguage } from 'common/models/UserLanguage';
+import { User } from 'common/models/User';
 
 import { Endpoint } from './utils/constants';
 import { storage } from './utils/storage';
 import { TokenType } from './types/TokenType';
 
 const axios = axiosInstance;
-
-export interface User {
-  _id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  picture: string;
-  role: string;
-  skype: string;
-  languages: UserLanguage[];
-  summaryOfQualifications: string;
-}
 
 export async function handleApiResponse(response: AxiosResponse): Promise<unknown> {
   if (response.status === 200) {

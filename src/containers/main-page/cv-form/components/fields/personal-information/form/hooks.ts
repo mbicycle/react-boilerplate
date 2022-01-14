@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 import { useForm } from 'common/utils/hooks';
 import { Me } from 'common/models/Me';
+import { User } from 'common/models/User';
 import { useAuth } from 'containers/authentication/auth';
-import { User } from 'containers/authentication/api';
 
 import { useUpdateMe } from '../lib/query-hooks';
 

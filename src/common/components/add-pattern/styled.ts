@@ -12,6 +12,7 @@ export const AddProfiencyStyled = styled(Box, {
   width: '100%',
   height: 'calc(100% - 158px)',
   alignItems: 'flex-start',
+  overflow: 'auto',
 });
 
 export const ContainerStyled = styled(Box, {

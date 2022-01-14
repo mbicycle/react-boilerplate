@@ -1,9 +1,11 @@
 import { GoogleLoginResponse } from 'react-google-login';
 import { AuthProviderConfig, initReactQueryAuth } from 'react-query-auth';
+
+import { User } from 'common/models/User';
+
 import {
   getUser,
   loginWithGoogleTokenId,
-  User,
 } from './api';
 
 import { storage } from './utils/storage';

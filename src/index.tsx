@@ -5,7 +5,7 @@ import { CssBaseline } from '@mui/material';
 
 import ReactQueryProvider from 'common/providers/ReactQueryProvider';
 import App from './App';
-import GlobalStyle from './common/globalStyle';
+import GlobalStyle from './common/theme/old/globalStyle';
 
 import reportWebVitals from './reportWebVitals';
 

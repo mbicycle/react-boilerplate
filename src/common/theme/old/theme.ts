@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 import { CSSProperties } from 'styled-components';
-import { OpenSansBold, OpenSansRegular, OpenSansSemibold } from './fonts/index';
+import { OpenSansBold, OpenSansRegular, OpenSansSemibold } from '../../fonts';
 import { BackgroundExtendedType, ExtendedThemeOptions } from './theme-types';
 
 export const PALETTE = {

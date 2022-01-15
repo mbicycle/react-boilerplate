@@ -1,5 +1,5 @@
 import { ThemeOptions } from '@mui/material';
-
+// TODO: JUST SAVE IT FOR UR FUTURE PURPOSES
 export interface ExtraBackground {
   blue: string;
   white: string;

@@ -1,12 +1,12 @@
 import { memo } from 'react';
-
 import { Typography } from '@mui/material';
 
 import { useAuth } from 'containers/authentication/auth';
+import { useUserPhoto } from 'common/services/user-service/hooks/useUserPhoto';
+import { useFileUpload } from './utils/hooks';
 
 import Thumbs from './Thumbs';
 import { Text } from './utils/types';
-import { useFileUpload } from './utils/hooks';
 
 import {
   ChangeCircleIconStyled,
@@ -18,6 +18,8 @@ import { ImageStyled } from '../styled';
 
 const FileUpload = function (): JSX.Element {
   const { user } = useAuth();
+  const { photo } = useUserPhoto();
+
   const {
     files,
     getRootProps,
@@ -35,18 +37,18 @@ const FileUpload = function (): JSX.Element {
       alignItems="center"
     >
       <input {...getInputProps()} />
-      {user?.picture ? (
+      {photo ? (
         <ImageStyled
           referrerPolicy="no-referrer"
-          alt={user?.email}
-          src={user?.picture}
+          alt={user?.mail}
+          src={photo}
           $width={40}
         />
       ) : <PersonIconStyled />}
       {!files[0] ? (
         <>
           <Typography color="text.disabled" variant="h5">
-            {user?.picture ? Text.UpdatePhoto : Text.FileUpload}
+            {photo ? Text.UpdatePhoto : Text.FileUpload}
           </Typography>
           &nbsp;
           <UploadOneStyled color="primary" variant="h5">

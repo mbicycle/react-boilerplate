@@ -1,12 +1,15 @@
 /* eslint-disable max-len */
 import { lazy, memo } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {
+  Navigate, Route, Routes, useLocation,
+} from 'react-router-dom';
+import { useMsal } from '@azure/msal-react';
 
 import Login from 'containers/authentication/components';
 import LanguageSelection from 'containers/main-page/cv-form/components/fields/languages/components/LanguageSelection';
 import Skill from 'containers/main-page/cv-form/components/fields/skills/components';
+import EditSkill from 'containers/main-page/cv-form/components/fields/skills/components/EditSkill';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
-import { useAuth } from 'containers/authentication/auth';
 
 import { ROUTE } from './utils/constants';
 import MainPage from '../../../containers/main-page';
@@ -20,9 +23,14 @@ const Projects = lazy(() => import('containers/main-page/cv-form/components/fiel
 const Certifications = lazy(() => import('containers/main-page/cv-form/components/fields/certifications'));
 
 const Routing = function (): JSX.Element {
-  const { user, isLoggingIn, isRegistering } = useAuth();
+  const { inProgress } = useMsal();
+  const location = useLocation();
 
-  if (!user && (isLoggingIn || isRegistering)) {
+  if (location.pathname === '/' || location.pathname === '') {
+    return <Navigate to={ROUTE.DASHBOARD.PERSONAL_INFORMATION} />;
+  }
+
+  if (inProgress !== 'none') {
     return <CircularSpinner size="large" color="primary" />;
   }
 
@@ -43,6 +51,7 @@ const Routing = function (): JSX.Element {
         </Route>
         <Route path={ROUTE.DASHBOARD.SKILLS} element={<Skills />}>
           <Route path={ROUTE.ADD} element={<Skill />} />
+          <Route path={ROUTE.EDIT} element={<EditSkill />} />
         </Route>
         <Route path={ROUTE.DASHBOARD.PROJECTS} element={<Projects />} />
         <Route path={ROUTE.DASHBOARD.CERTIFICATES} element={<Certifications />} />

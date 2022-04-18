@@ -13,13 +13,8 @@ export const LeveledLanguageItemStyled = styled(Box)(({ theme }) => ({
 
 export const LeftSideWrapperStyled = styled(Box)({
   width: '100%',
+  cursor: 'pointer',
 });
-
-// export const SelectedLanguagesListStyled = styled(Box, {
-//   label: 'SelectedLanguagesListStyled',
-// })({
-//   width: '100%',
-// });
 
 export const DragIndicatorIconStyled = styled(DragIndicatorIcon)(({ theme }) => ({
   color: theme.palette.text.secondary,

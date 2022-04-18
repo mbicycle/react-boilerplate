@@ -1,23 +1,23 @@
 import { memo } from 'react';
 
-import { useSkillCollectionContext } from 'containers/main-page/cv-form/local-state/hooks';
 import AddProfiency from 'common/components/add-pattern';
 
+import { useLocation } from 'react-router-dom';
+import { ROUTE } from 'common/components/routes/utils/constants';
 import SkillList from './components/skills/SkillList';
+import { useGetAllSkills } from './lib/query-hooks';
 
 const Skills = function (): JSX.Element {
-  const { state: skills } = useSkillCollectionContext();
+  // const { state: skills } = useSkillCollectionContext();
+  const location = useLocation();
+  const { data: skills } = useGetAllSkills();
 
   return (
     <AddProfiency
-      collection={skills}
+      collection={skills || []}
       title="Skill"
     >
-      {
-        skills.length
-          ? <SkillList skills={skills} />
-          : null
-      }
+      {!location.pathname.includes(ROUTE.EDIT) && <SkillList skills={skills || []} />}
     </AddProfiency>
   );
 };

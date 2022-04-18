@@ -2,6 +2,7 @@ export const ROUTE = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   ADD: 'add',
+  EDIT: 'edit',
   DASHBOARD: {
     DEFAULT: 'dashboard',
     PERSONAL_INFORMATION: 'personal-information',

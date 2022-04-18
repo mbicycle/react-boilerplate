@@ -1,5 +1,5 @@
 export enum Text {
-  ButtonLogin = 'Continue with Google',
+  ButtonLogin = 'Continue with Microsoft',
   ButtonLogout = 'Logout',
   CookiePolicy = 'single_host_origin',
   CardTitle = 'Online CV Generator',

@@ -1,17 +1,18 @@
 import { memo } from 'react';
 
-import { SkillCollectionState } from 'containers/main-page/cv-form/local-state/SkillCollectionContext';
+import { Skill } from 'common/models/Skill';
 
 import SkillItem from './SkillItem';
 
-const SkillList = function ({ skills }: {skills: SkillCollectionState}) : JSX.Element {
+const SkillList = function ({ skills }: {skills: Skill[]}) : JSX.Element | null {
   return (
     <>
-      {skills.map(({ category, tools }) => (
+      {skills.map(({ category, tools, _id }) => (
         <SkillItem
           key={category}
           category={category}
-          tools={tools}
+          tools={tools || []}
+          id={_id}
         />
       ))}
     </>

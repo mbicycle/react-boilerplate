@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { AxiosError, AxiosResponse } from 'axios';
 
-import axiosInstance from 'common/axios';
+import axiosInstance from 'common/interceptors/axios';
 import { Language } from 'common/models/Language';
 import { UserLanguage } from 'common/models/UserLanguage';
 

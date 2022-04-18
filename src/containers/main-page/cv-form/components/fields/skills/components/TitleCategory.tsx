@@ -10,17 +10,22 @@ import { useDebouncedFn } from 'beautiful-react-hooks';
 import { CategoryInputText, DEBOUNCE_TIMEOUT, Text } from '../utils/constants';
 
 import { GrayButtonStyled, AddCircleIconStyled, InputContainerStyled } from '../utils/styled';
+import { useAddOrEditSkill } from '../lib/query-hooks';
 
 const TitleCategory = function ({ value }: {value: string}): JSX.Element {
   const { handleChange, values: { titleCategory } } = useForm({ titleCategory: '' });
   const { dispatch } = useSkillContext();
+  const { mutateAsync } = useAddOrEditSkill();
 
   const onAddSkillHandle = (): void => {
     dispatch({ type: 'add-tool' });
   };
 
-  const onHandleCategoryChange = useDebouncedFn((e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onHandleCategoryChange = useDebouncedFn(async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): Promise<void> => {
     dispatch({ type: 'add-category', skill: { category: e.target.value } });
+    await mutateAsync({ _id: '', category: e.target.value });
     handleChange(e);
   }, DEBOUNCE_TIMEOUT);
 

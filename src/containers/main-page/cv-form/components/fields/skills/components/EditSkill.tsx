@@ -1,9 +1,10 @@
-import { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import { useSkillCollectionContext, useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+// import { useSkillCollectionContext, useSkillContext
+// } from 'containers/main-page/cv-form/local-state/hooks';
 
+import { useGetSkillById } from 'common/utils/hooks';
 import TitleCategory from './TitleCategory';
 import Tool from './tool';
 
@@ -14,19 +15,15 @@ import {
 } from '../utils/styled';
 // import { useAddOrEditSkill } from '../lib/query-hooks';
 
-const Skill = function (): JSX.Element {
-  const { state: { tools, category } } = useSkillContext();
-  const { dispatch } = useSkillCollectionContext();
-  // const { mutateAsync } = useAddOrEditSkill();
-  // const {} = useGetSkillBy()
-
-  const navigate = useNavigate();
+const EditSkill = function (): JSX.Element {
+  const { data: { category, tools } } = useGetSkillById();
 
   const onSaveToolsHandle = (): void => {
-    dispatch({ type: 'add', skill: { tools, category } });
-    // mutateAsync({ _id: '', category: category || '', tools: tools || [] });
-    navigate(-1);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const r = 5;
   };
+
+  // console.log('category, tools', category, tools);
 
   return (
     <SkillContainerStyled>
@@ -52,8 +49,10 @@ const Skill = function (): JSX.Element {
           {ButtonStep.Save}
         </SaveButtonStyled>
       </SaveButtonWrapperStyled>
+      <Outlet />
+
     </SkillContainerStyled>
   );
 };
 
-export default memo(Skill);
+export default EditSkill;

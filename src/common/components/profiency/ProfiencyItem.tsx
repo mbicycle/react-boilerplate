@@ -13,11 +13,18 @@ interface ProfiencyItem {
   headText: string;
   bodyText: string | JSX.Element | React.ReactNode;
   onDelete: (id?: string) => void;
+  onClick?: () => void;
 }
 
 const ProfiencyItem = function ({
-  headText, bodyText, onDelete,
+  headText, bodyText, onDelete, onClick,
 }: ProfiencyItem): JSX.Element {
+  const setSkillIdHandle = (): void => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
   const onDeleteLanguageHandle = (): void => {
     onDelete();
   };
@@ -25,7 +32,7 @@ const ProfiencyItem = function ({
   return (
     <LeveledLanguageItemStyled>
       <DragIndicatorIconStyled fontSize="large" />
-      <LeftSideWrapperStyled>
+      <LeftSideWrapperStyled onClick={setSkillIdHandle}>
         <TextContainerStyled>
           <Typography variant="body1">
             {headText}

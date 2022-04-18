@@ -18,7 +18,10 @@ const CVFormControls = function (): JSX.Element | null {
 
   const stepsLength = Step.Certifications;
 
-  if (location.pathname.includes(ROUTE.ADD)) return null;
+  if (
+    location.pathname.includes(ROUTE.ADD)
+  || location.pathname.includes(ROUTE.EDIT)
+  ) return null;
 
   return (
     <StepperControlsWrapper>

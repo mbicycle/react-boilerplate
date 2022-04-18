@@ -1,5 +1,8 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useDebouncedFn } from 'beautiful-react-hooks';
+import { Skill } from 'common/models/Skill';
+import { storage } from 'containers/authentication/utils/storage';
+import { useGetSkillBy } from 'containers/main-page/cv-form/components/fields/skills/lib/query-hooks';
 import { useState } from 'react';
 
 type UseFormPropsReturnType<T> = {
@@ -30,3 +33,20 @@ export const useForm = <T>(initialValues?: T): UseFormPropsReturnType<T> => {
     handleSubmit,
   };
 };
+
+type Props = {
+  skillId: string;
+  data: Skill;
+  isLoading: boolean;
+};
+
+export function useGetSkillById(): Props {
+  const id = storage.getSkillId();
+  const { data, isLoading } = useGetSkillBy(id as string);
+
+  return {
+    skillId: id as string,
+    data: data || {} as Skill,
+    isLoading,
+  };
+}

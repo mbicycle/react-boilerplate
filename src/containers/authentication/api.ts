@@ -1,8 +1,8 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { GoogleLoginResponse } from 'react-google-login';
 
-import axiosInstance from 'common/axios';
-import { User } from 'common/models/User';
+import axiosInstance from 'common/interceptors/axios';
+import { MsUser } from 'common/models/User';
+import graph from 'common/interceptors/ms-graph-interceptor';
 
 import { Endpoint } from './utils/constants';
 import { storage } from './utils/storage';
@@ -18,21 +18,11 @@ export async function handleApiResponse(response: AxiosResponse): Promise<unknow
   return Promise.reject(response);
 }
 
-export const loginWithGoogleTokenId = async ({ tokenId }: GoogleLoginResponse):
-  Promise<TokenType> => new Promise<TokenType>(
-    (resolve, reject) => {
-      axios.post<TokenType>(Endpoint.AuthToken, {
-        token: tokenId,
-      }).then((response: AxiosResponse<TokenType>) => resolve(response.data))
-        .catch((error: AxiosError<string>) => reject(error));
-    },
-  );
-
-export const getUser = async (): Promise<User> => new Promise<User>(
+export const getUser = async (): Promise<MsUser> => new Promise<MsUser>(
   (resolve, reject) => {
-    axios.get<User>(Endpoint.Me)
-      .then((response: AxiosResponse<User>) => resolve(response.data))
-      .catch((error: AxiosError<string>) => reject(error));
+    graph.graphClient.api('/me').get()
+      .then((response: MsUser) => resolve(response))
+      .catch((error) => reject(error));
   },
 );
 
@@ -48,7 +38,7 @@ export const relogin = async ():
       }).then((response: AxiosResponse<TokenType>) => {
         if (response?.status === 201) {
           storage.clearAll();
-          storage.setToken(response.data);
+          // storage.setToken(response.data);
         }
         return resolve(response.data);
       })

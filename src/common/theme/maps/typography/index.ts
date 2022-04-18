@@ -1,5 +1,5 @@
 export const typography = {
-  htmlFontSize: 10,
+  htmlFontSize: 14,
   fontFamily: '\'Ubuntu\', sans-serif',
   fontSize: 14,
   fontWeightLight: 300,

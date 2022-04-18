@@ -17,13 +17,13 @@ const PersonalDataForm = function (): JSX.Element {
       <Grid container direction="row" wrap="nowrap" spacing={6}>
         <Grid item>
           <TextFieldOutlined
-            defaultValue={user?.firstName}
+            defaultValue={user?.givenName}
             label={InputLabel.FirstName}
             name={InputName.FirstName}
             onChange={handleChange}
           />
           <TextFieldOutlined
-            defaultValue={user?.lastName}
+            defaultValue={user?.surname}
             label={InputLabel.LastName}
             name={InputName.LastName}
             onChange={handleChange}
@@ -31,7 +31,7 @@ const PersonalDataForm = function (): JSX.Element {
         </Grid>
         <Grid item>
           <TextFieldOutlined
-            value={user?.email}
+            value={user?.mail}
             label={InputLabel.Email}
             name={InputName.Email}
             onChange={handleChange}
@@ -39,7 +39,7 @@ const PersonalDataForm = function (): JSX.Element {
             disabled
           />
           <TextFieldOutlined
-            defaultValue={user?.skype}
+            defaultValue="user?.skype"
             label={InputLabel.Skype}
             name={InputName.Skype}
             onChange={handleChange}
@@ -47,7 +47,7 @@ const PersonalDataForm = function (): JSX.Element {
         </Grid>
       </Grid>
       <TextFieldOutlined
-        defaultValue={user?.summaryOfQualifications}
+        defaultValue="user?.summaryOfQualifications"
         label={InputLabel.Summary}
         name={InputName.Summary}
         onChange={handleChange}

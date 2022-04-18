@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import axiosInstance from 'common/axios';
+import axiosInstance from 'common/interceptors/axios';
 
 import { Me } from 'common/models/Me';
 

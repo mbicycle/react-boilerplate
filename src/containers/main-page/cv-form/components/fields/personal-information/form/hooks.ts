@@ -2,24 +2,24 @@ import { useEffect } from 'react';
 
 import { useForm } from 'common/utils/hooks';
 import { Me } from 'common/models/Me';
-import { User } from 'common/models/User';
+import { MsUser } from 'common/models/User';
 import { useAuth } from 'containers/authentication/auth';
 
-import { useUpdateMe } from '../lib/query-hooks';
+// import { useUpdateMe } from '../lib/query-hooks';
 
 interface UpdatePersonalDataReturnType {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  user: User | undefined;
+  user: MsUser | undefined;
 }
 
 export const useUpdatePersonalData = (): UpdatePersonalDataReturnType => {
   const { values, handleChange } = useForm<Me>();
-  const { mutateAsync } = useUpdateMe();
+  // const { mutateAsync } = useUpdateMe();
   const { user } = useAuth();
 
   useEffect(() => {
-    mutateAsync(values as never);
-  }, [mutateAsync, values]);
+    // mutateAsync(values as never);
+  }, [values]);
 
   return {
     handleChange,

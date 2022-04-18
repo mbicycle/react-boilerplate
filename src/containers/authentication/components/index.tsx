@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 
-import GoogleLoginComponent from 'containers/authentication/components/GoogleLoginComponent';
+import MicrosoftLoginComponent from 'containers/authentication/components/MicrosoftLoginComponent';
 import { Text } from 'containers/authentication/utils/constants';
 
 import {
@@ -23,7 +23,7 @@ const Login = function (): JSX.Element {
           {Text.CardDescription}
         </Typography>
         <Grid item container direction="row" gap={5}>
-          <GoogleLoginComponent />
+          <MicrosoftLoginComponent />
         </Grid>
       </PaperStyled>
     </LoginContainerStyled>

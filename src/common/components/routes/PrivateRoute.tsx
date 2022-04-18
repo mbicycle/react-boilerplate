@@ -3,8 +3,7 @@ import {
   Navigate, RouteProps, useLocation,
 } from 'react-router-dom';
 
-import { useAuth } from 'containers/authentication/auth';
-
+import { useIsAuthenticated } from '@azure/msal-react';
 import { ROUTE } from './utils/constants';
 
 interface PrivateRouteProps extends RouteProps {
@@ -12,10 +11,10 @@ interface PrivateRouteProps extends RouteProps {
 }
 
 export const PrivateRoute = memo(({ children }: PrivateRouteProps):JSX.Element => {
-  const { user } = useAuth();
+  const isAuthenticated = useIsAuthenticated();
   const location = useLocation();
 
-  if (!user) {
+  if (!isAuthenticated) {
     return <Navigate to={ROUTE.LOGIN} state={{ from: location }} />;
   }
 

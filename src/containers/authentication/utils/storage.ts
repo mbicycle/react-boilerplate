@@ -1,4 +1,4 @@
-import { TokenType } from '../types/TokenType';
+// import { TokenType } from '../types/TokenType';
 
 export const storage = {
   getAccessToken: (): string | undefined => {
@@ -21,12 +21,14 @@ export const storage = {
     if (unix) return +unix;
     return undefined;
   },
-  setToken: (tokenObj: TokenType): void => {
-    localStorage.setItem('__access-token__', tokenObj.accessToken);
-    localStorage.setItem('__refresh-token__', tokenObj.refreshToken);
-    localStorage.setItem('__created-at__', tokenObj.accessTokenStartDate.toString());
-    localStorage.setItem('__expires-at__', tokenObj.accessTokenExpires.toString());
+  setToken: (token: string | undefined): void => {
+    localStorage.setItem('__access-token__', token as string);
+    // localStorage.setItem('__refresh-token__', token.refreshToken);
+    // localStorage.setItem('__created-at__', token.accessTokenStartDate.toString());
+    // localStorage.setItem('__expires-at__', token.accessTokenExpires.toString());
   },
+  setSkillId: (id: string): void => { localStorage.setItem('skill_id', id); },
+  getSkillId: (): string | null => localStorage.getItem('skill_id'),
   clearToken: (): void => localStorage.removeItem('__access-token__'),
   clearAll: (): void => localStorage.clear(),
 };

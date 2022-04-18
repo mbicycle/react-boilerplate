@@ -8,6 +8,7 @@ import {
 import { ROUTE } from 'common/components/routes/utils/constants';
 
 import { useAuth } from 'containers/authentication/auth';
+import { useUserPhoto } from 'common/services/user-service/hooks/useUserPhoto';
 
 import PdfButtonSet from './ButtonSet';
 
@@ -18,6 +19,7 @@ import {
 
 const ApplicationBar = function (): JSX.Element {
   const { user } = useAuth();
+  const { photo } = useUserPhoto();
 
   return (
     <Box height="8rem" bgcolor="primary.main">
@@ -39,7 +41,7 @@ const ApplicationBar = function (): JSX.Element {
               variant="middle"
             />
             <IconButton>
-              <Avatar alt={user?.email} src={user?.picture} />
+              <Avatar alt={user.mail} src={photo} />
             </IconButton>
           </ButtonsWrapperStyled>
         )}

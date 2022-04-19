@@ -14,30 +14,29 @@ let graphClient: Client | undefined;
 
 const setActiveAccount = (): AccountInfo | null => {
   const activeAccount = msalInstance.getActiveAccount();
-
   const accounts = msalInstance.getAllAccounts();
   const request = {
     ...loginRequest,
     account: accounts[0],
   };
 
-  msalInstance.acquireTokenSilent(request).then((response) => {
-    storage.clearAll();
-    storage.setToken(response.accessToken);
-    storage.setIdToken(response.idToken);
-  }).catch(() => {
-    msalInstance.acquireTokenPopup(request).then((response) => {
-      storage.clearAll();
-      storage.setToken(response.accessToken);
-      storage.setIdToken(response.idToken);
-      msalInstance.setActiveAccount(request.account);
-    });
-  });
-
   if (!activeAccount) {
     if (request.account) {
       msalInstance.setActiveAccount(request.account);
     }
+  } else {
+    msalInstance.acquireTokenSilent(request).then((response) => {
+      storage.clearAll();
+      storage.setToken(response.accessToken);
+      storage.setIdToken(response.idToken);
+    }).catch(() => {
+      msalInstance.acquireTokenPopup(request).then((response) => {
+        storage.clearAll();
+        storage.setToken(response.accessToken);
+        storage.setIdToken(response.idToken);
+        msalInstance.setActiveAccount(request.account);
+      });
+    });
   }
 
   msalInstance.addEventCallback((event: EventMessage) => {

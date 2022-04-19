@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   useMutation,
   UseMutationResult,
@@ -5,6 +6,7 @@ import {
   useQueryClient,
   UseQueryResult,
 } from 'react-query';
+
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
 
 import { DbUser } from 'common/models/User';
@@ -16,16 +18,19 @@ import * as api from './api';
 export function useUserFromDb(): UseQueryResult<DbUser, Error> {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   return useQuery<DbUser, Error, DbUser, QueryKey.DbUser>(
     QueryKey.DbUser,
-    () => api.getDbUser(
-      // user?.mail as string
-      'grigory.popravko@mbicycle.com',
-    ),
+    () => api.getDbUser(user?.mail as string),
     {
       initialData: () => queryClient.getQueryData(QueryKey.DbUser),
-      onSuccess: (data) => queryClient.setQueryData(QueryKey.DbUser, data),
+      onSuccess: (data) => {
+        if (!data) {
+          navigate({ pathname: '/login' }, { replace: true });
+          SnackBarUtils.warning('User doesn\'t exist in Database.');
+        }
+      },
 
       onError: (error: Error) => {
         SnackBarUtils.error(`${error.message}.`);

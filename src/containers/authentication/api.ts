@@ -20,7 +20,9 @@ export async function handleApiResponse(response: AxiosResponse): Promise<unknow
 
 export const getUser = async (): Promise<MsUser> => new Promise<MsUser>(
   (resolve, reject) => {
-    graph.graphClient.api('/me').get()
+    graph.graphClient.api('/me')
+      .select('givenName,mail,surname')
+      .get()
       .then((response: MsUser) => resolve(response))
       .catch((error) => reject(error));
   },

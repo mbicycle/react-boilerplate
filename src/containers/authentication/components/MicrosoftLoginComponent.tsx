@@ -7,9 +7,10 @@ import { Button, Typography } from '@mui/material';
 import { Text } from 'containers/authentication/utils/constants';
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
 import MicrosoftIcon from 'common/icons/MicrosoftIcon';
-import { AuthError, IPublicClientApplication } from '@azure/msal-browser';
+import { AuthError } from '@azure/msal-browser';
 import { loginRequest } from 'authConfig';
 
+import { msalInstance } from 'common/interceptors/ms-graph-interceptor';
 import { storage } from '../utils/storage';
 
 import { GoogleLoginContainerStyled } from './styled';
@@ -20,11 +21,11 @@ const MicrosoftLoginComponent = function (): JSX.Element {
 
   const from = location.state?.from?.pathname || '/';
 
-  const { instance, logger } = useMsal();
+  const { logger } = useMsal();
 
-  const handleLogin = async (instances: IPublicClientApplication): Promise<void> => {
+  const handleLogin = async (): Promise<void> => {
     try {
-      const userData = await instances.loginPopup(loginRequest);
+      const userData = await msalInstance.loginPopup(loginRequest);
       // TODO: Add create user to db
       storage.setToken(userData.accessToken);
       storage.setIdToken(userData.idToken);
@@ -40,7 +41,7 @@ const MicrosoftLoginComponent = function (): JSX.Element {
 
   return (
     <GoogleLoginContainerStyled>
-      <Button variant="contained" onClick={() => handleLogin(instance)}>
+      <Button variant="contained" onClick={handleLogin}>
         <MicrosoftIcon />
         <Typography
           sx={{ textTransform: 'initial', pl: 2 }}

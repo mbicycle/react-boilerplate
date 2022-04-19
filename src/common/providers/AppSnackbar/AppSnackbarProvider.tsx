@@ -16,10 +16,10 @@ const AppSnackbarProvider = function ({ children }: {children: React.ReactElemen
 
   const IconButtonMemoized = useCallback((key: string) => (
     <IconButton
-      color="default"
+      color="inherit"
       onClick={(e) => onClickDismiss(e, key)}
     >
-      <CloseIcon />
+      <CloseIcon fontSize="large" />
     </IconButton>
   ), [onClickDismiss]);
 
@@ -30,6 +30,7 @@ const AppSnackbarProvider = function ({ children }: {children: React.ReactElemen
       dense
       preventDuplicate
       action={IconButtonMemoized}
+      style={{ fontSize: '14px' }}
     >
       <SnackbarUtilsConfigurator />
       {children}

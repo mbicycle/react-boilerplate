@@ -1,4 +1,4 @@
-import { memo, Suspense } from 'react';
+import { memo } from 'react';
 
 import { Grid } from '@mui/material';
 

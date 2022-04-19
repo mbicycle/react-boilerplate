@@ -27,7 +27,7 @@ const Routing = function (): JSX.Element {
   const location = useLocation();
 
   if (location.pathname === '/' || location.pathname === '') {
-    return <Navigate to={ROUTE.DASHBOARD.PERSONAL_INFORMATION} />;
+    return <Navigate to={`dashboard/${ROUTE.DASHBOARD.PERSONAL_INFORMATION}`} />;
   }
 
   if (inProgress !== 'none') {

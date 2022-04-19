@@ -1,5 +1,6 @@
+import type { Tool } from 'common/models/User';
 import React from 'react';
-import { SkillModel, Tool } from '../components/fields/skills/utils/models';
+import { SkillModel } from '../components/fields/skills/utils/models';
 
 export type SkillType = SkillModel;
 

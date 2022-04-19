@@ -1,14 +1,32 @@
 import { AxiosError, AxiosResponse } from 'axios';
+
 import axiosInstance from 'common/interceptors/axios';
+import graph from 'common/interceptors/ms-graph-interceptor';
 
-import { Me } from 'common/models/Me';
-
-import { Endpoint } from './constants';
+import { DbUser } from 'common/models/User';
 
 const axios = axiosInstance;
 
-export const updateMe = async (user: Me): Promise<Me> => new Promise<Me>((resolve, reject) => {
-  axios.put<Me>(`${Endpoint.UpdateMe}`, user)
-    .then((response: AxiosResponse<Me>) => resolve(response.data))
+export const updateDbUser = async (
+  user: DbUser,
+): Promise<DbUser> => new Promise<DbUser>((resolve, reject) => {
+  axios.put<DbUser>(`employee/${user.email}`, user)
+    .then((response: AxiosResponse<DbUser>) => resolve(response.data))
     .catch((error: AxiosError<string>) => reject(error));
 });
+
+export const getDbUser = async (email: string): Promise<DbUser> => new Promise<DbUser>(
+  (resolve, reject) => {
+    axios.get<DbUser>(`employee/${email}`)
+      .then((response: AxiosResponse<DbUser>) => resolve(response.data))
+      .catch((error: AxiosError<string>) => reject(error));
+  },
+);
+
+export const updateMsUserAvatar = async (file: File): Promise<ReadableStream> => new Promise<ReadableStream>(
+  (resolve, reject) => {
+    graph.graphClient.api('/me/photo/$value').put(file)
+      .then((response: ReadableStream) => resolve(response))
+      .catch((error) => reject(error));
+  },
+);

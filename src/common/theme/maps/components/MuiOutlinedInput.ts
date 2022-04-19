@@ -14,6 +14,11 @@ const MuiOutlinedInput = {
       '&:hover fieldset': {
         borderColor: `${palette.border} !important`,
       },
+
+      '& .Mui-disabled': {
+        opacity: 1,
+        WebkitTextFillColor: palette.text.secondary,
+      },
     },
   },
 };

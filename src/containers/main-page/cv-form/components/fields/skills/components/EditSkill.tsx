@@ -16,7 +16,7 @@ import {
 // import { useAddOrEditSkill } from '../lib/query-hooks';
 
 const EditSkill = function (): JSX.Element {
-  const { data: { category, tools } } = useGetSkillById();
+  const { data: { name, tools } } = useGetSkillById();
 
   const onSaveToolsHandle = (): void => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,14 +27,14 @@ const EditSkill = function (): JSX.Element {
 
   return (
     <SkillContainerStyled>
-      <TitleCategory value={category || ''} />
+      <TitleCategory value={name || ''} />
       {tools?.length ? (
         <>
           <DividerStyled variant="fullWidth" />
           <ToolsContainerStyled>
             {
               tools.map((tool) => (
-                <Tool key={tool.id} toolData={tool} />
+                <Tool key={tool.name} toolData={tool} />
               ))
             }
           </ToolsContainerStyled>

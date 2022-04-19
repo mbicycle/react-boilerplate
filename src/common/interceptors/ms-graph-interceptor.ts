@@ -1,4 +1,6 @@
-import { AccountInfo, InteractionType, PublicClientApplication } from '@azure/msal-browser';
+import {
+  AccountInfo, AuthenticationResult, EventMessage, EventType, InteractionType, PublicClientApplication,
+} from '@azure/msal-browser';
 import { Client } from '@microsoft/microsoft-graph-client';
 import {
   AuthCodeMSALBrowserAuthenticationProvider,
@@ -13,26 +15,38 @@ let graphClient: Client | undefined;
 const setActiveAccount = (): AccountInfo | null => {
   const activeAccount = msalInstance.getActiveAccount();
 
-  if (!activeAccount) {
-    const accounts = msalInstance.getAllAccounts();
-    const request = {
-      ...loginRequest,
-      account: accounts[0],
-    };
+  const accounts = msalInstance.getAllAccounts();
+  const request = {
+    ...loginRequest,
+    account: accounts[0],
+  };
 
+  msalInstance.acquireTokenSilent(request).then((response) => {
+    storage.clearAll();
+    storage.setToken(response.accessToken);
+    storage.setIdToken(response.idToken);
+  }).catch(() => {
+    msalInstance.acquireTokenPopup(request).then((response) => {
+      storage.clearAll();
+      storage.setToken(response.accessToken);
+      storage.setIdToken(response.idToken);
+      msalInstance.setActiveAccount(request.account);
+    });
+  });
+
+  if (!activeAccount) {
     if (request.account) {
       msalInstance.setActiveAccount(request.account);
     }
-
-    msalInstance.acquireTokenSilent(request).then((response) => {
-      storage.setToken(response.accessToken);
-    }).catch(() => {
-      msalInstance.acquireTokenPopup(request).then((response) => {
-        storage.setToken(response.accessToken);
-        msalInstance.setActiveAccount(request.account);
-      });
-    });
   }
+
+  msalInstance.addEventCallback((event: EventMessage) => {
+    if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
+      // Set the active account - this simplifies token acquisition
+      const authResult = event.payload as AuthenticationResult;
+      msalInstance.setActiveAccount(authResult.account);
+    }
+  });
 
   return activeAccount;
 };
@@ -60,4 +74,6 @@ const authProvider = new AuthCodeMSALBrowserAuthenticationProvider(
 export default {
   authProvider,
   graphClient: ensureClient(authProvider),
+  msalInstance,
+  setActiveAccount,
 };

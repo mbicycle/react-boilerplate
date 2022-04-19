@@ -2,8 +2,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
 import axiosInstance from 'common/interceptors/axios';
-import { Language } from 'common/models/Language';
-import { UserLanguage } from 'common/models/UserLanguage';
+import type { Language } from 'common/models/User';
 
 import { FormLanguage } from '../components/utils/types';
 import { Endpoint } from './constants';
@@ -26,10 +25,10 @@ export const getAllLanguages = async (): Promise<Language[]> => new Promise<Lang
   },
 );
 
-export const getUserLanguages = async (): Promise<UserLanguage[]> => new Promise<UserLanguage[]>(
+export const getUserLanguages = async (): Promise<Language[]> => new Promise<Language[]>(
   (resolve, reject) => {
-    axios.get<UserLanguage[]>(Endpoint.AllUserLanguage)
-      .then((response: AxiosResponse<UserLanguage[]>) => resolve(response.data))
+    axios.get<Language[]>(Endpoint.AllLanguages)
+      .then((response: AxiosResponse<Language[]>) => resolve(response.data))
       .catch((error: AxiosError<string>) => reject(error));
   },
 );
@@ -42,10 +41,10 @@ export const addUserLanguage = async (language: FormLanguage): Promise<FormLangu
   },
 );
 
-export const deleteUserLanguage = async (id: string): Promise<UserLanguage> => new Promise<UserLanguage>(
+export const deleteUserLanguage = async (id: string): Promise<Language> => new Promise<Language>(
   (resolve, reject) => {
-    axios.delete<UserLanguage>(`${Endpoint.DeleteUserLanguage}/${id}`)
-      .then((response: AxiosResponse<UserLanguage>) => resolve(response.data))
+    axios.delete<Language>(`${Endpoint.DeleteUserLanguage}/${id}`)
+      .then((response: AxiosResponse<Language>) => resolve(response.data))
       .catch((error: AxiosError<string>) => reject(error));
   },
 );

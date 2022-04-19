@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import axiosInstance from 'common/interceptors/axios';
 
-import { Skill } from 'common/models/Skill';
+import { Skill } from 'common/models/User';
 
 import { Endpoint } from './constants';
 

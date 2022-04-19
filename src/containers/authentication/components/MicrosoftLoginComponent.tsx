@@ -25,7 +25,9 @@ const MicrosoftLoginComponent = function (): JSX.Element {
   const handleLogin = async (instances: IPublicClientApplication): Promise<void> => {
     try {
       const userData = await instances.loginPopup(loginRequest);
+      // TODO: Add create user to db
       storage.setToken(userData.accessToken);
+      storage.setIdToken(userData.idToken);
 
       navigate(from, { replace: true });
     } catch (error) {

@@ -4,8 +4,8 @@ import { Grid, Typography } from '@mui/material';
 
 import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 
+import { Tool as ToolType } from 'common/models/User';
 import { Text } from '../../utils/constants';
-import { Tool as ToolType } from '../../utils/models';
 
 import SkillToolInput from './CategoryInput';
 import LevelSelection from './LevelSelection';

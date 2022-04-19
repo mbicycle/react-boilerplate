@@ -4,8 +4,8 @@ import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
 import { useNavigate } from 'react-router-dom';
 import { storage } from 'containers/authentication/utils/storage';
+import type { Tool } from 'common/models/User';
 import ToolItem from './ToolItem';
-import { Tool } from '../../utils/models';
 
 interface SkillItemProps {
   id: string;
@@ -31,7 +31,7 @@ const SkillItem = function ({ id, category, tools }: SkillItemProps): JSX.Elemen
       key={category}
       headText={category}
       bodyText={
-        tools?.map((tool) => <ToolItem key={tool.id} tool={tool} />)
+        tools?.map((tool) => <ToolItem key={tool.name} tool={tool} />)
       }
       onDelete={onDeleteToolHandlee}
       onClick={openHandle}

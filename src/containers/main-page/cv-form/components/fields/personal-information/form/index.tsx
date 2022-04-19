@@ -1,16 +1,21 @@
-import { memo } from 'react';
+import { memo, Suspense } from 'react';
 
 import { Grid } from '@mui/material';
 
 import TextFieldOutlined from 'common/components/text-field-outlined';
 
+import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
 import { InputLabel, InputName } from './constants';
 import { useUpdatePersonalData } from './hooks';
 
 import { FormControlStyled } from './styled';
 
 const PersonalDataForm = function (): JSX.Element {
-  const { user, handleChange } = useUpdatePersonalData();
+  const { user, dbUser, handleChange } = useUpdatePersonalData();
+
+  if (!dbUser) {
+    return <CircularSpinner size="large" color="primary" />;
+  }
 
   return (
     <FormControlStyled>
@@ -21,12 +26,14 @@ const PersonalDataForm = function (): JSX.Element {
             label={InputLabel.FirstName}
             name={InputName.FirstName}
             onChange={handleChange}
+            disabled
           />
           <TextFieldOutlined
             defaultValue={user?.surname}
             label={InputLabel.LastName}
             name={InputName.LastName}
             onChange={handleChange}
+            disabled
           />
         </Grid>
         <Grid item>
@@ -39,15 +46,17 @@ const PersonalDataForm = function (): JSX.Element {
             disabled
           />
           <TextFieldOutlined
-            defaultValue="user?.skype"
+            value={dbUser.skype}
+            inputMode="text"
             label={InputLabel.Skype}
             name={InputName.Skype}
             onChange={handleChange}
+            type="text"
           />
         </Grid>
       </Grid>
       <TextFieldOutlined
-        defaultValue="user?.summaryOfQualifications"
+        defaultValue={dbUser.summary}
         label={InputLabel.Summary}
         name={InputName.Summary}
         onChange={handleChange}

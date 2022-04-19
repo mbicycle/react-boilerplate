@@ -42,7 +42,7 @@ const FileUpload = function (): JSX.Element {
           referrerPolicy="no-referrer"
           alt={user?.mail}
           src={photo}
-          $width={40}
+          $width={60}
         />
       ) : <PersonIconStyled />}
       {!files[0] ? (

@@ -5,14 +5,14 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TextFieldOutlined from 'common/components/text-field-outlined';
 import { useForm } from 'common/utils/hooks';
 
-import { Language } from 'common/models/Language';
+import { Language } from 'common/models/User';
 import AddLanguageEndAdornmentButton from './AddLanguageEndAdornmentButton';
 import { ADD_INPUT_LANGUAGE_NAME, BUTTON_TEXT } from './utils/constants';
 
 import { AddLanguageButtonStyled, AddLanguageStyled } from './utils/styled';
 
 const AddLanguage = function (): JSX.Element {
-  const { handleChange, values } = useForm<Language>({ name: '' });
+  const { handleChange, values } = useForm<Language>({ name: '', level: '' });
 
   const [isActive, setIsActive] = useState(false);
 

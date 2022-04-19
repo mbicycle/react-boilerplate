@@ -1,6 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-
-import { SkillModel, Tool } from '../components/fields/skills/utils/models';
+import { Tool } from 'common/models/User';
+import { SkillModel } from '../components/fields/skills/utils/models';
 
 import { SkillCollectionAction, SkillCollectionState } from './SkillCollectionContext';
 import { SkillAction, SkillState } from './SkillContext';
@@ -14,14 +13,14 @@ export function skillReducer(state: SkillState, action: SkillAction): SkillState
 
   function addTool(): SkillState {
     tools.push({
-      id: uuidv4(), name: '', level: '', experience: 0,
+      name: '', level: '', experience: 0,
     });
     return { ...state, tools };
   }
 
   function updateTool(): SkillState {
     if (copy.tools?.length) {
-      const selectedToolIndex = copy.tools.findIndex((tool) => tool.id === action.tool?.id);
+      const selectedToolIndex = copy.tools.findIndex((tool) => tool.name === action.tool?.name);
 
       if (selectedToolIndex !== -1 && action.tool) {
         copy.tools[selectedToolIndex] = { ...action.tool };
@@ -33,7 +32,7 @@ export function skillReducer(state: SkillState, action: SkillAction): SkillState
 
   function removeTool(): SkillState {
     if (copy.tools?.length) {
-      const selectedToolIndex = copy.tools.findIndex((tool) => tool.id === action.tool?.id);
+      const selectedToolIndex = copy.tools.findIndex((tool) => tool.name === action.tool?.name);
       if (selectedToolIndex !== -1) {
         copy.tools.splice(selectedToolIndex, DELETE_COUNT);
       }

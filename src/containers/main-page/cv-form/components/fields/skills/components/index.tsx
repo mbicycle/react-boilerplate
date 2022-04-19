@@ -37,7 +37,7 @@ const Skill = function (): JSX.Element {
           <ToolsContainerStyled>
             {
               tools.map((tool) => (
-                <Tool key={tool.id} toolData={tool} />
+                <Tool key={tool.name} toolData={tool} />
               ))
             }
           </ToolsContainerStyled>

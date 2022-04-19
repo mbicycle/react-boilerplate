@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Box, Typography } from '@mui/material';
 
-import { Tool } from '../../utils/models';
+import { Tool } from 'common/models/User';
 
 const ToolItem = function ({ tool }: {tool: Tool}): JSX.Element {
   return (

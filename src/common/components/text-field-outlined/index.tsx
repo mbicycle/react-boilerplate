@@ -16,6 +16,7 @@ const TextFieldOulined = function (
   return (
     <TextFieldStyled
       {...rest}
+      value={rest.value}
       $isMultiline={Boolean(rest.multiline)}
       InputLabelProps={{
         style: {

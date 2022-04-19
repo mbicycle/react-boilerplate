@@ -44,8 +44,8 @@ export const ThumbStyled = styled('div')(({ theme }) => ({
   border: `1px solid ${theme.palette.primary.main}`,
   marginRight: theme.spacing(3),
   marginLeft: theme.spacing(6),
-  width: 50,
-  height: 50,
+  width: 60,
+  height: 60,
   padding: theme.spacing(1),
   boxSizing: 'border-box',
 }));
@@ -67,12 +67,12 @@ export const ShumbInnerStyled = styled('div')({
 export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   marginTop: theme.spacing(-4),
-  marginLeft: theme.spacing(8),
+  marginLeft: theme.spacing(9),
 }));
 
 export const CloudIconButtonStyled = styled(IconButtonStyled)(({ theme }) => ({
-  marginTop: theme.spacing(4),
-  marginLeft: theme.spacing(7.5),
+  marginTop: theme.spacing(9),
+  marginLeft: theme.spacing(8),
 }));
 
 export const UploadOneStyled = styled(Typography)({

@@ -25,7 +25,7 @@ const TitleCategory = function ({ value }: {value: string}): JSX.Element {
     e: React.ChangeEvent<HTMLInputElement>,
   ): Promise<void> => {
     dispatch({ type: 'add-category', skill: { category: e.target.value } });
-    await mutateAsync({ _id: '', category: e.target.value });
+    // await mutateAsync({ name: '', category: e.target.value });
     handleChange(e);
   }, DEBOUNCE_TIMEOUT);
 

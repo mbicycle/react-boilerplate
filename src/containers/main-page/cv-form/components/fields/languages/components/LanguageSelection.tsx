@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Grid } from '@mui/material';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import { Language } from 'common/models/Language';
 
+import { Language } from 'common/models/User';
 import LanguageSelectionForm from './LanguageSelectionForm';
 import { LEVELS } from './utils/constants';
 

@@ -7,16 +7,15 @@ import {
 } from 'react-query';
 
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
-import { Language } from 'common/models/Language';
-import { UserLanguage } from 'common/models/UserLanguage';
 
+import { Language } from 'common/models/User';
 import * as api from './api';
 import { QueryKey } from './query-key';
 import { FormLanguage } from '../components/utils/types';
 
 export function useGetAllLanguages(): UseQueryResult<Language[], Error> {
   const queryClient = useQueryClient();
-  const myLanguages = queryClient.getQueryData([QueryKey.MyLanguages]) as UserLanguage[];
+  const myLanguages = queryClient.getQueryData([QueryKey.MyLanguages]) as Language[];
 
   return useQuery<Language[], Error, Language[], QueryKey.Languages>(
     QueryKey.Languages,
@@ -66,10 +65,10 @@ export function useCreateLanguage(): UseMutationResult<Language, Error, string, 
   );
 }
 
-export function useGetUserLanguages(): UseQueryResult<UserLanguage[], Error> {
+export function useGetUserLanguages(): UseQueryResult<Language[], Error> {
   const queryClient = useQueryClient();
 
-  return useQuery<UserLanguage[], Error, UserLanguage[], QueryKey.MyLanguages>(
+  return useQuery<Language[], Error, Language[], QueryKey.MyLanguages>(
     QueryKey.MyLanguages,
     api.getUserLanguages,
     {

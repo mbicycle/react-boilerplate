@@ -1,20 +1,47 @@
 import {
   useMutation,
   UseMutationResult,
+  useQuery,
   useQueryClient,
+  UseQueryResult,
 } from 'react-query';
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
-import { Me } from 'common/models/Me';
 
+import { DbUser } from 'common/models/User';
+import { useAuth } from 'containers/authentication/auth';
 import { QueryKey } from './query-key';
 
 import * as api from './api';
 
-export function useUpdateMe(): UseMutationResult<Me, Error, string, unknown> {
+export function useUserFromDb(): UseQueryResult<DbUser, Error> {
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
+
+  return useQuery<DbUser, Error, DbUser, QueryKey.DbUser>(
+    QueryKey.DbUser,
+    () => api.getDbUser(
+      // user?.mail as string
+      'grigory.popravko@mbicycle.com',
+    ),
+    {
+      initialData: () => queryClient.getQueryData(QueryKey.DbUser),
+      onSuccess: (data) => queryClient.setQueryData(QueryKey.DbUser, data),
+
+      onError: (error: Error) => {
+        SnackBarUtils.error(`${error.message}.`);
+      },
+      notifyOnChangePropsExclusions: ['isFetching'],
+      notifyOnChangeProps: ['data', 'error'],
+      optimisticResults: true,
+    },
+  );
+}
+
+export function useUpdateUserFromDb(): UseMutationResult<DbUser, Error, string, unknown> {
   const queryClient = useQueryClient();
 
-  return useMutation<Me, Error, string, VoidFunction>(
-    (user: Me | unknown) => api.updateMe(user as Me),
+  return useMutation<DbUser, Error, string, VoidFunction>(
+    (user: DbUser | unknown) => api.updateDbUser(user as DbUser),
     {
       onSettled: () => {
         queryClient.invalidateQueries(QueryKey.User);
@@ -28,17 +55,16 @@ export function useUpdateMe(): UseMutationResult<Me, Error, string, unknown> {
   );
 }
 
-export function useUpdateMyAvatar(): UseMutationResult<Me, Error, string, unknown> {
+export function useUpdateMyAvatar(): UseMutationResult<ReadableStream, Error, File, unknown> {
   const queryClient = useQueryClient();
-  const cachedUser = queryClient.getQueryData(QueryKey.User) as Me;
 
-  return useMutation<Me, Error, string, VoidFunction>(
-    (base64Avatar: string) => api.updateMe({ ...cachedUser, picture: base64Avatar }),
+  return useMutation<ReadableStream, Error, File, VoidFunction>(
+    (base64Avatar: File) => api.updateMsUserAvatar(base64Avatar as File),
     {
-      onSettled: () => {
-        queryClient.invalidateQueries(QueryKey.User);
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKey.UserPhoto);
       },
-      onError: (error: Error, _: string, rollback) => {
+      onError: (error: Error, _: File, rollback) => {
         SnackBarUtils.error(error.message);
 
         if (rollback) rollback();

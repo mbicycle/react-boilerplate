@@ -1,18 +1,18 @@
 import { memo } from 'react';
 
-import { Skill } from 'common/models/Skill';
+import { Skill } from 'common/models/User';
 
 import SkillItem from './SkillItem';
 
 const SkillList = function ({ skills }: {skills: Skill[]}) : JSX.Element | null {
   return (
     <>
-      {skills.map(({ category, tools, _id }) => (
+      {skills.map(({ tools, name }) => (
         <SkillItem
-          key={category}
-          category={category}
+          key={name}
+          category={name}
           tools={tools || []}
-          id={_id}
+          id={name}
         />
       ))}
     </>

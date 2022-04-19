@@ -1,28 +1,37 @@
 import { useEffect } from 'react';
 
 import { useForm } from 'common/utils/hooks';
-import { Me } from 'common/models/Me';
-import { MsUser } from 'common/models/User';
+import { DbUser, MsUser } from 'common/models/User';
 import { useAuth } from 'containers/authentication/auth';
-
-// import { useUpdateMe } from '../lib/query-hooks';
+import { useUserFromDb, useUpdateUserFromDb } from '../lib/query-hooks';
 
 interface UpdatePersonalDataReturnType {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  user: MsUser | undefined;
+  user?: MsUser;
+  dbUser?: DbUser;
 }
 
 export const useUpdatePersonalData = (): UpdatePersonalDataReturnType => {
-  const { values, handleChange } = useForm<Me>();
-  // const { mutateAsync } = useUpdateMe();
+  const { values, handleChange } = useForm<DbUser>();
+  const { mutateAsync } = useUpdateUserFromDb();
   const { user } = useAuth();
+  const { data: dbUser, refetch } = useUserFromDb();
 
   useEffect(() => {
-    // mutateAsync(values as never);
-  }, [values]);
+    if (dbUser?.email) {
+      mutateAsync({ ...dbUser, ...values } as never);
+    }
+  }, [dbUser, mutateAsync, values]);
+
+  useEffect(() => {
+    if (!dbUser) {
+      refetch();
+    }
+  }, [dbUser, refetch]);
 
   return {
     handleChange,
+    dbUser,
     user,
   };
 };

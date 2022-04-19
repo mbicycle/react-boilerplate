@@ -3,8 +3,7 @@ import { memo } from 'react';
 import { IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-import { Language } from 'common/models/Language';
-
+import { Language } from 'common/models/User';
 import { useCreateLanguage } from '../lib/query-hooks';
 
 const AddLanguageEndAdornmentButton = function ({ values }: {values: Language}): JSX.Element {

@@ -6,7 +6,7 @@ import {
   UseQueryResult,
 } from 'react-query';
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
-import { Skill } from 'common/models/Skill';
+import { Skill } from 'common/models/User';
 
 import { QueryKey } from './query-key';
 

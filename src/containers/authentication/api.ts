@@ -38,7 +38,6 @@ export const relogin = async ():
       }).then((response: AxiosResponse<TokenType>) => {
         if (response?.status === 201) {
           storage.clearAll();
-          // storage.setToken(response.data);
         }
         return resolve(response.data);
       })

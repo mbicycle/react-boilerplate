@@ -1,7 +1,7 @@
 import { AuthProviderConfig, initReactQueryAuth } from 'react-query-auth';
 
+import account from 'common/interceptors/ms-graph-interceptor';
 import { MsUser } from 'common/models/User';
-
 import { storage } from './utils/storage';
 import { getUser } from './api';
 
@@ -22,8 +22,8 @@ async function loadUser(): Promise<MsUser> {
 
   try {
     const accessToken = storage.getAccessToken();
-    if (accessToken) {
-      // await refreshTokenSetup(accessToken);
+    if (!accessToken) {
+      account.setActiveAccount();
     }
     user = await getUser();
 

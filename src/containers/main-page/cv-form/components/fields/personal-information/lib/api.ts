@@ -4,6 +4,7 @@ import axiosInstance from 'common/interceptors/axios';
 import graph from 'common/interceptors/ms-graph-interceptor';
 
 import { DbUser } from 'common/models/User';
+import { CreateUserModel } from './types';
 
 const axios = axiosInstance;
 
@@ -19,6 +20,16 @@ export const getDbUser = async (email: string): Promise<DbUser> => new Promise<D
   (resolve, reject) => {
     axios.get<DbUser>(`employee/${email}`)
       .then((response: AxiosResponse<DbUser>) => resolve(response.data))
+      .catch((error: AxiosError<string>) => reject(error));
+  },
+);
+
+export const createDbUser = async (
+  user: CreateUserModel,
+): Promise<CreateUserModel> => new Promise<CreateUserModel>(
+  (resolve, reject) => {
+    axios.post<DbUser>('employee', user)
+      .then((response: AxiosResponse<CreateUserModel>) => resolve(response.data))
       .catch((error: AxiosError<string>) => reject(error));
   },
 );

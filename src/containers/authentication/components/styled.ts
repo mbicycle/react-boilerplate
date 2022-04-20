@@ -29,7 +29,7 @@ export const ColoredLogoContainerStyled = styled(Container)({
   width: '100%',
 });
 
-export const GoogleLoginContainerStyled = styled('div')(({ theme }) => ({
+export const MsLoginContainerStyled = styled('div')(({ theme }) => ({
   display: 'flex',
   width: '100%',
   padding: theme.spacing(11, 0, 4),

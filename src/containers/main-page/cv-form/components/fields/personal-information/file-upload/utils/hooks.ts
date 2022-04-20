@@ -3,7 +3,7 @@ import { DropzoneState, FileRejection, useDropzone } from 'react-dropzone';
 
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
 import { ExtendedFileType } from './types';
-import { useUpdateMyAvatar } from '../../lib/query-hooks';
+import { useUpdateMsAvatar } from '../../lib/query-hooks';
 
 const Mb5 = 5242880 as const;
 
@@ -15,7 +15,7 @@ type UseFileUploadReturnType = Pick<DropzoneState, 'getRootProps' | 'getInputPro
 };
 
 export const useFileUpload = (): UseFileUploadReturnType => {
-  const mutation = useUpdateMyAvatar();
+  const mutation = useUpdateMsAvatar();
 
   const [files, setFiles] = useState<ExtendedFileType[]>([]);
   const [fileToUpload, setFileToUpload] = useState<File | undefined>();

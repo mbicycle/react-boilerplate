@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 
 import TextFieldOutlined from 'common/components/text-field-outlined';
 

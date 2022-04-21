@@ -2,6 +2,8 @@ import { memo } from 'react';
 
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
+import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
+import { useIsFetching } from 'react-query';
 import { useDeleteUserLanguage } from '../../lib/query-hooks';
 
 const LeveledLanguageItem = function ({

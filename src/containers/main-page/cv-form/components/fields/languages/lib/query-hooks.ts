@@ -8,24 +8,27 @@ import {
 
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
 
-import { Language } from 'common/models/User';
+import { DbUser, UserLanguage } from 'common/models/User';
+import { Languages } from 'common/models/Language.model';
 import * as api from './api';
 import { QueryKey } from './query-key';
-import { FormLanguage } from '../components/utils/types';
+import { useUserFromDb } from '../../personal-information/lib/query-hooks';
 
-export function useGetAllLanguages(): UseQueryResult<Language[], Error> {
+export function useGetAllLanguages(): UseQueryResult<Languages, Error> {
   const queryClient = useQueryClient();
-  const myLanguages = queryClient.getQueryData([QueryKey.MyLanguages]) as Language[];
+  const { data: user } = useUserFromDb();
 
-  return useQuery<Language[], Error, Language[], QueryKey.Languages>(
+  const languages = user?.languages || [];
+
+  return useQuery<Languages, Error, Languages, QueryKey.Languages>(
     QueryKey.Languages,
     api.getAllLanguages,
     {
       onSettled: (data) => {
-        if (myLanguages?.length && data) {
+        if (languages?.length && data) {
           const filteredBySelectedByUserLanguages = data.filter(
-            (language) => myLanguages.every(
-              (myLanguage) => myLanguage.name !== language.name,
+            (language) => languages.every(
+              (myLanguage) => myLanguage.name !== language,
             ),
           );
           queryClient.setQueryData(QueryKey.Languages, filteredBySelectedByUserLanguages);
@@ -47,16 +50,23 @@ export function useGetAllLanguages(): UseQueryResult<Language[], Error> {
   );
 }
 
-export function useCreateLanguage(): UseMutationResult<Language, Error, string, unknown> {
+export function useAddUserLanguage(): UseMutationResult<DbUser, Error, UserLanguage, VoidFunction> {
   const queryClient = useQueryClient();
+  const { data: user } = useUserFromDb();
 
-  return useMutation<Language, Error, string, VoidFunction>(
-    (language: Language | unknown) => api.cretateLanguage(language as Language),
+  const languages = user?.languages || [];
+
+  return useMutation<DbUser, Error, UserLanguage, VoidFunction>(
+    (language: UserLanguage) => {
+      languages?.push(language as UserLanguage);
+
+      return api.modifyUserLanguages(languages as UserLanguage[], user as DbUser);
+    },
     {
       onSettled: () => {
-        queryClient.invalidateQueries(QueryKey.Languages);
+        queryClient.invalidateQueries(QueryKey.DbUser);
       },
-      onError: (error: Error, _: string, rollback) => {
+      onError: (error: Error, _: UserLanguage, rollback) => {
         SnackBarUtils.error(error.message);
 
         if (rollback) rollback();
@@ -65,52 +75,20 @@ export function useCreateLanguage(): UseMutationResult<Language, Error, string, 
   );
 }
 
-export function useGetUserLanguages(): UseQueryResult<Language[], Error> {
+export function useDeleteUserLanguage(): UseMutationResult<DbUser, Error, string, unknown> {
   const queryClient = useQueryClient();
+  const { data: user } = useUserFromDb();
 
-  return useQuery<Language[], Error, Language[], QueryKey.MyLanguages>(
-    QueryKey.MyLanguages,
-    api.getUserLanguages,
-    {
-      initialData: () => queryClient.getQueryData(QueryKey.MyLanguages),
+  return useMutation<DbUser, Error, string, VoidFunction>(
+    (name: string) => {
+      const languages = user?.languages;
+      const filteredLanguages = languages?.filter((language: UserLanguage) => language.name !== name);
 
-      onError: (error: Error) => {
-        SnackBarUtils.error(`${error.message}.`);
-      },
-    },
-  );
-}
-
-export function useAddUserLanguage(): UseMutationResult<FormLanguage, Error, string, unknown> {
-  const queryClient = useQueryClient();
-
-  return useMutation<FormLanguage, Error, string, VoidFunction>(
-    (language: unknown) => {
-      const lng = language as FormLanguage;
-
-      return api.addUserLanguage(lng);
+      return api.modifyUserLanguages(filteredLanguages as UserLanguage[], user as DbUser);
     },
     {
       onSettled: () => {
-        queryClient.invalidateQueries(QueryKey.MyLanguages);
-      },
-      onError: (error: Error, _: string, rollback) => {
-        SnackBarUtils.error(error.message);
-
-        if (rollback) rollback();
-      },
-    },
-  );
-}
-
-export function useDeleteUserLanguage(): UseMutationResult<FormLanguage, Error, string, unknown> {
-  const queryClient = useQueryClient();
-
-  return useMutation<FormLanguage, Error, string, VoidFunction>(
-    (id: string) => api.deleteUserLanguage(id),
-    {
-      onSettled: () => {
-        queryClient.invalidateQueries(QueryKey.MyLanguages);
+        queryClient.invalidateQueries(QueryKey.DbUser);
       },
       onError: (error: Error, _: string, rollback) => {
         SnackBarUtils.error(error.message);

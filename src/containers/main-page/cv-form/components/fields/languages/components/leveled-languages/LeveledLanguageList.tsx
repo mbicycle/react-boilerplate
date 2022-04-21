@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import type { Language } from 'common/models/User';
+import type { UserLanguage } from 'common/models/User';
 
 import LeveledLanguageItem from './LeveledLanguageItem';
 
@@ -8,7 +8,7 @@ import { SelectedLanguagesListStyled } from './styled';
 
 const LeveledLanguageList = function ({
   languages,
-}: {languages: Language[]}): JSX.Element {
+}: {languages: UserLanguage[]}): JSX.Element {
   return (
     <SelectedLanguagesListStyled>
       {languages.map(({ name, level }) => (

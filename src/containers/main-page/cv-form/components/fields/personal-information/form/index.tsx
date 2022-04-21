@@ -1,10 +1,11 @@
 import { memo } from 'react';
 
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import TextFieldOutlined from 'common/components/text-field-outlined';
 
 import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
+// import axiosInstance from 'common/interceptors/axios';
 import { InputLabel, InputName } from './constants';
 import { useUpdatePersonalData } from './hooks';
 
@@ -12,6 +13,10 @@ import { FormControlStyled } from './styled';
 
 const PersonalDataForm = function (): JSX.Element {
   const { user, dbUser, handleChange } = useUpdatePersonalData();
+
+  // const handleClick = async (): Promise<void> => {
+  //   await axiosInstance.delete('employee/alexander.ataakgayev@mbicycle.com');
+  // };
 
   if (!dbUser) {
     return <CircularSpinner size="large" color="primary" />;
@@ -64,6 +69,11 @@ const PersonalDataForm = function (): JSX.Element {
         multiline
         rows={6}
       />
+      {/* <Button
+        onClick={handleClick}
+      >
+        Delete me
+      </Button> */}
     </FormControlStyled>
   );
 };

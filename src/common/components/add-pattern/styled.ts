@@ -10,7 +10,7 @@ export const AddProfiencyStyled = styled(Box, {
 })({
   display: 'flex',
   width: '100%',
-  height: 'calc(100% - 158px)',
+  height: 'calc(100% - 123px)',
   alignItems: 'flex-start',
   overflow: 'auto',
 });

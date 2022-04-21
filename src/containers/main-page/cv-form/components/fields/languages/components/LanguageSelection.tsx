@@ -5,29 +5,26 @@ import { Button, Grid } from '@mui/material';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 
-import { Language } from 'common/models/User';
+import { UserLanguage } from 'common/models/User';
 import LanguageSelectionForm from './LanguageSelectionForm';
-import { LEVELS } from './utils/constants';
 
-import { useAddUserLanguage, useGetAllLanguages } from '../lib/query-hooks';
-import { FormLanguage } from './utils/types';
+import { useAddUserLanguage } from '../lib/query-hooks';
 
 import { GridWrapperStyled, SaveButtonWrapperStyled } from '../utils/styled';
 
 const LanguageSelection = function (): JSX.Element {
   const navigate = useNavigate();
   const { mutateAsync: addMyLangugeAsync } = useAddUserLanguage();
-  const { data } = useGetAllLanguages();
 
   const [isSaveDisabled, setSaveDisabled] = useState(true);
-  const [leveledLanguage, setLeveledLanguage] = useState<FormLanguage>({ name: '', level: '' });
+  const [leveledLanguage, setLeveledLanguage] = useState<UserLanguage>({ name: '', level: '' });
 
   const onSaveHandle = (): void => {
     addMyLangugeAsync(leveledLanguage as never);
-    navigate(-1);
+    navigate('/dashboard/languages');
   };
 
-  const onGetSelectedLanguageHandle = useCallback((language: FormLanguage): void => {
+  const onGetSelectedLanguageHandle = useCallback((language: UserLanguage): void => {
     setSaveDisabled(false);
     setLeveledLanguage(language);
   }, []);
@@ -42,8 +39,6 @@ const LanguageSelection = function (): JSX.Element {
       >
         <LanguageSelectionForm
           onGetSelectedLanguage={onGetSelectedLanguageHandle}
-          languages={data as Language[]}
-          levels={LEVELS}
         />
       </Grid>
       <SaveButtonWrapperStyled item>

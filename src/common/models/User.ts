@@ -1,4 +1,4 @@
-export interface Language {
+export interface UserLanguage {
   level: string;
   name: string;
 }
@@ -35,7 +35,7 @@ export interface DbUser {
   firstName: string;
   lastName: string;
   summary: string;
-  languages: Language[];
+  languages: UserLanguage[];
   technology: string;
   skype: string;
   skills: Skill[];

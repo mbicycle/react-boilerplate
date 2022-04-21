@@ -1,36 +1,52 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import {
   Grid, InputLabel, MenuItem, Select,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import SearchIcon from '@mui/icons-material/Search';
 
 import { useForm } from 'common/utils/hooks';
+import { UserLanguage } from 'common/models/User';
 
-import AddLanguage from './AddLanguage';
+import TextFieldOutlined from 'common/components/text-field-outlined';
 import { LANGUAGE, LanguageInputName, LEVEL } from '../utils/constants';
-import { FormLanguage } from './utils/types';
+import { ADD_INPUT_LANGUAGE_NAME, LEVELS as levels } from './utils/constants';
+
+import { useGetAllLanguages } from '../lib/query-hooks';
 
 import { FormControlStyled, MenuItemText } from '../utils/styled';
+import { SearchPaperStyled } from './utils/styled';
 
 interface LanguageSelectionFormProps{
-  languages: {name: string}[];
-  levels:{name: string}[];
-  onGetSelectedLanguage: (language: FormLanguage) => void;
+  onGetSelectedLanguage: (language: UserLanguage) => void;
 }
 
 const LanguageSelectionForm = function ({
-  languages,
-  levels,
   onGetSelectedLanguage,
 }:LanguageSelectionFormProps): JSX.Element {
-  const { values, handleChange } = useForm<FormLanguage>({ name: '', level: '' });
+  const { data } = useGetAllLanguages();
+  const { values, handleChange } = useForm<UserLanguage>({ name: '', level: '' });
 
-  useEffect(() => {
-    if (values.name) {
-      onGetSelectedLanguage(values);
-    }
-  }, [onGetSelectedLanguage, values]);
+  const [languages, setLanguages] = useState(data);
+
+  const onLanguageSearchHandle = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    event.stopPropagation();
+
+    setLanguages(
+      data?.filter((item) => Object.values(item)
+        .join('')
+        .toLowerCase()
+        .includes(event.target.value.toLowerCase())),
+    );
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+    event.stopPropagation();
+  };
+
+  useEffect(() => { if (values.name) onGetSelectedLanguage(values); }, [onGetSelectedLanguage, values]);
+  useEffect(() => { if (data) setLanguages(data); }, [data]);
 
   return (
     <>
@@ -44,18 +60,26 @@ const LanguageSelectionForm = function ({
             onChange={handleChange}
             fullWidth
             IconComponent={KeyboardArrowDownIcon}
+            MenuProps={{ sx: { maxHeight: 360, '& :nth-of-type(2):not(svg)': { mt: 10 } } }}
           >
-            <AddLanguage />
+            <SearchPaperStyled elevation={4}>
+              <TextFieldOutlined
+                role="heading"
+                name={ADD_INPUT_LANGUAGE_NAME}
+                onChange={onLanguageSearchHandle}
+                onClick={handleClick}
+                InputProps={{ endAdornment: <SearchIcon fontSize="large" /> }}
+              />
+            </SearchPaperStyled>
             {languages?.map((item) => (
               <MenuItem
-                key={item.name}
-                value={item.name}
+                key={item}
+                value={item}
               >
                 <MenuItemText color="text.secondary">
                   &#8288;
-                  {item.name}
+                  {item}
                 </MenuItemText>
-
               </MenuItem>
             ))}
           </Select>

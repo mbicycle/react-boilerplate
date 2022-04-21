@@ -1,9 +1,10 @@
-import { Box, Button, styled } from '@mui/material';
+import { Paper, styled } from '@mui/material';
 
-export const AddLanguageStyled = styled(Box)(({ theme }) => ({
+export const SearchPaperStyled = styled(Paper)(({ theme }) => ({
+  position: 'fixed',
+  width: '395px',
+  marginTop: theme.spacing(-2),
+  borderRadius: 0,
   padding: theme.spacing(0, 2),
+  zIndex: '1',
 }));
-
-export const AddLanguageButtonStyled = styled(Button)({
-  height: 48,
-});

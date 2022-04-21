@@ -2,22 +2,24 @@ import { memo } from 'react';
 
 import AddProfiency from 'common/components/add-pattern';
 
+import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
 import LeveledLanguageList from './components/leveled-languages/LeveledLanguageList';
-import { useGetUserLanguages } from './lib/query-hooks';
+
+import { useUserFromDb } from '../personal-information/lib/query-hooks';
 
 const Languages = function (): JSX.Element {
-  const { data: usersLanguages } = useGetUserLanguages();
+  const { data, isLoading } = useUserFromDb();
+
+  if (isLoading) {
+    return <CircularSpinner size="large" color="primary" />;
+  }
 
   return (
     <AddProfiency
-      collection={usersLanguages || []}
+      collection={data?.languages || []}
       title="Language"
     >
-      {
-        usersLanguages?.length
-          ? <LeveledLanguageList languages={usersLanguages || []} />
-          : null
-      }
+      {!!data?.languages?.length && <LeveledLanguageList languages={data?.languages || []} />}
     </AddProfiency>
   );
 };

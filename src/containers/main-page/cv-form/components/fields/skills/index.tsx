@@ -1,23 +1,24 @@
 import { memo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import AddProfiency from 'common/components/add-pattern';
-
-import { useLocation } from 'react-router-dom';
 import { ROUTE } from 'common/components/routes/utils/constants';
+import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
+
 import SkillList from './components/skills/SkillList';
-import { useGetAllSkills } from './lib/query-hooks';
+import { useUserFromDb } from '../personal-information/lib/query-hooks';
 
 const Skills = function (): JSX.Element {
-  // const { state: skills } = useSkillCollectionContext();
   const location = useLocation();
-  const { data: skills } = useGetAllSkills();
+  const { data } = useUserFromDb();
+
+  if (!data) {
+    return <CircularSpinner size="large" color="primary" />;
+  }
 
   return (
-    <AddProfiency
-      collection={skills || []}
-      title="Skill"
-    >
-      {!location.pathname.includes(ROUTE.EDIT) && <SkillList skills={skills || []} />}
+    <AddProfiency collection={data.skills || []} title="Skill">
+      {!location.pathname.includes(ROUTE.EDIT) && <SkillList skills={data.skills} />}
     </AddProfiency>
   );
 };

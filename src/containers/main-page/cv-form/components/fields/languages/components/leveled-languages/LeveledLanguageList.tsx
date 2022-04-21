@@ -14,7 +14,6 @@ const LeveledLanguageList = function ({
       {languages.map(({ name, level }) => (
         <LeveledLanguageItem
           key={name}
-          id={name}
           language={name}
           level={level}
         />

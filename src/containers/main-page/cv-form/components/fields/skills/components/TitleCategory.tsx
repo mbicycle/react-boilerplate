@@ -1,33 +1,34 @@
 import { memo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 
-import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 import TextFieldOutlined from 'common/components/text-field-outlined';
-import { useForm } from 'common/utils/hooks';
+import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 
-import { useDebouncedFn } from 'beautiful-react-hooks';
-import { CategoryInputText, DEBOUNCE_TIMEOUT, Text } from '../utils/constants';
+import { CategoryInputText, Text } from '../utils/constants';
 
-import { GrayButtonStyled, AddCircleIconStyled, InputContainerStyled } from '../utils/styled';
-import { useAddOrEditSkill } from '../lib/query-hooks';
+import { AddToolButtonStyled, AddCircleIconStyled, InputContainerStyled } from '../utils/styled';
 
-const TitleCategory = function ({ value }: {value: string}): JSX.Element {
-  const { handleChange, values: { titleCategory } } = useForm({ titleCategory: '' });
+interface TitleCategoryProps {
+value: string;
+onChange?:(e: string) => void;
+}
+
+const TitleCategory = function ({ value, onChange }: TitleCategoryProps): JSX.Element {
+  const location = useLocation();
+
   const { dispatch } = useSkillContext();
-  const { mutateAsync } = useAddOrEditSkill();
 
   const onAddSkillHandle = (): void => {
     dispatch({ type: 'add-tool' });
   };
 
-  const onHandleCategoryChange = useDebouncedFn(async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): Promise<void> => {
-    dispatch({ type: 'add-category', skill: { category: e.target.value } });
-    // await mutateAsync({ name: '', category: e.target.value });
-    handleChange(e);
-  }, DEBOUNCE_TIMEOUT);
+  const onHandleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
 
   return (
     <>
@@ -41,14 +42,16 @@ const TitleCategory = function ({ value }: {value: string}): JSX.Element {
           name={CategoryInputText.Name}
           onChange={onHandleCategoryChange}
           defaultValue={value}
+          // TODO: Add id on backend for title editing.
+          disabled={location.pathname.includes('skills/edit')}
         />
-        <GrayButtonStyled
-          disabled={!titleCategory}
+        <AddToolButtonStyled
+          disabled={!value}
           onClick={onAddSkillHandle}
         >
           <AddCircleIconStyled />
           {Text.AddTool}
-        </GrayButtonStyled>
+        </AddToolButtonStyled>
       </InputContainerStyled>
     </>
   );

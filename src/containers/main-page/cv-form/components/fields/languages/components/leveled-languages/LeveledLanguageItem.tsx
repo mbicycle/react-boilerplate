@@ -2,17 +2,15 @@ import { memo } from 'react';
 
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
-import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
-import { useIsFetching } from 'react-query';
 import { useDeleteUserLanguage } from '../../lib/query-hooks';
 
 const LeveledLanguageItem = function ({
-  language, level, id,
-}: {language: string, level: string, id: string}): JSX.Element {
+  language, level,
+}: {language: string, level: string}): JSX.Element {
   const { mutateAsync: deleteBy } = useDeleteUserLanguage();
 
   const onDeleteLanguageHandle = (): void => {
-    deleteBy(id);
+    deleteBy(language);
   };
 
   return (

@@ -4,6 +4,7 @@ export interface UserLanguage {
 }
 
 export interface Tool {
+  id: string;
   name: string;
   experience: number;
   level: string;

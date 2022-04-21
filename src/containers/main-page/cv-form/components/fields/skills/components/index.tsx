@@ -1,10 +1,9 @@
 import { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import { useSkillCollectionContext, useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import TitleCategory from './TitleCategory';
+import { useSaveSkill } from './helpers/hooks';
 import Tool from './tool';
 
 import {
@@ -12,25 +11,22 @@ import {
   SaveButtonStyled, ToolsContainerStyled,
   SaveButtonWrapperStyled,
 } from '../utils/styled';
-// import { useAddOrEditSkill } from '../lib/query-hooks';
 
 const Skill = function (): JSX.Element {
-  const { state: { tools, category } } = useSkillContext();
-  const { dispatch } = useSkillCollectionContext();
-  // const { mutateAsync } = useAddOrEditSkill();
-  // const {} = useGetSkillBy()
-
-  const navigate = useNavigate();
-
-  const onSaveToolsHandle = (): void => {
-    dispatch({ type: 'add', skill: { tools, category } });
-    // mutateAsync({ _id: '', category: category || '', tools: tools || [] });
-    navigate(-1);
-  };
+  const {
+    tools,
+    skillName,
+    isLoading,
+    onSaveToolsHandle,
+    handleSkillNameChange,
+  } = useSaveSkill();
 
   return (
     <SkillContainerStyled>
-      <TitleCategory value={category || ''} />
+      <TitleCategory
+        onChange={handleSkillNameChange}
+        value={skillName || ''}
+      />
       {tools?.length ? (
         <>
           <DividerStyled variant="fullWidth" />
@@ -48,6 +44,7 @@ const Skill = function (): JSX.Element {
           disabled={false}
           onClick={onSaveToolsHandle}
           variant="contained"
+          loading={isLoading}
         >
           {ButtonStep.Save}
         </SaveButtonStyled>

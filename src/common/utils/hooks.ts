@@ -1,8 +1,10 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useDebouncedFn } from 'beautiful-react-hooks';
-import type { Skill } from 'common/models/User';
-import { storage } from 'containers/authentication/utils/storage';
-import { useGetSkillBy } from 'containers/main-page/cv-form/components/fields/skills/lib/query-hooks';
+import type { DbUser, Skill } from 'common/models/User';
+import {
+  useUserFromDb,
+} from 'containers/main-page/cv-form/components/fields/personal-information/lib/query-hooks';
+import { useSkillNameContext } from 'containers/main-page/cv-form/local-state/hooks';
 import { useState } from 'react';
 
 type UseFormPropsReturnType<T> = {
@@ -31,18 +33,20 @@ export const useForm = <T>(initialValues?: T): UseFormPropsReturnType<T> => {
 };
 
 type Props = {
-  skillId: string;
+  skillName: string;
   data: Skill;
-  isLoading: boolean;
+  user: DbUser;
 };
 
-export function useGetSkillById(): Props {
-  const id = storage.getSkillId();
-  const { data, isLoading } = useGetSkillBy(id as string);
+export function useGetSkillByName(): Props {
+  const { state: { name } } = useSkillNameContext();
+  const { data: user } = useUserFromDb();
+
+  const skill = user?.skills?.find((s) => s.name === name);
 
   return {
-    skillId: id as string,
-    data: data || {} as Skill,
-    isLoading,
+    skillName: skill?.name as string,
+    data: skill || {} as Skill,
+    user: user || {} as DbUser,
   };
 }

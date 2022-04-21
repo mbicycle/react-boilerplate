@@ -8,18 +8,20 @@ import {
   DragIndicatorIconStyled, LeftSideWrapperStyled,
   LeveledLanguageItemStyled, TextContainerStyled,
 } from './styled';
+import CircularSpinner from '../circular-spinner/circular-spinner';
 
 interface ProfiencyItem {
   headText: string;
   bodyText: string | JSX.Element | React.ReactNode;
   onDelete: (id?: string) => void;
   onClick?: () => void;
+  isLoading?: boolean;
 }
 
 const ProfiencyItem = function ({
-  headText, bodyText, onDelete, onClick,
+  headText, bodyText, onDelete, onClick, isLoading,
 }: ProfiencyItem): JSX.Element {
-  const setSkillIdHandle = (): void => {
+  const setIdHandle = (): void => {
     if (onClick) {
       onClick();
     }
@@ -32,18 +34,22 @@ const ProfiencyItem = function ({
   return (
     <LeveledLanguageItemStyled>
       <DragIndicatorIconStyled fontSize="large" />
-      <LeftSideWrapperStyled onClick={setSkillIdHandle}>
+      <LeftSideWrapperStyled onClick={setIdHandle}>
         <TextContainerStyled>
           <Typography variant="body1">
             {headText}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            component="div"
+            variant="body2"
+            color="text.secondary"
+          >
             {bodyText}
           </Typography>
         </TextContainerStyled>
       </LeftSideWrapperStyled>
       <IconButton onClick={onDeleteLanguageHandle}>
-        <GarbageIcon color="primary" />
+        {isLoading ? <CircularSpinner size="tiny" color="primary" /> : <GarbageIcon color="primary" />}
       </IconButton>
     </LeveledLanguageItemStyled>
   );

@@ -10,9 +10,8 @@ const SkillList = function ({ skills }: {skills: Skill[]}) : JSX.Element | null 
       {skills.map(({ tools, name }) => (
         <SkillItem
           key={name}
-          category={name}
+          name={name}
           tools={tools || []}
-          id={name}
         />
       ))}
     </>

@@ -1,23 +1,24 @@
-import type { Tool } from 'common/models/User';
 import React from 'react';
-import { SkillModel } from '../components/fields/skills/utils/models';
 
-export type SkillType = SkillModel;
+import type { Skill, Tool } from 'common/models/User';
+
+export type SkillType = Skill;
 
 export const enum SkillActionOperationType {
   AddCategory = 'add-category',
-  RemoveCategory = 'remove-category',
   AddTool = 'add-tool',
   RemoveTool = 'remove-tool',
   UpdataTools = 'update-tools',
   UpdateTool = 'update-tool',
+  ResetSkill = 'reset-skill',
+  SetEditSkill = 'set-edit-skill',
 }
 
 export type SkillAction = {
   type: `${SkillActionOperationType}`,
-  skill?: Partial<SkillType>;
-  tool?: Tool;
+  skill?: SkillType;
   tools?: Tool[];
+  tool?: Tool;
 };
 export type SkillState = Partial<SkillType>;
 export type SkillDispatch = (action: SkillAction) => void;

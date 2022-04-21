@@ -26,6 +26,7 @@ axiosInstance.interceptors.request.use(async (request) => {
     request.headers.Authorization = `Bearer ${token}`;
     request.headers['Content-Type'] = 'application/json';
   }
+  account.setActiveAccount();
 
   return request;
 }, (error) => Promise.reject(error));

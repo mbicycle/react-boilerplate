@@ -1,7 +1,5 @@
 import { memo } from 'react';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import {
   FormControl, InputLabel,
   MenuItem, Select, SelectChangeEvent,
@@ -10,7 +8,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { MenuItemText } from '../../utils/styled';
 import { LEVEL_LABEL } from '../../utils/constants';
-import { LEVELS } from '../../../languages/components/utils/constants';
+import { LEVELS as levels } from '../../../languages/components/utils/constants';
 
 interface LevelSelectionProps{
   selectedLevel: string;
@@ -31,9 +29,9 @@ const LevelSelection = function (
         fullWidth
         IconComponent={KeyboardArrowDownIcon}
       >
-        {LEVELS.map((item) => (
+        {levels.map((item) => (
           <MenuItem
-            key={uuidv4()}
+            key={item.name}
             value={item.name}
           >
             <MenuItemText color="text.secondary">

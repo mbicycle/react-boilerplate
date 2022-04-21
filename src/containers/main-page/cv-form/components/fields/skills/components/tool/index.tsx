@@ -12,11 +12,11 @@ import LevelSelection from './LevelSelection';
 import TimeUsedInput from './TimeUsedInput';
 import { useUpdateTool } from './hooks';
 
-import { GrayButtonStyled, ToolContainerStyled } from '../../utils/styled';
+import { AddToolButtonStyled, ToolContainerStyled } from '../../utils/styled';
 
 const Tool = function ({ toolData }: {toolData: ToolType}): JSX.Element {
   const { dispatch } = useSkillContext();
-  const { onToolChange } = useUpdateTool({ toolData });
+  const { onToolChange, values } = useUpdateTool({ toolData });
 
   const onDeleteToolHandle = useCallback((): void => {
     dispatch({ type: 'remove-tool', tool: toolData });
@@ -30,7 +30,7 @@ const Tool = function ({ toolData }: {toolData: ToolType}): JSX.Element {
       <Grid container>
         <Grid item xs={12}>
           <SkillToolInput
-            value={toolData.name}
+            value={values.name}
             onChange={onToolChange}
           />
         </Grid>
@@ -45,13 +45,13 @@ const Tool = function ({ toolData }: {toolData: ToolType}): JSX.Element {
             sx={{ mt: 3 }}
           >
             <LevelSelection
-              selectedLevel={toolData.level}
+              selectedLevel={values.level}
               onChange={onToolChange}
             />
           </Grid>
           <Grid item xs={6}>
             <TimeUsedInput
-              value={toolData.experience}
+              value={values.experience}
               onChange={onToolChange}
             />
           </Grid>
@@ -63,12 +63,12 @@ const Tool = function ({ toolData }: {toolData: ToolType}): JSX.Element {
           display="inline-flex"
           justifyContent="flex-end"
         >
-          <GrayButtonStyled
+          <AddToolButtonStyled
             sx={{ width: 120 }}
             onClick={onDeleteToolHandle}
           >
             {Text.Delete}
-          </GrayButtonStyled>
+          </AddToolButtonStyled>
         </Grid>
       </Grid>
     </ToolContainerStyled>

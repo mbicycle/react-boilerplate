@@ -3,6 +3,7 @@ import {
 } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 import { ButtonText, Step } from './constants';
 import Title from './Title';
 
@@ -21,11 +22,14 @@ const AddProfiency = function ({ title, children, collection }: AddProfiencyProp
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { dispatch: dispatchSkill } = useSkillContext();
+
   const [pressedAdd, setPressedAdd] = useState(true);
 
-  const onAddLanguage = (): void => {
+  const handleAdd = (): void => {
     setPressedAdd(true);
     navigate('add');
+    dispatchSkill({ type: 'reset-skill' });
   };
 
   const onReturnHandle = useCallback(() => {
@@ -41,24 +45,22 @@ const AddProfiency = function ({ title, children, collection }: AddProfiencyProp
 
   return (
     <AddProfiencyStyled>
-      <ContainerStyled
-        $isProfiencySelected={
-          !!collection.length && !pressedAdd
-        }
-      >
+      <ContainerStyled $isProfiencySelected={!!collection.length && !pressedAdd}>
         {pressedAdd && <Title name={title} onReturn={onReturnHandle} />}
         {!pressedAdd
         && (
           <>
             {collection.length ? children : null}
-            <AddButtonStyled
-              variant="contained"
-              onClick={onAddLanguage}
-              $isProfiencySelected={!!collection.length}
-            >
-              <AddCircleIconStyled />
-              {ButtonText.Add}
-            </AddButtonStyled>
+            {!location.pathname.includes('edit') && (
+              <AddButtonStyled
+                variant="contained"
+                onClick={handleAdd}
+                $isProfiencySelected={!!collection.length}
+              >
+                <AddCircleIconStyled />
+                {ButtonText.Add}
+              </AddButtonStyled>
+            )}
           </>
         )}
         <Outlet />

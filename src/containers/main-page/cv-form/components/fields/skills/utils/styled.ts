@@ -2,6 +2,7 @@ import {
   Box, Button, Divider, Grid, styled, Typography,
 } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { LoadingButton } from '@mui/lab';
 
 export const SkillContainerStyled = styled(Box)(({ theme }) => ({
   height: 0,
@@ -14,7 +15,7 @@ export const SkillContainerStyled = styled(Box)(({ theme }) => ({
 }));
 
 export const ToolsContainerStyled = styled(Box)({
-  height: '100%',
+  height: 'calc(100%)',
   display: 'flex',
   flexDirection: 'column',
   overflow: 'auto',
@@ -27,7 +28,7 @@ export const InputContainerStyled = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(4, 4, 0, 4),
 }));
 
-export const GrayButtonStyled = styled(Button)(({ theme }) => ({
+export const AddToolButtonStyled = styled(Button)(({ theme }) => ({
   width: 220,
   height: 48,
   padding: theme.spacing(0, 4),
@@ -53,7 +54,7 @@ export const MenuItemText = styled(Typography)(({ theme }) => ({
   marginLeft: theme.spacing(2),
 }));
 
-export const SaveButtonStyled = styled(Button)({
+export const SaveButtonStyled = styled(LoadingButton)({
   height: 48,
 });
 

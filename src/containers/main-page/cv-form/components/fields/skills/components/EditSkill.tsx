@@ -1,10 +1,11 @@
-import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-// import { useSkillCollectionContext, useSkillContext
-// } from 'containers/main-page/cv-form/local-state/hooks';
+import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useGetSkillByName } from 'common/utils/hooks';
+import { Skill } from 'common/models/User';
 
-import { useGetSkillById } from 'common/utils/hooks';
+import { useAddOrEditSkill } from '../lib/query-hooks';
 import TitleCategory from './TitleCategory';
 import Tool from './tool';
 
@@ -13,27 +14,39 @@ import {
   SaveButtonStyled, ToolsContainerStyled,
   SaveButtonWrapperStyled,
 } from '../utils/styled';
-// import { useAddOrEditSkill } from '../lib/query-hooks';
 
 const EditSkill = function (): JSX.Element {
-  const { data: { name, tools } } = useGetSkillById();
+  const { data: { name }, user } = useGetSkillByName();
+  const navigate = useNavigate();
+  const { state } = useSkillContext();
 
-  const onSaveToolsHandle = (): void => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const r = 5;
+  const { mutateAsync, isLoading } = useAddOrEditSkill();
+
+  const onSaveToolsHandle = async (): Promise<void> => {
+    const userSkill = user?.skills?.find((skill) => skill.name === name);
+
+    if (name && user && user?.skills && userSkill?.name === name) {
+      const skills = [...user.skills] || [];
+
+      const idx = skills.findIndex((s) => s.name === name);
+
+      skills[idx] = state as Skill;
+
+      await mutateAsync({ ...user, skills });
+    }
+
+    navigate('/dashboard/skills');
   };
-
-  // console.log('category, tools', category, tools);
 
   return (
     <SkillContainerStyled>
       <TitleCategory value={name || ''} />
-      {tools?.length ? (
+      {state?.tools?.length ? (
         <>
           <DividerStyled variant="fullWidth" />
           <ToolsContainerStyled>
             {
-              tools.map((tool) => (
+              state?.tools.map((tool) => (
                 <Tool key={tool.name} toolData={tool} />
               ))
             }
@@ -45,12 +58,11 @@ const EditSkill = function (): JSX.Element {
           disabled={false}
           onClick={onSaveToolsHandle}
           variant="contained"
+          loading={isLoading}
         >
           {ButtonStep.Save}
         </SaveButtonStyled>
       </SaveButtonWrapperStyled>
-      <Outlet />
-
     </SkillContainerStyled>
   );
 };

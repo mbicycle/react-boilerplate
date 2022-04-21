@@ -21,7 +21,7 @@ export const ContainerStyled = styled(Box, {
 })<IsProfiencySelectedPropType>(({ theme, $isProfiencySelected }) => ({
   display: 'flex',
   minHeight: 220,
-  maxHeight: 'calc(100% + 40px)',
+  maxHeight: '100%',
   width: '100%',
   justifyContent: 'center',
   border: $isProfiencySelected ? 'none' : `1px solid ${theme.palette.border}`,

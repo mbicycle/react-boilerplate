@@ -1,5 +1,3 @@
-// import { TokenType } from '../types/TokenType';
-
 export const storage = {
   getAccessToken: (): string | undefined => {
     const token = localStorage.getItem('__access-token__');
@@ -32,8 +30,6 @@ export const storage = {
   setIdToken: (token: string | undefined): void => {
     localStorage.setItem('__id-token__', token as string);
   },
-  setSkillId: (id: string): void => { localStorage.setItem('skill_id', id); },
-  getSkillId: (): string | null => localStorage.getItem('skill_id'),
   clearToken: (): void => localStorage.removeItem('__access-token__'),
   clearIdToken: (): void => localStorage.removeItem('__id-token__'),
   clearAll: (): void => localStorage.clear(),

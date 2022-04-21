@@ -2,39 +2,33 @@ import { memo } from 'react';
 
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
-import { useNavigate } from 'react-router-dom';
-import { storage } from 'containers/authentication/utils/storage';
 import type { Tool } from 'common/models/User';
+
 import ToolItem from './ToolItem';
+import { useSkillItem } from './utils/hooks';
 
 interface SkillItemProps {
-  id: string;
-  category:string;
+  name: string;
   tools: Tool[]
 }
 
-const SkillItem = function ({ id, category, tools }: SkillItemProps): JSX.Element {
-  // const { dispatch } = useSkillCollectionContext();
-  const navigate = useNavigate();
-
-  const onDeleteToolHandlee = (): void => {
-    // dispatch({ type: 'remove', skill: { category, tools } });
-  };
-
-  const openHandle = (): void => {
-    storage.setSkillId(id);
-    navigate('edit');
-  };
+const SkillItem = function ({ name, tools }: SkillItemProps): JSX.Element {
+  const {
+    isLoading,
+    onDeleteToolHandlee,
+    openHandle,
+  } = useSkillItem({ name, tools });
 
   return (
     <ProfiencyItem
-      key={category}
-      headText={category}
+      key={name}
+      headText={name}
       bodyText={
         tools?.map((tool) => <ToolItem key={tool.name} tool={tool} />)
       }
       onDelete={onDeleteToolHandlee}
       onClick={openHandle}
+      isLoading={isLoading}
     />
   );
 };

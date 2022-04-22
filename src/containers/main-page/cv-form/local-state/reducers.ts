@@ -22,7 +22,8 @@ export function skillReducer(state: SkillState, action: SkillAction): SkillState
 
   function updateTool(): SkillState {
     if (copy.tools?.length) {
-      const selectedToolIndex = copy.tools.findIndex((tool) => tool.id === action.tool?.id);
+      // TODO: Refactor this and add id to update entity correctly
+      const selectedToolIndex = copy.tools.findIndex((tool) => tool.name === action.tool?.name);
 
       if (selectedToolIndex !== -1 && action.tool) {
         copy.tools[selectedToolIndex] = { ...action.tool };

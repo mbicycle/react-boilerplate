@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 import { useGetSkillByName } from 'common/utils/hooks';
-import { Skill } from 'common/models/User';
+import { Skill, Tool as ToolType } from 'common/models/User';
 
 import { useAddOrEditSkill } from '../lib/query-hooks';
 import TitleCategory from './TitleCategory';
@@ -13,12 +13,14 @@ import {
   SkillContainerStyled, DividerStyled,
   SaveButtonStyled, ToolsContainerStyled,
   SaveButtonWrapperStyled,
+  CancelButtonStyled,
 } from '../utils/styled';
+import { Level } from '../../languages/components/utils/level.enum';
 
 const EditSkill = function (): JSX.Element {
   const { data: { name }, user } = useGetSkillByName();
   const navigate = useNavigate();
-  const { state } = useSkillContext();
+  const { state, dispatch } = useSkillContext();
 
   const { mutateAsync, isLoading } = useAddOrEditSkill();
 
@@ -38,6 +40,31 @@ const EditSkill = function (): JSX.Element {
     navigate('/dashboard/skills');
   };
 
+  const handleChangeName = (toolName: string, values: ToolType): void => {
+    dispatch({
+      type: 'update-tool',
+      tool: { ...values, name: toolName },
+    });
+  };
+
+  const handleChangeLevel = (level: `${Level}`, values: ToolType): void => {
+    dispatch({
+      type: 'update-tool',
+      tool: { ...values, level },
+    });
+  };
+
+  const handleChangeExperience = (experience: number, values: ToolType): void => {
+    dispatch({
+      type: 'update-tool',
+      tool: { ...values, experience },
+    });
+  };
+
+  const cancelHandle = (): void => {
+    navigate(-1);
+  };
+
   return (
     <SkillContainerStyled>
       <TitleCategory value={name || ''} />
@@ -47,13 +74,25 @@ const EditSkill = function (): JSX.Element {
           <ToolsContainerStyled>
             {
               state?.tools.map((tool) => (
-                <Tool key={tool.name} toolData={tool} />
+                <Tool
+                  key={tool.name}
+                  toolData={tool}
+                  onChangeName={handleChangeName}
+                  onChangeLevel={handleChangeLevel}
+                  onChangeExperience={handleChangeExperience}
+                />
               ))
             }
           </ToolsContainerStyled>
         </>
       ) : null}
       <SaveButtonWrapperStyled item>
+        <CancelButtonStyled
+          onClick={cancelHandle}
+          variant="outlined"
+        >
+          {ButtonStep.Cancel}
+        </CancelButtonStyled>
         <SaveButtonStyled
           disabled={false}
           onClick={onSaveToolsHandle}

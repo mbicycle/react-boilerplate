@@ -3,13 +3,14 @@ import { memo } from 'react';
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 
 import TitleCategory from './TitleCategory';
-import { useSaveSkill } from './helpers/hooks';
+import { useCreateSkill, useSaveSkill } from './helpers/hooks';
 import Tool from './tool';
 
 import {
   SkillContainerStyled, DividerStyled,
   SaveButtonStyled, ToolsContainerStyled,
   SaveButtonWrapperStyled,
+  CancelButtonStyled,
 } from '../utils/styled';
 
 const Skill = function (): JSX.Element {
@@ -17,9 +18,16 @@ const Skill = function (): JSX.Element {
     tools,
     skillName,
     isLoading,
+    cancelHandle,
     onSaveToolsHandle,
     handleSkillNameChange,
   } = useSaveSkill();
+
+  const {
+    handleChangeExperience,
+    handleChangeLevel,
+    handleToolNameChange,
+  } = useCreateSkill();
 
   return (
     <SkillContainerStyled>
@@ -33,13 +41,25 @@ const Skill = function (): JSX.Element {
           <ToolsContainerStyled>
             {
               tools.map((tool) => (
-                <Tool key={tool.name} toolData={tool} />
+                <Tool
+                  key={tool.name}
+                  toolData={tool}
+                  onChangeName={handleToolNameChange}
+                  onChangeLevel={handleChangeLevel}
+                  onChangeExperience={handleChangeExperience}
+                />
               ))
             }
           </ToolsContainerStyled>
         </>
       ) : null}
       <SaveButtonWrapperStyled item>
+        <CancelButtonStyled
+          onClick={cancelHandle}
+          variant="outlined"
+        >
+          {ButtonStep.Cancel}
+        </CancelButtonStyled>
         <SaveButtonStyled
           disabled={false}
           onClick={onSaveToolsHandle}

@@ -12,7 +12,7 @@ axiosInstance.interceptors.response.use(async (response) => {
 
   if (token && response.headers) {
     response.headers.Authorization = `Bearer ${token}`;
-  } else if (response.status === 401) {
+  } else if (response.status > 400) {
     account.setActiveAccount();
   }
 
@@ -26,7 +26,7 @@ axiosInstance.interceptors.request.use(async (request) => {
     request.headers.Authorization = `Bearer ${token}`;
     request.headers['Content-Type'] = 'application/json';
   }
-  account.setActiveAccount();
+  // account.setActiveAccount();
 
   return request;
 }, (error) => Promise.reject(error));

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useIsFetching } from 'react-query';
 
 import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 import { ROUTE } from 'common/components/routes/utils/constants';
 
@@ -34,9 +35,9 @@ const CVFormControls = function (): JSX.Element | null {
         {ButtonStep.Back}
       </Button>
       {activeStep <= stepsLength && (
-        <Button onClick={handleNext} variant="contained" disabled={!!isFetching}>
+        <LoadingButton onClick={handleNext} variant="contained" loading={!!isFetching}>
           {activeStep === stepsLength ? ButtonStep.Finish : ButtonStep.Next}
-        </Button>
+        </LoadingButton>
       )}
     </StepperControlsWrapper>
   );

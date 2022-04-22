@@ -4,7 +4,6 @@ import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
 import type { Tool } from 'common/models/User';
 
-import ToolItem from './ToolItem';
 import { useSkillItem } from './utils/hooks';
 
 interface SkillItemProps {
@@ -23,9 +22,7 @@ const SkillItem = function ({ name, tools }: SkillItemProps): JSX.Element {
     <ProfiencyItem
       key={name}
       headText={name}
-      bodyText={
-        tools?.map((tool) => <ToolItem key={tool.name} tool={tool} />)
-      }
+      bodyText={`Skills ammount: ${tools.length}`}
       onDelete={onDeleteToolHandlee}
       onClick={openHandle}
       isLoading={isLoading}

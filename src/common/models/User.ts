@@ -1,3 +1,5 @@
+import { Level } from 'containers/main-page/cv-form/components/fields/languages/components/utils/level.enum';
+
 export interface UserLanguage {
   level: string;
   name: string;
@@ -7,7 +9,7 @@ export interface Tool {
   id: string;
   name: string;
   experience: number;
-  level: string;
+  level: `${Level}`;
 }
 
 export interface Skill {

@@ -4,5 +4,6 @@ export enum Level {
   Intermediate = 'Intermediate',
   UpperIntermediate = 'Upper-Intermediate',
   Advanced = 'Advanced',
-  Proficiency = 'Proficiency'
+  Proficiency = 'Proficiency',
+  DefaultEmpty = ''
 }

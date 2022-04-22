@@ -9,10 +9,11 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { MenuItemText } from '../../utils/styled';
 import { LEVEL_LABEL } from '../../utils/constants';
 import { LEVELS as levels } from '../../../languages/components/utils/constants';
+import { Level } from '../../../languages/components/utils/level.enum';
 
 interface LevelSelectionProps{
-  selectedLevel: string;
-  onChange: (e: SelectChangeEvent<string>) => void;
+  selectedLevel: `${Level}`;
+  onChange: (e: SelectChangeEvent<`${Level}`>) => void;
 }
 
 const LevelSelection = function (
@@ -22,7 +23,7 @@ const LevelSelection = function (
     <FormControl fullWidth>
       <InputLabel>{LEVEL_LABEL}</InputLabel>
       <Select
-        value={selectedLevel || ''}
+        value={selectedLevel}
         label="Level"
         name="level"
         onChange={onChange}

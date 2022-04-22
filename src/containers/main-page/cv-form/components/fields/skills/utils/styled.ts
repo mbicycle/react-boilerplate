@@ -58,6 +58,11 @@ export const SaveButtonStyled = styled(LoadingButton)({
   height: 48,
 });
 
+export const CancelButtonStyled = styled(SaveButtonStyled)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  marginRight: theme.spacing(2),
+}));
+
 export const SaveButtonWrapperStyled = styled(Grid)(({ theme }) => ({
   paddingTop: theme.spacing(4),
   display: 'inline-flex',

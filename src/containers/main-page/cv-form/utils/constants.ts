@@ -40,6 +40,7 @@ export enum ButtonStep {
   Next = 'Next',
   Finish = 'Finish',
   Save = 'Save',
+  Cancel = 'Cancel'
 }
 
 interface CVTitlesInterface {

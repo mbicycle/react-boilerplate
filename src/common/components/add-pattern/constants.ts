@@ -1,7 +1,7 @@
 export const enum Step {
   Languages = 'Language',
   Skills = 'Skill',
-  Projects = 'Project',
+  Projects = 'Projects',
   Certifications = 'Certification',
 }
 

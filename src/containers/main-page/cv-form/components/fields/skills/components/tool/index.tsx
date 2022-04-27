@@ -5,10 +5,10 @@ import { Grid, Typography, SelectChangeEvent } from '@mui/material';
 import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
 import { Tool as ToolType } from 'common/models/User';
 
-import { Text } from '../../utils/constants';
+import TextFieldOutlined from 'common/components/text-field-outlined';
+import { Text, ToolInputText } from '../../utils/constants';
 import { Level } from '../../../languages/components/utils/level.enum';
 
-import SkillToolInput from './CategoryInput';
 import LevelSelection from './LevelSelection';
 import TimeUsedInput from './TimeUsedInput';
 
@@ -52,8 +52,10 @@ const Tool = function ({
       </Typography>
       <Grid container>
         <Grid item xs={12}>
-          <SkillToolInput
-            value={toolData.name}
+          <TextFieldOutlined
+            defaultValue={toolData.name}
+            label={ToolInputText.Label}
+            name={ToolInputText.Name}
             onChange={handleChangeName}
           />
         </Grid>

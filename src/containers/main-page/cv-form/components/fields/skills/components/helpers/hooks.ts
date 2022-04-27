@@ -41,7 +41,6 @@ export const useSaveSkill = (): SaveSkill => {
 
     if (skillName && user && userSkill?.name !== skillName) {
       const skills = user?.skills || [];
-
       await mutateAsync({
         ...user,
         skills: [

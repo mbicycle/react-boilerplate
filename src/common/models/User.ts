@@ -25,6 +25,7 @@ export interface Project {
   link: string;
   description: string;
   responsibilities: string;
+  teamSize: number;
   skills: Skill[];
 }
 

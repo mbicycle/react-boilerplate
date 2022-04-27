@@ -3,7 +3,7 @@ import { palette } from '../palette';
 const MuiDivider = {
   styleOverrides: {
     root: {
-      borderColor: palette.secondary.light,
+      borderColor: palette.border,
     },
   },
 };

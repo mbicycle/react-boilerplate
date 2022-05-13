@@ -1,29 +1,29 @@
 import { memo } from 'react';
 
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
+import { useSkillNameContext } from 'containers/main-page/cv-form/local-state/hooks';
+import type { Skill } from 'common/models/User';
 
-import type { Tool } from 'common/models/User';
-
-import { useSkillItem } from './utils/hooks';
+import { useCategoryItem } from './utils/hooks';
 
 interface SkillItemProps {
   id: string;
   name: string;
-  tools: Tool[]
+  skills: Skill[]
 }
 
-const SkillItem = function ({ id, name, tools }: SkillItemProps): JSX.Element {
+const CategoryItem = function ({ id, name, skills }: SkillItemProps): JSX.Element {
   const {
     isLoading,
     onDeleteToolHandle: onDeleteToolHandlee,
     openHandle,
-  } = useSkillItem({ id, name, skills: tools });
+  } = useCategoryItem({ id, name, skills });
 
   return (
     <ProfiencyItem
       key={name}
       headText={name}
-      bodyText={`Skills ammount: ${tools?.length}`}
+      bodyText={`Skills ammount: ${skills.length}`}
       onDelete={onDeleteToolHandlee}
       onClick={openHandle}
       isLoading={isLoading}
@@ -31,4 +31,4 @@ const SkillItem = function ({ id, name, tools }: SkillItemProps): JSX.Element {
   );
 };
 
-export default memo(SkillItem);
+export default memo(CategoryItem);

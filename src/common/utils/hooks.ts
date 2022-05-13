@@ -1,6 +1,6 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useDebouncedFn } from 'beautiful-react-hooks';
-import type { DbUser, Skill } from 'common/models/User';
+import type { Category, DbUser, Skill } from 'common/models/User';
 import {
   useUserFromDb,
 } from 'containers/main-page/cv-form/components/fields/personal-information/lib/query-hooks';
@@ -34,19 +34,19 @@ export const useForm = <T>(initialValues?: T): UseFormPropsReturnType<T> => {
 
 type Props = {
   skillName: string;
-  data: Skill;
+  data: Category;
   user: DbUser;
 };
 
-export function useGetSkillByName(): Props {
+export function useGetCategoryByName(): Props {
   const { state: { name } } = useSkillNameContext();
   const { data: user } = useUserFromDb();
 
-  const skill = user?.skills?.find((s) => s.name === name);
+  const skill = user?.categories?.find((c) => c.name === name);
 
   return {
     skillName: skill?.name as string,
-    data: skill || {} as Skill,
+    data: skill || {} as Category,
     user: user || {} as DbUser,
   };
 }

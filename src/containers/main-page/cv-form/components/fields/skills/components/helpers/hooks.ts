@@ -37,25 +37,25 @@ export const useSaveSkill = (): SaveSkill => {
   };
 
   const onSaveToolsHandle = useCallback(async (): Promise<void> => {
-    const userSkill = user?.skills?.find((skill) => skill.name === skillName);
+    // const userSkill = user?.skills?.find((skill) => skill.name === skillName);
 
-    if (skillName && user && userSkill?.name !== skillName) {
-      const skills = user?.skills || [];
-      await mutateAsync({
-        ...user,
-        skills: [
-          ...skills,
-          {
-            name: skillName || '',
-            tools: tools || [],
-          },
-        ],
-      });
+    // if (skillName && user && userSkill?.name !== skillName) {
+    //   const skills = user?.skills || [];
+    //   await mutateAsync({
+    //     ...user,
+    //     skills: [
+    //       ...skills,
+    //       {
+    //         name: skillName || '',
+    //         tools: tools || [],
+    //       },
+    //     ],
+    //   });
 
-      navigate('/dashboard/skills');
-    } else {
-      SnackBarUtils.warning('The skill is already exists. Please change the name.');
-    }
+    //   navigate('/dashboard/skills');
+    // } else {
+    //   SnackBarUtils.warning('The skill is already exists. Please change the name.');
+    // }
   }, [mutateAsync, navigate, skillName, tools, user]);
 
   return {

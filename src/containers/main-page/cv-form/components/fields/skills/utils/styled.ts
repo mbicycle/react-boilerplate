@@ -12,6 +12,8 @@ export const SkillContainerStyled = styled(Box)(({ theme }) => ({
   width: '100%',
   padding: theme.spacing(4),
   position: 'relative',
+  border: `1px solid ${theme.palette.border}`,
+  borderRadius: theme.shape.borderRadius,
 }));
 
 export const ToolsContainerStyled = styled(Box)({

@@ -1,11 +1,11 @@
 import { FC, useMemo, useReducer } from 'react';
 
-import { skillNameReducer, skillReducer } from './reducers';
-import { SkillContext } from './SkillContext';
+import { skillNameReducer, categoryReducer } from './reducers';
+import { CategoryContext } from './CategoryContext';
 import { SkillNameContext } from './SkillNameContext';
 
 const CvFormProvider: FC = function ({ children }): JSX.Element {
-  const [skillState, skillDispatch] = useReducer(skillReducer, { name: '', tools: [] });
+  const [skillState, skillDispatch] = useReducer(categoryReducer, { name: '', tools: [] });
   const [skillNameState, skillNameDispatch] = useReducer(skillNameReducer, { name: null });
 
   const skillContextValue = useMemo(() => ({
@@ -20,9 +20,9 @@ const CvFormProvider: FC = function ({ children }): JSX.Element {
 
   return (
     <SkillNameContext.Provider value={skillNameContextValue}>
-      <SkillContext.Provider value={skillContextValue}>
+      <CategoryContext.Provider value={skillContextValue}>
         {children}
-      </SkillContext.Provider>
+      </CategoryContext.Provider>
     </SkillNameContext.Provider>
   );
 };

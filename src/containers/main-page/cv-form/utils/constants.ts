@@ -57,7 +57,7 @@ export const CVTitles: CVTitlesInterface = {
     description: 'Any explanation text',
   },
   2: {
-    title: 'Add a skill',
+    title: 'Add a category',
     description: 'Any explanation text',
   },
   3: {

@@ -37,7 +37,7 @@ const SkillsToolsDialog = function ({
 
   const handleSkillChange = (event: SelectChangeEvent<typeof skill | unknown>): void => {
     setSkill(event.target.value);
-    setToolsFromSkill(user?.skills.find((s) => s.name === event.target.value));
+    // setToolsFromSkill(user?.skills.find((s) => s.name === event.target.value));
   };
 
   const handleToolChange = (event: SelectChangeEvent<typeof tools | unknown>): void => {
@@ -68,9 +68,9 @@ const SkillsToolsDialog = function ({
             control={formValues.control}
             input={<OutlinedInput label={CategoryAddText.Skill} />}
           >
-            {user?.skills.map((s) => (
+            {/* {user?.skills.map((s) => (
               <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
-            ))}
+            ))} */}
           </ReactHookFormSelect>
         </FormControl>
         <FormControl sx={{ m: 2, minWidth: 420 }}>

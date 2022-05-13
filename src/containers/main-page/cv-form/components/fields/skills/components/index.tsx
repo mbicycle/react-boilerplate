@@ -2,6 +2,8 @@ import { memo } from 'react';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 
+import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { AddCircleIconStyled } from 'common/components/add-pattern/styled';
 import TitleCategory from './TitleCategory';
 import { useCreateSkill, useSaveSkill } from './helpers/hooks';
 import Tool from './tool';
@@ -11,6 +13,7 @@ import {
   SaveButtonStyled, ToolsContainerStyled,
   SaveButtonWrapperStyled,
   CancelButtonStyled,
+  AddToolButtonStyled,
 } from '../utils/styled';
 
 const Skill = function (): JSX.Element {
@@ -35,6 +38,7 @@ const Skill = function (): JSX.Element {
         onChange={handleSkillNameChange}
         value={skillName || ''}
       />
+
       {tools?.length ? (
         <>
           <DividerStyled variant="fullWidth" />

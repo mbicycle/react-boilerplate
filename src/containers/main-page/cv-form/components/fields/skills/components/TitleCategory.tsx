@@ -21,7 +21,7 @@ const TitleCategory = function ({ value, onChange }: TitleCategoryProps): JSX.El
   const { dispatch } = useSkillContext();
 
   const onAddSkillHandle = (): void => {
-    dispatch({ type: 'add-tool' });
+    dispatch({ type: 'add-skill' });
   };
 
   const onHandleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -50,7 +50,7 @@ const TitleCategory = function ({ value, onChange }: TitleCategoryProps): JSX.El
           onClick={onAddSkillHandle}
         >
           <AddCircleIconStyled />
-          {Text.AddTool}
+          {Text.AddSkill}
         </AddToolButtonStyled>
       </InputContainerStyled>
     </>

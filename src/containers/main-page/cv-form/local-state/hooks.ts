@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 
-import { SkillContext, SkillContextType } from './SkillContext';
+import { CategoryContext, SkillContextType } from './CategoryContext';
 import { SkillNameContext, SkillNameContextType } from './SkillNameContext';
 
 export function useSkillContext(): SkillContextType {
-  const context = useContext(SkillContext);
+  const context = useContext(CategoryContext);
 
   if (context === undefined) {
     throw new Error('SkillContext must be used within a CvFormProvider');

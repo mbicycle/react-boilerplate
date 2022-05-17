@@ -1,29 +1,29 @@
 import { FC, useMemo, useReducer } from 'react';
 
-import { skillNameReducer, categoryReducer } from './reducers';
-import { CategoryContext } from './CategoryContext';
-import { SkillNameContext } from './SkillNameContext';
+import { skillNameReducer, newCategoryReducer } from './reducers';
+import { CategoryByIdContext } from './CategoryNameContext';
+import { NewCategoryContext } from './NewCategoryContext';
 
 const CvFormProvider: FC = function ({ children }): JSX.Element {
-  const [skillState, skillDispatch] = useReducer(categoryReducer, { name: '', tools: [] });
-  const [skillNameState, skillNameDispatch] = useReducer(skillNameReducer, { name: null });
-
-  const skillContextValue = useMemo(() => ({
-    state: skillState,
-    dispatch: skillDispatch,
-  }), [skillState]);
+  const [categoryState, categoryDispatch] = useReducer(newCategoryReducer, { name: '', skills: [] });
+  const [skillNameState, skillNameDispatch] = useReducer(skillNameReducer, { id: null });
 
   const skillNameContextValue = useMemo(() => ({
     state: skillNameState,
     dispatch: skillNameDispatch,
   }), [skillNameState]);
 
+  const categoryContextValue = useMemo(() => ({
+    state: categoryState,
+    dispatch: categoryDispatch,
+  }), [categoryState]);
+
   return (
-    <SkillNameContext.Provider value={skillNameContextValue}>
-      <CategoryContext.Provider value={skillContextValue}>
+    <CategoryByIdContext.Provider value={skillNameContextValue}>
+      <NewCategoryContext.Provider value={categoryContextValue}>
         {children}
-      </CategoryContext.Provider>
-    </SkillNameContext.Provider>
+      </NewCategoryContext.Provider>
+    </CategoryByIdContext.Provider>
   );
 };
 

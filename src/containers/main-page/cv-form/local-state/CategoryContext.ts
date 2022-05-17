@@ -4,8 +4,6 @@ import type { Category, Skill, Tool } from 'common/models/User';
 
 export const enum CategoryActionOperationType {
   AddCategory = 'add-category',
-  AddSkill = 'add-skill',
-  AddTool = 'add-tool',
   RemoveTool = 'remove-tool',
   UpdataTools = 'update-tools',
   UpdateTool = 'update-tool',

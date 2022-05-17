@@ -1,73 +1,48 @@
-import { v4 as uuidv4 } from 'uuid';
+import { Skill } from 'common/models/User';
 
-import { Tool } from 'common/models/User';
+import { CategoryNameAction, CategoryNameState } from './CategoryNameContext';
+import { NewCategoryAction, NewCategoryState } from './NewCategoryContext';
+import SkillManager from './SkillManager';
+import ToolManager from './ToolManager';
+import type { NewSkillReducerReturnType, ReturnPartialCategoryModelType } from './types';
 
-import { CategoryAction, CategoryState } from './CategoryContext';
-import { ReturnPartialSkillModelType, SkillReducerReturnType } from './types';
-import { SkillNameAction, SkillNameState } from './SkillNameContext';
-
-const DELETE_COUNT = 1 as const;
-
-export function categoryReducer(state: CategoryState, action: CategoryAction): CategoryState {
+export function newCategoryReducer(state: NewCategoryState, action: NewCategoryAction): NewCategoryState {
   const copy = { ...state };
-  const tools = [...copy?.tools || []] as Tool[];
+  const skills = [...copy?.skills || []] as Skill[];
 
-  function addTool(): CategoryState {
-    tools.push({
-      id: uuidv4(), name: '', level: '', experience: 0,
-    });
+  const selectedSkill = skills.find((s) => s.id === action.skill?.id) || {} as Skill;
 
-    return { ...state, tools };
-  }
-
-  function updateTool(): CategoryState {
-    if (copy.tools?.length) {
-      // TODO: Refactor this and add id to update entity correctly
-      const selectedToolIndex = copy.tools.findIndex((tool) => tool.id === action.tool?.id);
-
-      if (selectedToolIndex !== -1 && action.tool) {
-        copy.tools[selectedToolIndex] = { ...action.tool };
-      }
-    }
-
-    return { ...state, tools: copy.tools };
-  }
-
-  function removeTool(): CategoryState {
-    if (copy.tools?.length) {
-      const selectedToolIndex = copy.tools.findIndex((tool) => tool.name === action.tool?.name);
-      if (selectedToolIndex !== -1) {
-        copy.tools.splice(selectedToolIndex, DELETE_COUNT);
-      }
-    }
-
-    return copy;
-  }
+  const skillManamger = new SkillManager(copy, skills, action);
+  const toolManamger = new ToolManager(copy, selectedSkill, action);
 
   const skill = {
-    'add-category': { name: action.skill?.name, tools: copy?.tools },
-    'add-tool': addTool,
-    'add-skill': addTool,
-    'update-tools': { ...state, ...action.tools },
-    'update-tool': updateTool,
-    'remove-tool': removeTool,
-    'reset-skill': { name: '', tools: [] },
-    'set-edit-skill': { name: action.skill?.name, tools: action.skill?.tools },
-  } as SkillReducerReturnType;
+    'set-category': { ...action.category },
+    'update-category-name': { ...action.category, skills: state.skills },
+    'reset-category': { name: '', skills: [] },
+
+    'add-skill': skillManamger.addSkill.bind(skillManamger),
+    'remove-skill': skillManamger.removeSkill.bind(skillManamger),
+    'update-skill-name': skillManamger.updateSkillName.bind(skillManamger),
+
+    'add-tool': toolManamger.addTool.bind(toolManamger),
+    'update-tool': toolManamger.updateTool.bind(toolManamger),
+    'remove-tool': toolManamger.removeTool.bind(toolManamger),
+  } as NewSkillReducerReturnType;
 
   if (typeof skill[action.type] === 'function') {
-    return (skill[action.type] as ReturnPartialSkillModelType)();
+    return (skill[action.type] as ReturnPartialCategoryModelType)();
   }
-  return skill[action.type] as CategoryState;
+
+  return skill[action.type] as NewCategoryState;
 }
 
-export function skillNameReducer(state: SkillNameState, action: SkillNameAction): SkillNameState {
+export function skillNameReducer(state: CategoryNameState, action: CategoryNameAction): CategoryNameState {
   const copy = { ...state };
 
   if (action.type === 'set') {
-    copy.name = action.name;
+    copy.id = action.id;
   } else {
-    copy.name = null;
+    copy.id = null;
   }
 
   return copy;

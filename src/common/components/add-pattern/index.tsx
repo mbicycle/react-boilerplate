@@ -3,7 +3,7 @@ import {
 } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useCategoryContext } from 'containers/main-page/cv-form/local-state/hooks';
 import { ButtonText, Step } from './constants';
 import Title from './Title';
 
@@ -22,14 +22,14 @@ const AddProfiency = function ({ title, children, collection }: AddProfiencyProp
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { dispatch: dispatchSkill } = useSkillContext();
+  const { dispatch: dispatchCategory } = useCategoryContext();
 
   const [pressedAdd, setPressedAdd] = useState(true);
 
   const handleAdd = (): void => {
     setPressedAdd(true);
     navigate('add');
-    dispatchSkill({ type: 'reset-skill' });
+    dispatchCategory({ type: 'reset-category' });
   };
 
   const onReturnHandle = useCallback(() => {

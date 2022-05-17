@@ -1,105 +1,113 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
-import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
-import { Tool } from 'common/models/User';
-
+import { Category, Skill } from 'common/models/User';
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
+import { useCategoryContext } from 'containers/main-page/cv-form/local-state/hooks';
+
 import { useUserFromDb } from '../../../personal-information/lib/query-hooks';
 import { useAddOrEditSkill } from '../../lib/query-hooks';
-import { Level } from '../../../languages/components/utils/level.enum';
+import { useCategory } from '../skills/utils/hooks';
 
-interface SaveSkill {
-  skillName: string;
-  tools: Tool[] | undefined;
+interface CreateCategory {
+  categoryName: string;
+  skills: Skill[] | undefined;
   isLoading: boolean;
   cancelHandle: VoidFunction;
-  handleSkillNameChange: (name: string) => void;
-  onSaveToolsHandle: () => Promise<void>;
+  handleCategoryNameChange: (name: string) => void;
+  onSaveSkillsHandle: () => Promise<void>;
 }
 
-export const useSaveSkill = (): SaveSkill => {
+export const useCreateCategory = (): CreateCategory => {
   const navigate = useNavigate();
 
-  const { state: { tools } } = useSkillContext();
+  const { state: category, dispatch: dispatchCategory } = useCategoryContext();
 
   const { mutateAsync, isLoading } = useAddOrEditSkill();
   const { data: user } = useUserFromDb();
 
-  const [skillName, setSkillName] = useState('');
-
-  const handleSkillNameChange = useCallback((name: string): void => {
-    setSkillName(name);
-  }, []);
+  const handleCategoryNameChange = useCallback((name: string): void => {
+    dispatchCategory({
+      type: 'update-category-name',
+      category: { ...category, name } as Category,
+    });
+  }, [category, dispatchCategory]);
 
   const cancelHandle = (): void => {
     navigate(-1);
   };
 
-  const onSaveToolsHandle = useCallback(async (): Promise<void> => {
-    // const userSkill = user?.skills?.find((skill) => skill.name === skillName);
+  const onSaveSkillsHandle = useCallback(async (): Promise<void> => {
+    const copy = { ...category, id: uuidv4() };
 
-    // if (skillName && user && userSkill?.name !== skillName) {
-    //   const skills = user?.skills || [];
-    //   await mutateAsync({
-    //     ...user,
-    //     skills: [
-    //       ...skills,
-    //       {
-    //         name: skillName || '',
-    //         tools: tools || [],
-    //       },
-    //     ],
-    //   });
+    if (copy.id && user && copy?.id !== category.id) {
+      const categories = user?.categories || [];
 
-    //   navigate('/dashboard/skills');
-    // } else {
-    //   SnackBarUtils.warning('The skill is already exists. Please change the name.');
-    // }
-  }, [mutateAsync, navigate, skillName, tools, user]);
+      await mutateAsync({
+        ...user,
+        categories: [...categories, copy as Category],
+      });
+
+      navigate('/dashboard/skills');
+    } else {
+      SnackBarUtils.warning('The skill is already exists. Please change the name.');
+    }
+  }, [category, mutateAsync, navigate, user]);
 
   return {
-    skillName,
-    tools,
+    categoryName: category.name || '',
+    skills: category.skills,
     isLoading,
     cancelHandle,
-    handleSkillNameChange,
-    onSaveToolsHandle,
+    handleCategoryNameChange,
+    onSaveSkillsHandle,
   };
 };
 
-interface CreateSkill {
-  readonly handleChangeLevel: (level: `${Level}`, values: Tool) => void;
-  readonly handleChangeExperience: (experience: number, values: Tool) => void;
-  readonly handleToolNameChange: (toolName: string, values: Tool) => void;
+interface UpdateCategory {
+  category: Category;
+  isLoading: boolean;
+  cancelHandle: VoidFunction;
+  onSaveCategoryHandle: () => Promise<void>;
+  handleCategoryNameChange: (name: string) => void;
 }
 
-export const useCreateSkill = (): CreateSkill => {
-  const { dispatch } = useSkillContext();
-  const handleChangeLevel = (level: `${Level}`, values: Tool): void => {
-    dispatch({
-      type: 'update-tool',
-      tool: { ...values, level },
-    });
-  };
+export const useUpdateCategory = (): UpdateCategory => {
+  const navigate = useNavigate();
+  const { category } = useCategory();
+  const { data: user } = useUserFromDb();
+  const { dispatch: dispatchCategory } = useCategoryContext();
 
-  const handleChangeExperience = (experience: number, values: Tool): void => {
-    dispatch({
-      type: 'update-tool',
-      tool: { ...values, experience },
-    });
-  };
+  const { mutateAsync, isLoading } = useAddOrEditSkill();
 
-  const handleToolNameChange = (toolName: string, values: Tool): void => {
-    dispatch({
-      type: 'update-tool',
-      tool: { ...values, name: toolName },
-    });
-  };
+  const onSaveCategoryHandle = useCallback(async (): Promise<void> => {
+    const userCategory = user?.categories?.find((c) => c.id === category.id);
+
+    if (category.id && user && user?.categories && userCategory?.id === category.id) {
+      const categories = [...user.categories] || [];
+      const idx = categories.findIndex((s) => s.id === category.id);
+      categories[idx] = category as Category;
+
+      await mutateAsync({ ...user, categories });
+    }
+
+    navigate('/dashboard/skills');
+  }, [category, mutateAsync, navigate, user]);
+
+  const handleCategoryNameChange = useCallback((name: string): void => {
+    dispatchCategory({ type: 'update-category-name', category: { ...category, name } });
+  }, [category, dispatchCategory]);
+
+  const cancelHandle = useCallback((): void => {
+    navigate(-1);
+  }, [navigate]);
 
   return {
-    handleChangeLevel,
-    handleChangeExperience,
-    handleToolNameChange,
+    category,
+    isLoading,
+    cancelHandle,
+    onSaveCategoryHandle,
+    handleCategoryNameChange,
   };
 };

@@ -1,7 +1,6 @@
 import { memo } from 'react';
 
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
-import { useSkillNameContext } from 'containers/main-page/cv-form/local-state/hooks';
 import type { Skill } from 'common/models/User';
 
 import { useCategoryItem } from './utils/hooks';
@@ -15,16 +14,16 @@ interface SkillItemProps {
 const CategoryItem = function ({ id, name, skills }: SkillItemProps): JSX.Element {
   const {
     isLoading,
-    onDeleteToolHandle: onDeleteToolHandlee,
+    onDeleteToolHandle,
     openHandle,
-  } = useCategoryItem({ id, name, skills });
+  } = useCategoryItem({ id, skills });
 
   return (
     <ProfiencyItem
       key={name}
       headText={name}
       bodyText={`Skills ammount: ${skills.length}`}
-      onDelete={onDeleteToolHandlee}
+      onDelete={onDeleteToolHandle}
       onClick={openHandle}
       isLoading={isLoading}
     />

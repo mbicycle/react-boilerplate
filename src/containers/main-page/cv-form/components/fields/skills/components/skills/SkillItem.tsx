@@ -15,16 +15,16 @@ interface SkillItemProps {
 const SkillItem = function ({ id, name, tools }: SkillItemProps): JSX.Element {
   const {
     isLoading,
-    onDeleteToolHandle: onDeleteToolHandlee,
+    onDeleteToolHandle,
     openHandle,
-  } = useSkillItem({ id, name, skills: tools });
+  } = useSkillItem({ id });
 
   return (
     <ProfiencyItem
-      key={name}
+      key={id}
       headText={name}
       bodyText={`Skills ammount: ${tools?.length}`}
-      onDelete={onDeleteToolHandlee}
+      onDelete={onDeleteToolHandle}
       onClick={openHandle}
       isLoading={isLoading}
     />

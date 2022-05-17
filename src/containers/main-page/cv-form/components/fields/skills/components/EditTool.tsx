@@ -1,90 +1,41 @@
-import { useNavigate } from 'react-router-dom';
-
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import { useSkillContext, useSkillNameContext } from 'containers/main-page/cv-form/local-state/hooks';
-import { useGetCategoryByName } from 'common/utils/hooks';
-import { Tool as ToolType } from 'common/models/User';
 
-import { useAddOrEditSkill } from '../lib/query-hooks';
 import TitleCategory from './TitleCategory';
+import Skill from './tool/Skill';
+import { useUpdateCategory } from './helpers/hooks';
 
 import {
-  SkillContainerStyled, DividerStyled,
+  CategoryContainerStyled, DividerStyled,
   SaveButtonStyled, ToolsContainerStyled,
   SaveButtonWrapperStyled,
   CancelButtonStyled,
 } from '../utils/styled';
-import { Level } from '../../languages/components/utils/level.enum';
-import Skill from './tool/Skill';
 
-const EditTool = function (): JSX.Element {
-  const { data: { name }, user } = useGetCategoryByName();
-  const navigate = useNavigate();
-  const { state, dispatch } = useSkillContext();
+const EditCategory = function (): JSX.Element | null {
+  const {
+    category,
+    isLoading,
+    handleCategoryNameChange,
+    onSaveCategoryHandle,
+    cancelHandle,
+  } = useUpdateCategory();
 
-  const { mutateAsync, isLoading } = useAddOrEditSkill();
-
-  const { state: { name: skillName } } = useSkillNameContext();
-
-  const tool = user.categories.find((c) => c.name === skillName);
-  console.log(tool);
-
-  const onSaveToolsHandle = async (): Promise<void> => {
-    // const userSkill = user?.skills?.find((skill) => skill.name === name);
-
-    // if (name && user && user?.skills && userSkill?.name === name) {
-    //   const skills = [...user.skills] || [];
-
-    //   const idx = skills.findIndex((s) => s.name === name);
-
-    //   skills[idx] = state as Skill;
-
-    //   await mutateAsync({ ...user, skills });
-    // }
-
-    navigate('/dashboard/skills');
-  };
-
-  const handleChangeName = (toolName: string, values: ToolType): void => {
-    dispatch({
-      type: 'update-tool',
-      tool: { ...values, name: toolName },
-    });
-  };
-
-  const handleChangeLevel = (level: `${Level}`, values: ToolType): void => {
-    dispatch({
-      type: 'update-tool',
-      tool: { ...values, level },
-    });
-  };
-
-  const handleChangeExperience = (experience: number, values: ToolType): void => {
-    dispatch({
-      type: 'update-tool',
-      tool: { ...values, experience },
-    });
-  };
-
-  const cancelHandle = (): void => {
-    navigate(-1);
-  };
+  if (!category?.name) {
+    return null;
+  }
 
   return (
-    <SkillContainerStyled>
-      <TitleCategory value={name || ''} />
-      {tool?.skills?.length ? (
+    <CategoryContainerStyled>
+      <TitleCategory value={category?.name || ''} onChange={handleCategoryNameChange} />
+      {category?.skills?.length ? (
         <>
           <DividerStyled variant="fullWidth" />
           <ToolsContainerStyled>
             {
-              tool?.skills.map((skill) => (
+              category?.skills.map((skill) => (
                 <Skill
-                  key={skill.name}
-                  skillData={skill}
-                  onChangeName={handleChangeName}
-                  onChangeLevel={handleChangeLevel}
-                  onChangeExperience={handleChangeExperience}
+                  key={skill.id}
+                  skill={skill}
                 />
               ))
             }
@@ -100,15 +51,15 @@ const EditTool = function (): JSX.Element {
         </CancelButtonStyled>
         <SaveButtonStyled
           disabled={false}
-          onClick={onSaveToolsHandle}
+          onClick={onSaveCategoryHandle}
           variant="contained"
           loading={isLoading}
         >
           {ButtonStep.Save}
         </SaveButtonStyled>
       </SaveButtonWrapperStyled>
-    </SkillContainerStyled>
+    </CategoryContainerStyled>
   );
 };
 
-export default EditTool;
+export default EditCategory;

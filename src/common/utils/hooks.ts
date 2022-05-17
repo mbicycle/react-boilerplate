@@ -4,7 +4,7 @@ import type { Category, DbUser, Skill } from 'common/models/User';
 import {
   useUserFromDb,
 } from 'containers/main-page/cv-form/components/fields/personal-information/lib/query-hooks';
-import { useSkillNameContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useCategoryIdContext } from 'containers/main-page/cv-form/local-state/hooks';
 import { useState } from 'react';
 
 type UseFormPropsReturnType<T> = {
@@ -39,7 +39,7 @@ type Props = {
 };
 
 export function useGetCategoryByName(): Props {
-  const { state: { name } } = useSkillNameContext();
+  const { state: { id: name } } = useCategoryIdContext();
   const { data: user } = useUserFromDb();
 
   const skill = user?.categories?.find((c) => c.name === name);

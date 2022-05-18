@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Select, SelectProps } from '@mui/material';
+import { forwardRef } from 'react';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 
 interface ReactHookFormSelectProps<T extends FieldValues> extends SelectProps {
@@ -8,16 +9,15 @@ interface ReactHookFormSelectProps<T extends FieldValues> extends SelectProps {
   children: React.ReactNode;
 }
 
-const ReactHookFormSelect = function<T extends FieldValues> ({
-  name,
-  control,
-  children,
-  ...props
-}: ReactHookFormSelectProps<T | any>): JSX.Element {
+// eslint-disable-next-line prefer-arrow-callback
+const ReactHookFormSelect = forwardRef(function<T extends FieldValues> ({
+  name, control, children, ...props
+}: ReactHookFormSelectProps<T | any>, ref: unknown): JSX.Element {
   return (
     <Controller<T | FieldValues>
       render={({ field }) => (
         <Select
+          {...ref}
           {...field}
           {...props}
           sx={{ display: 'flex' }}
@@ -30,5 +30,5 @@ const ReactHookFormSelect = function<T extends FieldValues> ({
       defaultValue=""
     />
   );
-};
+});
 export default ReactHookFormSelect;

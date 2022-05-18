@@ -1,4 +1,4 @@
-import { Button, styled, Typography } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 
 export const CategoriesTitleStyled = styled(Typography)(({ theme }) => ({
@@ -10,8 +10,4 @@ export const CategoriesTitleStyled = styled(Typography)(({ theme }) => ({
 export const InfoIconStyled = styled(InfoIcon)(({ theme }) => ({
   cursor: 'default',
   paddingTop: theme.spacing(1),
-}));
-
-export const SkillsToolsButtonStyled = styled(Button)(({ theme }) => ({
-  marginLeft: theme.spacing(4),
 }));

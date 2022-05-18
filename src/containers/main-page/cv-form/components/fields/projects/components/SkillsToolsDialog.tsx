@@ -1,17 +1,21 @@
-import { useState, useEffect, memo } from 'react';
+import {
+  useState, memo, useEffect,
+} from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import {
   DialogActions,
   DialogTitle, DialogContent,
   FormControl, InputLabel, OutlinedInput,
-  MenuItem, SelectChangeEvent, Dialog, Button,
+  MenuItem, SelectChangeEvent, Dialog, Button, Grid,
 } from '@mui/material';
 
 import { getKeyOf } from 'common/utils/helpers';
 
 import ReactHookFormSelect from 'common/components/react-hook-forms/ReactHookFormSelect';
-import type { DbUser, Skill } from 'common/models/User';
+import type {
+  Category, DbUser, Skill, Tool,
+} from 'common/models/User';
 
 import { ProjectFieldValues } from '../utils/types';
 import { ButtonText, CategoryAddText } from './utils/constants';
@@ -21,7 +25,6 @@ interface SkillsToolsDialogProps {
   user: DbUser | undefined
   open: boolean;
   onClose: (event: React.SyntheticEvent<unknown>, reason?: string) => void
-  onGetReadyText: (text: string) => void;
 }
 
 const SkillsToolsDialog = function ({
@@ -29,70 +32,87 @@ const SkillsToolsDialog = function ({
   user,
   open,
   onClose,
-  onGetReadyText,
 }: SkillsToolsDialogProps): JSX.Element {
-  const [skill, setSkill] = useState<string | unknown>('');
-  const [toolsfromSkill, setToolsFromSkill] = useState<Skill | undefined>();
-  const [tools, setTools] = useState<string[] | unknown>([]);
+  const [category, setCategory] = useState<Category | undefined>();
+  const [skill, setSkill] = useState<Skill | undefined>();
+  const [tool, setTool] = useState<Tool | undefined>();
+
+  const { onChange, ...rest } = formValues.register('categories');
+
+  const handleCategoryChange = (event: SelectChangeEvent<typeof skill | unknown>): void => {
+    setCategory(user?.categories.find((c) => c.name === event.target.value));
+    onChange(event);
+  };
 
   const handleSkillChange = (event: SelectChangeEvent<typeof skill | unknown>): void => {
-    setSkill(event.target.value);
-    // setToolsFromSkill(user?.skills.find((s) => s.name === event.target.value));
+    setSkill(category?.skills.find((s) => s.name === event.target.value));
+    onChange(event);
   };
 
-  const handleToolChange = (event: SelectChangeEvent<typeof tools | unknown>): void => {
-    const { target: { value } } = event;
-
-    setTools(typeof value === 'string' ? value.split(', ') : value);
+  const handleToolChange = (event: SelectChangeEvent<typeof tool | unknown>): void => {
+    setTool(skill?.tools.find((t) => t.name === event.target.value));
+    onChange(event);
   };
 
-  useEffect(() => {
-    if ((tools as string[]).length > 0) {
-      onGetReadyText(
-        `${formValues.getValues('responsibilities')}: ${(tools as string[]).join(', ')}`,
-      );
-    }
-  }, [tools, formValues, onGetReadyText]);
+  console.log(formValues.getValues(['categories', 'skill', 'tool']));
 
   return (
     <Dialog disableEscapeKeyDown open={open} onClose={onClose}>
       <DialogTitle>{CategoryAddText.DialogTitle}</DialogTitle>
       <DialogContent>
-        <FormControl sx={{ m: 2, minWidth: 240 }}>
-          <InputLabel htmlFor="skill-dialog">{CategoryAddText.Skill}</InputLabel>
-          <ReactHookFormSelect
-            id="skill-dialog"
-            value={skill}
-            onChange={handleSkillChange}
-            name={getKeyOf<ProjectFieldValues>('skill')}
-            control={formValues.control}
-            input={<OutlinedInput label={CategoryAddText.Skill} />}
-          >
-            {/* {user?.skills.map((s) => (
-              <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
-            ))} */}
-          </ReactHookFormSelect>
-        </FormControl>
-        <FormControl sx={{ m: 2, minWidth: 420 }}>
-          <InputLabel htmlFor="tool-dialog">{CategoryAddText.Tool}</InputLabel>
-          <ReactHookFormSelect
-            id="tool-dialog"
-            disabled={!toolsfromSkill}
-            multiple
-            displayEmpty
-            value={tools}
-            onChange={handleToolChange}
-            control={formValues.control}
-            name={getKeyOf<ProjectFieldValues>('tool')}
-            input={<OutlinedInput label={CategoryAddText.Tool} />}
-          >
-            {toolsfromSkill?.tools.map(({ name }) => (
-              <MenuItem key={name} value={name}>
-                {name}
-              </MenuItem>
-            ))}
-          </ReactHookFormSelect>
-        </FormControl>
+        <Grid container rowGap={4} sx={{ minWidth: 420 }}>
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <InputLabel htmlFor="category-dialog">{CategoryAddText.Category}</InputLabel>
+            <ReactHookFormSelect
+              {...rest}
+              id="category-dialog"
+              onChange={handleCategoryChange}
+              name={getKeyOf<ProjectFieldValues>('categories')}
+              control={formValues.control}
+              input={<OutlinedInput label={CategoryAddText.Category} />}
+            >
+              {user?.categories.map((c) => (
+                <MenuItem key={c.id} value={c.name}>{c.name}</MenuItem>
+              ))}
+            </ReactHookFormSelect>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="skill-dialog">{CategoryAddText.Skill}</InputLabel>
+            <ReactHookFormSelect
+              {...rest}
+              id="skill-dialog"
+              value={skill?.name || ''}
+              onChange={handleSkillChange}
+              name={getKeyOf<ProjectFieldValues>('skill')}
+              control={formValues.control}
+              disabled={!category?.name}
+              input={<OutlinedInput label={CategoryAddText.Skill} />}
+            >
+              {category?.skills.map((s) => (
+                <MenuItem key={s.id} value={s.name}>{s.name}</MenuItem>
+              ))}
+            </ReactHookFormSelect>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="tool-dialog">{CategoryAddText.Tool}</InputLabel>
+            <ReactHookFormSelect
+              {...rest}
+              id="tool-dialog"
+              value={tool?.name || ''}
+              onChange={handleToolChange}
+              control={formValues.control}
+              name={getKeyOf<ProjectFieldValues>('tool')}
+              disabled={!category?.name && !skill?.name}
+              input={<OutlinedInput label={CategoryAddText.Tool} />}
+            >
+              {skill?.tools.map(({ id, name }) => (
+                <MenuItem key={id} value={name}>
+                  {name}
+                </MenuItem>
+              ))}
+            </ReactHookFormSelect>
+          </FormControl>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={onClose}>{ButtonText.Cancel}</Button>

@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import {
@@ -7,18 +7,13 @@ import {
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import
-ReactHookFormTextFieldOutlined
-  from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
-import { getKeyOf } from 'common/utils/helpers';
-
 import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
 
 import { ProjectFieldValues } from '../utils/types';
 import { useUserFromDb } from '../../personal-information/lib/query-hooks';
 import { ButtonText, CategoryAddText, tooltipText } from './utils/constants';
 
-import { CategoriesTitleStyled, InfoIconStyled, SkillsToolsButtonStyled } from './utils/styled';
+import { CategoriesTitleStyled, InfoIconStyled } from './utils/styled';
 import SkillsToolsDialog from './SkillsToolsDialog';
 
 const CategorySelection = function (
@@ -27,7 +22,6 @@ const CategorySelection = function (
   const { data, isLoading } = useUserFromDb();
 
   const [open, setOpen] = useState(false);
-  const [readyText, setReadyText] = useState<string>('');
 
   const handleClickOpen = (): void => {
     setOpen(true);
@@ -37,10 +31,6 @@ const CategorySelection = function (
     if (reason !== 'backdropClick') {
       setOpen(false);
     }
-  };
-
-  const handleReadyText = (text: string): void => {
-    setReadyText(text);
   };
 
   if (isLoading) {
@@ -56,38 +46,27 @@ const CategorySelection = function (
         </Tooltip>
       </Box>
       <Grid container>
-        <Grid item container xs={6} wrap="nowrap">
-          <ReactHookFormTextFieldOutlined
-            control={formValues.control}
-            label="Category"
-            name={getKeyOf<ProjectFieldValues>('responsibilities')}
-            type="text"
-            variant="outlined"
-          />
-          <SkillsToolsButtonStyled variant="outlined" onClick={handleClickOpen}>
-            {ButtonText.SkillsTools}
-          </SkillsToolsButtonStyled>
-
+        <Grid item container xs={12}>
+          <Typography sx={{ mt: 2 }} variant="body1">
+            Asads
+          </Typography>
         </Grid>
         <Button
           color="primary"
           variant="outlined"
           sx={{ marginLeft: 'auto' }}
+          onClick={handleClickOpen}
         >
           <AddCircleOutlineIcon fontSize="large" />
-          &nbsp;Add
+          &nbsp;
+          {ButtonText.Add}
         </Button>
-        <Grid item container xs={12}>
-          <Typography sx={{ mt: 2 }} variant="body1">
-            {readyText}
-          </Typography>
-        </Grid>
+
         <SkillsToolsDialog
           formValues={formValues}
           user={data}
           open={open}
           onClose={handleClose}
-          onGetReadyText={handleReadyText}
         />
       </Grid>
     </Grid>

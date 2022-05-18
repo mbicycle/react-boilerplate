@@ -1,5 +1,6 @@
 export const enum CategoryAddText {
   Title = 'Select skills/tools',
+  Category = 'Category',
   Tool = 'Tool',
   Skill = 'Skill',
   DialogTitle = 'Select Skill and Tools'
@@ -8,7 +9,8 @@ export const enum CategoryAddText {
 export const enum ButtonText {
   Ok = 'OK',
   Cancel = 'Cancel',
-  SkillsTools = 'Skills/Tools'
+  SkillsTools = 'Skills/Tools',
+  Add = 'Add',
 }
 
 // eslint-disable-next-line max-len

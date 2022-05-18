@@ -19,6 +19,7 @@ export interface Skill {
 }
 
 export interface Project {
+  id: string;
   title: string;
   role: string;
   from: string;

@@ -7,7 +7,7 @@ export const StepStyled = styled(Step)({
 });
 
 export const StepConnectorStyled = styled(StepConnector, {
-  label: 'StepConnectorStyled',
+  name: 'StepConnectorStyled',
 })(({ theme }) => ({
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {

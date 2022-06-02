@@ -16,7 +16,7 @@ export const LeftSideWrapperStyled = styled(Box)({
 });
 
 export const SelectedLanguagesListStyled = styled(Box, {
-  label: 'SelectedLanguagesListStyled',
+  name: 'SelectedLanguagesListStyled',
 })({
   width: '100%',
 });

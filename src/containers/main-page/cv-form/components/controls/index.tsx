@@ -35,7 +35,7 @@ const CVFormControls = function (): JSX.Element | null {
         {ButtonStep.Back}
       </Button>
       {activeStep <= stepsLength && (
-        <LoadingButton onClick={handleNext} variant="contained" loading={!!isFetching}>
+        <LoadingButton onClick={handleNext} variant="contained" loading={!!isFetching && isFetching > 1}>
           {activeStep === stepsLength ? ButtonStep.Finish : ButtonStep.Next}
         </LoadingButton>
       )}

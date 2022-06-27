@@ -3,50 +3,39 @@ import { memo } from 'react';
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 
 import TitleCategory from './TitleCategory';
-import { useCreateSkill, useSaveSkill } from './helpers/hooks';
-import Tool from './tool';
+import { useCreateCategory } from './helpers/hooks';
 
 import {
-  SkillContainerStyled, DividerStyled,
+  CategoryContainerStyled, DividerStyled,
   SaveButtonStyled, ToolsContainerStyled,
   SaveButtonWrapperStyled,
   CancelButtonStyled,
 } from '../utils/styled';
+import Skill from './tool/Skill';
 
-const Skill = function (): JSX.Element {
+const Category = function (): JSX.Element {
   const {
-    tools,
-    skillName,
+    skills,
+    categoryName,
     isLoading,
     cancelHandle,
-    onSaveToolsHandle,
-    handleSkillNameChange,
-  } = useSaveSkill();
-
-  const {
-    handleChangeExperience,
-    handleChangeLevel,
-    handleToolNameChange,
-  } = useCreateSkill();
+    onSaveSkillsHandle,
+    handleCategoryNameChange,
+  } = useCreateCategory();
 
   return (
-    <SkillContainerStyled>
-      <TitleCategory
-        onChange={handleSkillNameChange}
-        value={skillName || ''}
-      />
-      {tools?.length ? (
+    <CategoryContainerStyled>
+      <TitleCategory onChange={handleCategoryNameChange} value={categoryName || ''} />
+
+      {skills?.length ? (
         <>
           <DividerStyled variant="fullWidth" />
           <ToolsContainerStyled>
             {
-              tools.map((tool) => (
-                <Tool
-                  key={tool.name}
-                  toolData={tool}
-                  onChangeName={handleToolNameChange}
-                  onChangeLevel={handleChangeLevel}
-                  onChangeExperience={handleChangeExperience}
+              skills.map((skill) => (
+                <Skill
+                  key={skill.id}
+                  skill={skill}
                 />
               ))
             }
@@ -62,15 +51,15 @@ const Skill = function (): JSX.Element {
         </CancelButtonStyled>
         <SaveButtonStyled
           disabled={false}
-          onClick={onSaveToolsHandle}
+          onClick={onSaveSkillsHandle}
           variant="contained"
           loading={isLoading}
         >
           {ButtonStep.Save}
         </SaveButtonStyled>
       </SaveButtonWrapperStyled>
-    </SkillContainerStyled>
+    </CategoryContainerStyled>
   );
 };
 
-export default memo(Skill);
+export default memo(Category);

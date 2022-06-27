@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { MsalProvider } from '@azure/msal-react';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import AppSnackbarProvider from 'common/providers/AppSnackbar/AppSnackbarProvider';
 import GlobalStyle from 'common/theme/css/globalStyle';
@@ -13,15 +15,17 @@ const AppProvider = function ({ children }: { children: React.ReactNode}): JSX.E
   return (
     <AppSnackbarProvider>
       <React.StrictMode>
-        <CssBaseline />
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <MsalProvider instance={msalInstance}>
-              {children}
-            </MsalProvider>
-          </BrowserRouter>
-        </ThemeProvider>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <CssBaseline />
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>
+            <BrowserRouter>
+              <MsalProvider instance={msalInstance}>
+                {children}
+              </MsalProvider>
+            </BrowserRouter>
+          </ThemeProvider>
+        </LocalizationProvider>
       </React.StrictMode>
     </AppSnackbarProvider>
   );

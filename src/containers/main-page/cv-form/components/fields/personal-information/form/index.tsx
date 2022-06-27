@@ -47,7 +47,7 @@ const PersonalDataForm = function (): JSX.Element {
             disabled
           />
           <TextFieldOutlined
-            value={dbUser.skype}
+            defaultValue={dbUser.skype}
             inputMode="text"
             label={InputLabel.Skype}
             name={InputName.Skype}

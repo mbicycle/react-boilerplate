@@ -1,7 +1,9 @@
 export const enum Text {
   Category = 'Category',
   AddTool = 'Add a tool',
+  AddSkill = 'Add a skill',
   Tool = 'Tool',
+  Skill = 'Skill',
   Delete = 'Delete'
 }
 

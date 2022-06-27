@@ -1,10 +1,9 @@
 import { memo } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 
 import TextFieldOutlined from 'common/components/text-field-outlined';
-import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useCategoryContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import { CategoryInputText, Text } from '../utils/constants';
 
@@ -16,12 +15,10 @@ onChange?:(e: string) => void;
 }
 
 const TitleCategory = function ({ value, onChange }: TitleCategoryProps): JSX.Element {
-  const location = useLocation();
-
-  const { dispatch } = useSkillContext();
+  const { dispatch } = useCategoryContext();
 
   const onAddSkillHandle = (): void => {
-    dispatch({ type: 'add-tool' });
+    dispatch({ type: 'add-skill' });
   };
 
   const onHandleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -32,9 +29,7 @@ const TitleCategory = function ({ value, onChange }: TitleCategoryProps): JSX.El
 
   return (
     <>
-      <Typography variant="h4">
-        {Text.Category}
-      </Typography>
+      <Typography variant="h4">{Text.Category}</Typography>
       <InputContainerStyled>
         <TextFieldOutlined
           autoComplete="false"
@@ -42,15 +37,13 @@ const TitleCategory = function ({ value, onChange }: TitleCategoryProps): JSX.El
           name={CategoryInputText.Name}
           onChange={onHandleCategoryChange}
           defaultValue={value}
-          // TODO: Add id on backend for title editing.
-          disabled={location.pathname.includes('skills/edit')}
         />
         <AddToolButtonStyled
           disabled={!value}
           onClick={onAddSkillHandle}
         >
           <AddCircleIconStyled />
-          {Text.AddTool}
+          {Text.AddSkill}
         </AddToolButtonStyled>
       </InputContainerStyled>
     </>

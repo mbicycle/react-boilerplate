@@ -7,23 +7,24 @@ import type { Tool } from 'common/models/User';
 import { useSkillItem } from './utils/hooks';
 
 interface SkillItemProps {
+  id: string;
   name: string;
   tools: Tool[]
 }
 
-const SkillItem = function ({ name, tools }: SkillItemProps): JSX.Element {
+const SkillItem = function ({ id, name, tools }: SkillItemProps): JSX.Element {
   const {
     isLoading,
-    onDeleteToolHandlee,
+    onDeleteToolHandle,
     openHandle,
-  } = useSkillItem({ name, tools });
+  } = useSkillItem({ id });
 
   return (
     <ProfiencyItem
-      key={name}
+      key={id}
       headText={name}
-      bodyText={`Skills ammount: ${tools.length}`}
-      onDelete={onDeleteToolHandlee}
+      bodyText={`Skills ammount: ${tools?.length}`}
+      onDelete={onDeleteToolHandle}
       onClick={openHandle}
       isLoading={isLoading}
     />

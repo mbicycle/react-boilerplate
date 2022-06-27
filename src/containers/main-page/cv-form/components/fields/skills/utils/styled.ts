@@ -4,7 +4,7 @@ import {
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { LoadingButton } from '@mui/lab';
 
-export const SkillContainerStyled = styled(Box)(({ theme }) => ({
+export const CategoryContainerStyled = styled(Box)(({ theme }) => ({
   height: 0,
   display: 'flex',
   flex: 1,
@@ -12,6 +12,8 @@ export const SkillContainerStyled = styled(Box)(({ theme }) => ({
   width: '100%',
   padding: theme.spacing(4),
   position: 'relative',
+  border: `1px solid ${theme.palette.border}`,
+  borderRadius: theme.shape.borderRadius,
 }));
 
 export const ToolsContainerStyled = styled(Box)({

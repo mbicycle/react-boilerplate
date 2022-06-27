@@ -1,11 +1,23 @@
-import { memo } from 'react';
+import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
+
+import AddProfiency from 'common/components/add-pattern';
+import { useUserFromDb } from '../personal-information/lib/query-hooks';
 
 const Projects = function (): JSX.Element {
+  const { data, isLoading } = useUserFromDb();
+
+  if (isLoading) {
+    return <CircularSpinner size="large" color="primary" />;
+  }
+
   return (
-    <>
-      Projects Form
-    </>
+    <AddProfiency
+      collection={data?.projects || []}
+      title="Projects"
+    >
+      {!!data?.projects?.length && <div />}
+    </AddProfiency>
   );
 };
 
-export default memo(Projects);
+export default Projects;

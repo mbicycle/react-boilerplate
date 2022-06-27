@@ -27,7 +27,7 @@ const ProfiencyItem = function ({
     }
   };
 
-  const onDeleteLanguageHandle = (): void => {
+  const onDeleteEntryHandle = (): void => {
     onDelete();
   };
 
@@ -48,7 +48,7 @@ const ProfiencyItem = function ({
           </Typography>
         </TextContainerStyled>
       </LeftSideWrapperStyled>
-      <IconButton onClick={onDeleteLanguageHandle}>
+      <IconButton onClick={onDeleteEntryHandle}>
         {isLoading ? <CircularSpinner size="tiny" color="primary" /> : <GarbageIcon color="primary" />}
       </IconButton>
     </LeveledLanguageItemStyled>

@@ -1,17 +1,31 @@
-import ApplicationBar from 'containers/application-bar';
-import { MainPage } from 'containers/main-page';
-import Provider from 'containers/main-page/local-state/Provider';
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
+import dotenv from 'dotenv';
 
-import { ContainerStyled } from 'styled';
+import ApplicationBar from 'containers/application-bar';
+
+import Routing from 'common/components/routes/Routing';
+import AppProvider from 'common/providers/AppProvider';
+import ReactQueryProvider from 'common/providers/ReactQueryProvider';
+import Login from 'containers/authentication/components';
+import { AuthProvider } from 'containers/authentication/auth';
+
+dotenv.config();
 
 const App = function (): JSX.Element {
   return (
-    <Provider>
-      <ContainerStyled>
-        <ApplicationBar />
-        <MainPage />
-      </ContainerStyled>
-    </Provider>
+    <AppProvider>
+      <UnauthenticatedTemplate>
+        <Login />
+      </UnauthenticatedTemplate>
+      <AuthenticatedTemplate>
+        <ReactQueryProvider>
+          <AuthProvider>
+            <ApplicationBar />
+            <Routing />
+          </AuthProvider>
+        </ReactQueryProvider>
+      </AuthenticatedTemplate>
+    </AppProvider>
   );
 };
 

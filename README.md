@@ -15,3 +15,9 @@ Used packages that makes life happy:
 (article from Medium)
 
 Based on create-react-app with React v17.0.2
+
+# Install protocols link (win + unix)
+
+https://flaviocopes.com/react-how-to-configure-https-localhost/
+https://www.mariokandut.com/how-to-setup-https-ssl-in-localhost-react/
+https://serverfault.com/questions/366372/is-it-possible-to-generate-rsa-key-without-pass-phrase

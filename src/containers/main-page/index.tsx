@@ -1,27 +1,41 @@
-import { NamedAPIResource } from './models/resource';
+import { memo } from 'react';
+import { Box } from '@mui/material';
 
-import { usePokemons } from './utils/hooks';
+import CVForm from './cv-form';
+import CvFormProvider from './cv-form/local-state/CVFormProvider';
 
-import PokeCard from './PokeCard';
-import Header from './Header';
+import { FormWrapperStyled, MainPageContainerStyled, PreviewWrapperStyled } from './styled';
 
-import { PaperStyled } from './utils/styled';
-
-export const MainPage = function ():JSX.Element {
-  const [incrementPokes, query] = usePokemons();
-
+const MainPage = function (): JSX.Element {
   return (
-    <>
-      <Header
-        loadMorePokes={incrementPokes}
-        isFetching={query?.isFetching}
-        count={query?.data?.results.length || 0}
-      />
-      <PaperStyled elevation={5}>
-        {query?.data
-         && (query.data.results as NamedAPIResource[])
-           .map((val) => <PokeCard key={val.url} {...val} />)}
-      </PaperStyled>
-    </>
+    <MainPageContainerStyled container>
+      <FormWrapperStyled
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={12}
+        xl={6}
+      >
+        <CvFormProvider>
+          <CVForm />
+        </CvFormProvider>
+      </FormWrapperStyled>
+      <PreviewWrapperStyled
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={12}
+        xl={6}
+      >
+        <Box>
+          Preview
+        </Box>
+
+      </PreviewWrapperStyled>
+    </MainPageContainerStyled>
   );
 };
+
+export default memo(MainPage);

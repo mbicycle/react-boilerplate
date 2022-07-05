@@ -32,9 +32,10 @@ export interface Project {
 }
 
 export interface Certificate {
-  id: string;
+  // id: string;
   name: string;
-  link: string;
+  // link: string;
+  date: Date | null;
 }
 
 export interface Category {

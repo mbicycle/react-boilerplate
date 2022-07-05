@@ -58,7 +58,6 @@ export function useAddUserLanguage(): UseMutationResult<DbUser, Error, UserLangu
   return useMutation<DbUser, Error, UserLanguage, VoidFunction>(
     (language: UserLanguage) => {
       languages?.push(language as UserLanguage);
-      debugger;
       return api.modifyUserLanguages(languages as UserLanguage[], user as DbUser);
     },
     {

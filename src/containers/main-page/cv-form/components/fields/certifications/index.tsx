@@ -1,20 +1,12 @@
-import { memo, useEffect } from 'react';
-import { useQueryClient } from 'react-query';
+import { memo } from 'react';
 import CircularSpinner from '../../../../../../common/components/circular-spinner/circular-spinner';
 import AddProfiency from '../../../../../../common/components/add-pattern';
 import { useUserFromDb } from '../personal-information/lib/query-hooks';
-import { QueryKey } from '../languages/lib/query-key';
-import { getAllLanguages } from '../languages/lib/api';
+import AddedCertificatesList from './components/addedSertificates/AddedCertificatesList';
 
 const Certifications = function (): JSX.Element {
   const { data, isLoading } = useUserFromDb();
-
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    queryClient.prefetchQuery(QueryKey.Languages, getAllLanguages);
-  }, [queryClient]);
-
+  console.log(data);
   if (isLoading) {
     return <CircularSpinner size="large" color="primary" />;
   }
@@ -23,7 +15,7 @@ const Certifications = function (): JSX.Element {
       collection={data?.certificates || []}
       title="Certificate"
     >
-      {!!data?.certificates?.length && <div />}
+      {!!data?.certificates?.length && <AddedCertificatesList certificates={data?.certificates || []} />}
     </AddProfiency>
   );
 };

@@ -1,5 +1,5 @@
 import { useMutation, UseMutationResult, useQueryClient } from 'react-query';
-import { Certificate, DbUser, UserLanguage } from '../../../../../../../common/models/User';
+import { Certificate, DbUser } from '../../../../../../../common/models/User';
 import { useUserFromDb } from '../../personal-information/lib/query-hooks';
 import * as api from './api';
 import { QueryKey } from '../../languages/lib/query-key';
@@ -12,18 +12,41 @@ export function useAddUserCertificate(): UseMutationResult<DbUser, Error, Certif
   return useMutation<DbUser, Error, Certificate, VoidFunction>(
     (certificate: Certificate) => {
       certificates?.push(certificate as Certificate);
-      debugger;
       return api.modifyUserCertificates(certificates as Certificate[], user as DbUser);
     },
-    // {
-    //   onSettled: () => {
-    //     queryClient.invalidateQueries(QueryKey.DbUser);
-    //   },
-    //   onError: (error: Error, _: UserLanguage, rollback) => {
-    //     SnackBarUtils.error(error.message);
-    //
-    //     if (rollback) rollback();
-    //   },
-    // },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(QueryKey.DbUser);
+      },
+      onError: (error: Error, _: Certificate, rollback) => {
+        SnackBarUtils.error(error.message);
+
+        if (rollback) rollback();
+      },
+    },
+  );
+}
+
+export function useDeleteUserCertificate(): UseMutationResult<DbUser, Error, string, unknown> {
+  const queryClient = useQueryClient();
+  const { data: user } = useUserFromDb();
+
+  return useMutation<DbUser, Error, string, VoidFunction>(
+    (name: string) => {
+      const certificates = user?.certificates;
+      const filteredCertificates = certificates?.filter((certificate: Certificate) => certificate.name !== name);
+
+      return api.modifyUserCertificates(filteredCertificates as Certificate[], user as DbUser);
+    },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(QueryKey.DbUser);
+      },
+      onError: (error: Error, _: string, rollback) => {
+        SnackBarUtils.error(error.message);
+
+        if (rollback) rollback();
+      },
+    },
   );
 }

@@ -16,7 +16,10 @@ const CertificateSelection = function (): JSX.Element {
   const { mutateAsync: addMyCertificateAsync } = useAddUserCertificate();
 
   const [isSaveDisabled, setSaveDisabled] = useState(true);
-  const [certificateItem, setCertificateItem] = useState<Certificate>({ id: '', name: '', link: '' });
+  const [certificateItem, setCertificateItem] = useState<Certificate>({
+    date: null,
+    name: '',
+  });
 
   const onSaveHandle = (): void => {
     addMyCertificateAsync(certificateItem as never);
@@ -24,7 +27,6 @@ const CertificateSelection = function (): JSX.Element {
   };
 
   const onGetCertificateHandle = useCallback((certificate: Certificate): void => {
-    debugger;
     setSaveDisabled(false);
     setCertificateItem(certificate);
   }, []);

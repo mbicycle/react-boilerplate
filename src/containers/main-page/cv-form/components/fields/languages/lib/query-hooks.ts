@@ -54,7 +54,7 @@ export function useAddUserLanguage(): UseMutationResult<DbUser, Error, UserLangu
   const { data: user } = useUserFromDb();
 
   const languages = user?.languages || [];
-  debugger;
+
   return useMutation<DbUser, Error, UserLanguage, VoidFunction>(
     (language: UserLanguage) => {
       languages?.push(language as UserLanguage);

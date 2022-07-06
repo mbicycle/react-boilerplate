@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { ROUTE } from 'common/components/routes/utils/constants';
-
 import { CV_FORM_STEPS, Step } from '../../utils/constants';
 
 interface SetLanguagesReturnType {
@@ -16,26 +14,16 @@ export const useSetStep = (): SetLanguagesReturnType => {
   const location = useLocation();
 
   const [activeStep, setStep] = useState<number>(0);
-
   const handleNextStep = useCallback(() => {
-    if (activeStep < Step.Certifications) {
-      navigate(CV_FORM_STEPS[+activeStep + 1].route);
+    if (activeStep < 4) {
+      navigate(CV_FORM_STEPS[activeStep + 1].route);
     }
   }, [activeStep, navigate]);
-
-  const handlePreviousStep = useCallback((): void => {
-    const isAddLanguagePath = location.pathname.includes(ROUTE.ADD);
-
-    if (isAddLanguagePath) {
-      navigate(ROUTE.DASHBOARD.LANGUAGES.MAIN);
-    }
-    navigate(-1);
-  }, [location.pathname, navigate]);
+  const handlePreviousStep = useCallback((): void => navigate(CV_FORM_STEPS[activeStep - 1].route), [location.pathname, navigate, activeStep]);
 
   useEffect(() => {
-    setStep(
-      CV_FORM_STEPS.findIndex((step) => location.pathname.includes(step.route)),
-    );
+    console.log(CV_FORM_STEPS.findIndex((step) => location.pathname.includes(step.route)));
+    setStep(() => CV_FORM_STEPS.findIndex((step) => location.pathname.includes(step.route)));
   }, [activeStep, location.pathname]);
 
   return {

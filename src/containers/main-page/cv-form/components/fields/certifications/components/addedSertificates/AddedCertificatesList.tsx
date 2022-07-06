@@ -9,11 +9,12 @@ const AddedCertificatesList = function ({
 }: {certificates: Certificate[]}): JSX.Element {
   return (
     <AddedCertificateItemStyled>
-      {certificates.map(({ name, date }) => (
+      {certificates.map(({ name, id, link }) => (
         <AddedCertificatesItem
           key={name}
           certificate={name}
-          date={date}
+          id={id}
+          link={link}
         />
       ))}
     </AddedCertificateItemStyled>

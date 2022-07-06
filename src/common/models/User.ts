@@ -32,11 +32,11 @@ export interface Project {
 }
 
 export interface Certificate {
-  // id: string;
+  link: string;
   name: string;
-  // link: string;
-  date: Date | null;
+  id: Date | null | string;
 }
+// export interface UpdateCertificate extends Omit<Certificate, 'id'>{}
 
 export interface Category {
   id: string;

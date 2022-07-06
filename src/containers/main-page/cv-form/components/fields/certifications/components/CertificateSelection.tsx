@@ -1,36 +1,61 @@
-import { memo, useCallback, useState } from 'react';
+import React, {
+  memo, useCallback, useEffect, useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 
 import { Certificate } from 'common/models/User';
 
-import { GridWrapperStyled, SaveButtonWrapperStyled } from '../../languages/utils/styled';
+import { FormControlStyledP4, GridWrapperStyled, SaveButtonWrapperStyled } from '../../languages/utils/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
+import { CERTIFICATE_LINK } from '../utils/constants';
+import { ddmmyyyy } from '../utils/utils';
 
 const CertificateSelection = function (): JSX.Element {
   const navigate = useNavigate();
   const { mutateAsync: addMyCertificateAsync } = useAddUserCertificate();
 
   const [isSaveDisabled, setSaveDisabled] = useState(true);
-  const [certificateItem, setCertificateItem] = useState<Certificate>({
-    date: null,
+  const [certificateItemValues, setCertificateItem] = useState<Certificate>({
+    id: '',
     name: '',
+    link: '',
   });
-
   const onSaveHandle = (): void => {
-    addMyCertificateAsync(certificateItem as never);
+    addMyCertificateAsync(certificateItemValues as never);
     navigate('/dashboard/certificates');
   };
+  const handleChangeFormTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setCertificateItem({ ...certificateItemValues, name: e.target.value });
+  };
+  const handleChangeFormDate = (id:Date | null): void => {
+    setCertificateItem({ ...certificateItemValues, id: id ? ddmmyyyy(id) : null });
+  };
+  const handleChangeFormLink = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setCertificateItem({ ...certificateItemValues, link: e.target.value });
+  };
 
+  const handleDisableBtn = (certificate: Certificate):void => {
+    if (certificate.name && certificate.link) {
+      setSaveDisabled(false);
+    } else {
+      setSaveDisabled(true);
+    }
+  };
   const onGetCertificateHandle = useCallback((certificate: Certificate): void => {
-    setSaveDisabled(false);
+    handleDisableBtn(certificate);
     setCertificateItem(certificate);
   }, []);
-
+  useEffect(
+    () => {
+      if (certificateItemValues.name) onGetCertificateHandle(certificateItemValues);
+    },
+    [onGetCertificateHandle, certificateItemValues],
+  );
   return (
     <GridWrapperStyled container>
       <Grid
@@ -39,8 +64,19 @@ const CertificateSelection = function (): JSX.Element {
         gap={6}
         justifyContent="space-between"
       >
-        <CertificateSelectionForm onGetCertificateHandle={onGetCertificateHandle} />
+        <CertificateSelectionForm
+          certificateItemValues={certificateItemValues}
+          handleChangeFormTitle={handleChangeFormTitle}
+          handleChangeFormDate={handleChangeFormDate}
+        />
       </Grid>
+      <FormControlStyledP4>
+        <TextField
+          label={CERTIFICATE_LINK}
+          onChange={handleChangeFormLink}
+          value={certificateItemValues.link}
+        />
+      </FormControlStyledP4>
       <SaveButtonWrapperStyled item>
         <Button
           disabled={isSaveDisabled}

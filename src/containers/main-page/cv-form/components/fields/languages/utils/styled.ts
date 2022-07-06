@@ -10,7 +10,10 @@ export const FormControlStyled = styled(FormControl)(({ theme }) => ({
   paddingTop: theme.spacing(1),
   width: '100%',
 }));
-
+export const FormControlStyledP4 = styled(FormControl)(({ theme }) => ({
+  paddingTop: theme.spacing(4),
+  width: '100%',
+}));
 export const MenuItemText = styled(Typography)(({ theme }) => ({
   marginLeft: theme.spacing(2),
 }));

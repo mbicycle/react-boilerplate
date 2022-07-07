@@ -52,7 +52,7 @@ const ProfiencyItem = function ({
             color="text.secondary"
           >
             <Link href={link} underline="always" target="_blank">
-              {link ? 'Go to certificate.' : null}
+              {link ? 'Go to certificate...' : null}
             </Link>
           </Typography>
 

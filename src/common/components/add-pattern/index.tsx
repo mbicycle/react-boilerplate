@@ -11,11 +11,15 @@ import {
   AddButtonStyled, AddCircleIconStyled,
   AddProfiencyStyled, ContainerStyled,
 } from './styled';
+import {
+  Category, Certificate, Project, UserLanguage,
+} from '../../models/User';
 
 interface AddProfiencyProps{
   title: `${Step}`;
   children: React.ReactNode;
-  collection?: ArrayLike<unknown>;
+  collection?:
+    ArrayLike<UserLanguage> | ArrayLike<Category> | ArrayLike<Project> | ArrayLike<Certificate>;
 }
 
 const AddProfiency = function ({ title, children, collection }: AddProfiencyProps): JSX.Element {

@@ -40,6 +40,7 @@ export function useUserFromDb(): UseQueryResult<DbUser, Error> {
   const { user } = useAuth();
   const { mutateAsync } = useCreateDbUser();
   const { accounts } = useMsal();
+
   return useQuery<DbUser, Error, DbUser, QueryKey.DbUser>(
     QueryKey.DbUser,
     () => api.getDbUser(user?.mail as string),

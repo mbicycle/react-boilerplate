@@ -53,6 +53,7 @@ const SkillsToolsDialog = function ({
     setTool(skill?.tools.find((t) => t.name === event.target.value));
     onChange(event);
   };
+
   return (
     <Dialog disableEscapeKeyDown open={open} onClose={onClose}>
       <DialogTitle>{CategoryAddText.DialogTitle}</DialogTitle>

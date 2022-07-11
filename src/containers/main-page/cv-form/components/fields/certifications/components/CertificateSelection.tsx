@@ -9,12 +9,11 @@ import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 
 import { Certificate } from 'common/models/User';
 
-import { useQueryClient } from 'react-query';
+import dayjs from 'dayjs';
 import { FormControlStyledP4, GridWrapperStyled, SaveButtonWrapperStyled } from '../../languages/utils/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
 import { CERTIFICATE_LINK } from '../utils/constants';
-import { ddmmyyyy } from '../utils/utils';
 
 const CertificateSelection = function (): JSX.Element {
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ const CertificateSelection = function (): JSX.Element {
     setCertificateItem({ ...certificateItemValues, name: e.target.value });
   };
   const handleChangeFormDate = (id:Date | null): void => {
-    setCertificateItem({ ...certificateItemValues, id: id ? ddmmyyyy(id) : null });
+    setCertificateItem({ ...certificateItemValues, id: id ? dayjs(id).format('DD.MM.YYYY') : null });
   };
   const handleChangeFormLink = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setCertificateItem({ ...certificateItemValues, link: e.target.value });

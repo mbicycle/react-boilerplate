@@ -36,7 +36,6 @@ export interface Certificate {
   name: string;
   id: Date | null | string;
 }
-// export interface UpdateCertificate extends Omit<Certificate, 'id'>{}
 
 export interface Category {
   id: string;

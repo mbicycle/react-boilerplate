@@ -34,3 +34,4 @@ workspace.code-workspace
 # local certificates
 localhost-cert.pem
 localhost-key.pem
+localhost.pem

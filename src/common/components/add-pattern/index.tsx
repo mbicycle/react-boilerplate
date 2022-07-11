@@ -15,7 +15,7 @@ import {
 interface AddProfiencyProps{
   title: `${Step}`;
   children: React.ReactNode;
-  collection: ArrayLike<unknown> | undefined;
+  collection?: ArrayLike<unknown>;
 }
 
 const AddProfiency = function ({ title, children, collection }: AddProfiencyProps): JSX.Element {

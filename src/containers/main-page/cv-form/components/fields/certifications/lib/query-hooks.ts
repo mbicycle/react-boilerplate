@@ -11,12 +11,13 @@ export function useAddUserCertificate(): UseMutationResult<DbUser, Error, Certif
   const certificates = user?.certificates || [];
   return useMutation<DbUser, Error, Certificate, VoidFunction>(
     (certificate: Certificate) => {
-      certificates?.push(certificate as Certificate);
+      certificates.push(certificate as Certificate);
       return api.modifyUserCertificates(certificates as Certificate[], user as DbUser);
     },
     {
       onSettled: () => {
         queryClient.invalidateQueries(QueryKey.DbUser);
+        // debugger;
       },
       onError: (error: Error, _: Certificate, rollback) => {
         SnackBarUtils.error(error.message);
@@ -35,7 +36,6 @@ export function useDeleteUserCertificate(): UseMutationResult<DbUser, Error, str
     (name: string) => {
       const certificates = user?.certificates;
       const filteredCertificates = certificates?.filter((certificate: Certificate) => certificate.name !== name);
-
       return api.modifyUserCertificates(filteredCertificates as Certificate[], user as DbUser);
     },
     {

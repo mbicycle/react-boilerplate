@@ -22,7 +22,6 @@ export const useSetStep = (): SetLanguagesReturnType => {
   const handlePreviousStep = useCallback((): void => navigate(CV_FORM_STEPS[activeStep - 1].route), [location.pathname, navigate, activeStep]);
 
   useEffect(() => {
-    console.log(CV_FORM_STEPS.findIndex((step) => location.pathname.includes(step.route)));
     setStep(() => CV_FORM_STEPS.findIndex((step) => location.pathname.includes(step.route)));
   }, [activeStep, location.pathname]);
 

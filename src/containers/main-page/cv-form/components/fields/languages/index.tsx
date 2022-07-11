@@ -28,7 +28,7 @@ const Languages = function (): JSX.Element {
       collection={data?.languages || []}
       title="Language"
     >
-      {!!data?.languages?.length && <LeveledLanguageList languages={data?.languages || []} />}
+      <LeveledLanguageList languages={data?.languages || []} />
     </AddProfiency>
   );
 };

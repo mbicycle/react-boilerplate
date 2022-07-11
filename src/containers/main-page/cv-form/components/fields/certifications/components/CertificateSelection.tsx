@@ -9,6 +9,7 @@ import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 
 import { Certificate } from 'common/models/User';
 
+import { useQueryClient } from 'react-query';
 import { FormControlStyledP4, GridWrapperStyled, SaveButtonWrapperStyled } from '../../languages/utils/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
@@ -26,9 +27,10 @@ const CertificateSelection = function (): JSX.Element {
     link: '',
   });
   const onSaveHandle = (): void => {
-    addMyCertificateAsync(certificateItemValues as never);
     navigate('/dashboard/certificates');
+    addMyCertificateAsync(certificateItemValues as never);
   };
+
   const handleChangeFormTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setCertificateItem({ ...certificateItemValues, name: e.target.value });
   };

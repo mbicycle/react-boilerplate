@@ -54,8 +54,6 @@ const SkillsToolsDialog = function ({
     onChange(event);
   };
 
-  console.log(formValues.getValues(['categories', 'skill', 'tool']));
-
   return (
     <Dialog disableEscapeKeyDown open={open} onClose={onClose}>
       <DialogTitle>{CategoryAddText.DialogTitle}</DialogTitle>

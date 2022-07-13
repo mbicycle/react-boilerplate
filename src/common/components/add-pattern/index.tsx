@@ -11,11 +11,15 @@ import {
   AddButtonStyled, AddCircleIconStyled,
   AddProfiencyStyled, ContainerStyled,
 } from './styled';
+import {
+  Category, Certificate, Project, UserLanguage,
+} from '../../models/User';
 
 interface AddProfiencyProps{
   title: `${Step}`;
   children: React.ReactNode;
-  collection: ArrayLike<unknown>;
+  collection?:
+    ArrayLike<UserLanguage> | ArrayLike<Category> | ArrayLike<Project> | ArrayLike<Certificate>;
 }
 
 const AddProfiency = function ({ title, children, collection }: AddProfiencyProps): JSX.Element {
@@ -45,17 +49,17 @@ const AddProfiency = function ({ title, children, collection }: AddProfiencyProp
 
   return (
     <AddProfiencyStyled>
-      <ContainerStyled $isProfiencySelected={!!collection.length && !pressedAdd}>
+      <ContainerStyled $isProfiencySelected={!!collection?.length && !pressedAdd}>
         {pressedAdd && <Title name={title} onReturn={onReturnHandle} />}
         {!pressedAdd
         && (
           <>
-            {collection.length ? children : null}
+            {collection?.length ? children : null}
             {!location.pathname.includes('edit') && (
               <AddButtonStyled
                 variant="contained"
                 onClick={handleAdd}
-                $isProfiencySelected={!!collection.length}
+                $isProfiencySelected={!!collection?.length}
               >
                 <AddCircleIconStyled />
                 {ButtonText.Add}

@@ -16,6 +16,8 @@ import { ROUTE } from './utils/constants';
 import MainPage from '../../../containers/main-page';
 import CircularSpinner from '../circular-spinner/circular-spinner';
 import NotFound from '../not-found';
+import CertificateSelection
+  from '../../../containers/main-page/cv-form/components/fields/certifications/components/CertificateSelection';
 
 const PersonalInformation = lazy(() => import('containers/main-page/cv-form/components/fields/personal-information'));
 const Languages = lazy(() => import('containers/main-page/cv-form/components/fields/languages'));
@@ -57,8 +59,9 @@ const Routing = function (): JSX.Element {
         <Route path={ROUTE.DASHBOARD.PROJECTS} element={<Projects />}>
           <Route path={ROUTE.ADD} element={<Project />} />
         </Route>
-        <Route path={ROUTE.DASHBOARD.CERTIFICATES} element={<Certifications />} />
-
+        <Route path={ROUTE.DASHBOARD.CERTIFICATES} element={<Certifications />}>
+          <Route path={ROUTE.ADD} element={<CertificateSelection />} />
+        </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

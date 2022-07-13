@@ -2,7 +2,7 @@ export const enum Step {
   Languages = 'Language',
   Skills = 'Skill',
   Projects = 'Projects',
-  Certifications = 'Certification',
+  Certificate = 'Certificate',
 }
 
 export enum ButtonText {

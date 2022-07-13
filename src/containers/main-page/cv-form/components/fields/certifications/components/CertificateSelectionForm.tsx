@@ -8,17 +8,19 @@ import CalendarStyled from './CalendarStyled';
 
 interface CertificateSelectionFormProps{
   handleChangeFormTitle: (e:React.ChangeEvent<HTMLInputElement>) => void;
-  handleChangeFormDate: (date: Date | null) => void;
+  handleChangeFormDate: (date: Date | string) => void;
   certificateItemValues:{
     name: string;
-    id: null | string | Date;
+    id: string | Date;
     link: string;
   }
 }
 
-const CertificateSelectionForm = function (
-  { handleChangeFormTitle, handleChangeFormDate, certificateItemValues }: CertificateSelectionFormProps,
-):JSX.Element {
+const CertificateSelectionForm = function ({
+  handleChangeFormTitle,
+  handleChangeFormDate,
+  certificateItemValues,
+}: CertificateSelectionFormProps):JSX.Element {
   return (
     <>
       <Grid item xs={8}>

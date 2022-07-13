@@ -4,9 +4,15 @@ import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
 import { useDeleteUserCertificate } from '../../lib/query-hooks';
 
+interface AddedCertificatesItemProps {
+  certificate: string;
+  id: Date | string;
+  link: string | undefined;
+}
+
 const AddedCertificatesItem = function ({
   certificate, id, link,
-}: {certificate: string, id: Date | null | string, link: string | undefined}): JSX.Element {
+}: AddedCertificatesItemProps): JSX.Element {
   const { mutateAsync: deleteBy } = useDeleteUserCertificate();
   const onDeleteCertificateHandle = (): void => {
     deleteBy(certificate);

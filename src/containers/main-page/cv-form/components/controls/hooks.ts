@@ -15,7 +15,7 @@ export const useSetStep = (): SetLanguagesReturnType => {
 
   const [activeStep, setStep] = useState<number>(0);
   const handleNextStep = useCallback(() => {
-    if (activeStep < 4) {
+    if (activeStep < CV_FORM_STEPS.length - 1) {
       navigate(CV_FORM_STEPS[activeStep + 1].route);
     }
   }, [activeStep, navigate]);

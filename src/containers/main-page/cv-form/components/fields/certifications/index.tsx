@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import CircularSpinner from '../../../../../../common/components/circular-spinner/circular-spinner';
 import AddProfiency from '../../../../../../common/components/add-pattern';
 import { useUserFromDb } from '../personal-information/lib/query-hooks';

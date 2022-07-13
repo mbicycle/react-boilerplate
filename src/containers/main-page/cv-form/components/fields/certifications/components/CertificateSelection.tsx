@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, Grid, TextField } from '@mui/material';
 
-import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-
-import { Certificate } from 'common/models/User';
-
 import dayjs from 'dayjs';
-import { FormControlStyledP4, GridWrapperStyled, SaveButtonWrapperStyled } from '../../languages/utils/styled';
+
+import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
+import { Certificate } from 'common/models/User';
+import {
+  FormControlStyledP4, GridWrapperStyled, SaveButtonWrapperStyled,
+} from '../../languages/utils/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
 import { CERTIFICATE_LINK } from '../utils/constants';
@@ -25,21 +26,20 @@ const CertificateSelection = function (): JSX.Element {
     name: '',
     link: '',
   });
+
   const onSaveHandle = (): void => {
     navigate('/dashboard/certificates');
     addMyCertificateAsync(certificateItemValues as never);
   };
-
   const handleChangeFormTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setCertificateItem({ ...certificateItemValues, name: e.target.value });
   };
-  const handleChangeFormDate = (id:Date | null): void => {
-    setCertificateItem({ ...certificateItemValues, id: id ? dayjs(id).format('DD.MM.YYYY') : null });
+  const handleChangeFormDate = (id:Date | string): void => {
+    setCertificateItem({ ...certificateItemValues, id: id ? dayjs(id).format('DD.MM.YYYY') : new Date() });
   };
   const handleChangeFormLink = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setCertificateItem({ ...certificateItemValues, link: e.target.value });
   };
-
   const handleDisableBtn = (certificate: Certificate):void => {
     if (certificate.name && certificate.link) {
       setSaveDisabled(false);
@@ -51,12 +51,14 @@ const CertificateSelection = function (): JSX.Element {
     handleDisableBtn(certificate);
     setCertificateItem(certificate);
   }, []);
+
   useEffect(
     () => {
       if (certificateItemValues.name) onGetCertificateHandle(certificateItemValues);
     },
     [onGetCertificateHandle, certificateItemValues],
   );
+
   return (
     <GridWrapperStyled container>
       <Grid

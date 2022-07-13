@@ -34,7 +34,7 @@ export interface Project {
 export interface Certificate {
   link: string;
   name: string;
-  id: Date | null | string;
+  id: Date | string;
 }
 
 export interface Category {

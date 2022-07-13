@@ -1,23 +1,29 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
+import React, { useEffect } from 'react';
+
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { DatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { useEffect } from 'react';
 
 interface CalendarStyledProps {
-  handleChangeFormDate: (date: Date | null) => void;
+  handleChangeFormDate: (date: Date | string) => void;
 }
+
 const CalendarStyled = function ({ handleChangeFormDate }: CalendarStyledProps):JSX.Element {
-  const [value, setValue] = React.useState<Date | null>(null);
+  const [value, setValue] = React.useState<Date | string>(new Date());
+
   useEffect(() => handleChangeFormDate(value), [value]);
+
+  const handleChange = (date: Date | null): void => {
+    if (date) setValue(date);
+  };
+  const handleRenderParams = (params: TextFieldProps): JSX.Element => <TextField {...params} />;
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        renderInput={(params) => <TextField {...params} />}
+        onChange={handleChange}
+        renderInput={handleRenderParams}
       />
     </LocalizationProvider>
   );

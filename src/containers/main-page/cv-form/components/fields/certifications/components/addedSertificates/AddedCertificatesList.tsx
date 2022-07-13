@@ -9,7 +9,7 @@ const AddedCertificatesList = function ({
 }: {certificates: Certificate[]}): JSX.Element {
   return (
     <AddedCertificateItemStyled>
-      {certificates.map(({ name, id, link }) => (
+      {!!certificates.length && certificates.map(({ name, id, link }) => (
         <AddedCertificatesItem
           key={name}
           certificate={name}

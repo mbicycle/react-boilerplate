@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
 import axiosInstance from 'common/interceptors/axios';
-import { Certificate, DbUser } from '../../../../../../../common/models/User';
+import { Certificate, DbUser } from 'common/models/User';
 
 const axios = axiosInstance;
 

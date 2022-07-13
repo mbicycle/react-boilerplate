@@ -11,7 +11,7 @@ import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { Certificate } from 'common/models/User';
 import {
   FormControlStyledP4, GridWrapperStyled, SaveButtonWrapperStyled,
-} from '../../languages/utils/styled';
+} from './addedSertificates/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
 import { CERTIFICATE_LINK } from '../utils/constants';

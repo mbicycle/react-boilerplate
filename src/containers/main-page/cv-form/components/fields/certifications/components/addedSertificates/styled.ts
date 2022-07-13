@@ -1,5 +1,6 @@
-import { Box, styled } from '@mui/material';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import {
+  Box, FormControl, Grid, styled,
+} from '@mui/material';
 
 export const AddedCertificateItemStyled = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4, 3),
@@ -12,20 +13,23 @@ export const AddedCertificateItemStyled = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
 }));
 
-export const LeftSideWrapperStyled = styled(Box)({
-  width: '100%',
-});
-
-export const SelectedLanguagesListStyled = styled(Box, {
-  name: 'SelectedLanguagesListStyled',
-})({
-  width: '100%',
-});
-
-export const DragIndicatorIconStyled = styled(DragIndicatorIcon)(({ theme }) => ({
-  color: theme.palette.text.secondary,
+export const GridWrapperStyled = styled(Grid)(({ theme }) => ({
+  padding: theme.spacing(6),
 }));
 
-export const TextContainerStyled = styled(Box)(({ theme }) => ({
-  paddingLeft: theme.spacing(4),
+export const FormControlStyled = styled(FormControl)(({ theme }) => ({
+  paddingTop: theme.spacing(1),
+  width: '100%',
+}));
+
+export const FormControlStyledP4 = styled(FormControl)(({ theme }) => ({
+  paddingTop: theme.spacing(4),
+  width: '100%',
+}));
+
+export const SaveButtonWrapperStyled = styled(Grid)(({ theme }) => ({
+  paddingTop: theme.spacing(4),
+  width: '100%',
+  display: 'inline-flex',
+  justifyContent: 'flex-end',
 }));

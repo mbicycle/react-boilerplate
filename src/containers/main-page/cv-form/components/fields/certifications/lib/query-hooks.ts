@@ -3,12 +3,13 @@ import { useMutation, UseMutationResult, useQueryClient } from 'react-query';
 import { Certificate, DbUser } from '../../../../../../../common/models/User';
 import { useUserFromDb } from '../../personal-information/lib/query-hooks';
 import * as api from './api';
-import { QueryKey } from '../../languages/lib/query-key';
+import { QueryKey } from './query-key';
 import SnackBarUtils from '../../../../../../../common/components/SnackBar/SnackBarUtils';
 
 export function useAddUserCertificate(): UseMutationResult<DbUser, Error, Certificate, VoidFunction> {
   const queryClient = useQueryClient();
   const { data: user } = useUserFromDb();
+
   const certificates = user?.certificates || [];
 
   return useMutation<DbUser, Error, Certificate, VoidFunction>(

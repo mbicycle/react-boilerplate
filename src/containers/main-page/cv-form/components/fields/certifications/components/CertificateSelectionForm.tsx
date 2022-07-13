@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
 import {
   Grid, TextField,
 } from '@mui/material';
-import { FormControlStyled, FormControlStyledP4 } from '../../languages/utils/styled';
-import { CERTIFICATE_LINK, CERTIFICATE_TITLE } from '../utils/constants';
+
+import { CERTIFICATE_TITLE } from '../utils/constants';
+import { FormControlStyled } from './addedSertificates/styled';
 import CalendarStyled from './CalendarStyled';
 
 interface CertificateSelectionFormProps{
@@ -38,7 +40,6 @@ const CertificateSelectionForm = function ({
         </FormControlStyled>
       </Grid>
     </>
-
   );
 };
 

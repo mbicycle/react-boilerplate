@@ -32,6 +32,6 @@ workspace.code-workspace
 .env
 
 # local certificates
-localhost-cert.pem
 localhost-key.pem
+localhost-cert.pem
 localhost.pem

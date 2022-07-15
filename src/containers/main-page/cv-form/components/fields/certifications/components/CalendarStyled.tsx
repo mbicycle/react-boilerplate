@@ -9,7 +9,7 @@ interface CalendarStyledProps {
 }
 
 const CalendarStyled = function ({ handleChangeFormDate }: CalendarStyledProps):JSX.Element {
-  const [value, setValue] = React.useState<Date | string>(new Date());
+  const [value, setValue] = React.useState<Date | string>('');
 
   useEffect(() => handleChangeFormDate(value), [value]);
 
@@ -22,6 +22,8 @@ const CalendarStyled = function ({ handleChangeFormDate }: CalendarStyledProps):
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         value={value}
+        maxDate={new Date()}
+        minDate={new Date(1900, 0)}
         onChange={handleChange}
         renderInput={handleRenderParams}
       />

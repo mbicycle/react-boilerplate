@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
@@ -13,7 +13,7 @@ interface AddedCertificatesItemProps {
 const AddedCertificatesItem = function ({
   certificate, id, link,
 }: AddedCertificatesItemProps): JSX.Element {
-  const { mutateAsync: deleteBy } = useDeleteUserCertificate();
+  const { mutateAsync: deleteBy, isLoading } = useDeleteUserCertificate();
   const onDeleteCertificateHandle = (): void => {
     deleteBy(certificate);
   };
@@ -21,9 +21,10 @@ const AddedCertificatesItem = function ({
   return (
     <ProfiencyItem
       headText={certificate}
-      bodyText={id ? id.toString() : 'null'}
+      bodyText={id ? id.toString() : null}
       onDelete={onDeleteCertificateHandle}
       link={link}
+      isLoading={isLoading}
     />
   );
 };

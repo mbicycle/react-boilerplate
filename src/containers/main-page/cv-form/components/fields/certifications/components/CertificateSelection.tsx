@@ -14,7 +14,7 @@ import {
 } from './addedSertificates/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
-import { CERTIFICATE_LINK } from '../utils/constants';
+import { CERTIFICATE_LINK, INVALID_DATE } from '../utils/constants';
 
 const CertificateSelection = function (): JSX.Element {
   const navigate = useNavigate();
@@ -35,13 +35,13 @@ const CertificateSelection = function (): JSX.Element {
     setCertificateItem({ ...certificateItemValues, name: e.target.value });
   };
   const handleChangeFormDate = (id:Date | string): void => {
-    setCertificateItem({ ...certificateItemValues, id: id ? dayjs(id).format('DD.MM.YYYY') : new Date() });
+    setCertificateItem({ ...certificateItemValues, id: id ? dayjs(id).format('DD.MM.YYYY') : '' });
   };
   const handleChangeFormLink = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setCertificateItem({ ...certificateItemValues, link: e.target.value });
   };
   const handleDisableBtn = (certificate: Certificate):void => {
-    if (certificate.name && certificate.link) {
+    if (certificate.name && certificate.link && certificate.id && certificate.id !== INVALID_DATE) {
       setSaveDisabled(false);
     } else {
       setSaveDisabled(true);

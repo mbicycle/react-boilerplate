@@ -34,7 +34,6 @@ export function useAddUserCertificate(): UseMutationResult<DbUser, Error, Certif
 export function useDeleteUserCertificate(): UseMutationResult<DbUser, Error, string, unknown> {
   const queryClient = useQueryClient();
   const { data: user } = useUserFromDb();
-
   return useMutation<DbUser, Error, string, VoidFunction>(
     (name: string) => {
       const certificates = user?.certificates;

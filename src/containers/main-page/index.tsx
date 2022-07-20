@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Box } from '@mui/material';
 
 import CVForm from './cv-form';
+import Preview from './preview';
 import CvFormProvider from './cv-form/local-state/CVFormProvider';
 
 import { FormWrapperStyled, MainPageContainerStyled, PreviewWrapperStyled } from './styled';
@@ -29,9 +29,8 @@ const MainPage = function (): JSX.Element {
         lg={12}
         xl={6}
       >
-        <Box>
-          Preview
-        </Box>
+
+        <Preview />
 
       </PreviewWrapperStyled>
     </MainPageContainerStyled>

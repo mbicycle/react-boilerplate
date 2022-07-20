@@ -1,5 +1,5 @@
 import {
-  useState, memo, useEffect,
+  useState, memo,
 } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 

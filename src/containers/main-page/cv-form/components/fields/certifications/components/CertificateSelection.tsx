@@ -9,14 +9,18 @@ import dayjs from 'dayjs';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { Certificate } from 'common/models/User';
+import { useForm } from 'react-hook-form';
 import {
   FormControlStyledP4, GridWrapperStyled, SaveButtonWrapperStyled,
 } from './addedSertificates/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
-import { CERTIFICATE_LINK, INVALID_DATE } from '../utils/constants';
+import { CERTIFICATE_LINK, CERTIFICATE_TITLE, INVALID_DATE } from '../utils/constants';
+import ReactHookFormTextFieldOutlined
+  from '../../../../../../../common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
 
 const CertificateSelection = function (): JSX.Element {
+  const { control } = useForm();
   const navigate = useNavigate();
   const { mutateAsync: addMyCertificateAsync } = useAddUserCertificate();
 
@@ -66,6 +70,7 @@ const CertificateSelection = function (): JSX.Element {
         wrap="nowrap"
         gap={6}
         justifyContent="space-between"
+        component="form"
       >
         <CertificateSelectionForm
           certificateItemValues={certificateItemValues}
@@ -74,11 +79,16 @@ const CertificateSelection = function (): JSX.Element {
         />
       </Grid>
       <FormControlStyledP4>
-        <TextField
-          label={CERTIFICATE_LINK}
-          onChange={handleChangeFormLink}
-          value={certificateItemValues.link}
+        <ReactHookFormTextFieldOutlined
+          {...{
+            name: 'link', control, label: CERTIFICATE_LINK, type: 'text', variant: 'outlined',
+          }}
         />
+        {/* <TextField */}
+        {/*   label={CERTIFICATE_LINK} */}
+        {/*   onChange={handleChangeFormLink} */}
+        {/*   value={certificateItemValues.link} */}
+        {/* /> */}
       </FormControlStyledP4>
       <SaveButtonWrapperStyled item>
         <Button

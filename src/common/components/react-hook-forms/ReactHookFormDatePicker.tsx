@@ -20,14 +20,12 @@ const ReactHookFormDatePicker = function<T extends FieldValues> ({
           {...field}
           {...rest}
           label={rest.label}
-          renderInput={(renderInputProps) => (
-            <TextField {...renderInputProps} />
-          )}
+          renderInput={(renderInputProps) => <TextField {...renderInputProps} />}
         />
       )}
       name={name}
       control={control}
-      defaultValue=""
+      defaultValue={null}
     />
   );
 };

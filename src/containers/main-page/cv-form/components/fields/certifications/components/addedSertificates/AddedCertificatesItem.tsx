@@ -2,6 +2,7 @@ import { memo, useState } from 'react';
 
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
+import dayjs from 'dayjs';
 import { useDeleteUserCertificate } from '../../lib/query-hooks';
 
 interface AddedCertificatesItemProps {
@@ -21,7 +22,7 @@ const AddedCertificatesItem = function ({
   return (
     <ProfiencyItem
       headText={certificate}
-      bodyText={id ? id.toString() : null}
+      bodyText={id ? dayjs(id).format('DD.MM.YYYY') : ''}
       onDelete={onDeleteCertificateHandle}
       link={link}
       isLoading={isLoading}

@@ -27,7 +27,6 @@ const ProfiencyItem = function ({
       onClick();
     }
   };
-  console.log(isLoading);
 
   const onDeleteEntryHandle = (): void => {
     onDelete();

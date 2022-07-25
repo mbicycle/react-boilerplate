@@ -55,3 +55,24 @@ export function useDeleteUserCertificate(): UseMutationResult<DbUser, Error, str
     },
   );
 }
+
+export function useDeleteUserCertificateAll(): UseMutationResult<DbUser, Error, string, unknown> {
+  const queryClient = useQueryClient();
+  const { data: user } = useUserFromDb();
+  return useMutation<DbUser, Error, string, VoidFunction>(
+    () => {
+      const filteredCertificates: any[] = [];
+      return api.modifyUserCertificates(filteredCertificates as Certificate[], user as DbUser);
+    },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(QueryKey.DbUser);
+      },
+      onError: (error: Error, _: string, rollback) => {
+        SnackBarUtils.error(error.message);
+
+        if (rollback) rollback();
+      },
+    },
+  );
+}

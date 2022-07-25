@@ -34,7 +34,6 @@ export function useAddUserCertificate(): UseMutationResult<DbUser, Error, Certif
 export function useDeleteUserCertificate(): UseMutationResult<DbUser, Error, string, unknown> {
   const queryClient = useQueryClient();
   const { data: user } = useUserFromDb();
-
   return useMutation<DbUser, Error, string, VoidFunction>(
     (name: string) => {
       const certificates = user?.certificates;
@@ -42,6 +41,27 @@ export function useDeleteUserCertificate(): UseMutationResult<DbUser, Error, str
         certificates?.filter((certificate: Certificate) => certificate.name !== name)
       );
 
+      return api.modifyUserCertificates(filteredCertificates as Certificate[], user as DbUser);
+    },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(QueryKey.DbUser);
+      },
+      onError: (error: Error, _: string, rollback) => {
+        SnackBarUtils.error(error.message);
+
+        if (rollback) rollback();
+      },
+    },
+  );
+}
+
+export function useDeleteUserCertificateAll(): UseMutationResult<DbUser, Error, string, unknown> {
+  const queryClient = useQueryClient();
+  const { data: user } = useUserFromDb();
+  return useMutation<DbUser, Error, string, VoidFunction>(
+    () => {
+      const filteredCertificates: any[] = [];
       return api.modifyUserCertificates(filteredCertificates as Certificate[], user as DbUser);
     },
     {

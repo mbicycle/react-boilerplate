@@ -1,42 +1,41 @@
 import React from 'react';
 
-import {
-  Grid, TextField,
-} from '@mui/material';
+import { Grid } from '@mui/material';
 
-import { CERTIFICATE_TITLE } from '../utils/constants';
+import ReactHookFormDatePicker
+  from 'common/components/react-hook-forms/ReactHookFormDatePicker';
+import { Control } from 'react-hook-form';
+import { CERTIFICATE_DATE, CERTIFICATE_TITLE } from '../utils/constants';
 import { FormControlStyled } from './addedSertificates/styled';
-import CalendarStyled from './CalendarStyled';
+import ReactHookFormTextFieldOutlined
+  from '../../../../../../../common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
+import { Certificate } from '../../../../../../../common/models/User';
 
-interface CertificateSelectionFormProps{
-  handleChangeFormTitle: (e:React.ChangeEvent<HTMLInputElement>) => void;
-  handleChangeFormDate: (date: Date | string) => void;
-  certificateItemValues:{
-    name: string;
-    id: string | Date;
-    link: string;
-  }
-}
-
-const CertificateSelectionForm = function ({
-  handleChangeFormTitle,
-  handleChangeFormDate,
-  certificateItemValues,
-}: CertificateSelectionFormProps):JSX.Element {
+const CertificateSelectionForm = function ({ control }: {control: Control<Certificate>}):JSX.Element {
   return (
     <>
       <Grid item xs={8}>
         <FormControlStyled>
-          <TextField
-            label={CERTIFICATE_TITLE}
-            onChange={handleChangeFormTitle}
-            value={certificateItemValues.name}
+          <ReactHookFormTextFieldOutlined
+            {...{
+              name: 'name',
+              control,
+              label: CERTIFICATE_TITLE,
+              type: 'text',
+              variant: 'outlined',
+            }}
           />
         </FormControlStyled>
       </Grid>
       <Grid item xs={8}>
         <FormControlStyled>
-          <CalendarStyled handleChangeFormDate={handleChangeFormDate} />
+          <ReactHookFormDatePicker
+            control={control}
+            name="id"
+            maxDate={new Date()}
+            minDate={new Date(1991, 4, 17)}
+            label={CERTIFICATE_DATE}
+          />
         </FormControlStyled>
       </Grid>
     </>

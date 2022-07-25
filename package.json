@@ -43,7 +43,6 @@
     "styled-components": "^5.3.3",
     "typescript": "^4.5.2",
     "uuid": "^8.3.2",
-    "uuid4": "^2.0.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -70,7 +69,6 @@
   "devDependencies": {
     "@types/lodash": "^4.14.178",
     "@types/styled-components": "^5.1.15",
-    "@types/uuid4": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "eslint": "^7.11.0",

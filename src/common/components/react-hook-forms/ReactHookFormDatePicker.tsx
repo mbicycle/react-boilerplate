@@ -13,7 +13,6 @@ const ReactHookFormDatePicker = function<T extends FieldValues> ({
   control,
   ...rest
 }: ReactHookFormDatePickerProps<T | any>): JSX.Element {
-  // console.log(control.getFieldState('id'));
   return (
     <Controller<T | FieldValues>
       name={name}

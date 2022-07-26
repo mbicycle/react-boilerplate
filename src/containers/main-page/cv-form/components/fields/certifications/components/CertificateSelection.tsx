@@ -1,7 +1,6 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import dayjs from 'dayjs';
 
 import { Button, Grid } from '@mui/material';
 
@@ -14,7 +13,7 @@ import {
 } from './addedSertificates/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
-import { CERTIFICATE_LINK, INVALID_DATE } from '../utils/constants';
+import { CERTIFICATE_LINK } from '../utils/constants';
 import ReactHookFormTextFieldOutlined
   from '../../../../../../../common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
 
@@ -26,7 +25,7 @@ const schema = yup.object({
 
 const CertificateSelection = function (): JSX.Element {
   const {
-    handleSubmit, control, getValues, formState: { isValid },
+    handleSubmit, control, formState: { isValid },
   } = useForm<Certificate>({ mode: 'onChange', resolver: yupResolver(schema) });
   const navigate = useNavigate();
   const { mutateAsync: addMyCertificateAsync } = useAddUserCertificate();
@@ -36,11 +35,7 @@ const CertificateSelection = function (): JSX.Element {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSaveHandle)}
-      // onChange={handleSubmit(handleDisableBtn)}
-      // onBlur={handleSubmit(handleDisableBtn)}
-    >
+    <form onSubmit={handleSubmit(onSaveHandle)}>
       <GridWrapperStyled container>
         <Grid
           container

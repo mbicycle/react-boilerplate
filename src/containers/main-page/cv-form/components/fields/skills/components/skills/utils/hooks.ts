@@ -1,48 +1,96 @@
 import { useNavigate } from 'react-router-dom';
 
-import { useSkillContext, useSkillNameContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useCategoryContext, useCategoryIdContext } from 'containers/main-page/cv-form/local-state/hooks';
 
-import type { Tool } from 'common/models/User';
+import type { Category, Skill } from 'common/models/User';
+import { useEffect } from 'react';
+import { useGetCategoryByName } from 'common/utils/hooks';
 import { useUserFromDb } from '../../../../personal-information/lib/query-hooks';
 import { useAddOrEditSkill } from '../../../lib/query-hooks';
 
-interface SkillItemProps {
-  name: string;
-  tools: Tool[];
-}
-
 interface SkillItem {
   isLoading: boolean;
-  onDeleteToolHandlee: () => Promise<void>;
+  onDeleteToolHandle: () => Promise<void>;
   openHandle: VoidFunction;
 }
 
-export const useSkillItem = ({ name, tools }: SkillItemProps): SkillItem => {
+export const useSkillItem = ({ id }: { id: string; }): SkillItem => {
   const navigate = useNavigate();
 
-  const { dispatch: dispatchSkillName } = useSkillNameContext();
-  const { dispatch: dispatchSkill } = useSkillContext();
+  const { dispatch: dispatchCategoryName } = useCategoryIdContext();
 
   const { data: user } = useUserFromDb();
   const { mutateAsync, isLoading } = useAddOrEditSkill();
 
-  const onDeleteToolHandlee = async (): Promise<void> => {
-    const skillToRemove = user?.skills?.find((skill) => skill.name === name);
+  const onDeleteToolHandle = async (): Promise<void> => {
+    const skillToRemove = user?.categories?.find((category) => category.id === id);
 
     if (user && skillToRemove) {
-      await mutateAsync({ ...user, skills: user.skills.filter((skill) => skill !== skillToRemove) });
+      await mutateAsync(
+        { ...user, categories: user.categories.filter((category) => category !== skillToRemove) },
+      );
     }
   };
 
   const openHandle = (): void => {
-    dispatchSkillName({ type: 'set', name });
-    dispatchSkill({ type: 'set-edit-skill', skill: { name, tools } });
+    dispatchCategoryName({ type: 'set', id });
     navigate('edit');
   };
 
   return {
     isLoading,
-    onDeleteToolHandlee,
+    onDeleteToolHandle,
     openHandle,
+  };
+};
+
+interface CategoryItemProps {
+  id: string;
+  skills: Skill[];
+}
+
+export const useCategoryItem = ({ id }: CategoryItemProps): SkillItem => {
+  const navigate = useNavigate();
+
+  const { dispatch: dispatchCategoryId } = useCategoryIdContext();
+
+  const { data: user } = useUserFromDb();
+  const { mutateAsync, isLoading } = useAddOrEditSkill();
+
+  const onDeleteToolHandle = async (): Promise<void> => {
+    const skillToRemove = user?.categories?.find((category) => category.id === id);
+
+    if (user && skillToRemove) {
+      await mutateAsync(
+        { ...user, categories: user.categories.filter((category) => category !== skillToRemove) },
+      );
+    }
+  };
+
+  const openHandle = (): void => {
+    dispatchCategoryId({ type: 'set', id });
+    navigate('edit');
+  };
+
+  return {
+    isLoading,
+    onDeleteToolHandle,
+    openHandle,
+  };
+};
+
+export const useCategory = (): { category: Category; } => {
+  const { user } = useGetCategoryByName();
+  const { state: { id: categoryId } } = useCategoryIdContext();
+  const { state: categoryState, dispatch: dispatchCategory } = useCategoryContext();
+
+  const category = user.categories.find((c) => c.id === categoryId);
+
+  useEffect(() => {
+    dispatchCategory({ type: 'set-category', category });
+  }, [category, dispatchCategory]);
+
+  return {
+    category: categoryState as Category,
   };
 };

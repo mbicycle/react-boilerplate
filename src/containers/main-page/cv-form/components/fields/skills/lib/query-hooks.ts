@@ -14,7 +14,7 @@ export function useAddOrEditSkill(): UseMutationResult<DbUser, Error, DbUser, un
   const queryClient = useQueryClient();
 
   return useMutation<DbUser, Error, DbUser, VoidFunction>(
-    (data) => api.updateDbUserSkill(data),
+    (data) => api.updateDbUserCategory(data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKey.User);

@@ -1,9 +1,8 @@
-import { Skill } from 'common/models/User';
-import { SkillActionOperationType, SkillState } from './SkillContext';
+import { Category } from 'common/models/User';
+import { NewCategoryActionOperationType, NewCategoryState } from './NewCategoryContext';
 
-export type PartialSkillModel = Partial<Skill>;
-export type ReturnPartialSkillModelType = () => PartialSkillModel;
-
-export type SkillReducerReturnType = {
-  [key in `${SkillActionOperationType}`]: SkillState | ReturnPartialSkillModelType;
+export type PartialCategoryModel = Partial<Category>;
+export type ReturnPartialCategoryModelType = () => PartialCategoryModel;
+export type NewSkillReducerReturnType = {
+  [key in `${NewCategoryActionOperationType}`]: NewCategoryState | ReturnPartialCategoryModelType;
 };

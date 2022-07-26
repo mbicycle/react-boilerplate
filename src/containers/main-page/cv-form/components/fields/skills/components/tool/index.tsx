@@ -2,47 +2,61 @@ import { memo, useCallback } from 'react';
 
 import { Grid, Typography, SelectChangeEvent } from '@mui/material';
 
-import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useCategoryContext } from 'containers/main-page/cv-form/local-state/hooks';
 import { Tool as ToolType } from 'common/models/User';
 
-import { Text } from '../../utils/constants';
+import TextFieldOutlined from 'common/components/text-field-outlined';
+import { Text, ToolInputText } from '../../utils/constants';
 import { Level } from '../../../languages/components/utils/level.enum';
 
-import SkillToolInput from './CategoryInput';
 import LevelSelection from './LevelSelection';
 import TimeUsedInput from './TimeUsedInput';
 
 import { AddToolButtonStyled, ToolContainerStyled } from '../../utils/styled';
 
 interface ToolProps {
-toolData: ToolType;
- onChangeName: (name: string, toolData: ToolType) => void;
- onChangeLevel: (level: `${Level}`, toolData: ToolType) => void;
- onChangeExperience: (experience: number, toolData: ToolType) => void;
+  tool: ToolType;
+  skillId: string;
 }
 
 const Tool = function ({
-  toolData,
-  onChangeName,
-  onChangeLevel,
-  onChangeExperience,
+  tool,
+  skillId,
 }: ToolProps): JSX.Element {
-  const { dispatch } = useSkillContext();
+  const { dispatch } = useCategoryContext();
 
   const onDeleteToolHandle = useCallback((): void => {
-    dispatch({ type: 'remove-tool', tool: toolData });
-  }, [dispatch, toolData]);
+    dispatch({ type: 'remove-tool', tool, skillId });
+  }, [dispatch, skillId, tool]);
 
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    onChangeName(e.target.value, toolData);
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value } = event.target;
+
+    dispatch({
+      type: 'update-tool',
+      skillId,
+      tool: { ...tool, name: value },
+    });
   };
 
-  const handleLevelChange = (e: SelectChangeEvent<`${Level}`>): void => {
-    onChangeLevel(e.target.value as `${Level}`, toolData);
+  const handleLevelChange = (event: SelectChangeEvent<`${Level}`>): void => {
+    const { value } = event.target;
+
+    dispatch({
+      type: 'update-tool',
+      skillId,
+      tool: { ...tool, level: value as `${Level}` },
+    });
   };
 
-  const handleExperienceChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    onChangeExperience(+e.target.value, toolData);
+  const handleExperienceChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value } = event.target;
+
+    dispatch({
+      type: 'update-tool',
+      skillId,
+      tool: { ...tool, experience: +value },
+    });
   };
 
   return (
@@ -52,8 +66,10 @@ const Tool = function ({
       </Typography>
       <Grid container>
         <Grid item xs={12}>
-          <SkillToolInput
-            value={toolData.name}
+          <TextFieldOutlined
+            defaultValue={tool.name}
+            label={ToolInputText.Label}
+            name={ToolInputText.Name}
             onChange={handleChangeName}
           />
         </Grid>
@@ -68,13 +84,13 @@ const Tool = function ({
             sx={{ mt: 3 }}
           >
             <LevelSelection
-              selectedLevel={toolData.level}
+              selectedLevel={tool.level}
               onChange={handleLevelChange}
             />
           </Grid>
           <Grid item xs={6}>
             <TimeUsedInput
-              value={toolData.experience}
+              value={tool.experience}
               onChange={handleExperienceChange}
             />
           </Grid>

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { IconButton, Typography } from '@mui/material';
+import { IconButton, Link, Typography } from '@mui/material';
 
 import GarbageIcon from 'common/icons/GarbageIcon';
 
@@ -16,10 +16,11 @@ interface ProfiencyItem {
   onDelete: (id?: string) => void;
   onClick?: () => void;
   isLoading?: boolean;
+  link?: string | undefined;
 }
 
 const ProfiencyItem = function ({
-  headText, bodyText, onDelete, onClick, isLoading,
+  headText, bodyText, onDelete, onClick, isLoading, link,
 }: ProfiencyItem): JSX.Element {
   const setIdHandle = (): void => {
     if (onClick) {
@@ -27,10 +28,9 @@ const ProfiencyItem = function ({
     }
   };
 
-  const onDeleteLanguageHandle = (): void => {
+  const onDeleteEntryHandle = (): void => {
     onDelete();
   };
-
   return (
     <LeveledLanguageItemStyled>
       <DragIndicatorIconStyled fontSize="large" />
@@ -46,9 +46,19 @@ const ProfiencyItem = function ({
           >
             {bodyText}
           </Typography>
+          <Typography
+            component="div"
+            variant="body2"
+            color="text.secondary"
+          >
+            <Link href={link} underline="always" target="_blank">
+              {link ? 'Go to certificate...' : null}
+            </Link>
+          </Typography>
+
         </TextContainerStyled>
       </LeftSideWrapperStyled>
-      <IconButton onClick={onDeleteLanguageHandle}>
+      <IconButton onClick={onDeleteEntryHandle}>
         {isLoading ? <CircularSpinner size="tiny" color="primary" /> : <GarbageIcon color="primary" />}
       </IconButton>
     </LeveledLanguageItemStyled>

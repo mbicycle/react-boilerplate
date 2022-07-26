@@ -7,14 +7,17 @@ import { useMsal } from '@azure/msal-react';
 
 import Login from 'containers/authentication/components';
 import LanguageSelection from 'containers/main-page/cv-form/components/fields/languages/components/LanguageSelection';
-import Skill from 'containers/main-page/cv-form/components/fields/skills/components';
-import EditSkill from 'containers/main-page/cv-form/components/fields/skills/components/EditSkill';
+import Category from 'containers/main-page/cv-form/components/fields/skills/components';
+import Project from 'containers/main-page/cv-form/components/fields/projects/components';
+import EditCategory from 'containers/main-page/cv-form/components/fields/skills/components/EditTool';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
 
 import { ROUTE } from './utils/constants';
 import MainPage from '../../../containers/main-page';
 import CircularSpinner from '../circular-spinner/circular-spinner';
 import NotFound from '../not-found';
+import CertificateSelection
+  from '../../../containers/main-page/cv-form/components/fields/certifications/components/CertificateSelection';
 
 const PersonalInformation = lazy(() => import('containers/main-page/cv-form/components/fields/personal-information'));
 const Languages = lazy(() => import('containers/main-page/cv-form/components/fields/languages'));
@@ -50,12 +53,15 @@ const Routing = function (): JSX.Element {
           <Route path={ROUTE.ADD} element={<LanguageSelection />} />
         </Route>
         <Route path={ROUTE.DASHBOARD.SKILLS} element={<Skills />}>
-          <Route path={ROUTE.ADD} element={<Skill />} />
-          <Route path={ROUTE.EDIT} element={<EditSkill />} />
+          <Route path={ROUTE.ADD} element={<Category />} />
+          <Route path={ROUTE.EDIT} element={<EditCategory />} />
         </Route>
-        <Route path={ROUTE.DASHBOARD.PROJECTS} element={<Projects />} />
-        <Route path={ROUTE.DASHBOARD.CERTIFICATES} element={<Certifications />} />
-
+        <Route path={ROUTE.DASHBOARD.PROJECTS} element={<Projects />}>
+          <Route path={ROUTE.ADD} element={<Project />} />
+        </Route>
+        <Route path={ROUTE.DASHBOARD.CERTIFICATES} element={<Certifications />}>
+          <Route path={ROUTE.ADD} element={<CertificateSelection />} />
+        </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

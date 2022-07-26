@@ -16,10 +16,9 @@ import { useUserFromDb } from '../../personal-information/lib/query-hooks';
 
 export function useGetAllLanguages(): UseQueryResult<Languages, Error> {
   const queryClient = useQueryClient();
+
   const { data: user } = useUserFromDb();
-
   const languages = user?.languages || [];
-
   return useQuery<Languages, Error, Languages, QueryKey.Languages>(
     QueryKey.Languages,
     api.getAllLanguages,
@@ -59,7 +58,6 @@ export function useAddUserLanguage(): UseMutationResult<DbUser, Error, UserLangu
   return useMutation<DbUser, Error, UserLanguage, VoidFunction>(
     (language: UserLanguage) => {
       languages?.push(language as UserLanguage);
-
       return api.modifyUserLanguages(languages as UserLanguage[], user as DbUser);
     },
     {

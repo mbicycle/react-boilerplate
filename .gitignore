@@ -30,7 +30,8 @@ workspace.code-workspace
 
 # DOTENV
 .env
-localhost.pem
-localhost-cert.pem
-localhost-key.pem
 
+# local certificates
+localhost-key.pem
+localhost-cert.pem
+localhost.pem

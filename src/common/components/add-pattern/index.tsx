@@ -3,7 +3,7 @@ import {
 } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import { useSkillContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useCategoryContext } from 'containers/main-page/cv-form/local-state/hooks';
 import { ButtonText, Step } from './constants';
 import Title from './Title';
 
@@ -11,25 +11,29 @@ import {
   AddButtonStyled, AddCircleIconStyled,
   AddProfiencyStyled, ContainerStyled,
 } from './styled';
+import {
+  Category, Certificate, Project, UserLanguage,
+} from '../../models/User';
 
 interface AddProfiencyProps{
   title: `${Step}`;
   children: React.ReactNode;
-  collection: ArrayLike<unknown>;
+  collection?:
+    ArrayLike<UserLanguage> | ArrayLike<Category> | ArrayLike<Project> | ArrayLike<Certificate>;
 }
 
 const AddProfiency = function ({ title, children, collection }: AddProfiencyProps): JSX.Element {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { dispatch: dispatchSkill } = useSkillContext();
+  const { dispatch: dispatchCategory } = useCategoryContext();
 
   const [pressedAdd, setPressedAdd] = useState(true);
 
   const handleAdd = (): void => {
     setPressedAdd(true);
     navigate('add');
-    dispatchSkill({ type: 'reset-skill' });
+    dispatchCategory({ type: 'reset-category' });
   };
 
   const onReturnHandle = useCallback(() => {
@@ -45,17 +49,17 @@ const AddProfiency = function ({ title, children, collection }: AddProfiencyProp
 
   return (
     <AddProfiencyStyled>
-      <ContainerStyled $isProfiencySelected={!!collection.length && !pressedAdd}>
+      <ContainerStyled $isProfiencySelected={!!collection?.length && !pressedAdd}>
         {pressedAdd && <Title name={title} onReturn={onReturnHandle} />}
         {!pressedAdd
         && (
           <>
-            {collection.length ? children : null}
+            {collection?.length ? children : null}
             {!location.pathname.includes('edit') && (
               <AddButtonStyled
                 variant="contained"
                 onClick={handleAdd}
-                $isProfiencySelected={!!collection.length}
+                $isProfiencySelected={!!collection?.length}
               >
                 <AddCircleIconStyled />
                 {ButtonText.Add}

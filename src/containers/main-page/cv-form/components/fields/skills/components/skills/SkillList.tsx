@@ -7,9 +7,10 @@ import SkillItem from './SkillItem';
 const SkillList = function ({ skills }: {skills: Skill[]}) : JSX.Element | null {
   return (
     <>
-      {skills.map(({ tools, name }) => (
+      {skills.map(({ id, tools, name }) => (
         <SkillItem
-          key={name}
+          key={id}
+          id={id}
           name={name}
           tools={tools || []}
         />

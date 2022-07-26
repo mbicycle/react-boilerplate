@@ -34,7 +34,7 @@ const ApplicationBar = function (): JSX.Element {
   };
 
   return (
-    <Box height="8rem" bgcolor="primary.main">
+    <Box bgcolor="primary.main">
       <ToolbarStyled>
         <Link to={`dashboard/${ROUTE.DASHBOARD.PERSONAL_INFORMATION}`}>
           <LogoIconStyled fontSize="large" />
@@ -52,7 +52,6 @@ const ApplicationBar = function (): JSX.Element {
               orientation="vertical"
               variant="middle"
             />
-            {/* TODO: Click on icon show logout & See App to implement Unauthenticated */}
             <IconButton onClick={handleClick}>
               <Avatar alt={user.mail} src={photo} />
             </IconButton>

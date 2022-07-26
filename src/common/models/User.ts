@@ -13,11 +13,13 @@ export interface Tool {
 }
 
 export interface Skill {
+  id: string;
   name: string;
   tools: Tool[];
 }
 
 export interface Project {
+  id: string;
   title: string;
   role: string;
   from: string;
@@ -25,23 +27,31 @@ export interface Project {
   link: string;
   description: string;
   responsibilities: string;
-  skills: Skill[];
+  teamSize: number;
+  categories: Category[];
 }
 
 export interface Certificate {
-  name: string;
   link: string;
+  name: string;
+  id: Date | string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  skills: Skill[];
 }
 
 export interface DbUser {
   email: string;
   firstName: string;
   lastName: string;
+  skype: string;
   summary: string;
   languages: UserLanguage[];
   technology: string;
-  skype: string;
-  skills: Skill[];
+  categories: Category[];
   projects: Project[];
   certificates: Certificate[];
 }

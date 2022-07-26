@@ -24,7 +24,7 @@ export const ButtonStyled = styled(
   Button,
   {
     skipSx: true,
-    label: 'ButtonStyledHeader',
+    name: 'ButtonStyledHeader',
   },
 )(({ theme }) => ({
   textTransform: 'none',

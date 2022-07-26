@@ -12,7 +12,7 @@ export const MainPageContainerStyled = styled(Grid)(({ theme }) => ({
 export const FormWrapperStyled = styled(Grid)(() => ({}));
 
 export const PreviewWrapperStyled = styled(Grid, {
-  label: 'PreviewWrapperStyled',
+  name: 'PreviewWrapperStyled',
 })(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
   borderRadius: theme.shape.borderRadius,

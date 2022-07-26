@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
 export const CVFormWrapperStyled = styled(Box, {
-  label: 'CVFormWrapperDtyled',
+  name: 'CVFormWrapperDtyled',
 })({
   display: 'flex',
   flexDirection: 'column',
@@ -11,7 +11,7 @@ export const CVFormWrapperStyled = styled(Box, {
 });
 
 export const CVFormContainerStyled = styled(Box, {
-  label: 'CVFormContainerStyled',
+  name: 'CVFormContainerStyled',
 })(({ theme }) => ({
   padding: theme.spacing(10),
   flexGrow: 1,

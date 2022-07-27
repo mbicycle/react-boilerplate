@@ -15,19 +15,17 @@ const ReactHookFormDatePicker = function<T extends FieldValues> ({
 }: ReactHookFormDatePickerProps<T | any>): JSX.Element {
   return (
     <Controller<T | FieldValues>
-      render={({ field }) => (
+      name={name}
+      control={control}
+      defaultValue={null}
+      render={({ field, fieldState: { error } }) => (
         <DesktopDatePicker
           {...field}
           {...rest}
           label={rest.label}
-          renderInput={(renderInputProps) => (
-            <TextField {...renderInputProps} />
-          )}
+          renderInput={(renderInputProps) => <TextField {...renderInputProps} error={!!error?.message} />}
         />
       )}
-      name={name}
-      control={control}
-      defaultValue=""
     />
   );
 };

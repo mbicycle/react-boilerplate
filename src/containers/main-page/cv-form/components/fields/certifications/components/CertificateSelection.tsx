@@ -1,47 +1,41 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import dayjs from 'dayjs';
 
 import { Button, Grid } from '@mui/material';
 
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { Certificate } from 'common/models/User';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import {
   FormControlStyledP4, GridWrapperStyled, SaveButtonWrapperStyled,
 } from './addedSertificates/styled';
 import CertificateSelectionForm from './CertificateSelectionForm';
 import { useAddUserCertificate } from '../lib/query-hooks';
-import { CERTIFICATE_LINK, INVALID_DATE } from '../utils/constants';
+import { CERTIFICATE_LINK } from '../utils/constants';
 import ReactHookFormTextFieldOutlined
   from '../../../../../../../common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
 
+const schema = yup.object({
+  name: yup.string().required(),
+  link: yup.string().required(),
+  id: yup.date().required(),
+}).required();
+
 const CertificateSelection = function (): JSX.Element {
-  const [isDisable, setIsDisable] = useState(true);
-  const { handleSubmit, control, getValues } = useForm<Certificate>();
+  const {
+    handleSubmit, control, formState: { isValid },
+  } = useForm<Certificate>({ mode: 'onChange', resolver: yupResolver(schema) });
   const navigate = useNavigate();
   const { mutateAsync: addMyCertificateAsync } = useAddUserCertificate();
-
   const onSaveHandle: SubmitHandler<Certificate> = (cert): void => {
     navigate('/dashboard/certificates');
     addMyCertificateAsync(cert as never);
   };
 
-  const handleDisableBtn = ():void => {
-    const certificate = getValues();
-    if (certificate.name
-      && certificate.link
-      && certificate.id
-      && dayjs(certificate.id).format('DD.MM.YYYY') !== INVALID_DATE) {
-      return setIsDisable(false);
-    }
-    return setIsDisable(true);
-  };
   return (
-    <form
-      onSubmit={handleSubmit((data) => onSaveHandle(data))}
-      onChange={handleDisableBtn}
-    >
+    <form onSubmit={handleSubmit(onSaveHandle)}>
       <GridWrapperStyled container>
         <Grid
           container
@@ -60,7 +54,7 @@ const CertificateSelection = function (): JSX.Element {
         </FormControlStyledP4>
         <SaveButtonWrapperStyled item>
           <Button
-            disabled={isDisable}
+            disabled={!isValid}
             type="submit"
             variant="contained"
           >

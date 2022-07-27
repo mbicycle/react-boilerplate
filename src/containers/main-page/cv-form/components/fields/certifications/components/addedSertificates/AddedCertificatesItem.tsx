@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 

@@ -1,4 +1,6 @@
-import { memo, useCallback } from 'react';
+import {
+  memo, useCallback,
+} from 'react';
 
 import { Grid, Typography } from '@mui/material';
 
@@ -50,14 +52,21 @@ const Skill = function ({ skill }: SkillProps): JSX.Element {
             name={ToolInputText.Name}
             onChange={handleSkillNameChange}
           />
-          <AddToolButtonStyled
-            disabled={false}
-            onClick={onAddToolHandle}
-            sx={{ mt: 3 }}
+          <Grid
+            item
+            xs={4}
+            paddingTop={3}
+            display="inline-flex"
+            justifyContent="flex-start"
           >
-            <AddCircleIconStyled />
-            Add a Tool
-          </AddToolButtonStyled>
+            <AddToolButtonStyled
+              disabled={!skill.name}
+              onClick={onAddToolHandle}
+            >
+              <AddCircleIconStyled />
+              {Text.AddTool}
+            </AddToolButtonStyled>
+          </Grid>
         </Grid>
         <Grid
           container
@@ -67,7 +76,9 @@ const Skill = function ({ skill }: SkillProps): JSX.Element {
           {!!skill?.tools?.length && (
             <>
               <DividerStyled variant="fullWidth" />
-              <ToolsContainerStyled>
+              <ToolsContainerStyled
+                sx={{ maxHeight: 520 }}
+              >
                 {
                   skill?.tools.map((tool) => (
                     <Tool
@@ -81,10 +92,25 @@ const Skill = function ({ skill }: SkillProps): JSX.Element {
             </>
           )}
         </Grid>
+        {/* <Grid */}
+        {/*   item */}
+        {/*   xs={4} */}
+        {/*   paddingTop={3} */}
+        {/*   display="inline-flex" */}
+        {/*   justifyContent="flex-start" */}
+        {/* > */}
+        {/*   <AddToolButtonStyled */}
+        {/*     disabled={!skill.name} */}
+        {/*     onClick={onAddToolHandle} */}
+        {/*   > */}
+        {/*     <AddCircleIconStyled /> */}
+        {/*     {Text.AddTool} */}
+        {/*   </AddToolButtonStyled> */}
+        {/* </Grid> */}
         <Grid
           item
           xs={12}
-          paddingTop={3}
+          marginTop={3}
           display="inline-flex"
           justifyContent="flex-end"
         >

@@ -27,10 +27,9 @@ export default class ToolManager {
   }
 
   public addTool(): NewCategoryState {
-    this.skill.tools.push({
+    this.skill.tools = [...this.skill.tools, {
       id: uuidv4(), name: '', level: '', experience: 0,
-    });
-
+    }];
     return { ...this.state };
   }
 

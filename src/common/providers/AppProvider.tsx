@@ -14,19 +14,19 @@ import theme from 'common/theme';
 const AppProvider = function ({ children }: { children: React.ReactNode}): JSX.Element {
   return (
     <AppSnackbarProvider>
-      <React.StrictMode>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <CssBaseline />
-          <GlobalStyle />
-          <ThemeProvider theme={theme}>
-            <BrowserRouter>
-              <MsalProvider instance={msalInstance}>
-                {children}
-              </MsalProvider>
-            </BrowserRouter>
-          </ThemeProvider>
-        </LocalizationProvider>
-      </React.StrictMode>
+      {/* <React.StrictMode> */}
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <CssBaseline />
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <MsalProvider instance={msalInstance}>
+              {children}
+            </MsalProvider>
+          </BrowserRouter>
+        </ThemeProvider>
+      </LocalizationProvider>
+      {/* </React.StrictMode> */}
     </AppSnackbarProvider>
   );
 };

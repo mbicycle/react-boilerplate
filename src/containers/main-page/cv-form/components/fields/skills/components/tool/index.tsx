@@ -1,4 +1,6 @@
-import { memo, useCallback } from 'react';
+import React, {
+  memo, useCallback, useEffect, useRef,
+} from 'react';
 
 import { Grid, Typography, SelectChangeEvent } from '@mui/material';
 
@@ -24,10 +26,10 @@ const Tool = function ({
   skillId,
 }: ToolProps): JSX.Element {
   const { dispatch } = useCategoryContext();
-
   const onDeleteToolHandle = useCallback((): void => {
     dispatch({ type: 'remove-tool', tool, skillId });
   }, [dispatch, skillId, tool]);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
@@ -59,8 +61,12 @@ const Tool = function ({
     });
   };
 
+  useEffect(() => {
+    if (listRef.current) listRef.current.scrollIntoView({ block: 'end', inline: 'nearest' });
+  });
+
   return (
-    <ToolContainerStyled container direction="column">
+    <ToolContainerStyled container direction="column" ref={listRef}>
       <Typography variant="h4">
         {Text.Tool}
       </Typography>

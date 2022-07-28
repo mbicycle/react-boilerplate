@@ -6,13 +6,13 @@ import Wrapper from './Wrapper';
 const Preview = function (): JSX.Element {
   const { refetch } = useUserFromDb();
   const isFetching = useIsFetching('db-user');
+
   useEffect(() => {
     if (isFetching) { refetch(); }
   }, [refetch, isFetching]);
 
   return (
     <Wrapper />
-
   );
 };
 

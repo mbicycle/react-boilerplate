@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import RectangleIcon from 'common/icons/RectangleIcon';
 import RectangleBlueIcon from 'common/icons/RectangleBlueIcon';
+import theme from '../../../common/theme';
 
 const labels: { [index: string]: number } = {
   Beginner: 1,
@@ -15,6 +16,7 @@ const labels: { [index: string]: number } = {
 
 const RatingLanguage = function (props: { [index : string] : string }): JSX.Element {
   const { level } = props;
+
   return (
     <Box
       sx={{
@@ -35,7 +37,7 @@ const RatingLanguage = function (props: { [index : string] : string }): JSX.Elem
             fontSize="large"
             color="primary"
             sx={{
-              paddingRight: '0.2rem',
+              paddingRight: theme.spacing(0.5),
               width: '3.6rem',
             }}
           />
@@ -44,7 +46,7 @@ const RatingLanguage = function (props: { [index : string] : string }): JSX.Elem
           <RectangleIcon
             fontSize="large"
             sx={{
-              paddingRight: '0.2rem',
+              paddingRight: theme.spacing(0.5),
               width: '3.6rem',
             }}
           />
@@ -53,4 +55,5 @@ const RatingLanguage = function (props: { [index : string] : string }): JSX.Elem
     </Box>
   );
 };
+
 export default RatingLanguage;

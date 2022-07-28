@@ -1,27 +1,27 @@
-import {
-  Grid, Typography, Paper, Box,
-} from '@mui/material';
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
+
+import {
+  Grid, Typography, Box,
+} from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import SchoolIcon from '@mui/icons-material/School';
+
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
+import theme from '../../../common/theme';
+import { PaperWrapperStyled } from '../styled';
 
 const Skills = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
   const isFetching = useIsFetching('db-user');
+
   useEffect(() => {
-    if (isFetching) { refetch(); }
+    if (isFetching) refetch();
   }, [refetch, isFetching]);
+
   return (
-    <Paper
+    <PaperWrapperStyled
       elevation={1}
-      sx={{
-        maxWidth: '100%',
-        padding: '1.6rem',
-        margin: '1.8rem 2.4rem 0',
-        borderRadius: '0.2rem',
-      }}
     >
       <Grid
         container
@@ -33,25 +33,23 @@ const Skills = function (): JSX.Element {
             height: '3rem',
             backgroundColor: 'secondary.main',
             borderRadius: '50%',
-
           }}
         >
-          <SchoolIcon color="primary" sx={{ margin: '0.7rem' }} />
+          <SchoolIcon color="primary" sx={{ margin: theme.spacing(1.75) }} />
         </Box>
         <Grid item xs={11}>
           <Typography
             variant="h5"
             sx={{
-              marginLeft: '0.8rem',
+              marginLeft: theme.spacing(2),
               fontWeight: 'fontWeightBold',
             }}
           >
             SKILLS
           </Typography>
         </Grid>
-
         {data?.categories?.map((category) => (
-          <Grid container sx={{ padding: '0 0.8rem', margin: '1.5rem 0 0 0' }}>
+          <Grid container sx={{ padding: theme.spacing(0, 2), margin: theme.spacing(3.75, 0, 0, 0) }}>
             <Grid item xs={12}>
               <Typography key={category.id} sx={{ fontWeight: 'fontWeightBold' }}>
                 {category.name}
@@ -80,15 +78,15 @@ const Skills = function (): JSX.Element {
               ?.map((skill) => skill.tools
                 ?.filter((tool) => tool.name.length > 0)
                 .map((tool) => (
-                  <Grid container sx={{ padding: '0 0.8rem' }}>
+                  <Grid container sx={{ padding: theme.spacing(0, 2) }}>
                     <Grid item xs={2}>
                       <Typography key={tool.name}>
                         <CircleIcon
                           color="primary"
                           sx={{
                             width: '0.6rem',
-                            paddingTop: '0.6rem',
-                            marginRight: '0.6rem',
+                            paddingTop: theme.spacing(1.5),
+                            marginRight: theme.spacing(1.5),
                           }}
                         />
                         {tool.name}
@@ -109,7 +107,8 @@ const Skills = function (): JSX.Element {
           </Grid>
         ))}
       </Grid>
-    </Paper>
+    </PaperWrapperStyled>
   );
 };
+
 export default Skills;

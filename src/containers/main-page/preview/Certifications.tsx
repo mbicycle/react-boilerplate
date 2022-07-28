@@ -1,27 +1,27 @@
-import {
-  Grid, Typography, Paper, Link, Box,
-} from '@mui/material';
-import CircleIcon from '@mui/icons-material/Circle';
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
+
+import {
+  Grid, Typography, Link, Box,
+} from '@mui/material';
+import CircleIcon from '@mui/icons-material/Circle';
 import ArticleIcon from '@mui/icons-material/Article';
+
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
+import theme from '../../../common/theme';
+import { PaperWrapperStyled } from '../styled';
 
 const Certifications = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
   const isFetching = useIsFetching('db-user');
+
   useEffect(() => {
-    if (isFetching) { refetch(); }
+    if (isFetching) refetch();
   }, [refetch, isFetching]);
+
   return (
-    <Paper
-      elevation={2}
-      sx={{
-        maxWidth: '100%',
-        padding: '1.6rem',
-        margin: '1.8rem 2.4rem 0',
-        borderRadius: '0.2rem',
-      }}
+    <PaperWrapperStyled
+      elevation={1}
     >
       <Grid
         container
@@ -33,16 +33,15 @@ const Certifications = function (): JSX.Element {
             height: '3rem',
             backgroundColor: 'secondary.main',
             borderRadius: '50%',
-
           }}
         >
-          <ArticleIcon color="primary" sx={{ margin: '0.7rem' }} />
+          <ArticleIcon color="primary" sx={{ margin: theme.spacing(1.75) }} />
         </Box>
         <Grid item xs={11}>
           <Typography
             variant="h5"
             sx={{
-              marginLeft: '0.8rem',
+              marginLeft: theme.spacing(1.75),
               fontWeight: 'fontWeightBold',
             }}
           >
@@ -60,31 +59,31 @@ const Certifications = function (): JSX.Element {
           </Typography>
         </Grid>
         {data?.certificates?.map((certificate) => (
-          <Grid container sx={{ padding: '0 0.8rem' }}>
+          <Grid container sx={{ padding: theme.spacing(0, 2) }}>
             <Grid item xs={8}>
               <Typography
                 key={`${certificate.id}`}
-                sx={{ paddingLeft: '0.6rem' }}
+                sx={{ paddingLeft: theme.spacing(1.5) }}
               >
                 <CircleIcon
                   color="primary"
                   sx={{
                     width: '0.6rem',
-                    paddingTop: '0.6rem',
-                    marginRight: '0.6rem',
+                    paddingTop: theme.spacing(1.5),
+                    marginRight: theme.spacing(1.5),
                   }}
                 />
                 <Link href={certificate.link}>
                   {certificate.name}
                 </Link>
-
               </Typography>
             </Grid>
             <Grid item xs={4} sx={{ textAlign: 'center' }}><Typography>{certificate.id}</Typography></Grid>
           </Grid>
         ))}
       </Grid>
-    </Paper>
+    </PaperWrapperStyled>
   );
 };
+
 export default Certifications;

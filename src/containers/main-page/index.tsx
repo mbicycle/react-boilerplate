@@ -29,9 +29,7 @@ const MainPage = function (): JSX.Element {
         lg={12}
         xl={6}
       >
-
         <Preview />
-
       </PreviewWrapperStyled>
     </MainPageContainerStyled>
   );

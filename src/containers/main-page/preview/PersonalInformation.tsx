@@ -1,28 +1,26 @@
-import {
-  Grid, Typography, Paper,
-} from '@mui/material';
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 import { useUserPhoto } from 'common/services/user-service/hooks/useUserPhoto';
+import {
+  Grid, Typography,
+} from '@mui/material';
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
+
 import { ImageStyled } from '../cv-form/components/fields/personal-information/styled';
+import { PaperWrapperStyled } from '../styled';
 
 const PersonalInformation = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
   const { photo } = useUserPhoto();
   const isFetching = useIsFetching('db-user');
+
   useEffect(() => {
-    if (isFetching) { refetch(); }
+    if (isFetching) refetch();
   }, [refetch, isFetching]);
+
   return (
-    <Paper
-      elevation={2}
-      sx={{
-        maxWidth: '100%',
-        margin: '0 2.4rem',
-        padding: '1.6rem',
-        borderRadius: '0.2rem',
-      }}
+    <PaperWrapperStyled
+      elevation={1}
     >
       <Grid
         container
@@ -37,7 +35,6 @@ const PersonalInformation = function (): JSX.Element {
               width: '6.8rem',
               height: '7.2rem',
             }}
-
           />
         </Grid>
         <Grid item xs={7}>
@@ -83,7 +80,8 @@ const PersonalInformation = function (): JSX.Element {
           </Typography>
         </Grid>
       </Grid>
-    </Paper>
+    </PaperWrapperStyled>
   );
 };
+
 export default PersonalInformation;

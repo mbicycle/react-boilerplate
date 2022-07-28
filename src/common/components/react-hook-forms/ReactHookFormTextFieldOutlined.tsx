@@ -21,7 +21,7 @@ const ReactHookFormTextFieldOutlined = function<T extends FieldValues> ({
       name={name}
       defaultValue=""
       key={name}
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <TextField
           {...field}
           {...props}
@@ -30,6 +30,7 @@ const ReactHookFormTextFieldOutlined = function<T extends FieldValues> ({
           type={type}
           name={name}
           fullWidth
+          error={!!error?.message}
         />
       )}
     />

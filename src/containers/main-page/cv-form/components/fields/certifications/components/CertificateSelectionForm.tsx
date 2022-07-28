@@ -11,7 +11,8 @@ import ReactHookFormTextFieldOutlined
   from '../../../../../../../common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
 import { Certificate } from '../../../../../../../common/models/User';
 
-const CertificateSelectionForm = function ({ control }: {control: Control<Certificate>}):JSX.Element {
+const CertificateSelectionForm = function ({ control }:
+  {control: Control<Certificate>}):JSX.Element {
   return (
     <>
       <Grid item xs={8}>

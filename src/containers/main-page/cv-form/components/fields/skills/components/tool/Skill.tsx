@@ -92,21 +92,6 @@ const Skill = function ({ skill }: SkillProps): JSX.Element {
             </>
           )}
         </Grid>
-        {/* <Grid */}
-        {/*   item */}
-        {/*   xs={4} */}
-        {/*   paddingTop={3} */}
-        {/*   display="inline-flex" */}
-        {/*   justifyContent="flex-start" */}
-        {/* > */}
-        {/*   <AddToolButtonStyled */}
-        {/*     disabled={!skill.name} */}
-        {/*     onClick={onAddToolHandle} */}
-        {/*   > */}
-        {/*     <AddCircleIconStyled /> */}
-        {/*     {Text.AddTool} */}
-        {/*   </AddToolButtonStyled> */}
-        {/* </Grid> */}
         <Grid
           item
           xs={12}

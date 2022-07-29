@@ -14,7 +14,6 @@ import theme from 'common/theme';
 const AppProvider = function ({ children }: { children: React.ReactNode}): JSX.Element {
   return (
     <AppSnackbarProvider>
-      {/* <React.StrictMode> */}
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <CssBaseline />
         <GlobalStyle />
@@ -26,7 +25,6 @@ const AppProvider = function ({ children }: { children: React.ReactNode}): JSX.E
           </BrowserRouter>
         </ThemeProvider>
       </LocalizationProvider>
-      {/* </React.StrictMode> */}
     </AppSnackbarProvider>
   );
 };

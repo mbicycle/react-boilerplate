@@ -26,10 +26,12 @@ const Tool = function ({
   skillId,
 }: ToolProps): JSX.Element {
   const { dispatch } = useCategoryContext();
+
+  const listRef = useRef<HTMLDivElement>(null);
+
   const onDeleteToolHandle = useCallback((): void => {
     dispatch({ type: 'remove-tool', tool, skillId });
   }, [dispatch, skillId, tool]);
-  const listRef = useRef<HTMLDivElement>(null);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
@@ -62,7 +64,9 @@ const Tool = function ({
   };
 
   useEffect(() => {
-    if (listRef.current) listRef.current.scrollIntoView({ block: 'end', inline: 'nearest' });
+    if (listRef.current) {
+      listRef.current.scrollIntoView(false);
+    }
   });
 
   return (
@@ -77,6 +81,7 @@ const Tool = function ({
             label={ToolInputText.Label}
             name={ToolInputText.Name}
             onChange={handleChangeName}
+            autoFocus
           />
         </Grid>
         <Grid

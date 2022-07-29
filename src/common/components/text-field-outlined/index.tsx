@@ -1,5 +1,5 @@
 import { OutlinedTextFieldProps } from '@mui/material';
-import { memo } from 'react';
+import React, { memo } from 'react';
 import { TextFieldStyled } from './styled';
 
 interface TextFieldOulinedProps extends Omit<OutlinedTextFieldProps, 'variant'> {
@@ -8,11 +8,9 @@ interface TextFieldOulinedProps extends Omit<OutlinedTextFieldProps, 'variant'> 
   label?: string;
 }
 
-const TextFieldOulined = function (
-  {
-    label, name, onChange, ...rest
-  }: TextFieldOulinedProps,
-): JSX.Element {
+const TextFieldOulined = function ({
+  label, name, onChange, ...rest
+}: TextFieldOulinedProps): JSX.Element {
   return (
     <TextFieldStyled
       {...rest}
@@ -32,5 +30,4 @@ const TextFieldOulined = function (
     />
   );
 };
-
 export default memo(TextFieldOulined);

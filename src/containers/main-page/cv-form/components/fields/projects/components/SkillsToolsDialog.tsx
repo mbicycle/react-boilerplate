@@ -40,12 +40,23 @@ const SkillsToolsDialog = function ({
   const { onChange, ...rest } = formValues.register('categories');
 
   const handleCategoryChange = (event: SelectChangeEvent<typeof skill | unknown>): void => {
-    setCategory(user?.categories.find((c) => c.name === event.target.value));
+    setCategory(user?.categories.find((c) => {
+      if (c.name === event.target.value) {
+        return c;
+      }
+      return null;
+    }));
     onChange(event);
   };
 
   const handleSkillChange = (event: SelectChangeEvent<typeof skill | unknown>): void => {
-    setSkill(category?.skills.find((s) => s.name === event.target.value));
+    setSkill(category?.skills.find((s) => {
+      if (s.name === event.target.value) {
+        return s;
+      }
+      return null;
+    }));
+
     onChange(event);
   };
 

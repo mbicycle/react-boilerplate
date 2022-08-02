@@ -15,6 +15,7 @@ import { ButtonText, CategoryAddText, tooltipText } from './utils/constants';
 
 import { CategoriesTitleStyled, InfoIconStyled } from './utils/styled';
 import SkillsToolsDialog from './SkillsToolsDialog';
+import CategoryItem from './CategoryItem';
 
 const CategorySelection = function (
   { formValues }:{formValues: UseFormReturn<ProjectFieldValues>;},
@@ -36,6 +37,7 @@ const CategorySelection = function (
   if (isLoading) {
     return <CircularSpinner size="medium" color="primary" />;
   }
+  console.log(formValues.getValues());
 
   return (
     <Grid item xs={12}>
@@ -48,7 +50,13 @@ const CategorySelection = function (
       <Grid container>
         <Grid item container xs={12}>
           <Typography sx={{ mt: 2 }} variant="body1">
-            Asads
+            {formValues.getValues().categories.length > 0 ? (
+              <CategoryItem
+                key={formValues.getValues().categories[0].id}
+                id={formValues.getValues().categories[0].id}
+                name={formValues.getValues().categories[0].name}
+              />
+            ) : null}
           </Typography>
         </Grid>
         <Button

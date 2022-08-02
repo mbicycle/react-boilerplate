@@ -2,6 +2,8 @@ import CircularSpinner from 'common/components/circular-spinner/circular-spinner
 
 import AddProfiency from 'common/components/add-pattern';
 import { useUserFromDb } from '../personal-information/lib/query-hooks';
+import Project from './components/index';
+import CategorySelection from './components/CategorySelection';
 
 const Projects = function (): JSX.Element {
   const { data, isLoading } = useUserFromDb();
@@ -15,7 +17,7 @@ const Projects = function (): JSX.Element {
       collection={data?.projects || []}
       title="Projects"
     >
-      {!!data?.projects?.length && <div />}
+      {!!data?.projects?.length && <Project data={ data } />}
     </AddProfiency>
   );
 };

@@ -2,14 +2,15 @@ import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 
 import {
-  Grid, Typography, Box,
+  Grid, Typography,
 } from '@mui/material';
-import CircleIcon from '@mui/icons-material/Circle';
-import SchoolIcon from '@mui/icons-material/School';
 
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
 import theme from '../../../common/theme';
-import { PaperWrapperStyled } from '../styled';
+import {
+  PaperWrapperStyled, BoxWrapperStyled, CircleIconStyled, SectionTitle, SkillsGrid, SchoolIconStyled,
+} from '../styled';
+import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
 const Skills = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
@@ -23,33 +24,17 @@ const Skills = function (): JSX.Element {
     <PaperWrapperStyled
       elevation={1}
     >
-      <Grid
-        container
-        spacing={1}
-      >
-        <Box
-          sx={{
-            width: '3rem',
-            height: '3rem',
-            backgroundColor: 'secondary.main',
-            borderRadius: '50%',
-          }}
-        >
-          <SchoolIcon color="primary" sx={{ margin: theme.spacing(1.75) }} />
-        </Box>
+      <Grid container>
+        <BoxWrapperStyled>
+          <SchoolIconStyled />
+        </BoxWrapperStyled>
         <Grid item xs={11}>
-          <Typography
-            variant="h5"
-            sx={{
-              marginLeft: theme.spacing(2),
-              fontWeight: 'fontWeightBold',
-            }}
-          >
-            SKILLS
-          </Typography>
+          <SectionTitle variant="h5">
+            {CV_FORM_STEPS[2].text}
+          </SectionTitle>
         </Grid>
         {data?.categories?.map((category) => (
-          <Grid container sx={{ padding: theme.spacing(0, 2), margin: theme.spacing(3.75, 0, 0, 0) }}>
+          <SkillsGrid container>
             <Grid item xs={12}>
               <Typography key={category.id} sx={{ fontWeight: 'fontWeightBold' }}>
                 {category.name}
@@ -58,20 +43,18 @@ const Skills = function (): JSX.Element {
             <Grid item xs={2} />
             <Grid
               item
-              xs={6}
-              sx={{ textAlign: 'center' }}
+              xs={7}
             >
               <Typography variant="body1" color="text.disabled">
-                Experience (years)
+                {CV_FORM_STEPS[2].columns[0]}
               </Typography>
             </Grid>
             <Grid
               item
-              xs={4}
-              sx={{ textAlign: 'center' }}
+              xs={3}
             >
               <Typography variant="body1" color="text.disabled">
-                Level
+                {CV_FORM_STEPS[2].columns[1]}
               </Typography>
             </Grid>
             {category.skills
@@ -81,30 +64,23 @@ const Skills = function (): JSX.Element {
                   <Grid container sx={{ padding: theme.spacing(0, 2) }}>
                     <Grid item xs={2}>
                       <Typography key={tool.name}>
-                        <CircleIcon
-                          color="primary"
-                          sx={{
-                            width: '0.6rem',
-                            paddingTop: theme.spacing(1.5),
-                            marginRight: theme.spacing(1.5),
-                          }}
-                        />
+                        <CircleIconStyled />
                         {tool.name}
                       </Typography>
                     </Grid>
-                    <Grid item xs={6} sx={{ textAlign: 'center' }}>
+                    <Grid item xs={7}>
                       <Typography>
                         {tool.experience}
                       </Typography>
                     </Grid>
-                    <Grid item xs={4} sx={{ textAlign: 'center' }}>
+                    <Grid item xs={3}>
                       <Typography>
                         {tool.level}
                       </Typography>
                     </Grid>
                   </Grid>
                 )))}
-          </Grid>
+          </SkillsGrid>
         ))}
       </Grid>
     </PaperWrapperStyled>

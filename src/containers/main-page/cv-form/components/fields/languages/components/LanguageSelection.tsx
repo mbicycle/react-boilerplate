@@ -17,7 +17,7 @@ const LanguageSelection = function (): JSX.Element {
   const { mutateAsync: addMyLangugeAsync } = useAddUserLanguage();
 
   const [isSaveDisabled, setSaveDisabled] = useState(true);
-  const [leveledLanguage, setLeveledLanguage] = useState<UserLanguage>({ name: '', level: '' });
+  const [leveledLanguage, setLeveledLanguage] = useState<UserLanguage>({ name: '', level: 'Beginner' });
 
   const onSaveHandle = (): void => {
     addMyLangugeAsync(leveledLanguage as never);

@@ -2,15 +2,17 @@ import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 
 import {
-  Grid, Typography, Box,
+  Grid, Typography,
 } from '@mui/material';
-import CircleIcon from '@mui/icons-material/Circle';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
 
 import RatingLanguage from './RatingLanguage';
 import theme from '../../../common/theme';
-import { PaperWrapperStyled } from '../styled';
+import {
+  BoxWrapperStyled, CircleIconStyled, PaperWrapperStyled, SectionTitle,
+} from '../styled';
+import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
 const Languages = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
@@ -24,60 +26,40 @@ const Languages = function (): JSX.Element {
     <PaperWrapperStyled
       elevation={1}
     >
-      <Grid
-        container
-        spacing={1}
-      >
-        <Box
-          sx={{
-            width: '3rem',
-            height: '3rem',
-            backgroundColor: 'secondary.main',
-            borderRadius: '50%',
-          }}
-        >
+      <Grid container>
+        <BoxWrapperStyled>
           <MenuBookIcon color="primary" sx={{ margin: theme.spacing(1.75) }} />
-        </Box>
+        </BoxWrapperStyled>
         <Grid item xs={11}>
-          <Typography
-            variant="h5"
-            sx={{
-              marginLeft: theme.spacing(2),
-              fontWeight: 'fontWeightBold',
-            }}
-          >
-            LANGUAGES
-          </Typography>
+          <SectionTitle variant="h5">
+            {CV_FORM_STEPS[1].text}
+          </SectionTitle>
         </Grid>
-        <Grid item xs={8} />
+        <Grid item xs={9} />
         <Grid
           item
-          xs={4}
-          sx={{ textAlign: 'center' }}
+          xs={3}
         >
           <Typography variant="h5" color="text.disabled">
-            Level
+            {CV_FORM_STEPS[1].columns[0]}
           </Typography>
         </Grid>
         {data?.languages?.map((language) => (
           <Grid container sx={{ padding: theme.spacing(0, 1.25) }}>
             <Grid item xs={2}>
               <Typography key={language.name} sx={{ paddingLeft: theme.spacing(1.5) }}>
-                <CircleIcon
-                  color="primary"
-                  sx={{
-                    width: '6px',
-                    paddingTop: theme.spacing(1.5),
-                    marginRight: theme.spacing(1.5),
-                  }}
-                />
+                <CircleIconStyled />
                 {language.name}
               </Typography>
             </Grid>
-            <Grid item xs={6} sx={{ margin: 'auto' }}>
+            <Grid item xs={7} sx={{ margin: 'auto' }}>
               <RatingLanguage level={language.level} />
             </Grid>
-            <Grid item xs={4} sx={{ textAlign: 'center' }}><Typography>{language.level}</Typography></Grid>
+            <Grid item xs={3}>
+              <Typography>
+                {language.level}
+              </Typography>
+            </Grid>
           </Grid>
         ))}
       </Grid>

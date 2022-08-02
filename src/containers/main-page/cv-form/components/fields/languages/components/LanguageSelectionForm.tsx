@@ -26,7 +26,7 @@ const LanguageSelectionForm = function ({
   onGetSelectedLanguage,
 }:LanguageSelectionFormProps): JSX.Element {
   const { data } = useGetAllLanguages();
-  const { values, handleChange } = useForm<UserLanguage>({ name: '', level: '' });
+  const { values, handleChange } = useForm<UserLanguage>({ name: '', level: 'Beginner' });
 
   const [languages, setLanguages] = useState(data);
 

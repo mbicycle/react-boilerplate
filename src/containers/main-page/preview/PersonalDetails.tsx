@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 
 import PersonalInformation from './PersonalInformation';
 import Languages from './Languages';
@@ -7,12 +7,9 @@ import Certifications from './Certifications';
 
 const PersonalDetails = function (): JSX.Element {
   return (
-    <Grid
-      container
-      sx={{
-        maxWidth: '100%',
-        margin: 'auto',
-      }}
+    <Container
+      component={Grid}
+      maxWidth="lg"
     >
       <Grid item xs={12}>
         <PersonalInformation />
@@ -26,7 +23,7 @@ const PersonalDetails = function (): JSX.Element {
       <Grid item xs={12}>
         <Certifications />
       </Grid>
-    </Grid>
+    </Container>
 
   );
 };

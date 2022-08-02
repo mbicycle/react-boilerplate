@@ -11,28 +11,43 @@ export const enum Step {
 export interface CvFormStep {
   readonly text: string;
   readonly route: string;
+  readonly columns : string[];
 }
 
 export const CV_FORM_STEPS: CvFormStep[] = [
   {
     text: 'PERSONAL INFORMATION',
     route: ROUTE.DASHBOARD.PERSONAL_INFORMATION,
+    columns: [
+      'SUMMARY OF QUALIFICATION',
+    ],
   },
   {
     text: 'LANGUAGES',
     route: ROUTE.DASHBOARD.LANGUAGES.MAIN,
+    columns: [
+      'Level',
+    ],
   },
   {
     text: 'SKILLS',
     route: ROUTE.DASHBOARD.SKILLS,
+    columns: [
+      'Experience (years)',
+      'Level',
+    ],
   },
   {
     text: 'PROJECTS',
     route: ROUTE.DASHBOARD.PROJECTS,
+    columns: [],
   },
   {
     text: 'CERTIFICATIONS',
     route: ROUTE.DASHBOARD.CERTIFICATES,
+    columns: [
+      'Date',
+    ],
   }];
 
 export enum ButtonStep {

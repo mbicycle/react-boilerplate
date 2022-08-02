@@ -6,8 +6,8 @@ import {
 } from '@mui/material';
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
 
-import { ImageStyled } from '../cv-form/components/fields/personal-information/styled';
-import { PaperWrapperStyled } from '../styled';
+import { PaperWrapperStyled, PhotoStyled } from '../styled';
+import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
 const PersonalInformation = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
@@ -22,19 +22,12 @@ const PersonalInformation = function (): JSX.Element {
     <PaperWrapperStyled
       elevation={1}
     >
-      <Grid
-        container
-        spacing={2}
-      >
+      <Grid container spacing={2}>
         <Grid item xs={2}>
-          <ImageStyled
+          <PhotoStyled
             referrerPolicy="no-referrer"
             alt="User"
             src={photo}
-            sx={{
-              width: '6.8rem',
-              height: '7.2rem',
-            }}
           />
         </Grid>
         <Grid item xs={7}>
@@ -70,7 +63,7 @@ const PersonalInformation = function (): JSX.Element {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" fontWeight="fontWeightBold">
-            SUMMARY OF QUALIFICATION
+            {CV_FORM_STEPS[0].columns[0]}
           </Typography>
           <Typography
             variant="body2"

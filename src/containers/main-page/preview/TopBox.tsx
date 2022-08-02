@@ -5,76 +5,45 @@ import {
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
-import LogoIcon from '../../../common/icons/LogoIcon';
-import EmailIcon from '../../../common/icons/EmailIcon';
-import SkypeIcon from '../../../common/icons/SkypeIcon';
 import theme from '../../../common/theme';
+import {
+  LogoIconStyled, GridWrapper, LogoWrapperGrid, EmailIconStyled, SkypeIconStyled, LinkWrapperGrid,
+} from '../styled';
 
 const TopBox = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
   const isFetching = useIsFetching('db-user');
   useEffect(() => {
-    if (isFetching) { refetch(); }
+    if (isFetching) refetch();
   }, [refetch, isFetching]);
 
   return (
-    <Grid
-      container
-      sx={{
-        height: '16.8rem',
-        backgroundColor: 'primary.main',
-      }}
-    >
-      <Grid
+    <GridWrapper container>
+      <LogoWrapperGrid
         item
-        xs={4}
-        sx={{
-          paddingTop: theme.spacing(7),
-          paddingLeft: theme.spacing(6),
-        }}
+        xs={3}
       >
-        <LogoIcon
-          style={{
-            width: '12rem',
-            height: '2.8rem',
-            fill: 'secondary',
-          }}
-        />
-      </Grid>
+        <LogoIconStyled />
+      </LogoWrapperGrid>
       <Grid item xs={2} />
-      <Grid
+      <LinkWrapperGrid
         item
-        xs={6}
-        sx={{
-          paddingTop: theme.spacing(5),
-          paddingRight: theme.spacing(6),
-        }}
+        xs={7}
       >
         <Typography
           variant="h5"
           color="secondary.light"
-          noWrap
           sx={{ paddingBottom: theme.spacing(1.25) }}
         >
-          <EmailIcon sx={{
-            width: '1.6rem',
-            marginRight: theme.spacing(3.5),
-            paddingTop: theme.spacing(1.25),
-          }}
-          />
+          <EmailIconStyled />
           {data?.email}
         </Typography>
         <Typography variant="h5" color="secondary.light">
-          <SkypeIcon sx={{
-            width: '1.6rem',
-            marginRight: theme.spacing(3.5),
-            paddingTop: theme.spacing(1.25),
-          }}
-          />
+          <SkypeIconStyled />
           {data?.skype}
         </Typography>
-      </Grid>
-    </Grid>
+      </LinkWrapperGrid>
+    </GridWrapper>
   );
 };
 

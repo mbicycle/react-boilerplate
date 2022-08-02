@@ -5,9 +5,8 @@ import { memo } from 'react';
 
 const CategoryItem = function ({ category, skill, tool } : any): JSX.Element {
   const onDeleteHandle = (): void => {
-    console.log('delete');
+    console.log('I am from CategoryItem');
   };
-  console.log(category);
   return (
     <ProfiencyItem
       onDelete={onDeleteHandle}

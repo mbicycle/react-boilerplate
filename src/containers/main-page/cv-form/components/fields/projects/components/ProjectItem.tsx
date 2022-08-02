@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import ProfiencyItem from "common/components/profiency/ProfiencyItem";
-import dayjs from "dayjs";
-import { string } from "yup";
+import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
+import dayjs from 'dayjs';
+import { string } from 'yup';
 import { Project } from 'common/models/User';
 
 type ItemProps = {
@@ -10,7 +10,7 @@ type ItemProps = {
   from: string;
   to: string;
 };
-const ProjectItem = function (project: ItemProps): JSX.Element {
+const ProjectItem = function (project: Project): JSX.Element {
   const onDeleteHandle = (): void => {
     console.log('delete');
   }

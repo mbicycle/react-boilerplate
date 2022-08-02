@@ -37,7 +37,6 @@ const CategorySelection = function (
   if (isLoading) {
     return <CircularSpinner size="medium" color="primary" />;
   }
-  console.log(formValues.getValues());
 
   return (
     <Grid item xs={12}>
@@ -50,11 +49,11 @@ const CategorySelection = function (
       <Grid container>
         <Grid item container xs={12}>
           <Typography sx={{ mt: 2 }} variant="body1">
-            {formValues.getValues().categories.length > 0 ? (
+            {formValues.getValues().categories ? (
               <CategoryItem
-                key={formValues.getValues().categories[0].id}
-                id={formValues.getValues().categories[0].id}
-                name={formValues.getValues().categories[0].name}
+                category={formValues.getValues().categories}
+                skill={formValues.getValues().skill}
+                tool={formValues.getValues().tool}
               />
             ) : null}
           </Typography>

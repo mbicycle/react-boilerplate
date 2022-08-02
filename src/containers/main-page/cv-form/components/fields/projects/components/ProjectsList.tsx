@@ -1,28 +1,60 @@
-import { Project } from 'common/models/User';
+import { Category, DbUser, Project } from 'common/models/User';
 import { memo } from 'react';
-import { JsxEmit } from 'typescript';
 import ProjectItem from './ProjectItem';
 
-const ProjectsList = function( projects : Project[]): JSX.Element {
+// interface ProjectItemProps {
+//   id: string;
+//   title: string;
+//   from: string;
+//   to: string;
+//   categories: Category[];
+// }
+
+const ProjectsList = function (
+  { projects }: { projects: Project[] },
+): JSX.Element {
   return (
     <>
-      {projects.map((project) => (
+      qwe
+      {projects?.map(({
+        id, title, from, to, categories, role, description, link, responsibilities, teamSize,
+      }) => (
         <ProjectItem
-          key={project.id}
-          id={project.id}
-          title={project.title}
-          from={project.from}
-          to={project.to}
-          categories={project.categories}
-          role={project.role}
-          link={project.link}
-          description={project.description}
-          responsibilities={project.responsibilities}
-          teamSize={project.teamSize}
+          key={id}
+          title={title}
+          from={from}
+          to={to}
+          categories={categories || []}
+          id={id}
+          role={role}
+          description={description}
+          link={link}
+          responsibilities={responsibilities}
+          teamSize={teamSize}
         />
       ))}
     </>
   );
-}
+};
 
 export default memo(ProjectsList);
+
+//  return (
+//     <>
+//       {projects.map((
+//         {
+//           id, title, from, to, categories,
+//         }: any,
+//       ) => (
+//         <ProjectItem
+//           key={id}
+//           title={title}
+//           id={id}
+//           from={from}
+//           to={to}
+//           categories={categories}
+//         />
+//       ))}
+//     </>
+//   );
+// };

@@ -10,13 +10,12 @@ const Projects = function (): JSX.Element {
   if (isLoading) {
     return <CircularSpinner size="large" color="primary" />;
   }
-
   return (
     <AddProfiency
       collection={data?.projects || []}
       title="Projects"
     >
-      {!!data?.projects?.length && <ProjectsList projects={ data?.projects || [] } />}
+      {!!data?.projects?.length && <ProjectsList projects={data.projects || []} />}
     </AddProfiency>
   );
 };

@@ -36,7 +36,10 @@ const Skill = function ({ skill }: SkillProps): JSX.Element {
   };
 
   const onAddToolHandle = (): void => {
-    dispatchCategory({ type: 'add-tool', skill });
+    const endTool = skill?.tools[skill.tools.length - 1];
+    if (!skill?.tools.length || endTool?.name) {
+      dispatchCategory({ type: 'add-tool', skill });
+    }
   };
 
   return (
@@ -76,15 +79,14 @@ const Skill = function ({ skill }: SkillProps): JSX.Element {
           {!!skill?.tools?.length && (
             <>
               <DividerStyled variant="fullWidth" />
-              <ToolsContainerStyled
-                sx={{ maxHeight: 520 }}
-              >
+              <ToolsContainerStyled>
                 {
-                  skill?.tools.map((tool) => (
+                  skill?.tools.map((tool, index, tools) => (
                     <Tool
                       key={tool.id}
                       skillId={skill.id}
                       tool={tool}
+                      defaultExpanded={index + 1 === tools.length}
                     />
                   ))
                 }

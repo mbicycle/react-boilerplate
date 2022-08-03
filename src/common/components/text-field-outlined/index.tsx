@@ -1,5 +1,6 @@
-import { OutlinedTextFieldProps } from '@mui/material';
 import React, { memo } from 'react';
+import { OutlinedTextFieldProps } from '@mui/material';
+
 import { TextFieldStyled } from './styled';
 
 interface TextFieldOulinedProps extends Omit<OutlinedTextFieldProps, 'variant'> {

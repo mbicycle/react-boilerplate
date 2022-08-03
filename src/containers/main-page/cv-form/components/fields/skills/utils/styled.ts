@@ -1,5 +1,7 @@
 import {
-  Box, Button, Divider, Grid, styled, Typography, Accordion,
+  Box, Button, Divider,
+  Grid, styled, Typography,
+  Accordion,
 } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { LoadingButton } from '@mui/lab';
@@ -28,7 +30,7 @@ export const ToolsContainerStyled = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   overflow: 'auto',
-  maxHeight: 400,
+  maxHeight: 460,
   width: '100%',
 });
 

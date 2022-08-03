@@ -1,9 +1,11 @@
 import React, {
-  memo, useCallback, useEffect, useRef, useState,
+  memo, useCallback,
+  useEffect, useRef, useState,
 } from 'react';
 
 import {
-  Grid, Typography, SelectChangeEvent, AccordionSummary, AccordionDetails,
+  Grid, Typography, SelectChangeEvent,
+  AccordionSummary, AccordionDetails,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 

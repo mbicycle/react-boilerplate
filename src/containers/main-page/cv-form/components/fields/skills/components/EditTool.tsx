@@ -20,13 +20,12 @@ const EditCategory = function (): JSX.Element | null {
     cancelHandle,
   } = useUpdateCategory();
 
-  if (!category?.name) {
-    return null;
-  }
-
   return (
     <CategoryContainerStyled>
-      <TitleCategory value={category?.name || ''} onChange={handleCategoryNameChange} />
+      <TitleCategory
+        value={category?.name || ''}
+        onChange={handleCategoryNameChange}
+      />
       {category?.skills?.length ? (
         <>
           <DividerStyled variant="fullWidth" />
@@ -50,7 +49,7 @@ const EditCategory = function (): JSX.Element | null {
           {ButtonStep.Cancel}
         </CancelButtonStyled>
         <SaveButtonStyled
-          disabled={false}
+          disabled={!category?.name}
           onClick={onSaveCategoryHandle}
           variant="contained"
           loading={isLoading}

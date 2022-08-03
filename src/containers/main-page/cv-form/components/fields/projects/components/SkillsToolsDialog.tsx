@@ -7,7 +7,7 @@ import {
   DialogActions,
   DialogTitle, DialogContent,
   FormControl, InputLabel, OutlinedInput,
-  MenuItem, SelectChangeEvent, Dialog, Button, Grid,
+  MenuItem, SelectChangeEvent, Dialog, Button, Grid, ListItemText, Checkbox,
 } from '@mui/material';
 
 import { getKeyOf } from 'common/utils/helpers';
@@ -35,11 +35,11 @@ const SkillsToolsDialog = function ({
 }: SkillsToolsDialogProps): JSX.Element {
   const [category, setCategory] = useState<Category | undefined>();
   const [skill, setSkill] = useState<Skill | undefined>();
-  const [tool, setTool] = useState<Tool | undefined>();
-
+  // const [tool, setTool] = useState<Tool | undefined>();
+  const [tools, setTools] = useState<Tool[] | undefined>([]);
   const { onChange, ...rest } = formValues.register('categories');
 
-  const handleCategoryChange = (event: SelectChangeEvent<typeof skill | unknown>): void => {
+  const handleCategoryChange = (event: SelectChangeEvent<typeof category | unknown>): void => {
     setCategory(user?.categories.find((c) => {
       if (c.name === event.target.value) {
         return c;
@@ -60,8 +60,11 @@ const SkillsToolsDialog = function ({
     onChange(event);
   };
 
-  const handleToolChange = (event: SelectChangeEvent<typeof tool | unknown>): void => {
-    setTool(skill?.tools.find((t) => t.name === event.target.value));
+  const handleToolsChange = (event: SelectChangeEvent<typeof tools[] | unknown>): void => {
+    const {
+      target: { value },
+    } = event;
+    setTools((value as Tool[]));
     onChange(event);
   };
 
@@ -107,16 +110,20 @@ const SkillsToolsDialog = function ({
             <ReactHookFormSelect
               {...rest}
               id="tool-dialog"
-              value={tool?.name || ''}
-              onChange={handleToolChange}
+              value={tools || ''}
+              onChange={handleToolsChange}
               control={formValues.control}
               name={getKeyOf<ProjectFieldValues>('tool')}
               disabled={!category?.name && !skill?.name}
               input={<OutlinedInput label={CategoryAddText.Tool} />}
+              multiple
+              renderValue={(selected) => (selected as string[]).join(', ')}
             >
               {skill?.tools.map(({ id, name }) => (
                 <MenuItem key={id} value={name}>
-                  {name}
+                  <ListItemText primary={name} />
+                  {/* <Checkbox checked={tools ? tools.indexOf(name as Tool['name']) > 1 : false} /> */}
+                  {/* {name} */}
                 </MenuItem>
               ))}
             </ReactHookFormSelect>

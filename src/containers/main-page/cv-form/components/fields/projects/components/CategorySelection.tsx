@@ -37,6 +37,7 @@ const CategorySelection = function (
   if (isLoading) {
     return <CircularSpinner size="medium" color="primary" />;
   }
+  console.log(formValues.getValues());
 
   return (
     <Grid item xs={12}>

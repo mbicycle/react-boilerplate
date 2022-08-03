@@ -7,11 +7,12 @@ const CategoryItem = function ({ category, skill, tool } : any): JSX.Element {
   const onDeleteHandle = (): void => {
     console.log('I am from CategoryItem');
   };
+  const tools = tool?.length ? tool.join(', ') : '';
   return (
     <ProfiencyItem
       onDelete={onDeleteHandle}
       headText={`${category} - ${skill}`}
-      bodyText={tool}
+      bodyText={`( ${tools} )`}
     />
   );
 };

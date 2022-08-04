@@ -1,18 +1,17 @@
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 
-import {
-  Grid, Typography,
-} from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
+import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
 import RatingLanguage from './RatingLanguage';
-import theme from '../../../common/theme';
+
 import {
   BoxWrapperStyled, CircleIconStyled, PaperWrapperStyled, SectionTitle,
 } from '../styled';
-import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
 const Languages = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
@@ -28,7 +27,7 @@ const Languages = function (): JSX.Element {
     >
       <Grid container>
         <BoxWrapperStyled>
-          <MenuBookIcon color="primary" sx={{ margin: theme.spacing(1.75) }} />
+          <MenuBookIcon color="primary" sx={{ margin: (theme) => theme.spacing(1.75) }} />
         </BoxWrapperStyled>
         <Grid item xs={11}>
           <SectionTitle variant="h5">
@@ -45,9 +44,9 @@ const Languages = function (): JSX.Element {
           </Typography>
         </Grid>
         {data?.languages?.map((language) => (
-          <Grid container sx={{ padding: theme.spacing(0, 1.25) }}>
+          <Grid container sx={{ padding: (theme) => theme.spacing(0, 1.25) }}>
             <Grid item xs={2}>
-              <Typography key={language.name} sx={{ paddingLeft: theme.spacing(1.5) }}>
+              <Typography key={language.name} sx={{ paddingLeft: (theme) => theme.spacing(1.5) }}>
                 <CircleIconStyled />
                 {language.name}
               </Typography>

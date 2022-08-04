@@ -1,17 +1,15 @@
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 
-import {
-  Grid, Typography, Link,
-} from '@mui/material';
+import { Grid, Typography, Link } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
 
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
-import theme from '../../../common/theme';
+import { CV_FORM_STEPS } from '../cv-form/utils/constants';
+
 import {
   BoxWrapperStyled, CircleIconStyled, PaperWrapperStyled, SectionTitle,
 } from '../styled';
-import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
 const Certifications = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
@@ -27,7 +25,7 @@ const Certifications = function (): JSX.Element {
     >
       <Grid container>
         <BoxWrapperStyled>
-          <ArticleIcon color="primary" sx={{ margin: theme.spacing(1.75) }} />
+          <ArticleIcon color="primary" sx={{ margin: (theme) => theme.spacing(1.75) }} />
         </BoxWrapperStyled>
         <Grid item xs={11}>
           <SectionTitle variant="h5">
@@ -44,11 +42,11 @@ const Certifications = function (): JSX.Element {
           </Typography>
         </Grid>
         {data?.certificates?.map((certificate) => (
-          <Grid container sx={{ padding: theme.spacing(0, 2) }}>
+          <Grid container sx={{ padding: (theme) => theme.spacing(0, 2) }}>
             <Grid item xs={9}>
               <Typography
                 key={`${certificate.id}`}
-                sx={{ paddingLeft: theme.spacing(1.5) }}
+                sx={{ paddingLeft: (theme) => theme.spacing(1.5) }}
               >
                 <CircleIconStyled />
                 <Link href={certificate.link}>

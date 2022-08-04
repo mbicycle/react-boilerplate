@@ -1,16 +1,15 @@
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 
-import {
-  Grid, Typography,
-} from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
-import theme from '../../../common/theme';
-import {
-  PaperWrapperStyled, BoxWrapperStyled, CircleIconStyled, SectionTitle, SkillsGrid, SchoolIconStyled,
-} from '../styled';
 import { CV_FORM_STEPS } from '../cv-form/utils/constants';
+
+import {
+  PaperWrapperStyled, BoxWrapperStyled, CircleIconStyled,
+  SectionTitle, SkillsGrid, SchoolIconStyled,
+} from '../styled';
 
 const Skills = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();
@@ -61,7 +60,7 @@ const Skills = function (): JSX.Element {
               ?.map((skill) => skill.tools
                 ?.filter((tool) => tool.name.length > 0)
                 .map((tool) => (
-                  <Grid container sx={{ padding: theme.spacing(0, 2) }}>
+                  <Grid container sx={{ padding: (theme) => theme.spacing(0, 2) }}>
                     <Grid item xs={2}>
                       <Typography key={tool.name}>
                         <CircleIconStyled />

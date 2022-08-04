@@ -1,13 +1,11 @@
-import {
-  Grid, Typography,
-} from '@mui/material';
-
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
+import { Grid, Typography } from '@mui/material';
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
-import theme from '../../../common/theme';
+
 import {
-  LogoIconStyled, GridWrapper, LogoWrapperGrid, EmailIconStyled, SkypeIconStyled, LinkWrapperGrid,
+  LogoIconStyled, GridWrapper, LogoWrapperGrid,
+  EmailIconStyled, SkypeIconStyled, LinkWrapperGrid,
 } from '../styled';
 
 const TopBox = function (): JSX.Element {
@@ -33,7 +31,7 @@ const TopBox = function (): JSX.Element {
         <Typography
           variant="h5"
           color="secondary.light"
-          sx={{ paddingBottom: theme.spacing(1.25) }}
+          sx={{ paddingBottom: (theme) => theme.spacing(1.25) }}
         >
           <EmailIconStyled />
           {data?.email}

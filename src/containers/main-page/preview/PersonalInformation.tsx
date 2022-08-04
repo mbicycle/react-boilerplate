@@ -1,13 +1,13 @@
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 import { useUserPhoto } from 'common/services/user-service/hooks/useUserPhoto';
-import {
-  Grid, Typography,
-} from '@mui/material';
+
+import { Grid, Typography } from '@mui/material';
+
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
+import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
 import { PaperWrapperStyled, PhotoStyled } from '../styled';
-import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
 const PersonalInformation = function (): JSX.Element {
   const { data, refetch } = useUserFromDb();

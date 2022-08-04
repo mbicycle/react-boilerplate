@@ -1,5 +1,7 @@
 import {
-  Box, Button, Divider, Grid, styled, Typography,
+  Box, Button, Divider,
+  Grid, styled, Typography,
+  Accordion,
 } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { LoadingButton } from '@mui/lab';
@@ -16,11 +18,20 @@ export const CategoryContainerStyled = styled(Box)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
 }));
 
+export const AccordionStyled = styled(Accordion)(({ theme }) => ({
+  background: 'none',
+  border: `1px solid ${theme.palette.border}`,
+  borderRadius: theme.shape.borderRadius,
+  padding: theme.spacing(1, 2),
+}));
+
 export const ToolsContainerStyled = styled(Box)({
   height: 'calc(100%)',
   display: 'flex',
   flexDirection: 'column',
   overflow: 'auto',
+  maxHeight: 460,
+  width: '100%',
 });
 
 export const InputContainerStyled = styled(Box)(({ theme }) => ({

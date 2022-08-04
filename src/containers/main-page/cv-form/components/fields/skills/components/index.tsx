@@ -50,7 +50,7 @@ const Category = function (): JSX.Element {
           {ButtonStep.Cancel}
         </CancelButtonStyled>
         <SaveButtonStyled
-          disabled={false}
+          disabled={!categoryName}
           onClick={onSaveSkillsHandle}
           variant="contained"
           loading={isLoading}

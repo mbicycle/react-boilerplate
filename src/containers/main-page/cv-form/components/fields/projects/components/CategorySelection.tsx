@@ -54,7 +54,7 @@ const CategorySelection = function (
               <CategoryItem
                 category={formValues.getValues().categories}
                 skill={formValues.getValues().skill}
-                tool={formValues.getValues().tool}
+                tool={formValues.getValues().tools}
               />
             ) : null}
           </Typography>

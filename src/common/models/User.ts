@@ -1,7 +1,8 @@
-import { Level } from 'containers/main-page/cv-form/components/fields/languages/components/utils/level.enum';
+import { Labels, Level }
+  from 'containers/main-page/cv-form/components/fields/languages/components/utils/level.enum';
 
 export interface UserLanguage {
-  level: string;
+  level: keyof typeof Labels;
   name: string;
 }
 

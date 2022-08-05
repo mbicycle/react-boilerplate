@@ -1,6 +1,4 @@
-import {
-  useState, memo, useEffect,
-} from 'react';
+import { useState, memo } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import {

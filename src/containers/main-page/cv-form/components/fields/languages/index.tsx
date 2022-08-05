@@ -12,7 +12,6 @@ import { getAllLanguages } from './lib/api';
 
 const Languages = function (): JSX.Element {
   const { data, isLoading } = useUserFromDb();
-
   const queryClient = useQueryClient();
 
   useEffect(() => {

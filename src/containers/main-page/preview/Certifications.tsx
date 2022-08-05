@@ -1,6 +1,7 @@
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 
+import dayjs from 'dayjs';
 import { Grid, Typography, Link } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
 
@@ -56,7 +57,7 @@ const Certifications = function (): JSX.Element {
             </Grid>
             <Grid item xs={3}>
               <Typography>
-                {certificate.id}
+                {dayjs(certificate.id).format('DD.MM.YYYY')}
               </Typography>
             </Grid>
           </Grid>

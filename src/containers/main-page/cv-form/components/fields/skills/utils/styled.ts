@@ -30,7 +30,6 @@ export const ToolsContainerStyled = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   overflow: 'auto',
-  maxHeight: 460,
   width: '100%',
 });
 

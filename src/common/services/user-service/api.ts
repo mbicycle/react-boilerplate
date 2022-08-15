@@ -7,3 +7,9 @@ export const getUserPhoto = async (): Promise<Blob> => new Promise<Blob>(
       .catch((error) => reject(error));
   },
 );
+export const delUserPhoto = async (): Promise<Blob> => new Promise<Blob>(
+  (resolve) => {
+    graph.graphClient.api('/me/photo').delete()
+      .then((response: Blob) => resolve(response));
+  },
+);

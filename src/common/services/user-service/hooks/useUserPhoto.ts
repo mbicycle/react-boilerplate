@@ -5,8 +5,7 @@ export const useUserPhoto = (): { photo: string; } => {
 
   const binaryData = [];
   binaryData.push(data);
-  const photo = URL.createObjectURL(new Blob(binaryData as Blob[]));
-
+  const photo = data ? URL.createObjectURL(new Blob(binaryData as Blob[])) : '';
   return {
     photo,
   };

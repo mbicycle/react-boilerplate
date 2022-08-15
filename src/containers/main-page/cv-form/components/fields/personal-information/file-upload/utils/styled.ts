@@ -1,4 +1,4 @@
-import { styled, keyframes } from '@mui/material/styles';
+import { styled, keyframes, css } from '@mui/material/styles';
 
 import {
   Grid, IconButton, Typography, Box,
@@ -13,13 +13,12 @@ type UploadProcessType = {
 
 const rotating = keyframes`
   from {
-    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  to{
-    -webkit-transform: rotate(0deg);
+  to {
+    transform: rotate(0deg);
   }
 `;
-
 export const MyPhotoUploadStyled = styled(Grid)(({ theme }) => ({
   border: `2px dashed ${theme.palette.border}`,
   padding: theme.spacing(6.3),
@@ -53,15 +52,16 @@ export const ThumbStyled = styled('div')(({ theme }) => ({
 export const ImageStyled = styled('img')({
   display: 'block',
   width: 'auto',
-  height: '100%',
   borderRadius: '50%',
+  objectFit: 'cover',
+  aspectRatio: '1/1',
 });
 
 export const ShumbInnerStyled = styled('div')({
-  position: 'initial',
+  position: 'relative',
   display: 'flex',
+  textAlign: 'center',
   minWidth: 0,
-  overflow: 'hidden',
 });
 
 export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
@@ -89,7 +89,12 @@ export const ChangeCircleIconWrapper = styled(Box)(({ theme }) => ({
 
 export const ChangeCircleIconStyled = styled(ChangeCircleIcon, {
   shouldForwardProp: (prop) => prop !== '$isUploading',
-})<UploadProcessType>(({ theme, $isUploading }) => ({
-  animation: $isUploading ? `${rotating} 1s infinite ease` : 'unset',
-  color: $isUploading ? theme.palette.success.light : 'defaultColor',
-}));
+})<UploadProcessType>(({
+  theme,
+  $isUploading,
+}) => ($isUploading ? css`
+  animation: ${rotating} 2s infinite ease;
+  color: rgba(0, 164, 0, 0.68);
+` : css`
+  animation: '';
+`));

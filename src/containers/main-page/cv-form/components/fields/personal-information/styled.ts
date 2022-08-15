@@ -47,6 +47,8 @@ export const ImageStyled = styled('img', {
   width: $width || 'auto',
   height: '100%',
   borderRadius: '50%',
+  aspectRatio: '1/1',
+  objectFit: 'cover',
 }));
 
 export const ShumbInnerStyled = styled('div')({

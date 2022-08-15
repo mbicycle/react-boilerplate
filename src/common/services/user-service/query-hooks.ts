@@ -14,9 +14,9 @@ export function useGetUserPhoto(): UseQueryResult<Blob, Error> {
       initialData: () => queryClient.getQueryData(QueryKey.UserPhoto),
       onSuccess: (data) => queryClient.setQueryData(QueryKey.UserPhoto, data),
 
-      onError: (error: Error) => {
-        SnackBarUtils.error(`${error.message}.`);
-      },
+      // onError: (error: Error) => {
+      //   SnackBarUtils.error(`${error.message}.`);
+      // },
     },
   );
 }

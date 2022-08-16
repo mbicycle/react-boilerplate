@@ -33,7 +33,9 @@ export const useFileUpload = (): UseFileUploadReturnType => {
     maxSize: Mb5,
     onDropRejected: (fileRejections: FileRejection[]) => fileRejections.forEach(
       (fileRejection) => fileRejection.errors.forEach(
-        (error) => SnackBarUtils.warning(error.message),
+        (error) => {
+          SnackBarUtils.warning(error.message);
+        },
       ),
     ),
   });
@@ -51,7 +53,6 @@ export const useFileUpload = (): UseFileUploadReturnType => {
       setFiles([]);
     }
   }, [mutation.isSuccess]);
-
   const onUploadNewAvatar = useCallback(async (): Promise<void> => {
     await mutation.mutateAsync(fileToUpload as File);
   }, [fileToUpload, mutation]);

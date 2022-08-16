@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import { v4 as uuid } from 'uuid';
+
 import { Category } from 'common/models/User';
 
 import CategoryItem from './CategoryItem';
@@ -10,7 +12,7 @@ const CategoryList = function ({ categories }: {categories: Category[]}) : JSX.E
       {categories.map(({ id, skills, name }) => (
         <CategoryItem
           id={id}
-          key={id}
+          key={uuid()}
           name={name}
           skills={skills || []}
         />

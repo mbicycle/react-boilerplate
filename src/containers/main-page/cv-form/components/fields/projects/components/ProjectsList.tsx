@@ -1,4 +1,4 @@
-import { Category, DbUser, Project } from 'common/models/User';
+import { Project } from 'common/models/User';
 import { memo } from 'react';
 import ProjectItem from './ProjectItem';
 
@@ -7,8 +7,7 @@ const ProjectsList = function (
 ): JSX.Element {
   return (
     <>
-      qwe
-      {projects?.map(({
+      {projects.map(({
         id, title, from, to, categories, role, description, link, responsibilities, teamSize,
       }) => (
         <ProjectItem

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { v4 as uuid } from 'uuid';
 
 import { Divider, Grid } from '@mui/material';
 
@@ -8,6 +9,8 @@ ReactHookFormTextFieldOutlined
   from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
 import { getKeyOf } from 'common/utils/helpers';
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
+import dayjs from 'dayjs';
+import { useUpdateProjects } from '../lib/query-hooks';
 
 import { ProjectFieldValues } from '../utils/types';
 import DatePickers from './DatePickers';
@@ -17,15 +20,23 @@ import { CancelButtonStyled, SaveButtonStyled, SaveButtonWrapperStyled } from '.
 
 const Project = function (): JSX.Element {
   const navigate = useNavigate();
+  const { mutateAsync: updateProjectsAsync, isLoading } = useUpdateProjects();
 
   const formValues = useForm<ProjectFieldValues>({ mode: 'onChange', criteriaMode: 'all' });
-
   const handleCancel = (): void => {
     navigate(-1);
   };
 
   const handleSaveProject = (values: ProjectFieldValues): void => {
-    console.log(values);
+    navigate('/dashboard/projects');
+    updateProjectsAsync({
+      ...values,
+      id: uuid(),
+      teamSize: Number(values.teamSize),
+      responsibilities: [...values.responsibilities],
+      from: dayjs(values.from).format('DD.MM.YYYY'),
+      to: dayjs(values.to).format('DD.MM.YYYY'),
+    });
   };
 
   return (
@@ -84,6 +95,7 @@ const Project = function (): JSX.Element {
               name={getKeyOf<ProjectFieldValues>('teamSize')}
               type="number"
               variant="outlined"
+              inputProps={{ min: 0 }}
             />
           </Grid>
         </Grid>
@@ -110,7 +122,9 @@ const Project = function (): JSX.Element {
           variant="outlined"
         />
       </Grid>
-      <CategorySelection formValues={formValues} />
+      <Grid item xs>
+        <CategorySelection formValues={formValues} />
+      </Grid>
       <Divider />
       <SaveButtonWrapperStyled item>
         <CancelButtonStyled

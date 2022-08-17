@@ -37,3 +37,28 @@ export function useUpdateProjects(): UseMutationResult<DbUser, Error, Project, V
     },
   );
 }
+
+export function useDeleteProject(): UseMutationResult<DbUser, Error, string, unknown> {
+  const queryClient = useQueryClient();
+  const { data: user } = useUserFromDb();
+  return useMutation<DbUser, Error, string, VoidFunction>(
+    (title: string) => {
+      const projects = user?.projects;
+      const filteredProjects = (
+        projects?.filter((project: Project) => project.title !== title)
+      );
+
+      return api.updateUserProjects(filteredProjects as Project[], user as DbUser);
+    },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(QueryKey.DbUser);
+      },
+      onError: (error: Error, _: string, rollback) => {
+        SnackBarUtils.error(error.message);
+
+        if (rollback) rollback();
+      },
+    },
+  );
+}

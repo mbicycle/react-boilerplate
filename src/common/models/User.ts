@@ -27,9 +27,9 @@ export interface Project {
   to: string;
   link: string;
   description: string;
-  responsibilities: string;
+  responsibilities: string[];
   teamSize: number;
-  categories: Category[];
+  categories: string[];
 }
 
 export interface Certificate {

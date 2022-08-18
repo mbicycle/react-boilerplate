@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import type { UserLanguage } from 'common/models/User';
 
 import LeveledLanguageItem from './LeveledLanguageItem';
@@ -13,7 +15,7 @@ const LeveledLanguageList = function ({
     <SelectedLanguagesListStyled>
       {languages.map(({ name, level }) => (
         <LeveledLanguageItem
-          key={name}
+          key={uuidv4()}
           language={name}
           level={level}
         />

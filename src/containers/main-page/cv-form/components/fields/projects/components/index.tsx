@@ -34,8 +34,8 @@ const Project = function (): JSX.Element {
       id: uuid(),
       teamSize: Number(values.teamSize),
       responsibilities: [...values.responsibilities],
-      from: dayjs(values.from).format('DD.MM.YYYY'),
-      to: dayjs(values.to).format('DD.MM.YYYY'),
+      from: dayjs(values.from).format('DD/MM/YYYY'),
+      to: dayjs(values.to).format('DD/MM/YYYY'),
     });
   };
 
@@ -125,6 +125,7 @@ const Project = function (): JSX.Element {
       <Grid item xs>
         <CategorySelection formValues={formValues} />
       </Grid>
+
       <Divider />
       <SaveButtonWrapperStyled item>
         <CancelButtonStyled

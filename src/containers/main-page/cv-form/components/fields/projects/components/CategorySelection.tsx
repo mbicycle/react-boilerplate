@@ -31,7 +31,7 @@ const CategorySelection = function (
 ): JSX.Element {
   const { data, isLoading } = useUserFromDb();
   const [open, setOpen] = useState(false);
-  const { control, register } = useForm<CategoryItemProps>(
+  const { control } = useForm<CategoryItemProps>(
     {
       defaultValues:
       {

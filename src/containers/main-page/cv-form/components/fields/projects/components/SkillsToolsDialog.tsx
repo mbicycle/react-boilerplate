@@ -1,11 +1,10 @@
 import { useState, memo } from 'react';
-import { UseFormReturn, useForm, useFieldArray } from 'react-hook-form';
 
 import {
   DialogActions,
   DialogTitle, DialogContent,
   FormControl, InputLabel, OutlinedInput,
-  MenuItem, SelectChangeEvent, Dialog, Button, Grid, ListItemText, Checkbox,
+  MenuItem, SelectChangeEvent, Dialog, Button, Grid, ListItemText,
 } from '@mui/material';
 
 import ReactHookFormSelect from 'common/components/react-hook-forms/ReactHookFormSelect';
@@ -24,8 +23,8 @@ type DialogFormReturn = {
 interface SkillsToolsDialogProps {
   user: DbUser | undefined
   open: boolean;
-  onClose: (event: React.SyntheticEvent<unknown>, reason?: string) => void
   control: any;
+  onClose: (event: React.SyntheticEvent<unknown>, reason?: string) => void;
   onSubmit: (data: DialogFormReturn) => void;
 }
 

@@ -1,5 +1,4 @@
 import { UseFormReturn } from 'react-hook-form';
-import dayjs from 'dayjs';
 
 import { Grid } from '@mui/material';
 

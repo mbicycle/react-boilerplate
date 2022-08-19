@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
 
-import { Divider, Grid } from '@mui/material';
+import { Divider, Grid, Button } from '@mui/material';
 
 import
 ReactHookFormTextFieldOutlined
@@ -15,8 +15,11 @@ import { useUpdateProjects } from '../lib/query-hooks';
 import { ProjectFieldValues } from '../utils/types';
 import DatePickers from './DatePickers';
 import CategorySelection from './CategorySelection';
+import { AddResponsibilityButtonStyled, AddCircleIconStyled } from '../utils/styled';
+import { ButtonText } from './utils/constants';
 
 import { CancelButtonStyled, SaveButtonStyled, SaveButtonWrapperStyled } from '../../skills/utils/styled';
+import Responsibilities from './Responsibilities';
 
 const Project = function (): JSX.Element {
   const navigate = useNavigate();
@@ -112,15 +115,7 @@ const Project = function (): JSX.Element {
         />
       </Grid>
       <Grid item xs={12}>
-        <ReactHookFormTextFieldOutlined
-          control={formValues.control}
-          label="Responsibilities"
-          name={getKeyOf<ProjectFieldValues>('responsibilities')}
-          type="text"
-          multiline
-          minRows={5}
-          variant="outlined"
-        />
+        <Responsibilities formValues={formValues} />
       </Grid>
       <Grid item xs>
         <CategorySelection formValues={formValues} />

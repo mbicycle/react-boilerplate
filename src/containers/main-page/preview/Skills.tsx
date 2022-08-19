@@ -1,6 +1,8 @@
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 
+import { v4 as uuid4 } from 'uuid';
+
 import { Grid, Typography } from '@mui/material';
 
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
@@ -33,9 +35,9 @@ const Skills = function (): JSX.Element {
           </SectionTitle>
         </Grid>
         {data?.categories?.map((category) => (
-          <SkillsGrid container>
+          <SkillsGrid container key={uuid4()}>
             <Grid item xs={12}>
-              <Typography key={category.id} sx={{ fontWeight: 'fontWeightBold' }}>
+              <Typography sx={{ fontWeight: 'fontWeightBold' }}>
                 {category.name}
               </Typography>
             </Grid>
@@ -60,9 +62,9 @@ const Skills = function (): JSX.Element {
               ?.map((skill) => skill.tools
                 ?.filter((tool) => tool.name.length > 0)
                 .map((tool) => (
-                  <Grid container sx={{ padding: (theme) => theme.spacing(0, 2) }}>
+                  <Grid container sx={{ padding: (theme) => theme.spacing(0, 2) }} key={uuid4()}>
                     <Grid item xs={2}>
-                      <Typography key={tool.name}>
+                      <Typography>
                         <CircleIconStyled />
                         {tool.name}
                       </Typography>

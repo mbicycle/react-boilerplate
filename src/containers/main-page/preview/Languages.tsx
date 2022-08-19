@@ -1,6 +1,8 @@
 import { useIsFetching } from 'react-query';
 import { useEffect } from 'react';
 
+import { v4 as uuid4 } from 'uuid';
+
 import { Grid, Typography } from '@mui/material';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 
@@ -44,9 +46,9 @@ const Languages = function (): JSX.Element {
           </Typography>
         </Grid>
         {data?.languages?.map((language) => (
-          <Grid container sx={{ padding: (theme) => theme.spacing(0, 1.25) }}>
+          <Grid container sx={{ padding: (theme) => theme.spacing(0, 1.25) }} key={uuid4()}>
             <Grid item xs={2}>
-              <Typography key={language.name} sx={{ paddingLeft: (theme) => theme.spacing(1.5) }}>
+              <Typography sx={{ paddingLeft: (theme) => theme.spacing(1.5) }}>
                 <CircleIconStyled />
                 {language.name}
               </Typography>

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
 
-import { Divider, Grid, Button } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 
 import
 ReactHookFormTextFieldOutlined
@@ -15,8 +15,6 @@ import { useUpdateProjects } from '../lib/query-hooks';
 import { ProjectFieldValues } from '../utils/types';
 import DatePickers from './DatePickers';
 import CategorySelection from './CategorySelection';
-import { AddResponsibilityButtonStyled, AddCircleIconStyled } from '../utils/styled';
-import { ButtonText } from './utils/constants';
 
 import { CancelButtonStyled, SaveButtonStyled, SaveButtonWrapperStyled } from '../../skills/utils/styled';
 import Responsibilities from './Responsibilities';
@@ -31,12 +29,13 @@ const Project = function (): JSX.Element {
   };
 
   const handleSaveProject = (values: ProjectFieldValues): void => {
+    console.log(values);
     navigate('/dashboard/projects');
     updateProjectsAsync({
       ...values,
       id: uuid(),
       teamSize: Number(values.teamSize),
-      responsibilities: [...values.responsibilities],
+      responsibilities: values.responsibilities,
       from: dayjs(values.from).format('DD/MM/YYYY'),
       to: dayjs(values.to).format('DD/MM/YYYY'),
     });
@@ -114,13 +113,12 @@ const Project = function (): JSX.Element {
           variant="outlined"
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs>
         <Responsibilities formValues={formValues} />
       </Grid>
       <Grid item xs>
         <CategorySelection formValues={formValues} />
       </Grid>
-
       <Divider />
       <SaveButtonWrapperStyled item>
         <CancelButtonStyled
@@ -133,6 +131,7 @@ const Project = function (): JSX.Element {
           disabled={false}
           type="submit"
           variant="contained"
+          loading={isLoading}
         >
           {ButtonStep.Save}
         </SaveButtonStyled>

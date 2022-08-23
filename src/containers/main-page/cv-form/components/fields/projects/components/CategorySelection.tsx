@@ -33,15 +33,6 @@ const CategorySelection = function (
   const [open, setOpen] = useState(false);
   const { control } = useForm<CategoryItemProps>(
     {
-      defaultValues:
-      {
-        categories:
-          [{
-            category: '',
-            skill: '',
-            tools: [],
-          }],
-      },
       mode: 'onChange',
     },
   );
@@ -54,7 +45,7 @@ const CategorySelection = function (
     setOpen(true);
   };
 
-  const onSubmitHandle = ({ category, skill, tools }: { category: Category, skill: Skill, tools: string[] }): any => {
+  const onSubmitHandle = ({ category, skill, tools }: { category: Category, skill: Skill, tools: string[] }): void => {
     append({
       category: category.name,
       skill: skill.name,
@@ -85,15 +76,17 @@ const CategorySelection = function (
       </Box>
       <Grid container xs={12}>
         <Grid item container xs={12}>
-          {fields ? fields.map((field, index) => (
-            <CategoryItem
-              key={field.id}
-              category={field.category}
-              skill={field.skill}
-              tool={field.tools}
-              onDelete={(): void => deleteCategory(index)}
-            />
-          )) : null}
+          {fields.map((field, index) => (
+            field.category ? (
+              <CategoryItem
+                key={field.id}
+                category={field.category}
+                skill={field.skill}
+                tool={field.tools}
+                onDelete={(): void => deleteCategory(index)}
+              />
+            ) : null
+          ))}
         </Grid>
         <Button
           color="primary"

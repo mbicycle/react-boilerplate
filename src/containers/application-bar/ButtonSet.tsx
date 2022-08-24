@@ -17,7 +17,6 @@ const PdfButtonSet = function (): JSX.Element {
     const el = document.getElementById('preview');
     if (el) {
       html2canvas(el, {
-        scrollY: 0,
         scale: 4,
       })
         .then((canvas) => {
@@ -26,14 +25,14 @@ const PdfButtonSet = function (): JSX.Element {
             quality: 1,
           };
           const imgWidth = 210;
-          let imgHeight = 297;
+          let imgHeight = 290;
 
           const innerPageWidth = imgWidth;
-          const innerPageHeight = imgHeight - 20;
+          const innerPageHeight = imgHeight;
 
           // Calculate the number of pages.
           const pxFullHeight = canvas.height;
-          const pxPageHeight = Math.floor(canvas.width * (imgHeight / imgWidth));
+          const pxPageHeight = canvas.width * (imgHeight / imgWidth);
           const nPages = Math.ceil(pxFullHeight / pxPageHeight);
 
           // Define pageHeight separately so it can be trimmed on the final page.
@@ -67,7 +66,7 @@ const PdfButtonSet = function (): JSX.Element {
             // Add the page to the PDF.
             if (page > 0) pdf.addPage();
             const imgData = pageCanvas.toDataURL(`image/${image.type}`, image.quality);
-            pdf.addImage(imgData, image.type, 0, page ? 20 : 0, innerPageWidth, imgHeight);
+            pdf.addImage(imgData, image.type, 0, page ? 15 : 0, innerPageWidth, imgHeight);
           }
 
           pdf.save(`CV_${user?.firstName}_${user?.lastName}`);
@@ -81,6 +80,7 @@ const PdfButtonSet = function (): JSX.Element {
         variant="outlined"
         color="secondary"
         onClick={handleSave}
+        // loading
       >
         {ButtonText.Export}
       </ButtonStyled>

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-
 import CVForm from './cv-form';
 import Preview from './preview';
 import CvFormProvider from './cv-form/local-state/CVFormProvider';

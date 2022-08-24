@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 import { Grid, Typography } from '@mui/material';
 
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
 import { CV_FORM_STEPS } from '../cv-form/utils/constants';
 
@@ -25,7 +26,7 @@ const Skills = function (): JSX.Element {
     >
       <Grid container>
         <BoxWrapperStyled>
-          <SchoolIconStyled />
+          <SchoolIconStyled color="primary" />
         </BoxWrapperStyled>
         <Grid item xs={11}>
           <SectionTitle variant="h5">

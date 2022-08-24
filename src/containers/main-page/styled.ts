@@ -40,6 +40,7 @@ export const PaperWrapperStyled = styled(Paper, {
   padding: theme.spacing(4),
   margin: theme.spacing(4.5, 6, 0),
   borderRadius: theme.shape.borderRadius,
+  border: '0.1px solid rgba(128, 128, 128, 0.24)',
 }));
 
 export const BoxWrapperStyled = styled(Box, {
@@ -49,6 +50,9 @@ export const BoxWrapperStyled = styled(Box, {
   height: '30px',
   backgroundColor: theme.palette.secondary.main,
   borderRadius: '50%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }));
 
 export const CircleIconStyled = styled(CircleIcon, {
@@ -131,7 +135,6 @@ export const EmailIconStyled = styled(EmailIcon, {
 })(({ theme }) => ({
   width: '1.6rem',
   marginRight: theme.spacing(1.5),
-  paddingTop: theme.spacing(1.25),
 }));
 
 export const SkypeIconStyled = styled(SkypeIcon, {
@@ -139,7 +142,6 @@ export const SkypeIconStyled = styled(SkypeIcon, {
 })(({ theme }) => ({
   width: '1.6rem',
   marginRight: theme.spacing(1.5),
-  paddingTop: theme.spacing(1.25),
 }));
 
 export const LinkWrapperGrid = styled(Grid, {
@@ -163,11 +165,11 @@ export const PaperWrapper = styled(Paper, {
   maxWidth: '100%',
   paddingBottom: theme.spacing(12),
   borderRadius: theme.spacing(0.5),
+  backgroundColor: '#ffffff',
 }));
 
 export const SchoolIconStyled = styled(SchoolIcon, {
   name: 'SchoolIconStyled',
 })(({ theme }) => ({
   color: theme.palette.primary.main,
-  margin: theme.spacing(1.75),
 }));

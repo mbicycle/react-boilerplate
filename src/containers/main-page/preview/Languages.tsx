@@ -46,7 +46,7 @@ const Languages = function (): JSX.Element {
           </Typography>
         </Grid>
         {data?.languages?.map((language) => (
-          <Grid container sx={{ padding: (theme) => theme.spacing(0, 1.25) }} key={uuid4()}>
+          <Grid container sx={{ padding: (theme) => theme.spacing(0, 1.25) }} key={language.name}>
             <Grid item xs={2}>
               <Typography sx={{ paddingLeft: (theme) => theme.spacing(1.5) }}>
                 <CircleIconStyled />

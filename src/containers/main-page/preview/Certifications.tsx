@@ -45,7 +45,7 @@ const Certifications = function (): JSX.Element {
           </Typography>
         </Grid>
         {data?.certificates?.map((certificate) => (
-          <Grid container sx={{ padding: (theme) => theme.spacing(0, 2) }} key={uuid4()}>
+          <Grid container sx={{ padding: (theme) => theme.spacing(0, 2) }} key={`${certificate.id}`}>
             <Grid item xs={9}>
               <Typography
                 sx={{ paddingLeft: (theme) => theme.spacing(1.5) }}

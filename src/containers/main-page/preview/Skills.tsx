@@ -62,7 +62,7 @@ const Skills = function (): JSX.Element {
               ?.map((skill) => skill.tools
                 ?.filter((tool) => tool.name.length > 0)
                 .map((tool) => (
-                  <Grid container sx={{ padding: (theme) => theme.spacing(0, 2) }} key={uuid4()}>
+                  <Grid container sx={{ padding: (theme) => theme.spacing(0, 2) }} key={category.id}>
                     <Grid item xs={2}>
                       <Typography>
                         <CircleIconStyled />

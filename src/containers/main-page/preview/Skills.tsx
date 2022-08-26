@@ -33,9 +33,9 @@ const Skills = function (): JSX.Element {
           </SectionTitle>
         </Grid>
         {data?.categories?.map((category) => (
-          <SkillsGrid container>
+          <SkillsGrid container key={category.id}>
             <Grid item xs={12}>
-              <Typography key={category.id} sx={{ fontWeight: 'fontWeightBold' }}>
+              <Typography sx={{ fontWeight: 'fontWeightBold' }}>
                 {category.name}
               </Typography>
             </Grid>

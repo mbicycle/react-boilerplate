@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import html2canvas from 'html2canvas';
 import JsPDF from 'jspdf';
@@ -7,15 +7,18 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
 import { ButtonText } from './constants';
-import { ButtonStyled } from './styled';
+import { ButtonStyled, LoadingButtonStyled } from './styled';
 import { useUserFromDb } from '../main-page/cv-form/components/fields/personal-information/lib/query-hooks';
 
 const PdfButtonSet = function (): JSX.Element {
   const { data: user } = useUserFromDb();
+  const [loading, setLoading] = useState(false);
 
   const handleSave = (): void => {
     const el = document.getElementById('preview');
+
     if (el) {
+      setLoading((load) => !load);
       html2canvas(el, {
         scale: 4,
       })
@@ -30,31 +33,22 @@ const PdfButtonSet = function (): JSX.Element {
           const innerPageWidth = imgWidth;
           const innerPageHeight = imgHeight;
 
-          // Calculate the number of pages.
           const pxFullHeight = canvas.height;
           const pxPageHeight = canvas.width * (imgHeight / imgWidth);
           const nPages = Math.ceil(pxFullHeight / pxPageHeight);
-
-          // Define pageHeight separately so it can be trimmed on the final page.
           imgHeight = innerPageHeight;
-
-          // Create a one-page canvas to split up the full image.
           const pageCanvas = document.createElement('canvas');
           const pageCtx = pageCanvas.getContext('2d');
           pageCanvas.width = canvas.width;
           pageCanvas.height = pxPageHeight;
-
-          // Initialize the PDF.
           const pdf = new JsPDF('p', 'mm', 'a4', true);
 
           for (let page = 0; page < nPages; page += 1) {
-            // Trim the final page to reduce file size.
             if (page === nPages - 1 && pxFullHeight % pxPageHeight !== 0) {
               pageCanvas.height = pxFullHeight % pxPageHeight;
               imgHeight = (pageCanvas.height * innerPageWidth) / pageCanvas.width;
             }
 
-            // Display the page.
             const w = pageCanvas.width;
             const h = pageCanvas.height;
             if (pageCtx) {
@@ -63,27 +57,28 @@ const PdfButtonSet = function (): JSX.Element {
               pageCtx.drawImage(canvas, 0, page * pxPageHeight, w, h, 0, 0, w, h);
             }
 
-            // Add the page to the PDF.
             if (page > 0) pdf.addPage();
             const imgData = pageCanvas.toDataURL(`image/${image.type}`, image.quality);
             pdf.addImage(imgData, image.type, 0, page ? 15 : 0, innerPageWidth, imgHeight);
           }
 
           pdf.save(`CV_${user?.firstName}_${user?.lastName}`);
+          setLoading((load) => !load);
         });
     }
   };
   return (
     <>
-      <ButtonStyled
+      <LoadingButtonStyled
         startIcon={<FileUploadOutlinedIcon fontSize="medium" />}
         variant="outlined"
         color="secondary"
         onClick={handleSave}
-        // loading
+        loadingPosition="start"
+        loading={loading}
       >
         {ButtonText.Export}
-      </ButtonStyled>
+      </LoadingButtonStyled>
       <ButtonStyled
         startIcon={<FileDownloadOutlinedIcon fontSize="medium" />}
         variant="outlined"

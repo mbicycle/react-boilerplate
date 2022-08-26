@@ -29,7 +29,7 @@ const Languages = function (): JSX.Element {
     >
       <Grid container>
         <BoxWrapperStyled>
-          <MenuBookIcon color="primary" sx={{ margin: (theme) => theme.spacing(1.75) }} />
+          <MenuBookIcon color="primary" />
         </BoxWrapperStyled>
         <Grid item xs={11}>
           <SectionTitle variant="h5">

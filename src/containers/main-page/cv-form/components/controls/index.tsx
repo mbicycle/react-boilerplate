@@ -25,7 +25,10 @@ const CVFormControls = function (): JSX.Element | null {
   ) return null;
 
   return (
-    <StepperControlsWrapper>
+    <StepperControlsWrapper style={{
+      // position: 'sticky', bottom: 0,
+    }}
+    >
       <Button
         disabled={!activeStep && !!isFetching}
         onClick={handlePrevious}

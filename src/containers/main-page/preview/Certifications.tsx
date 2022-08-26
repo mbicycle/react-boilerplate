@@ -6,6 +6,7 @@ import { v4 as uuid4 } from 'uuid';
 import dayjs from 'dayjs';
 import { Grid, Typography, Link } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
+import AccessibleIcon from '@mui/icons-material/Accessible';
 
 import { useUserFromDb } from '../cv-form/components/fields/personal-information/lib/query-hooks';
 import { CV_FORM_STEPS } from '../cv-form/utils/constants';
@@ -28,7 +29,7 @@ const Certifications = function (): JSX.Element {
     >
       <Grid container>
         <BoxWrapperStyled>
-          <ArticleIcon color="primary" sx={{ margin: (theme) => theme.spacing(1.75) }} />
+          <ArticleIcon color="primary" />
         </BoxWrapperStyled>
         <Grid item xs={11}>
           <SectionTitle variant="h5">

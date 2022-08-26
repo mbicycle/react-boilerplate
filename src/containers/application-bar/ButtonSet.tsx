@@ -4,19 +4,24 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
 import { ButtonText } from './constants';
-import { ButtonStyled } from './styled';
+import { ButtonStyled, LoadingButtonStyled } from './styled';
+import { useSavePDFFile } from './hooks';
 
-const PdfButtonSet = function ():JSX.Element {
+const PdfButtonSet = function (): JSX.Element {
+  const { handleSave, loading } = useSavePDFFile();
+
   return (
     <>
-      <ButtonStyled
+      <LoadingButtonStyled
         startIcon={<FileUploadOutlinedIcon fontSize="medium" />}
         variant="outlined"
         color="secondary"
+        onClick={handleSave}
+        loadingPosition="start"
+        loading={loading}
       >
         {ButtonText.Export}
-
-      </ButtonStyled>
+      </LoadingButtonStyled>
       <ButtonStyled
         startIcon={<FileDownloadOutlinedIcon fontSize="medium" />}
         variant="outlined"
@@ -28,5 +33,4 @@ const PdfButtonSet = function ():JSX.Element {
     </>
   );
 };
-
 export default memo(PdfButtonSet);

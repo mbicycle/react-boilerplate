@@ -18,6 +18,7 @@ import CategorySelection from './CategorySelection';
 
 import { CancelButtonStyled, SaveButtonStyled, SaveButtonWrapperStyled } from '../../skills/utils/styled';
 import Responsibilities from './Responsibilities';
+import TitleProject from './tool/TitleProject';
 
 const Project = function (): JSX.Element {
   const navigate = useNavigate();

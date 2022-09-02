@@ -9,6 +9,7 @@ import Login from 'containers/authentication/components';
 import LanguageSelection from 'containers/main-page/cv-form/components/fields/languages/components/LanguageSelection';
 import Category from 'containers/main-page/cv-form/components/fields/skills/components';
 import Project from 'containers/main-page/cv-form/components/fields/projects/components';
+import EditProject from 'containers/main-page/cv-form/components/fields/projects/components/tool/EditProject';
 import EditCategory from 'containers/main-page/cv-form/components/fields/skills/components/EditTool';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
 
@@ -58,6 +59,7 @@ const Routing = function (): JSX.Element {
         </Route>
         <Route path={ROUTE.DASHBOARD.PROJECTS} element={<Projects />}>
           <Route path={ROUTE.ADD} element={<Project />} />
+          <Route path={ROUTE.EDIT} element={<EditProject />} />
         </Route>
         <Route path={ROUTE.DASHBOARD.CERTIFICATES} element={<Certifications />}>
           <Route path={ROUTE.ADD} element={<CertificateSelection />} />

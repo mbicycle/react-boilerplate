@@ -14,7 +14,7 @@ import { ProjectFieldValues } from '../utils/types';
 import { useUserFromDb } from '../../personal-information/lib/query-hooks';
 import { ButtonText, CategoryAddText, tooltipText } from './utils/constants';
 
-import { CategoriesTitleStyled, InfoIconStyled } from './utils/styled';
+import { ProjectTitleStyled, InfoIconStyled } from './utils/styledEdit';
 import SkillsToolsDialog from './SkillsToolsDialog';
 import CategoryItem from './CategoryItem';
 
@@ -69,7 +69,7 @@ const CategorySelection = function (
   return (
     <Grid item xs={12}>
       <Box display="inline-flex">
-        <CategoriesTitleStyled variant="h5">{CategoryAddText.Title}</CategoriesTitleStyled>
+        <ProjectTitleStyled variant="h5">{CategoryAddText.Title}</ProjectTitleStyled>
         <Tooltip title={<Typography>{tooltipText}</Typography>}>
           <InfoIconStyled fontSize="medium" />
         </Tooltip>

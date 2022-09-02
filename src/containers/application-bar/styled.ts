@@ -1,6 +1,7 @@
 import {
   Button, Grid, Toolbar,
 } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { styled } from '@mui/material/styles';
 
 import LogoIcon from 'common/icons/LogoIcon';
@@ -22,6 +23,18 @@ export const ButtonsWrapperStyled = styled(Grid)({
 
 export const ButtonStyled = styled(
   Button,
+  {
+    skipSx: true,
+    name: 'ButtonStyledHeader',
+  },
+)(({ theme }) => ({
+  textTransform: 'none',
+  margin: theme.spacing(0, 3),
+  padding: theme.spacing(2, 6),
+}));
+
+export const LoadingButtonStyled = styled(
+  LoadingButton,
   {
     skipSx: true,
     name: 'ButtonStyledHeader',

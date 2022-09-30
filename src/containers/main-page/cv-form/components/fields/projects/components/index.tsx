@@ -18,7 +18,6 @@ import CategorySelection from './CategorySelection';
 
 import { CancelButtonStyled, SaveButtonStyled, SaveButtonWrapperStyled } from '../../skills/utils/styled';
 import Responsibilities from './Responsibilities';
-import TitleProject from './tool/TitleProject';
 
 const Project = function (): JSX.Element {
   const navigate = useNavigate();
@@ -30,7 +29,6 @@ const Project = function (): JSX.Element {
   };
 
   const handleSaveProject = (values: ProjectFieldValues): void => {
-    console.log(values);
     navigate('/dashboard/projects');
     updateProjectsAsync({
       ...values,

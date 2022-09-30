@@ -1,34 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Project } from 'common/models/User';
 
 import { useUserFromDb } from '../../../personal-information/lib/query-hooks';
 import { useUpdateProjects } from '../../lib/query-hooks';
-
-export type ProjectNameAction = { type: 'set' | 'reset', id: string | null; };
-export type ProjectNameState = { id: string | null; };
-export type ProjectNameDispatch = (action: ProjectNameAction) => void;
-export type ProjectNameContextType = { state: ProjectNameState; dispatch: ProjectNameDispatch; };
-
-export const ProjectByIdContext = React.createContext<{
-  state: ProjectNameState,
-  dispatch: ProjectNameDispatch;
-} | undefined>(undefined);
-
-export function useProjectIdContext(): ProjectNameContextType {
-  const context = useContext(ProjectByIdContext);
-
-  if (context === undefined) {
-    throw new Error('ProjectNameContext must be used within a CvFormProvider');
-  }
-
-  return context;
-}
+import { ProjectIdContext, useProjectIdContext } from './ProjectContext';
+// import {  } from '../../components/project'
+// import { useGetCategoryByName } from 'common/utils/hooks';
 
 interface ProjectItem {
   isLoading: boolean;
-  // onDeleteProjectHandle: () => Promise<void>;
-  openHandle: VoidFunction;
+  onOpenHandle: any;
+  id: string;
 }
 
 interface ProjectItemProps {
@@ -36,34 +19,62 @@ interface ProjectItemProps {
 }
 
 export const useProjectItem = ({ id }: ProjectItemProps): ProjectItem => {
-  console.log(id);
-
   const navigate = useNavigate();
-
-  // const { dispatch: dispatchProjectId } = useProjectIdContext();
+  const { dispatch: dispatchProjectId } = useProjectIdContext();
 
   const { data: user } = useUserFromDb();
   const { mutateAsync, isLoading } = useUpdateProjects();
 
-  // const onDeleteProjectHandle = async (): Promise<void> => {
-  //   const projectToRemove = user?.projects?.find((project) => project.id === id);
-
-  //   if (user && projectToRemove) {
-  //     await mutateAsync(
-  //       { ...user, projects: user.projects.filter((project) => project !== projectToRemove) },
-  //     );
-  //   }
-  // };
-
-  const openHandle = (): void => {
-    // dispatchProjectId({ type: 'set', id });
-    console.log('From useProjectItem openHandle', id);
+  const onOpenHandle = (): void => {
+    dispatchProjectId({ type: 'getIdProject', id });
+    // console.log('From useProjectItem openHandle', id);
     navigate('edit');
   };
 
   return {
+    id,
     isLoading,
-    // onDeleteProjectHandle,
-    openHandle,
+    onOpenHandle,
+  };
+};
+
+interface UpdateProject {
+  project: Project | undefined;
+  isLoading: boolean;
+  cancelHandle: VoidFunction;
+  onSaveProjectHandle: () => Promise<void>;
+}
+// like useUpdateCategory
+export const useUpdateProjectById = (): UpdateProject => {
+  const navigate = useNavigate();
+  const { data: user } = useUserFromDb();
+  const state = useContext(ProjectIdContext);
+  const project = user?.projects.find((c) => c.id === state?.state.id);
+  console.log(project);
+
+  const { mutateAsync, isLoading } = useUpdateProjects();
+  const onSaveProjectHandle = useCallback(async (): Promise<void> => {
+    const userProject = user?.projects?.find((p) => p.id);
+
+    // if (id && user && user?.projects && userProject?.id === id) {
+    //   const projects = [...user.projects] || [];
+    //   const idx = projects.findIndex((s) => s.id === id);
+    //   projects[idx] = project as Project;
+
+    //   await mutateAsync({ ...user, projects as Project[] });
+    // }
+
+    navigate('/dashboard/projects');
+  }, [project, mutateAsync, navigate, user]);
+
+  const cancelHandle = useCallback((): void => {
+    navigate('/dashboard/projects');
+  }, [navigate]);
+
+  return {
+    project,
+    isLoading,
+    cancelHandle,
+    onSaveProjectHandle,
   };
 };

@@ -8,16 +8,10 @@ const ProjectItem = function ({
   title, from, to, id,
 }: Project): JSX.Element {
   const { mutateAsync: onDelete, isLoading } = useDeleteProject();
-  const { openHandle } = useProjectItem({ id });
+  const { onOpenHandle } = useProjectItem({ id });
 
-  // const {
-  //   isLoading,
-  //   onDeleteToolHandle,
-  //   openHandle,
-  // } = useCategoryItem({ id, skills });
-  const onOpenProjectHandle = (): any => {
-    openHandle();
-    // console.log('aaa', id);
+  const onOpenProjectHandle = (): void => {
+    onOpenHandle();
   };
 
   const onDeleteProjectHandle = (): void => {

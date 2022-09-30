@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 
 import TextFieldOutlined from 'common/components/text-field-outlined';
 import { useCategoryContext } from 'containers/main-page/cv-form/local-state/hooks';
+import { useCategoryIdContext } from 'containers/main-page/cv-form/local-state/hooks';
 
 import { ProjectInputText, Text } from '../utils/constants';
 

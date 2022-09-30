@@ -8,7 +8,7 @@ const CategoryItem = function ({
   return (
     <ProfiencyItem
       headText={`${category} : ${skill} ( ${tools} )`}
-      bodyText=""
+      bodyText
       onDelete={onDelete}
     />
   );

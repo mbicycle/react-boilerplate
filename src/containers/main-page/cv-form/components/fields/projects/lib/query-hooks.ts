@@ -1,9 +1,7 @@
 import {
   useMutation,
   UseMutationResult,
-  useQuery,
   useQueryClient,
-  UseQueryResult,
 } from 'react-query';
 
 import SnackBarUtils from 'common/components/SnackBar/SnackBarUtils';
@@ -23,6 +21,31 @@ export function useUpdateProjects(): UseMutationResult<DbUser, Error, Project, V
   return useMutation<DbUser, Error, Project, VoidFunction>(
     (project: Project) => {
       projects.push(project as Project);
+      return api.updateUserProjects(projects as Project[], user as DbUser);
+    },
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(QueryKey.DbUser);
+      },
+      onError: (error: Error, _: Project, rollback) => {
+        SnackBarUtils.error(error.message);
+
+        if (rollback) rollback();
+      },
+    },
+  );
+}
+
+export function useUpdateProjectById(): UseMutationResult<DbUser, Error, Project, VoidFunction> {
+  const queryClient = useQueryClient();
+  const { data: user } = useUserFromDb();
+  const projects = user?.projects || [];
+
+  return useMutation<DbUser, Error, Project, VoidFunction>(
+    (project: Project) => {
+      const idx = projects.findIndex((p) => p.id === project.id);
+      if (idx) projects[idx] = project;
+      else projects.push(project);
       return api.updateUserProjects(projects as Project[], user as DbUser);
     },
     {

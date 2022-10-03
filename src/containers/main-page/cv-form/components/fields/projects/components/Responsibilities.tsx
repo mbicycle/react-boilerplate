@@ -18,14 +18,23 @@ type AddResponsibilityProps = {
   }[];
 }
 
-const Responsibilities = function ({ formValues }: { formValues: UseFormReturn<ProjectFieldValues> }): JSX.Element {
+type ResponsibilitiesProps = {
+  formValues: UseFormReturn<ProjectFieldValues>
+  defaultValues?: {
+    responsibility: string;
+  }[]
+}
+
+const Responsibilities = function ({
+  formValues, defaultValues = [{
+    responsibility: '',
+  }],
+}: ResponsibilitiesProps): JSX.Element {
   const {
     register, control, watch,
   } = useForm<AddResponsibilityProps>({
     defaultValues: {
-      responsibilities: [{
-        responsibility: '',
-      }],
+      responsibilities: defaultValues,
     },
     mode: 'onBlur',
   });

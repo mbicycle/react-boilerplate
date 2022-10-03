@@ -26,14 +26,28 @@ type CategoryItemProps = {
   }[];
 };
 
+type CategorySelectionProps = {
+  formValues: UseFormReturn<ProjectFieldValues>;
+  defaultValues?: {
+    category: string | undefined;
+    skill: string | undefined;
+    tools: string[] | undefined;
+  }[];
+}
+
 const CategorySelection = function (
-  { formValues }: { formValues: UseFormReturn<ProjectFieldValues>; },
+  {
+    formValues, defaultValues,
+  }: CategorySelectionProps,
 ): JSX.Element {
   const { data, isLoading } = useUserFromDb();
   const [open, setOpen] = useState(false);
   const { control } = useForm<CategoryItemProps>(
     {
       mode: 'onChange',
+      defaultValues: {
+        categories: defaultValues,
+      },
     },
   );
   const { fields, append, remove } = useFieldArray({

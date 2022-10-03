@@ -13,13 +13,13 @@ interface TextFieldOutlinedControlledProps<T extends FieldValues> extends Outlin
 }
 
 const ReactHookFormTextFieldOutlined = function<T extends FieldValues> ({
-  control, label, type, name, ...props
+  control, label, type, name, defaultValue, ...props
 }: TextFieldOutlinedControlledProps<T | any>): JSX.Element {
   return (
     <Controller<T | FieldValues>
       control={control}
       name={name}
-      defaultValue=""
+      // defaultValue={defaultValue || ''}
       key={name}
       render={({ field, fieldState: { error } }) => (
         <TextField

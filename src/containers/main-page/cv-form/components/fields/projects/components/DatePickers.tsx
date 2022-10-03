@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn, FieldValues } from 'react-hook-form';
 
 import { Grid } from '@mui/material';
 
@@ -9,9 +9,10 @@ import { ProjectFieldValues } from '../utils/types';
 
 interface DatePickersProps {
   formValues: UseFormReturn<ProjectFieldValues>;
+  defaultValue?: FieldValues;
 }
 
-const DatePickers = function ({ formValues }: DatePickersProps): JSX.Element {
+const DatePickers = function ({ formValues, defaultValue }: DatePickersProps): JSX.Element {
   const changeStartDateHandle = (date: unknown): void => {
     if (date instanceof Date) {
       formValues.setValue('from', date.toISOString());
@@ -28,12 +29,16 @@ const DatePickers = function ({ formValues }: DatePickersProps): JSX.Element {
     <Grid item container xs={12} wrap="nowrap" columnGap={4}>
       <ReactHookFormDatePicker
         control={formValues.control}
+        key={Math.random()}
+        defaultValue={defaultValue?.from}
         onChange={changeStartDateHandle}
         name={getKeyOf<ProjectFieldValues>('from')}
         label="From"
       />
       <ReactHookFormDatePicker
         control={formValues.control}
+        key={Math.random()}
+        defaultValue={defaultValue?.to}
         onChange={changeEndDateHandle}
         name={getKeyOf<ProjectFieldValues>('to')}
         label="To"

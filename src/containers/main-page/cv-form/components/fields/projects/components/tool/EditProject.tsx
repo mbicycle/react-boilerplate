@@ -26,21 +26,19 @@ const EditProject = function (): JSX.Element | null {
     cancelHandle,
     onSaveProjectHandle,
   } = useEditProject();
-  console.log('project', project);
 
   const formValues = useForm<ProjectFieldValues>({ mode: 'onChange', criteriaMode: 'all' });
 
   useEffect(() => {
     if (!project) return;
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [key, value] of Object.entries(project)) {
-      console.log(`${key}: ${value}`);
+
+    Object.entries(project).forEach(([key, value]) => {
       if (key !== 'responsibilities' && key !== 'categories') {
         formValues.setValue(key as keyof ProjectFieldValues, value);
       }
-    }
+    });
   }, [project]);
-  console.log('formValues.getValues()', formValues.getValues());
+
   return (
     <Grid
       container
@@ -65,7 +63,6 @@ const EditProject = function (): JSX.Element | null {
               control={formValues.control}
               label="Project title"
               name="title"
-              // defaultValue={project?.title}
               type="text"
               variant="outlined"
               required
@@ -79,7 +76,6 @@ const EditProject = function (): JSX.Element | null {
               label="Product link (optional)"
               name="link"
               type="url"
-              // defaultValue={project?.link}
               variant="outlined"
             />
           </Grid>
@@ -92,7 +88,6 @@ const EditProject = function (): JSX.Element | null {
               label="Project role"
               name="role"
               type="text"
-              // defaultValue={project?.role}
               variant="outlined"
             />
           </Grid>
@@ -104,7 +99,6 @@ const EditProject = function (): JSX.Element | null {
               name="teamSize"
               type="number"
               inputProps={{ min: 0 }}
-              // defaultValue={project?.teamSize}
               variant="outlined"
             />
           </Grid>
@@ -119,7 +113,6 @@ const EditProject = function (): JSX.Element | null {
           type="text"
           multiline
           minRows={5}
-          // defaultValue={project?.description}
           variant="outlined"
         />
       </Grid>

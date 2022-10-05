@@ -49,11 +49,9 @@ export const useEditProject = (): UpdateProject => {
   const { data: user } = useUserFromDb();
   const state = useContext(ProjectIdContext);
   const project = user?.projects.find((c) => c.id === state?.state.id);
-  console.log(project);
 
   const { mutateAsync, isLoading } = useUpdateProjectById();
   const onSaveProjectHandle = (projectValues: Project): void => {
-    console.log('projectValues', projectValues);
     mutateAsync(projectValues);
     navigate('/dashboard/projects');
   };

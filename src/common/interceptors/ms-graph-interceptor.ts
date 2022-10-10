@@ -57,7 +57,7 @@ const clearTokenUpdateInterval = (): void => {
 };
 
 const ensureClient = (authProvider: AuthCodeMSALBrowserAuthenticationProvider): Client => {
-  const interval = 10000;
+  const INTERVAL = 10000 as const;
 
   if (!graphClient) {
     graphClient = Client.initWithMiddleware({ authProvider });
@@ -65,7 +65,7 @@ const ensureClient = (authProvider: AuthCodeMSALBrowserAuthenticationProvider): 
 
   id = setInterval(() => {
     setActiveAccount();
-  }, interval);
+  }, INTERVAL);
 
   return graphClient;
 };

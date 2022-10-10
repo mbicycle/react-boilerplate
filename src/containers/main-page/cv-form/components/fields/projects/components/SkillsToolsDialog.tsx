@@ -34,8 +34,8 @@ interface SkillsToolsDialogProps {
 const SkillsToolsDialog = function ({
   user, open, onClose, control, onSubmit,
 }: SkillsToolsDialogProps): JSX.Element {
-  const [category, setCategory] = useState<Category>();
-  const [skill, setSkill] = useState<Skill>();
+  const [category, setCategory] = useState<Category | undefined>();
+  const [skill, setSkill] = useState<Skill | undefined>();
   const [tools, setSelectedTools] = useState<string[]>([]);
 
   const doSubmit = (): void => {
@@ -45,8 +45,8 @@ const SkillsToolsDialog = function ({
       tools,
     };
     onSubmit(returnData);
-    setCategory();
-    setSkill();
+    setCategory(undefined);
+    setSkill(undefined);
     setSelectedTools([]);
   };
 

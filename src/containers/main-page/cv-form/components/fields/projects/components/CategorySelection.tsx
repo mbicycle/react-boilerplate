@@ -25,6 +25,11 @@ type CategoryItemProps = {
     tools: string[];
   }[];
 };
+type OnSubmitTypes = {
+  category: Category;
+  skill: Skill;
+  tools: string[];
+}
 
 type CategorySelectionProps = {
   formValues: UseFormReturn<ProjectFieldValues>;
@@ -59,18 +64,21 @@ const CategorySelection = function (
     setOpen(true);
   };
 
-  const onSubmitHandle = ({ category, skill, tools }: { category: Category, skill: Skill, tools: string[] }): void => {
+  const onSubmitHandle = ({ category, skill, tools }: OnSubmitTypes): void => {
     append({
-      category: category.name,
-      skill: skill.name,
+      category: category?.name,
+      skill: skill?.name,
       tools: tools.flat(Infinity),
     });
     setOpen(false);
   };
 
   useEffect(() => {
-    formValues.setValue('categories', fields.map(({ category, skill, tools }) => (`${category}, ${skill}, ${tools} `)));
-  }, [fields]);
+    formValues.setValue(
+      'categories',
+      fields.map(({ category, skill, tools }) => (`${category}, ${skill}, ${tools} `)),
+    );
+  }, [fields, formValues]);
 
   const deleteCategory = (index: number): void => {
     remove(index);
@@ -118,7 +126,7 @@ const CategorySelection = function (
           open={open}
           onClose={(): void => setOpen(false)}
           control={control}
-          onSubmit={(dataDialogForm: any) => onSubmitHandle(dataDialogForm)}
+          onSubmit={(dataDialogForm: OnSubmitTypes) => onSubmitHandle(dataDialogForm)}
         />
       </Grid>
     </Grid>

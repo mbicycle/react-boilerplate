@@ -37,7 +37,7 @@ const EditProject = function (): JSX.Element | null {
         formValues.setValue(key as keyof ProjectFieldValues, value);
       }
     });
-  }, [project]);
+  }, [project, formValues]);
 
   return (
     <Grid

@@ -1,13 +1,10 @@
 import { memo, useEffect } from 'react';
 import { useForm, useFieldArray, UseFormReturn } from 'react-hook-form';
 
-import
-ReactHookFormTextFieldOutlined
-  from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
 import {
   Button, TextField, Grid, Typography,
 } from '@mui/material';
-import { AddResponsibilityButtonStyled, AddCircleIconStyled } from '../utils/styled';
+import { AddCircleIconStyled } from '../utils/styled';
 
 import { ButtonText } from './utils/constants';
 import { ProjectFieldValues } from '../utils/types';
@@ -44,7 +41,7 @@ const Responsibilities = function ({
     name: 'responsibilities',
   });
 
-  const onAddHandle = (): any => {
+  const onAddHandle = (): void => {
     append({ responsibility: '' });
   };
 
@@ -53,7 +50,7 @@ const Responsibilities = function ({
 
   useEffect(() => {
     formValues.setValue('responsibilities', [...controlledFields.map((field) => (field.responsibility))]);
-  }, [controlledFields]);
+  }, [controlledFields, formValues]);
 
   return (
     <>

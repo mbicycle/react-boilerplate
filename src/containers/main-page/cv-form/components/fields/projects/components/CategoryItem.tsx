@@ -1,5 +1,4 @@
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
-import { Skill } from 'common/models/User';
 import { memo } from 'react';
 
 type CategoryItemProps = {

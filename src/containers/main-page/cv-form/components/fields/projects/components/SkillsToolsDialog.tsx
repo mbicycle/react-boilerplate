@@ -16,9 +16,9 @@ import { ButtonText } from 'common/components/add-pattern/constants';
 import { CategoryAddText } from './utils/constants';
 
 type DialogFormReturn = {
-  category: Category | undefined | null;
-  skill: Skill | undefined | null;
-  tools: string[] | undefined | null;
+  category: Category;
+  skill: Skill;
+  tools: string[];
 };
 interface SkillsToolsDialogProps {
   user: DbUser | undefined
@@ -31,11 +31,11 @@ interface SkillsToolsDialogProps {
 const SkillsToolsDialog = function ({
   user, open, onClose, control, onSubmit,
 }: SkillsToolsDialogProps): JSX.Element {
-  const [category, setCategory] = useState<Category | undefined | null>();
-  const [skill, setSkill] = useState<Skill | undefined | null>();
-  const [tools, setSelectedTools] = useState<string[] | undefined | null>([]);
+  const [category, setCategory] = useState<Category | null>();
+  const [skill, setSkill] = useState<Skill | null>();
+  const [tools, setSelectedTools] = useState<string[]>([]);
 
-  const doSubmit = (): any => {
+  const doSubmit = (): void => {
     const returnData = {
       category,
       skill,

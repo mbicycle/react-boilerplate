@@ -74,7 +74,7 @@ const SkillsToolsDialog = function ({
               defaultValue=""
               input={<OutlinedInput label={CategoryAddText.Category} />}
             >
-              {user?.categories && user?.categories.map((c) => (
+              {user?.categories.length && user?.categories.map((c) => (
                 <MenuItem key={c.id} value={c.name}>{c.name}</MenuItem>
               ))}
             </ReactHookFormSelect>

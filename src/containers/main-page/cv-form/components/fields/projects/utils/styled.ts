@@ -1,7 +1,4 @@
-import {
-  Button, Divider,
-  Grid, styled, Typography,
-} from '@mui/material';
+import { Button, styled } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export const AddResponsibilityButtonStyled = styled(Button)(({ theme }) => ({

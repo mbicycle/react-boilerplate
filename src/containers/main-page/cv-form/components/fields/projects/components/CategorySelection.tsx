@@ -20,18 +20,18 @@ import CategoryItem from './CategoryItem';
 
 type CategoryItemProps = {
   categories: {
-    category: string | undefined;
-    skill: string | undefined;
-    tools: string[] | undefined;
+    category: string;
+    skill: string;
+    tools: string[];
   }[];
 };
 
 type CategorySelectionProps = {
   formValues: UseFormReturn<ProjectFieldValues>;
   defaultValues?: {
-    category: string | undefined;
-    skill: string | undefined;
-    tools: string[] | undefined;
+    category: string;
+    skill: string;
+    tools: string[];
   }[];
 }
 

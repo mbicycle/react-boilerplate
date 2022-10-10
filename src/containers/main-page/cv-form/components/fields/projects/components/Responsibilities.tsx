@@ -56,7 +56,7 @@ const Responsibilities = function ({
   }, [controlledFields]);
 
   return (
-    <form>
+    <>
       <Typography>
         Responsibilities
       </Typography>
@@ -90,7 +90,7 @@ const Responsibilities = function ({
         &nbsp;
         {ButtonText.Add}
       </Button>
-    </form>
+    </>
   );
 };
 

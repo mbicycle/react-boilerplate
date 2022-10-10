@@ -9,11 +9,6 @@ const ProjectItem = function ({
 }: Project): JSX.Element {
   const { mutateAsync: onDelete, isLoading } = useDeleteProject();
   const { onOpenHandle } = useProjectItem({ id });
-
-  const onOpenProjectHandle = (): void => {
-    onOpenHandle();
-  };
-
   const onDeleteProjectHandle = (): void => {
     onDelete(title);
   };
@@ -24,7 +19,7 @@ const ProjectItem = function ({
       bodyText={`${from} - ${to}`}
       onDelete={onDeleteProjectHandle}
       isLoading={isLoading}
-      onClick={onOpenProjectHandle}
+      onClick={onOpenHandle}
     />
   );
 };

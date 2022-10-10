@@ -1,13 +1,22 @@
 import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
+import { Skill } from 'common/models/User';
 import { memo } from 'react';
+
+type CategoryItemProps = {
+  category: string;
+  skill: string;
+  tool: string[];
+  onDelete: () => void;
+}
 
 const CategoryItem = function ({
   category, skill, tool, onDelete,
-}: any): JSX.Element {
+}: CategoryItemProps): JSX.Element {
   const tools = tool?.length ? tool.join(', ') : '';
+  const itemHeadText = (`${category} : ${skill} ( ${tools} )`);
   return (
     <ProfiencyItem
-      headText={`${category} : ${skill} ( ${tools} )`}
+      headText={itemHeadText}
       bodyText
       onDelete={onDelete}
     />

@@ -37,7 +37,6 @@ export const ProjectProvider: FC = function ({ children }): JSX.Element {
 };
 
 export function useProjectIdContext(): ProjectIdContextType {
-  console.log('I m from useProjectId context');
   const context = useContext(ProjectIdContext);
   if (context === undefined) {
     throw new Error('ProjectNameContext must be used within a ProjectProvider');

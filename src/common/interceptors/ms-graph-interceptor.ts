@@ -51,13 +51,15 @@ const setActiveAccount = (): AccountInfo | null => {
 };
 
 const ensureClient = (authProvider: AuthCodeMSALBrowserAuthenticationProvider): Client => {
+  const interval = 10000;
+
   if (!graphClient) {
     graphClient = Client.initWithMiddleware({ authProvider });
   }
 
   setInterval(() => {
     setActiveAccount();
-  }, 10000);
+  }, interval);
 
   return graphClient;
 };

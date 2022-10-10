@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { Divider, Grid } from '@mui/material';
 
@@ -28,6 +28,20 @@ const EditProject = function (): JSX.Element | null {
   } = useEditProject();
 
   const formValues = useForm<ProjectFieldValues>({ mode: 'onChange', criteriaMode: 'all' });
+
+  const responsibilities = useMemo(
+    () => project?.responsibilities.map((responsibility) => ({ responsibility })),
+    [project?.responsibilities],
+  );
+
+  const categories = useMemo(() => project?.categories.map((category) => {
+    const values = category.split(',');
+    return {
+      category: values[0],
+      skill: values[1],
+      tools: [values[2]],
+    };
+  }), [project?.categories]);
 
   useEffect(() => {
     if (!project) return;
@@ -119,20 +133,13 @@ const EditProject = function (): JSX.Element | null {
       <Grid item xs>
         <Responsibilities
           formValues={formValues}
-          defaultValues={project?.responsibilities.map((responsibility) => ({ responsibility }))}
+          defaultValues={responsibilities}
         />
       </Grid>
       <Grid item xs>
         <CategorySelection
           formValues={formValues}
-          defaultValues={project?.categories.map((category) => {
-            const values = category.split(',');
-            return {
-              category: values[0],
-              skill: values[1],
-              tools: [values[2]],
-            };
-          })}
+          defaultValues={categories}
         />
       </Grid>
       <Divider />

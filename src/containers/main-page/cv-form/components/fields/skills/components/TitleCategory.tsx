@@ -21,11 +21,7 @@ const TitleCategory = function ({ value, onChange }: TitleCategoryProps): JSX.El
     dispatch({ type: 'add-skill' });
   };
 
-  const onHandleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (onChange) {
-      onChange(e.target.value);
-    }
-  };
+  const onHandleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>): void => onChange && onChange(e.target.value);
 
   return (
     <>

@@ -18,7 +18,7 @@ import { ProjectTitleStyled, InfoIconStyled } from './utils/styledEdit';
 import SkillsToolsDialog from './SkillsToolsDialog';
 import CategoryItem from './CategoryItem';
 
-type CategoryItemProps = {
+export type CategoryItemProps = {
   categories: {
     category: string;
     skill: string;
@@ -26,8 +26,8 @@ type CategoryItemProps = {
   }[];
 };
 type OnSubmitTypes = {
-  category: Category;
-  skill: Skill;
+  category?: Category;
+  skill?: Skill;
   tools: string[];
 }
 

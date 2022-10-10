@@ -9,21 +9,24 @@ import {
 
 import ReactHookFormSelect from 'common/components/react-hook-forms/ReactHookFormSelect';
 import type {
-  Category, DbUser, Skill, Tool,
+  Category, DbUser, Skill,
 } from 'common/models/User';
 
 import { ButtonText } from 'common/components/add-pattern/constants';
+import { Control } from 'react-hook-form';
+import { CategoryItemProps } from 'containers/main-page/cv-form/components/fields/projects/components/CategorySelection';
 import { CategoryAddText } from './utils/constants';
 
 type DialogFormReturn = {
-  category: Category;
-  skill: Skill;
+  category?: Category;
+  skill?: Skill;
   tools: string[];
 };
 interface SkillsToolsDialogProps {
   user: DbUser | undefined
   open: boolean;
-  control: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<CategoryItemProps, any>;
   onClose: (event: React.SyntheticEvent<unknown>, reason?: string) => void;
   onSubmit: (data: DialogFormReturn) => void;
 }
@@ -31,8 +34,8 @@ interface SkillsToolsDialogProps {
 const SkillsToolsDialog = function ({
   user, open, onClose, control, onSubmit,
 }: SkillsToolsDialogProps): JSX.Element {
-  const [category, setCategory] = useState<Category | null>();
-  const [skill, setSkill] = useState<Skill | null>();
+  const [category, setCategory] = useState<Category>();
+  const [skill, setSkill] = useState<Skill>();
   const [tools, setSelectedTools] = useState<string[]>([]);
 
   const doSubmit = (): void => {
@@ -42,8 +45,8 @@ const SkillsToolsDialog = function ({
       tools,
     };
     onSubmit(returnData);
-    setCategory(null);
-    setSkill(null);
+    setCategory();
+    setSkill();
     setSelectedTools([]);
   };
 
@@ -106,7 +109,7 @@ const SkillsToolsDialog = function ({
               disabled={!skill?.name}
               input={<OutlinedInput label={CategoryAddText.Tool} />}
               multiple
-              renderValue={(selected: Tool[] | any): string => selected.map((t: string) => t).join(', ')}
+              renderValue={(selected): string => (Array.isArray(selected) ? selected.map((t: string) => t).join(', ') : '')}
             >
               {skill?.tools.map(({ id, name }) => (
                 <MenuItem key={id} value={name}>

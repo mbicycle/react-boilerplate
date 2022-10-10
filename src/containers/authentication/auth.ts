@@ -15,6 +15,7 @@ async function loginFn(): Promise<MsUser> {
 
 async function logoutFn(): Promise<void> {
   storage.clearToken();
+  account.clearTokenUpdateInterval();
 }
 
 async function loadUser(): Promise<MsUser> {

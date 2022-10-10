@@ -55,7 +55,9 @@ const ensureClient = (authProvider: AuthCodeMSALBrowserAuthenticationProvider): 
     graphClient = Client.initWithMiddleware({ authProvider });
   }
 
-  setActiveAccount();
+  setInterval(() => {
+    setActiveAccount();
+  }, 10000);
 
   return graphClient;
 };

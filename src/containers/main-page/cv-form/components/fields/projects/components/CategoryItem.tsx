@@ -12,7 +12,9 @@ const CategoryItem = function ({
   category, skill, tool, onDelete,
 }: CategoryItemProps): JSX.Element {
   const tools = tool?.length ? tool.join(', ') : '';
+
   const itemHeadText = (`${category} : ${skill} ( ${tools} )`);
+
   return (
     <ProfiencyItem
       headText={itemHeadText}

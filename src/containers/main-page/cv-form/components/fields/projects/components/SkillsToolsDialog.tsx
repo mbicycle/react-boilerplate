@@ -23,12 +23,12 @@ type DialogFormReturn = {
   tools: string[];
 };
 interface SkillsToolsDialogProps {
-  user: DbUser | undefined
   open: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<CategoryItemProps, any>;
   onClose: (event: React.SyntheticEvent<unknown>, reason?: string) => void;
   onSubmit: (data: DialogFormReturn) => void;
+  user?: DbUser
 }
 
 const SkillsToolsDialog = function ({

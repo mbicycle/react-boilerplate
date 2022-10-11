@@ -26,9 +26,9 @@ export type CategoryItemProps = {
   }[];
 };
 type OnSubmitTypes = {
+  tools: string[];
   category?: Category;
   skill?: Skill;
-  tools: string[];
 }
 
 type CategorySelectionProps = {
@@ -72,6 +72,8 @@ const CategorySelection = function (
     });
     setOpen(false);
   };
+
+  const onClose = (): void => setOpen(false);
 
   useEffect(() => {
     formValues.setValue(
@@ -124,7 +126,7 @@ const CategorySelection = function (
         <SkillsToolsDialog
           user={data}
           open={open}
-          onClose={(): void => setOpen(false)}
+          onClose={onClose}
           control={control}
           onSubmit={(dataDialogForm: OnSubmitTypes) => onSubmitHandle(dataDialogForm)}
         />

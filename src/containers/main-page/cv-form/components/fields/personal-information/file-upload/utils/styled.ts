@@ -90,7 +90,6 @@ export const ChangeCircleIconWrapper = styled(Box)(({ theme }) => ({
 export const ChangeCircleIconStyled = styled(ChangeCircleIcon, {
   shouldForwardProp: (prop) => prop !== '$isUploading',
 })<UploadProcessType>(({
-  theme,
   $isUploading,
 }) => ($isUploading ? css`
   animation: ${rotating} 2s infinite ease;

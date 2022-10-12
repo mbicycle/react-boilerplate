@@ -7,4 +7,6 @@ export const enum Step {
 
 export enum ButtonText {
   Add = 'Add',
+  Cancel = 'Cancel',
+  Ok = 'Ok',
 }

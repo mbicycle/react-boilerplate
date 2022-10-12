@@ -1,44 +1,57 @@
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { v4 as uuid } from 'uuid';
-
+import { memo, useEffect, useMemo } from 'react';
+import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { Divider, Grid } from '@mui/material';
 
+import { useForm } from 'react-hook-form';
+
+import type { Project as ProjectFieldValues } from 'common/models/User';
 import
 ReactHookFormTextFieldOutlined
   from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
-import { getKeyOf } from 'common/utils/helpers';
-import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import dayjs from 'dayjs';
-import { useUpdateProjects } from '../lib/query-hooks';
 
-import { ProjectFieldValues } from '../utils/types';
-import DatePickers from './DatePickers';
-import CategorySelection from './CategorySelection';
+import {
+  SaveButtonStyled,
+  SaveButtonWrapperStyled,
+  CancelButtonStyled,
+} from '../../../skills/utils/styled';
+import { useEditProject } from './hooks';
+import DatePickers from '../DatePickers';
+import CategorySelection from '../CategorySelection';
+import Responsibilities from '../Responsibilities';
 
-import { CancelButtonStyled, SaveButtonStyled, SaveButtonWrapperStyled } from '../../skills/utils/styled';
-import Responsibilities from './Responsibilities';
-
-const Project = function (): JSX.Element {
-  const navigate = useNavigate();
-  const { mutateAsync: updateProjectsAsync, isLoading } = useUpdateProjects();
+const EditProject = function (): JSX.Element | null {
+  const {
+    project,
+    isLoading,
+    cancelHandle,
+    onSaveProjectHandle,
+  } = useEditProject();
 
   const formValues = useForm<ProjectFieldValues>({ mode: 'onChange', criteriaMode: 'all' });
-  const handleCancel = (): void => {
-    navigate(-1);
-  };
 
-  const handleSaveProject = (values: ProjectFieldValues): void => {
-    navigate('/dashboard/projects');
-    updateProjectsAsync({
-      ...values,
-      id: uuid(),
-      teamSize: Number(values.teamSize),
-      responsibilities: values.responsibilities,
-      from: dayjs(values.from).format('DD/MM/YYYY'),
-      to: dayjs(values.to).format('DD/MM/YYYY'),
+  const responsibilities = useMemo(
+    () => project?.responsibilities.map((responsibility) => ({ responsibility })),
+    [project?.responsibilities],
+  );
+
+  const categories = useMemo(() => project?.categories.map((category) => {
+    const values = category.split(',');
+    return {
+      category: values[0],
+      skill: values[1],
+      tools: [values[2]],
+    };
+  }), [project?.categories]);
+
+  useEffect(() => {
+    if (!project) return;
+
+    Object.entries(project).forEach(([key, value]) => {
+      if (key !== 'responsibilities' && key !== 'categories') {
+        formValues.setValue(key as keyof ProjectFieldValues, value);
+      }
     });
-  };
+  }, [project, formValues]);
 
   return (
     <Grid
@@ -47,7 +60,7 @@ const Project = function (): JSX.Element {
       gap={4}
       direction="column"
       component="form"
-      onSubmit={formValues.handleSubmit(handleSaveProject)}
+      onSubmit={formValues.handleSubmit(onSaveProjectHandle)}
     >
       <Grid
         item
@@ -60,20 +73,22 @@ const Project = function (): JSX.Element {
         <Grid container gap={4}>
           <Grid item xs={12}>
             <ReactHookFormTextFieldOutlined
+              key={project?.title}
               control={formValues.control}
               label="Project title"
-              name={getKeyOf<ProjectFieldValues>('title')}
+              name="title"
               type="text"
               variant="outlined"
               required
             />
           </Grid>
-          <DatePickers formValues={formValues} />
+          <DatePickers formValues={formValues} defaultValue={{ from: project?.from, to: project?.to }} />
           <Grid item xs={12}>
             <ReactHookFormTextFieldOutlined
+              key={project?.title}
               control={formValues.control}
               label="Product link (optional)"
-              name={getKeyOf<ProjectFieldValues>('link')}
+              name="link"
               type="url"
               variant="outlined"
             />
@@ -82,30 +97,33 @@ const Project = function (): JSX.Element {
         <Grid item container gap={4} alignContent="flex-start">
           <Grid item xs={12}>
             <ReactHookFormTextFieldOutlined
+              key={project?.title}
               control={formValues.control}
               label="Project role"
-              name={getKeyOf<ProjectFieldValues>('role')}
+              name="role"
               type="text"
               variant="outlined"
             />
           </Grid>
           <Grid item xs={6}>
             <ReactHookFormTextFieldOutlined
+              key={project?.title}
               control={formValues.control}
               label="Project team size"
-              name={getKeyOf<ProjectFieldValues>('teamSize')}
+              name="teamSize"
               type="number"
-              variant="outlined"
               inputProps={{ min: 0 }}
+              variant="outlined"
             />
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <ReactHookFormTextFieldOutlined
+          key={project?.title}
           control={formValues.control}
           label="Project description"
-          name={getKeyOf<ProjectFieldValues>('description')}
+          name="description"
           type="text"
           multiline
           minRows={5}
@@ -113,22 +131,28 @@ const Project = function (): JSX.Element {
         />
       </Grid>
       <Grid item xs>
-        <Responsibilities formValues={formValues} />
+        <Responsibilities
+          formValues={formValues}
+          defaultValues={responsibilities}
+        />
       </Grid>
       <Grid item xs>
-        <CategorySelection formValues={formValues} />
+        <CategorySelection
+          formValues={formValues}
+          defaultValues={categories}
+        />
       </Grid>
       <Divider />
       <SaveButtonWrapperStyled item>
         <CancelButtonStyled
-          onClick={handleCancel}
+          onClick={cancelHandle}
           variant="outlined"
         >
           {ButtonStep.Cancel}
         </CancelButtonStyled>
         <SaveButtonStyled
-          disabled={false}
           type="submit"
+          disabled={!project?.title}
           variant="contained"
           loading={isLoading}
         >
@@ -136,7 +160,8 @@ const Project = function (): JSX.Element {
         </SaveButtonStyled>
       </SaveButtonWrapperStyled>
     </Grid>
+
   );
 };
 
-export default Project;
+export default memo(EditProject);

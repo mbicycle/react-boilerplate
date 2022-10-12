@@ -19,7 +19,6 @@ const ReactHookFormTextFieldOutlined = function<T extends FieldValues> ({
     <Controller<T | FieldValues>
       control={control}
       name={name}
-      defaultValue=""
       key={name}
       render={({ field, fieldState: { error } }) => (
         <TextField

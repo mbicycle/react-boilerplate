@@ -1,6 +1,6 @@
 import { SelectChangeEvent } from '@mui/material';
 import { useDebouncedFn } from 'beautiful-react-hooks';
-import type { Category, DbUser, Skill } from 'common/models/User';
+import type { Category, DbUser } from 'common/models/User';
 import {
   useUserFromDb,
 } from 'containers/main-page/cv-form/components/fields/personal-information/lib/query-hooks';

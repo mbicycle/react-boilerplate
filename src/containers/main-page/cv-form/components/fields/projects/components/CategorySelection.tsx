@@ -1,22 +1,42 @@
-import { useState, memo, useEffect } from 'react';
-import { useForm, UseFormReturn, useFieldArray } from 'react-hook-form';
-
 import {
-  Grid, Typography,
-  Tooltip, Box, Button,
-} from '@mui/material';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+  memo,
+  useEffect,
+  useState,
+} from 'react';
 
 import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
+import {
+  Category,
+  Skill,
+} from 'common/models/User';
+import {
+  useFieldArray,
+  useForm,
+  UseFormReturn,
+} from 'react-hook-form';
 
-import { Category, Skill } from 'common/models/User';
-import { ProjectFieldValues } from '../utils/types';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import {
+  Box,
+  Button,
+  Grid,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+
 import { useUserFromDb } from '../../personal-information/lib/query-hooks';
-import { ButtonText, CategoryAddText, tooltipText } from './utils/constants';
-
-import { ProjectTitleStyled, InfoIconStyled } from './utils/styledEdit';
-import SkillsToolsDialog from './SkillsToolsDialog';
+import { ProjectFieldValues } from '../utils/types';
 import CategoryItem from './CategoryItem';
+import SkillsToolsDialog from './SkillsToolsDialog';
+import {
+  ButtonText,
+  CategoryAddText,
+  tooltipText,
+} from './utils/constants';
+import {
+  InfoIconStyled,
+  ProjectTitleStyled,
+} from './utils/styledEdit';
 
 export type CategoryItemProps = {
   categories: {
@@ -108,6 +128,7 @@ const CategorySelection = function (
                 skill={field.skill}
                 tool={field.tools}
                 onDelete={(): void => deleteCategory(index)}
+                onClick={(): void => handleClickOpen()}
               />
             ) : null
           ))}

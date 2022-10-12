@@ -1,15 +1,17 @@
-import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 import { memo } from 'react';
+
+import ProfiencyItem from 'common/components/profiency/ProfiencyItem';
 
 type CategoryItemProps = {
   category: string;
   skill: string;
   tool: string[];
   onDelete: () => void;
+  onClick: () => void;
 }
 
 const CategoryItem = function ({
-  category, skill, tool, onDelete,
+  category, skill, tool, onDelete, onClick,
 }: CategoryItemProps): JSX.Element {
   const tools = tool?.length ? tool.join(', ') : '';
 
@@ -20,6 +22,7 @@ const CategoryItem = function ({
       headText={itemHeadText}
       bodyText
       onDelete={onDelete}
+      onClick={onClick}
     />
   );
 };

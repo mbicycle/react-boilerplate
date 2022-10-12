@@ -1,23 +1,30 @@
-import { memo, useEffect, useMemo } from 'react';
-import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import { Divider, Grid } from '@mui/material';
+import {
+  memo,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
+import ReactHookFormTextFieldOutlined
+  from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
+import type { Project as ProjectFieldValues } from 'common/models/User';
+import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { useForm } from 'react-hook-form';
 
-import type { Project as ProjectFieldValues } from 'common/models/User';
-import
-ReactHookFormTextFieldOutlined
-  from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
+import {
+  Divider,
+  Grid,
+} from '@mui/material';
 
 import {
+  CancelButtonStyled,
   SaveButtonStyled,
   SaveButtonWrapperStyled,
-  CancelButtonStyled,
 } from '../../../skills/utils/styled';
-import { useEditProject } from './hooks';
-import DatePickers from '../DatePickers';
 import CategorySelection from '../CategorySelection';
+import DatePickers from '../DatePickers';
 import Responsibilities from '../Responsibilities';
+import { useEditProject } from './hooks';
 
 const EditProject = function (): JSX.Element | null {
   const {
@@ -26,6 +33,8 @@ const EditProject = function (): JSX.Element | null {
     cancelHandle,
     onSaveProjectHandle,
   } = useEditProject();
+
+  const [open, setOpen] = useState(false);
 
   const formValues = useForm<ProjectFieldValues>({ mode: 'onChange', criteriaMode: 'all' });
 
@@ -42,6 +51,21 @@ const EditProject = function (): JSX.Element | null {
       tools: [values[2]],
     };
   }), [project?.categories]);
+
+  const handleClickOpen = (): void => {
+    setOpen(true);
+  };
+
+  // const onSubmitHandle = ({ category, skill, tools }: OnSubmitTypes): void => {
+  //   append({
+  //     category: category?.name,
+  //     skill: skill?.name,
+  //     tools: tools.flat(Infinity),
+  //   });
+  //   setOpen(false);
+  // };
+
+  const onClose = (): void => setOpen(false);
 
   useEffect(() => {
     if (!project) return;

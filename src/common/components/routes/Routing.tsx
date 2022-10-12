@@ -8,7 +8,6 @@ import { useMsal } from '@azure/msal-react';
 import Login from 'containers/authentication/components';
 import LanguageSelection from 'containers/main-page/cv-form/components/fields/languages/components/LanguageSelection';
 import Category from 'containers/main-page/cv-form/components/fields/skills/components';
-import Project from 'containers/main-page/cv-form/components/fields/projects/components';
 import EditProject from 'containers/main-page/cv-form/components/fields/projects/components/tool/EditProject';
 import EditCategory from 'containers/main-page/cv-form/components/fields/skills/components/EditTool';
 import { PrivateRoute } from 'common/components/routes/PrivateRoute';
@@ -25,6 +24,7 @@ const Languages = lazy(() => import('containers/main-page/cv-form/components/fie
 const Skills = lazy(() => import('containers/main-page/cv-form/components/fields/skills'));
 const Projects = lazy(() => import('containers/main-page/cv-form/components/fields/projects'));
 const Certifications = lazy(() => import('containers/main-page/cv-form/components/fields/certifications'));
+const Project = lazy(() => import('containers/main-page/cv-form/components/fields/projects/components'));
 
 const Routing = function (): JSX.Element {
   const { inProgress } = useMsal();

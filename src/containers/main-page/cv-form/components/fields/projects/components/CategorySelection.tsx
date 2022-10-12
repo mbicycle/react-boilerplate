@@ -67,6 +67,7 @@ const CategorySelection = function (
 ): JSX.Element {
   const { data, isLoading } = useUserFromDb();
   const [open, setOpen] = useState(false);
+  const [id, setId] = useState<string>();
   const { control } = useForm<CategoryItemProps>(
     {
       mode: 'onChange',
@@ -75,21 +76,30 @@ const CategorySelection = function (
       },
     },
   );
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields, append, remove, update,
+  } = useFieldArray({
     control,
     name: 'categories',
   });
 
-  const handleClickOpen = (): void => {
+  const handleClickOpen = (index?: string): void => {
+    console.debug('index', index);
+    console.debug(fields);
+    console.debug(fields.find((item) => item.id === index));
     setOpen(true);
+    if (index) setId(index);
   };
 
   const onSubmitHandle = ({ category, skill, tools }: OnSubmitTypes): void => {
+    console.debug({ category, skill, tools });
+
     append({
       category: category?.name,
       skill: skill?.name,
       tools: tools.flat(Infinity),
     });
+
     setOpen(false);
   };
 
@@ -128,7 +138,7 @@ const CategorySelection = function (
                 skill={field.skill}
                 tool={field.tools}
                 onDelete={(): void => deleteCategory(index)}
-                onClick={(): void => handleClickOpen()}
+                onClick={(): void => handleClickOpen(field.id)}
               />
             ) : null
           ))}
@@ -137,7 +147,7 @@ const CategorySelection = function (
           color="primary"
           variant="outlined"
           sx={{ marginLeft: 'auto' }}
-          onClick={handleClickOpen}
+          onClick={(): void => handleClickOpen()}
         >
           <AddCircleOutlineIcon fontSize="large" />
           &nbsp;
@@ -150,6 +160,7 @@ const CategorySelection = function (
           onClose={onClose}
           control={control}
           onSubmit={(dataDialogForm: OnSubmitTypes) => onSubmitHandle(dataDialogForm)}
+          defaultValues={fields.find((item) => item.id === id)}
         />
       </Grid>
     </Grid>

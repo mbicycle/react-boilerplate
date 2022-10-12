@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 
 import {
   DialogActions,
@@ -29,14 +29,16 @@ interface SkillsToolsDialogProps {
   onClose: (event: React.SyntheticEvent<unknown>, reason?: string) => void;
   onSubmit: (data: DialogFormReturn) => void;
   user?: DbUser
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValues?: any
 }
 
 const SkillsToolsDialog = function ({
-  user, open, onClose, control, onSubmit,
+  user, open, onClose, control, onSubmit, defaultValues,
 }: SkillsToolsDialogProps): JSX.Element {
-  const [category, setCategory] = useState<Category | undefined>();
-  const [skill, setSkill] = useState<Skill | undefined>();
-  const [tools, setSelectedTools] = useState<string[]>([]);
+  const [category, setCategory] = useState<Category | undefined>(defaultValues?.category);
+  const [skill, setSkill] = useState<Skill | undefined>(defaultValues?.skill);
+  const [tools, setSelectedTools] = useState<string[]>(defaultValues?.tools || []);
 
   const doSubmit = (): void => {
     const returnData = {
@@ -61,6 +63,9 @@ const SkillsToolsDialog = function ({
   const handleToolsChange = (event: SelectChangeEvent<HTMLSelectElement | unknown>): void => {
     setSelectedTools(event.target.value as string[]);
   };
+
+  console.debug('defaultValues', defaultValues);
+
   return (
     <Dialog disableEscapeKeyDown open={open}>
       <DialogTitle>{CategoryAddText.DialogTitle}</DialogTitle>
@@ -74,7 +79,6 @@ const SkillsToolsDialog = function ({
               onChange={handleCategoryChange}
               name="category"
               control={control}
-              defaultValue=""
               input={<OutlinedInput label={CategoryAddText.Category} />}
             >
               {user?.categories.length && user?.categories.map((c) => (

@@ -1,4 +1,6 @@
-import { useState, memo, useEffect } from 'react';
+import {
+  useState, memo, useEffect, useCallback,
+} from 'react';
 
 import {
   DialogActions,
@@ -30,7 +32,7 @@ interface SkillsToolsDialogProps {
   onSubmit: (data: DialogFormReturn) => void;
   user?: DbUser
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  defaultValues?: any
+  defaultValues: any;
 }
 
 const SkillsToolsDialog = function ({
@@ -39,7 +41,11 @@ const SkillsToolsDialog = function ({
   const [category, setCategory] = useState<Category | undefined>(defaultValues?.category);
   const [skill, setSkill] = useState<Skill | undefined>(defaultValues?.skill);
   const [tools, setSelectedTools] = useState<string[]>(defaultValues?.tools || []);
+  console.debug('My!!defaultValues?.category', defaultValues?.category);
+  console.debug('My!!defaultValues?.skill', defaultValues?.skill);
 
+  console.debug('My!!category', category);
+  console.debug('My!!skill', skill);
   const doSubmit = (): void => {
     const returnData = {
       category,
@@ -64,7 +70,25 @@ const SkillsToolsDialog = function ({
     setSelectedTools(event.target.value as string[]);
   };
 
-  console.debug('defaultValues', defaultValues);
+  useEffect(() => {
+    const addCategory = setCategory(user?.categories.find((c) => c.name === defaultValues?.category));
+  }, [defaultValues?.category]);
+  console.debug(user?.categories.find((c) => {
+    if (c.name === defaultValues?.category) {
+      return c.id;
+    }
+    return null;
+  }));
+  console.debug(user?.categories.find((c) => {
+    if (c.name === defaultValues?.category) {
+      return c;
+    }
+    return null;
+  }));
+
+  useEffect(() => {
+    setSelectedTools(defaultValues?.tools);
+  }, [defaultValues?.category]);
 
   return (
     <Dialog disableEscapeKeyDown open={open}>
@@ -75,7 +99,7 @@ const SkillsToolsDialog = function ({
             <InputLabel htmlFor="category-dialog">{CategoryAddText.Category}</InputLabel>
             <ReactHookFormSelect
               id="category-dialog"
-              value={category?.name || ''}
+              value={defaultValues?.category || category?.name || ''}
               onChange={handleCategoryChange}
               name="category"
               control={control}

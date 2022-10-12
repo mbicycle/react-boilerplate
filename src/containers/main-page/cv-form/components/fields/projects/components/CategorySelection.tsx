@@ -77,16 +77,13 @@ const CategorySelection = function (
     },
   );
   const {
-    fields, append, remove, update,
+    fields, append, remove,
   } = useFieldArray({
     control,
     name: 'categories',
   });
 
   const handleClickOpen = (index?: string): void => {
-    console.debug('index', index);
-    console.debug(fields);
-    console.debug(fields.find((item) => item.id === index));
     setOpen(true);
     if (index) setId(index);
   };

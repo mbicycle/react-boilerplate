@@ -41,11 +41,12 @@ const EditProject = function (): JSX.Element | null {
   );
 
   const categories = useMemo(() => project?.categories.map((category) => {
-    const values = category.split(',');
+    const values = category.split(',').map((value) => value.trim());
+
     return {
       category: values[0],
       skill: values[1],
-      tools: [values[2]],
+      tools: values.splice(2),
     };
   }), [project?.categories]);
 

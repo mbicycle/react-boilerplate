@@ -50,12 +50,22 @@ const setActiveAccount = (): AccountInfo | null => {
   return activeAccount;
 };
 
+let id: NodeJS.Timeout | null = null;
+
+const clearTokenUpdateInterval = (): void => {
+  if (id) clearInterval(id);
+};
+
 const ensureClient = (authProvider: AuthCodeMSALBrowserAuthenticationProvider): Client => {
+  const INTERVAL = 10000 as const;
+
   if (!graphClient) {
     graphClient = Client.initWithMiddleware({ authProvider });
   }
 
-  setActiveAccount();
+  id = setInterval(() => {
+    setActiveAccount();
+  }, INTERVAL);
 
   return graphClient;
 };
@@ -75,4 +85,5 @@ export default {
   graphClient: ensureClient(authProvider),
   msalInstance,
   setActiveAccount,
+  clearTokenUpdateInterval,
 };

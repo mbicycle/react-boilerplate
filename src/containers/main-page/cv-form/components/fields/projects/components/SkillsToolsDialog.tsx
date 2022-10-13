@@ -72,10 +72,12 @@ const SkillsToolsDialog = function ({
 
   const handleCategoryChange = (event: SelectChangeEvent<HTMLSelectElement | unknown>): void => {
     setCategory(user?.categories.find((c) => c.name === event.target.value));
+    setSelectedTools([]);
   };
 
   const handleSkillChange = (event: SelectChangeEvent<HTMLSelectElement | unknown>): void => {
     setSkill(category?.skills.find((s) => s.name === event.target.value));
+    setSelectedTools([]);
   };
 
   const handleToolsChange = (event: SelectChangeEvent<HTMLSelectElement | unknown>): void => {

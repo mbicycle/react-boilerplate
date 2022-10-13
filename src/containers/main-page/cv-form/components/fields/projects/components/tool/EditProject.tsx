@@ -45,7 +45,7 @@ const EditProject = function (): JSX.Element | null {
     return {
       category: values[0],
       skill: values[1],
-      tools: [values[2]],
+      tools: values.slice(2),
     };
   }), [project?.categories]);
 

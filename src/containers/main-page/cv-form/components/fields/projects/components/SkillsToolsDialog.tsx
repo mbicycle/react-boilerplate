@@ -49,7 +49,7 @@ const SkillsToolsDialog = function ({
 
       setCategory(defaultCategory);
       setSkill(defaultSkill);
-      setSelectedTools(defaultTools);
+      // setSelectedTools(defaultTools);
     }
   }, [defaultValues]);
 

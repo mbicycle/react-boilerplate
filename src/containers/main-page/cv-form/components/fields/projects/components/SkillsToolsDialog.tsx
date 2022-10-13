@@ -34,6 +34,11 @@ interface SkillsToolsDialogProps {
   defaultValues?: FieldArrayWithId<CategoryItemProps, 'categories', 'id'>;
 }
 
+const getTools = (toolNames: string[], skill?: Skill): string[] => {
+  const skillTollNames = skill?.tools.map((value) => value.name);
+  return skillTollNames?.filter((t) => toolNames.includes(t)) || [];
+};
+
 const SkillsToolsDialog = function ({
   user, open, onClose, control, onSubmit, defaultValues,
 }: SkillsToolsDialogProps): JSX.Element {
@@ -44,8 +49,8 @@ const SkillsToolsDialog = function ({
   useEffect(() => {
     if (defaultValues) {
       const defaultCategory = user?.categories.find((c) => c.name === defaultValues.category);
-      const defaultSkill = defaultCategory?.skills.find((s) => s.name === defaultValues.skill.trim());
-      const defaultTools = defaultValues.tools;
+      const defaultSkill = defaultCategory?.skills.find((s) => s.name === defaultValues.skill);
+      const defaultTools = getTools(defaultValues.tools, defaultSkill);
 
       setCategory(defaultCategory);
       setSkill(defaultSkill);
@@ -76,7 +81,9 @@ const SkillsToolsDialog = function ({
   };
 
   const handleToolsChange = (event: SelectChangeEvent<HTMLSelectElement | unknown>): void => {
-    setSelectedTools(event.target.value as string[]);
+    const toolsToAdd = getTools(event.target.value as string[], skill);
+
+    setSelectedTools(toolsToAdd);
   };
 
   return (

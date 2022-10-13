@@ -11,9 +11,8 @@ interface ReactHookFormSelectProps<T extends FieldValues> extends SelectProps {
 
 // eslint-disable-next-line prefer-arrow-callback
 const ReactHookFormSelect = forwardRef(function<T extends FieldValues> ({
-  name, control, children, defaultValue, ...props
+  name, control, children, ...props
 }: ReactHookFormSelectProps<T | any>, ref: unknown): JSX.Element {
-  console.debug(defaultValue);
   return (
     <Controller<T | FieldValues>
       render={({ field }) => (
@@ -28,7 +27,7 @@ const ReactHookFormSelect = forwardRef(function<T extends FieldValues> ({
       )}
       name={name}
       control={control}
-      defaultValue={defaultValue || ''}
+      defaultValue=""
     />
   );
 });

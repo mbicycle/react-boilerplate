@@ -44,7 +44,7 @@ export function useUpdateProjectById(): UseMutationResult<DbUser, Error, Project
   return useMutation<DbUser, Error, Project, VoidFunction>(
     (project: Project) => {
       const idx = projects.findIndex((p) => p.id === project.id);
-      if (idx) projects[idx] = project;
+      if (idx !== -1) projects[idx] = project;
       else projects.push(project);
       return api.updateUserProjects(projects as Project[], user as DbUser);
     },

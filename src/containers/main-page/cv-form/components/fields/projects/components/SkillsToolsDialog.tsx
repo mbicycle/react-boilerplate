@@ -1,5 +1,5 @@
 import {
-  useState, memo, useEffect, useCallback,
+  useState, memo, useEffect,
 } from 'react';
 
 import {
@@ -15,7 +15,7 @@ import type {
 } from 'common/models/User';
 
 import { ButtonText } from 'common/components/add-pattern/constants';
-import { Control } from 'react-hook-form';
+import { Control, FieldArrayWithId } from 'react-hook-form';
 import { CategoryItemProps } from 'containers/main-page/cv-form/components/fields/projects/components/CategorySelection';
 import { CategoryAddText } from './utils/constants';
 
@@ -31,21 +31,28 @@ interface SkillsToolsDialogProps {
   onClose: (event: React.SyntheticEvent<unknown>, reason?: string) => void;
   onSubmit: (data: DialogFormReturn) => void;
   user?: DbUser
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  defaultValues: any;
+  defaultValues?: FieldArrayWithId<CategoryItemProps, 'categories', 'id'>;
 }
 
 const SkillsToolsDialog = function ({
   user, open, onClose, control, onSubmit, defaultValues,
 }: SkillsToolsDialogProps): JSX.Element {
-  const [category, setCategory] = useState<Category | undefined>(defaultValues?.category);
-  const [skill, setSkill] = useState<Skill | undefined>(defaultValues?.skill);
-  const [tools, setSelectedTools] = useState<string[]>(defaultValues?.tools || []);
-  console.debug('My!!defaultValues?.category', defaultValues?.category);
-  console.debug('My!!defaultValues?.skill', defaultValues?.skill);
+  const [category, setCategory] = useState<Category | undefined>();
+  const [skill, setSkill] = useState<Skill | undefined>();
+  const [tools, setSelectedTools] = useState<string[]>([]);
 
-  console.debug('My!!category', category);
-  console.debug('My!!skill', skill);
+  useEffect(() => {
+    if (defaultValues) {
+      const defaultCategory = user?.categories.find((c) => c.name === defaultValues.category);
+      const defaultSkill = defaultCategory?.skills.find((s) => s.name === defaultValues.skill.trim());
+      const defaultTools = defaultValues.tools;
+
+      setCategory(defaultCategory);
+      setSkill(defaultSkill);
+      setSelectedTools(defaultTools);
+    }
+  }, [defaultValues]);
+
   const doSubmit = (): void => {
     const returnData = {
       category,
@@ -60,35 +67,17 @@ const SkillsToolsDialog = function ({
 
   const handleCategoryChange = (event: SelectChangeEvent<HTMLSelectElement | unknown>): void => {
     setCategory(user?.categories.find((c) => c.name === event.target.value));
+    setSelectedTools([]);
   };
 
   const handleSkillChange = (event: SelectChangeEvent<HTMLSelectElement | unknown>): void => {
     setSkill(category?.skills.find((s) => s.name === event.target.value));
+    setSelectedTools([]);
   };
 
   const handleToolsChange = (event: SelectChangeEvent<HTMLSelectElement | unknown>): void => {
     setSelectedTools(event.target.value as string[]);
   };
-
-  useEffect(() => {
-    const addCategory = setCategory(user?.categories.find((c) => c.name === defaultValues?.category));
-  }, [defaultValues?.category]);
-  console.debug(user?.categories.find((c) => {
-    if (c.name === defaultValues?.category) {
-      return c.id;
-    }
-    return null;
-  }));
-  console.debug(user?.categories.find((c) => {
-    if (c.name === defaultValues?.category) {
-      return c;
-    }
-    return null;
-  }));
-
-  useEffect(() => {
-    setSelectedTools(defaultValues?.tools);
-  }, [defaultValues?.category]);
 
   return (
     <Dialog disableEscapeKeyDown open={open}>
@@ -99,7 +88,7 @@ const SkillsToolsDialog = function ({
             <InputLabel htmlFor="category-dialog">{CategoryAddText.Category}</InputLabel>
             <ReactHookFormSelect
               id="category-dialog"
-              value={defaultValues?.category || category?.name || ''}
+              value={category?.name || ''}
               onChange={handleCategoryChange}
               name="category"
               control={control}

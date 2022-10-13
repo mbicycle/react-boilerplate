@@ -10,6 +10,7 @@ import {
   Skill,
 } from 'common/models/User';
 import {
+  FieldArrayWithId,
   useFieldArray,
   useForm,
   UseFormReturn,
@@ -67,7 +68,8 @@ const CategorySelection = function (
 ): JSX.Element {
   const { data, isLoading } = useUserFromDb();
   const [open, setOpen] = useState(false);
-  const [id, setId] = useState<string>();
+  const [selected, setSelected] = useState<FieldArrayWithId<CategoryItemProps, 'categories', 'id'>>();
+
   const { control } = useForm<CategoryItemProps>(
     {
       mode: 'onChange',
@@ -77,25 +79,35 @@ const CategorySelection = function (
     },
   );
   const {
-    fields, append, remove,
+    fields, append, remove, update,
   } = useFieldArray({
     control,
     name: 'categories',
   });
 
-  const handleClickOpen = (index?: string): void => {
+  const handleClickOpen = (field?: FieldArrayWithId<CategoryItemProps, 'categories', 'id'>): void => {
     setOpen(true);
-    if (index) setId(index);
+    if (field) {
+      setSelected(field);
+    }
   };
 
   const onSubmitHandle = ({ category, skill, tools }: OnSubmitTypes): void => {
-    console.debug({ category, skill, tools });
-
-    append({
-      category: category?.name,
-      skill: skill?.name,
-      tools: tools.flat(Infinity),
-    });
+    if (selected) {
+      const idx = fields.findIndex((item) => item.id === selected.id);
+      update(idx, {
+        category: category?.name || '',
+        skill: skill?.name || '',
+        tools: tools.flat(Infinity),
+      });
+      setSelected(undefined);
+    } else {
+      append({
+        category: category?.name,
+        skill: skill?.name,
+        tools: tools.flat(Infinity),
+      });
+    }
 
     setOpen(false);
   };
@@ -135,7 +147,7 @@ const CategorySelection = function (
                 skill={field.skill}
                 tool={field.tools}
                 onDelete={(): void => deleteCategory(index)}
-                onClick={(): void => handleClickOpen(field.id)}
+                onClick={(): void => handleClickOpen(field)}
               />
             ) : null
           ))}
@@ -157,7 +169,7 @@ const CategorySelection = function (
           onClose={onClose}
           control={control}
           onSubmit={(dataDialogForm: OnSubmitTypes) => onSubmitHandle(dataDialogForm)}
-          defaultValues={fields.find((item) => item.id === id)}
+          defaultValues={selected}
         />
       </Grid>
     </Grid>

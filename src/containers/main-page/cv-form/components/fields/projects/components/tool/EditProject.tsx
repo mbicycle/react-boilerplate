@@ -2,7 +2,6 @@ import {
   memo,
   useEffect,
   useMemo,
-  useState,
 } from 'react';
 
 import ReactHookFormTextFieldOutlined
@@ -34,8 +33,6 @@ const EditProject = function (): JSX.Element | null {
     onSaveProjectHandle,
   } = useEditProject();
 
-  const [open, setOpen] = useState(false);
-
   const formValues = useForm<ProjectFieldValues>({ mode: 'onChange', criteriaMode: 'all' });
 
   const responsibilities = useMemo(
@@ -51,21 +48,6 @@ const EditProject = function (): JSX.Element | null {
       tools: [values[2]],
     };
   }), [project?.categories]);
-
-  const handleClickOpen = (): void => {
-    setOpen(true);
-  };
-
-  // const onSubmitHandle = ({ category, skill, tools }: OnSubmitTypes): void => {
-  //   append({
-  //     category: category?.name,
-  //     skill: skill?.name,
-  //     tools: tools.flat(Infinity),
-  //   });
-  //   setOpen(false);
-  // };
-
-  const onClose = (): void => setOpen(false);
 
   useEffect(() => {
     if (!project) return;

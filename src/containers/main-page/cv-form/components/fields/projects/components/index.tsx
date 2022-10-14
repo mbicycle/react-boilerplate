@@ -9,7 +9,6 @@ ReactHookFormTextFieldOutlined
   from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
 import { getKeyOf } from 'common/utils/helpers';
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import dayjs from 'dayjs';
 import { useUpdateProjects } from '../lib/query-hooks';
 
 import { ProjectFieldValues } from '../utils/types';

@@ -26,6 +26,7 @@ const ReactHookFormDatePicker = function<T extends FieldValues> ({
           {...rest}
           label={rest.label}
           inputFormat="dd/MM/yyyy"
+          toolbarFormat="dd/MM/yyyy"
           renderInput={(renderInputProps) => <TextField {...renderInputProps} error={!!error?.message} />}
         />
       )}

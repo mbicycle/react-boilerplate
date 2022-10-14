@@ -13,6 +13,9 @@ interface DatePickersProps {
 }
 
 const DatePickers = function ({ formValues, defaultValue }: DatePickersProps): JSX.Element {
+  const dates = new Date(defaultValue?.from);
+  // console.debug(new Date(defaultValue?.from));
+
   const changeStartDateHandle = (date: unknown): void => {
     if (date instanceof Date) {
       formValues.setValue('from', date.toISOString());
@@ -29,15 +32,15 @@ const DatePickers = function ({ formValues, defaultValue }: DatePickersProps): J
     <Grid item container xs={12} wrap="nowrap" columnGap={4}>
       <ReactHookFormDatePicker
         control={formValues.control}
-        key={Math.random()}
-        defaultValue={defaultValue?.from}
+        key="from"
+        defaultValue={dates}
         onChange={changeStartDateHandle}
         name={getKeyOf<ProjectFieldValues>('from')}
         label="From"
       />
       <ReactHookFormDatePicker
         control={formValues.control}
-        key={Math.random()}
+        key="to"
         defaultValue={defaultValue?.to}
         onChange={changeEndDateHandle}
         name={getKeyOf<ProjectFieldValues>('to')}

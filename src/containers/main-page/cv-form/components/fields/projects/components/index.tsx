@@ -35,8 +35,6 @@ const Project = function (): JSX.Element {
       id: uuid(),
       teamSize: Number(values.teamSize),
       responsibilities: values.responsibilities,
-      from: dayjs(values.from).format('DD/MM/YYYY'),
-      to: dayjs(values.to).format('DD/MM/YYYY'),
     });
   };
 

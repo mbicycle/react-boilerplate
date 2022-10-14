@@ -1,7 +1,6 @@
 import { useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Project } from 'common/models/User';
-import dayjs from 'dayjs';
 
 import { useUserFromDb } from '../../../personal-information/lib/query-hooks';
 import { useUpdateProjectById, useUpdateProjects } from '../../lib/query-hooks';
@@ -48,14 +47,9 @@ export const useEditProject = (): UpdateProject => {
   const project = user?.projects.find((c) => c.id === state?.state.id);
 
   const { mutateAsync, isLoading } = useUpdateProjectById();
-
-  const onSaveProjectHandle = (projectValues: Project): void => {
-    mutateAsync({
-      ...projectValues,
-      from: dayjs(projectValues.from).format('DD/MM/YYYY'),
-      to: dayjs(projectValues.to).format('DD/MM/YYYY'),
-    });
-    navigate('/dashboard/projects');
+  const onSaveProjectHandle = async (projectValues: Project): Promise<void> => {
+    const result = await mutateAsync(projectValues);
+    if (result) navigate('/dashboard/projects');
   };
 
   const cancelHandle = useCallback((): void => {

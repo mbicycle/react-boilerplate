@@ -154,6 +154,7 @@ const EditProject = function (): JSX.Element | null {
         <CancelButtonStyled
           onClick={cancelHandle}
           variant="outlined"
+          disabled={isLoading}
         >
           {ButtonStep.Cancel}
         </CancelButtonStyled>

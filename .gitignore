@@ -1,4 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# IDE
+.vscode
+.idea
 
 # dependencies
 /node_modules
@@ -24,3 +27,11 @@ yarn-error.log*
 
 # inner files
 workspace.code-workspace
+
+# DOTENV
+.env
+
+# local certificates
+localhost-key.pem
+localhost-cert.pem
+localhost.pem

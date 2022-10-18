@@ -9,7 +9,8 @@ interface ReactHookFormDatePickerProps<T extends FieldValues> extends Partial<De
   defaultValue?: FieldValues;
 }
 
-const ReactHookFormDatePicker = function<T extends FieldValues> ({
+// eslint-disable-next-line space-before-function-paren
+const ReactHookFormDatePicker = function <T extends FieldValues>({
   name,
   control,
   defaultValue,
@@ -25,7 +26,7 @@ const ReactHookFormDatePicker = function<T extends FieldValues> ({
           {...field}
           {...rest}
           label={rest.label}
-          inputFormat="dd/MM/yyyy"
+          inputFormat="dd MMMMyyyy"
           renderInput={(renderInputProps) => <TextField {...renderInputProps} error={!!error?.message} />}
         />
       )}

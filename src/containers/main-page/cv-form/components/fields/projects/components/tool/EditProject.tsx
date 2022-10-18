@@ -1,23 +1,29 @@
-import { memo, useEffect, useMemo } from 'react';
-import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import { Divider, Grid } from '@mui/material';
+import {
+  memo,
+  useEffect,
+  useMemo,
+} from 'react';
 
+import ReactHookFormTextFieldOutlined
+  from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
+import type { Project as ProjectFieldValues } from 'common/models/User';
+import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
 import { useForm } from 'react-hook-form';
 
-import type { Project as ProjectFieldValues } from 'common/models/User';
-import
-ReactHookFormTextFieldOutlined
-  from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
+import {
+  Divider,
+  Grid,
+} from '@mui/material';
 
 import {
+  CancelButtonStyled,
   SaveButtonStyled,
   SaveButtonWrapperStyled,
-  CancelButtonStyled,
 } from '../../../skills/utils/styled';
-import { useEditProject } from './hooks';
-import DatePickers from '../DatePickers';
 import CategorySelection from '../CategorySelection';
+import DatePickers from '../DatePickers';
 import Responsibilities from '../Responsibilities';
+import { useEditProject } from './hooks';
 
 const EditProject = function (): JSX.Element | null {
   const {
@@ -35,11 +41,12 @@ const EditProject = function (): JSX.Element | null {
   );
 
   const categories = useMemo(() => project?.categories.map((category) => {
-    const values = category.split(',');
+    const values = category.split(',').map((value) => value.trim());
+
     return {
       category: values[0],
       skill: values[1],
-      tools: [values[2]],
+      tools: values.slice(2),
     };
   }), [project?.categories]);
 
@@ -147,6 +154,7 @@ const EditProject = function (): JSX.Element | null {
         <CancelButtonStyled
           onClick={cancelHandle}
           variant="outlined"
+          disabled={isLoading}
         >
           {ButtonStep.Cancel}
         </CancelButtonStyled>

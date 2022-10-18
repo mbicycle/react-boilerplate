@@ -3,25 +3,19 @@ import { memo } from 'react';
 import ProjectItem from './ProjectItem';
 
 const ProjectsList = function (
-  { projects }: { projects: Project[] },
+  { projects }: { projects: Project[]; },
 ): JSX.Element {
   return (
     <>
       {projects.map(({
-        id, title, from, to, categories, role, description, link, responsibilities, teamSize,
+        id, title, from, to,
       }) => (
         <ProjectItem
-          key={id}
+          key={`${id}_${title}`}
           title={title}
           from={from}
           to={to}
-          categories={categories || []}
           id={id}
-          role={role}
-          description={description}
-          link={link}
-          responsibilities={responsibilities}
-          teamSize={teamSize}
         />
       ))}
     </>

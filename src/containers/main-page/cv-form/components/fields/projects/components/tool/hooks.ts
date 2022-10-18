@@ -47,9 +47,9 @@ export const useEditProject = (): UpdateProject => {
   const project = user?.projects.find((c) => c.id === state?.state.id);
 
   const { mutateAsync, isLoading } = useUpdateProjectById();
-  const onSaveProjectHandle = (projectValues: Project): void => {
-    mutateAsync(projectValues);
-    navigate('/dashboard/projects');
+  const onSaveProjectHandle = async (projectValues: Project): Promise<void> => {
+    const result = await mutateAsync(projectValues);
+    if (result) navigate('/dashboard/projects');
   };
 
   const cancelHandle = useCallback((): void => {

@@ -1,22 +1,43 @@
-import { useState, memo, useEffect } from 'react';
-import { useForm, UseFormReturn, useFieldArray } from 'react-hook-form';
-
 import {
-  Grid, Typography,
-  Tooltip, Box, Button,
-} from '@mui/material';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+  memo,
+  useEffect,
+  useState,
+} from 'react';
 
 import CircularSpinner from 'common/components/circular-spinner/circular-spinner';
+import {
+  Category,
+  Skill,
+} from 'common/models/User';
+import {
+  FieldArrayWithId,
+  useFieldArray,
+  useForm,
+  UseFormReturn,
+} from 'react-hook-form';
 
-import { Category, Skill } from 'common/models/User';
-import { ProjectFieldValues } from '../utils/types';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import {
+  Box,
+  Button,
+  Grid,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+
 import { useUserFromDb } from '../../personal-information/lib/query-hooks';
-import { ButtonText, CategoryAddText, tooltipText } from './utils/constants';
-
-import { ProjectTitleStyled, InfoIconStyled } from './utils/styledEdit';
-import SkillsToolsDialog from './SkillsToolsDialog';
+import { ProjectFieldValues } from '../utils/types';
 import CategoryItem from './CategoryItem';
+import SkillsToolsDialog from './SkillsToolsDialog';
+import {
+  ButtonText,
+  CategoryAddText,
+  tooltipText,
+} from './utils/constants';
+import {
+  InfoIconStyled,
+  ProjectTitleStyled,
+} from './utils/styledEdit';
 
 export type CategoryItemProps = {
   categories: {
@@ -47,6 +68,8 @@ const CategorySelection = function (
 ): JSX.Element {
   const { data, isLoading } = useUserFromDb();
   const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<FieldArrayWithId<CategoryItemProps, 'categories', 'id'>>();
+
   const { control } = useForm<CategoryItemProps>(
     {
       mode: 'onChange',
@@ -55,21 +78,37 @@ const CategorySelection = function (
       },
     },
   );
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields, append, remove, update,
+  } = useFieldArray({
     control,
     name: 'categories',
   });
 
-  const handleClickOpen = (): void => {
+  const handleClickOpen = (field?: FieldArrayWithId<CategoryItemProps, 'categories', 'id'>): void => {
     setOpen(true);
+    if (field) {
+      setSelected(field);
+    }
   };
 
   const onSubmitHandle = ({ category, skill, tools }: OnSubmitTypes): void => {
-    append({
-      category: category?.name,
-      skill: skill?.name,
-      tools: tools.flat(Infinity),
-    });
+    if (selected) {
+      const idx = fields.findIndex((item) => item.id === selected.id);
+      update(idx, {
+        category: category?.name || '',
+        skill: skill?.name || '',
+        tools: tools.flat(Infinity),
+      });
+      setSelected(undefined);
+    } else {
+      append({
+        category: category?.name,
+        skill: skill?.name,
+        tools: tools.flat(Infinity),
+      });
+    }
+
     setOpen(false);
   };
 
@@ -108,6 +147,7 @@ const CategorySelection = function (
                 skill={field.skill}
                 tool={field.tools}
                 onDelete={(): void => deleteCategory(index)}
+                onClick={(): void => handleClickOpen(field)}
               />
             ) : null
           ))}
@@ -116,7 +156,7 @@ const CategorySelection = function (
           color="primary"
           variant="outlined"
           sx={{ marginLeft: 'auto' }}
-          onClick={handleClickOpen}
+          onClick={(): void => handleClickOpen()}
         >
           <AddCircleOutlineIcon fontSize="large" />
           &nbsp;
@@ -129,6 +169,7 @@ const CategorySelection = function (
           onClose={onClose}
           control={control}
           onSubmit={(dataDialogForm: OnSubmitTypes) => onSubmitHandle(dataDialogForm)}
+          defaultValues={selected}
         />
       </Grid>
     </Grid>

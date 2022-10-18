@@ -9,7 +9,6 @@ ReactHookFormTextFieldOutlined
   from 'common/components/react-hook-forms/ReactHookFormTextFieldOutlined';
 import { getKeyOf } from 'common/utils/helpers';
 import { ButtonStep } from 'containers/main-page/cv-form/utils/constants';
-import dayjs from 'dayjs';
 import { useUpdateProjects } from '../lib/query-hooks';
 
 import { ProjectFieldValues } from '../utils/types';
@@ -35,8 +34,6 @@ const Project = function (): JSX.Element {
       id: uuid(),
       teamSize: Number(values.teamSize),
       responsibilities: values.responsibilities,
-      from: dayjs(values.from).format('DD/MM/YYYY'),
-      to: dayjs(values.to).format('DD/MM/YYYY'),
     });
   };
 

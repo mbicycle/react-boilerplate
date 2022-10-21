@@ -16,7 +16,7 @@ export const msalConfig = {
   auth: {
     clientId: '7a59c9f4-c8b6-465b-891f-de54b59e7b1b',
     authority: 'https://login.microsoftonline.com/7a91475e-df42-4074-ad03-16d0bbe9e54e',
-    redirectUri: 'https://localhost:3000/',
+    redirectUri: process.env.NODE_ENV === 'development' ? 'https://localhost:3000/' : 'https://cv-gen.azurewebsites.net/',
   },
   cache: {
     cacheLocation: 'sessionStorage', // This configures where your cache will be stored
